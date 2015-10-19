@@ -84,10 +84,20 @@ public class ClickOMaticApplication extends WebMvcConfigurerAdapter
         @Override
         protected void configure(HttpSecurity http) throws Exception
         {
-            http.authorizeRequests().antMatchers("/homepage").permitAll().anyRequest().fullyAuthenticated()
-                                    .and().formLogin().loginPage("/homepage").failureUrl("/homepage?error")
-                                    .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/homepage?logOut"))
-                                    .and().exceptionHandling().accessDeniedPage("/homepage?accessDenied");
+            http.authorizeRequests().antMatchers("/", "/homepage")
+                                        .permitAll()
+                                        .anyRequest()
+                                        .fullyAuthenticated()
+                                        .and()
+                                    .formLogin()
+                                        .loginPage("/homepage")
+                                        .failureUrl("/homepage?error")
+                                        .and()
+                                    .logout()
+                                        .logoutRequestMatcher(new AntPathRequestMatcher("/homepage?logout"))
+                                        .and()
+                                    .exceptionHandling()
+                                        .accessDeniedPage("/homepage?accessdenied");
         }
     }
 
