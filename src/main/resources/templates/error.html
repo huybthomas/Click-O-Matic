@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li><a th:href="@{/}" href="homepage.html"> Home </a></li>
+                    <li><a th:href="@{/logout}" href="logout"> Logout </a></li>
+                </ul>
+            </div>
+        </div>
+        <h1 th:text="${title}">Error</h1>
+        <p class="alert alert-error">Error:
+            something went wrong. We are sorry for the inconvenience.</p>
+        <div th:text="${message}">Fake content</div>
+        <div>Please contact the operator with the above information.</div>
+    </div>
+</body>
+</html>

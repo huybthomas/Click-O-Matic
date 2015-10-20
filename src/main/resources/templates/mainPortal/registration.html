@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li><a th:href="@{/}" href="homepage.html"> Home </a></li>
+                    <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <p th:if="${param.success}" class="alert">New user has been created</p>
+            <p th:if="${param.error}" class="alert alert-error">There was an error, please try again</p>
+            <p th:if="${param.errorAlreadyExists}" class="alert alert-error">Username already exists! Choose another username and try again.</p>
+            <h2>Create a new user</h2>
+            <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+                <table>
+                    <tr>
+                        <td>First name:</td>
+                        <td><input type="text" th:field="*{firstName}"/></td>
+                        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td><input type="text" th:field="*{lastName}"/></td>
+                        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" th:field="*{userName}"/></td>
+                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" th:field="*{password}"/></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                    </tr>
+                </table>
+                <p><input type="submit" value="Create"/></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

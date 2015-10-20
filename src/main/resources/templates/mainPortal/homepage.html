@@ -5,6 +5,42 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    <p>Hello world!</p>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+                <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+            </ul>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>NAME</th>
+            <th>ROLE</th>
+            <th>PERMISSION</th>
+        </tr>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
+            <td>
+                <table>
+                    <tr th:each="role : ${user.roles}">
+                        <td th:text="${role.name}"/>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <div th:each="role : ${user.roles}">
+                    <table>
+                        <tr th:each="perm : ${role.permissions}">
+                            <td th:text="${perm.name}"/>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div sec:authorize="hasRole('secret-message')">
+        <span th:text="#{homepage.secret-message}"/>
+    </div>
 </body>
 </html>

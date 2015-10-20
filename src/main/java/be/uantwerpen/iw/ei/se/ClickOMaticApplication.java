@@ -84,27 +84,27 @@ public class ClickOMaticApplication extends WebMvcConfigurerAdapter
         @Override
         protected void configure(HttpSecurity http) throws Exception
         {
-            http.authorizeRequests().antMatchers("/", "/homepage")
+            http.authorizeRequests().antMatchers("/login")
                                         .permitAll()
                                         .anyRequest()
                                         .fullyAuthenticated()
                                         .and()
                                     .formLogin()
-                                        .loginPage("/homepage")
-                                        .failureUrl("/homepage?error")
+                                        .loginPage("/login")
+                                        .failureUrl("/login?error")
                                         .and()
                                     .logout()
-                                        .logoutRequestMatcher(new AntPathRequestMatcher("/homepage?logout"))
+                                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                         .and()
                                     .exceptionHandling()
-                                        .accessDeniedPage("/homepage?accessdenied");
+                                        .accessDeniedPage("/access?accessdenied");
         }
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry)
     {
-       //registry.addViewController("/homepage").setViewName("homepage");
-       // registry.addViewController("/homepage?error").setViewName("error");
+       registry.addViewController("/login").setViewName("mainPortal/login");
+       registry.addViewController("/access").setViewName("mainPortal/access");
     }
 }

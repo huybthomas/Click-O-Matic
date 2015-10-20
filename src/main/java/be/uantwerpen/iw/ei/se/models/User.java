@@ -1,5 +1,7 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -7,11 +9,31 @@ import java.util.List;
  */
 public class User
 {
+    @Size(min=2, max=30)
+    @NotNull
     private String firstName;
+
+    @Size(min=2, max=30)
+    @NotNull
     private String lastName;
+
+    @Size(min=2, max=30)
+    @NotNull
     private String userName;
+
+    @Size(min=4, max=12)
+    @NotNull
     private String password;
+
     private List<Role> roles;
+
+    public User()
+    {
+        this.firstName = "";
+        this.lastName = "";
+        this.userName = "";
+        this.password = "";
+    }
 
     public User(String firstName, String lastName, String userName, String password)
     {
@@ -19,6 +41,14 @@ public class User
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+    }
+
+    public User(String firstName, String lastName)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = "";
+        this.password = "";
     }
 
     public String getFirstName()

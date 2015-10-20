@@ -1,5 +1,7 @@
 package be.uantwerpen.iw.ei.se.repositories;
 
+import be.uantwerpen.iw.ei.se.models.Permission;
+import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,35 @@ public class UserRepository
     public UserRepository()
     {
         super();
+
+        Permission p1 = new Permission("logon");
+        Permission p2 = new Permission("secret-message");
+        Permission p3 = new Permission("createUsers");
+        Role administrator = new Role("Administrator");
+        Role tester = new Role("Tester");
+
+        List<Permission> permissions = new ArrayList<Permission>();
+        permissions.add(p1);
+        tester.setPermissions(permissions);
+
+        permissions = new ArrayList<Permission>();
+        permissions.add(p1);
+        permissions.add(p2);
+        permissions.add(p3);
+        administrator.setPermissions(permissions);
+
+        User u1 = new User("Thomas", "Huybrechts", "thomas.huybrechts", "test");
+        List<Role> roles = new ArrayList<>();
+        roles.add(administrator);
+        u1.setRoles(roles);
+
+        User u2 = new User("Dries", "Blontrock", "dries.blontrock", "test");
+        roles = new ArrayList<>();
+        roles.add(tester);
+        u2.setRoles(roles);
+
+        users.add(u1);
+        users.add(u2);
     }
 
     public List<User> findAll()
