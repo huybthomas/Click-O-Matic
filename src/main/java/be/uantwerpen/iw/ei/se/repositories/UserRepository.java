@@ -43,11 +43,23 @@ public class UserRepository
 
         User u2 = new User("Dries", "Blontrock", "dries.blontrock", "test");
         roles = new ArrayList<>();
-        roles.add(tester);
+        roles.add(administrator);
         u2.setRoles(roles);
+
+        User u3 = new User("Quinten", "Van Hasselt", "quinten.vanhasselt", "test");
+        roles = new ArrayList<>();
+        roles.add(administrator);
+        u3.setRoles(roles);
+
+        User u4 = new User("Tester", "De Test", "tester", "test");
+        roles = new ArrayList<>();
+        roles.add(tester);
+        u4.setRoles(roles);
 
         users.add(u1);
         users.add(u2);
+        users.add(u3);
+        users.add(u4);
     }
 
     public List<User> findAll()
