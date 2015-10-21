@@ -4,9 +4,15 @@
     <title th:text="#{login.title}">Title text</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
           href="../../css/bootstrap.min.css"/>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
 </head>
 <body onload="document.f.username.focus();">
-    <div class="container">
+   <!-- <div class="container">
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav">
@@ -27,6 +33,30 @@
                 <input type="submit" id="login" value="Login" class="btn btn-primary"/>
             </form>
         </div>
-    </div>
+    </div>-->
+    <canvas id="myCanvas" width="1500" height="750"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        var rectWidth = 1450;
+        var rectHeight = 710;
+        var rectX = 30;
+        var rectY = 10;
+        var cornerRadius = 200;
+
+        context.beginPath();
+        context.moveTo(rectX, rectY);
+        context.lineTo(rectX, rectY + rectHeight - cornerRadius);
+        context.arcTo(rectX, rectY + rectHeight, rectX + rectWidth, rectY + rectHeight, cornerRadius);
+        context.lineTo(rectX + rectWidth, rectY + rectHeight);
+        context.lineTo(rectX + rectWidth, rectY);
+        context.closePath();
+        context.lineWidth = 1;
+        context.fillStyle = '#8ED6FF';
+        context.fill();
+        context.strokeStyle = 'blue';
+        context.stroke();
+    </script>
 </body>
 </html>
