@@ -13,18 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 /**
- * Created by Thomas on 19/10/2015.
+ * Created by Quinten on 21/10/2015.
  */
 @Controller
-public class HomeController
+public class UsersController
 {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("currentUserFirstName")
-    public String getCurrentUserFirstName()
-    {
-        return userService.getPrincipalUser().getFirstName();
+    @ModelAttribute("currentUser")
+    public User getCurrentUser() {
+        return userService.getPrincipalUser();
     }
 
     @ModelAttribute("allUsers")
@@ -33,10 +32,12 @@ public class HomeController
         return userService.findAll();
     }
 
-    @RequestMapping({"/", "/homepage"})
-    @PreAuthorize("hasRole('logon')")
-    public String showHomepage(ModelMap model)
-    {
-        return "mainPortal/homepage";
-    }
+    @RequestMapping({"/users"})
+    @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
+    public String showViewUsers(ModelMap model) {   return "mainPortal/users";    }
+
+    /* @RequestMapping({"/users(id="})
+    @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
+    public String showViewUsers(ModelMap model) {   return "mainPortal/users";    } */
+
 }

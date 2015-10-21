@@ -23,6 +23,8 @@ public class UserRepository
         Permission p1 = new Permission("logon");
         Permission p2 = new Permission("secret-message");
         Permission p3 = new Permission("createUsers");
+        Permission p4 = new Permission("editUsers");
+        Permission p5 = new Permission("viewUsers");
         Role administrator = new Role("Administrator");
         Role tester = new Role("Tester");
 
@@ -34,6 +36,8 @@ public class UserRepository
         permissions.add(p1);
         permissions.add(p2);
         permissions.add(p3);
+        permissions.add(p4);
+        permissions.add(p5);
         administrator.setPermissions(permissions);
 
         User u1 = new User("Thomas", "Huybrechts", "thomas.huybrechts", "test");

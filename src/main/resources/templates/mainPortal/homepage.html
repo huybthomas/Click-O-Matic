@@ -5,11 +5,13 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+    <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
                 <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
                 <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+                <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
             </ul>
         </div>
     </div>

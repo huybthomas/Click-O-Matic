@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="#{users.title}">Title text</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+            <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+            <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
+        </ul>
+    </div>
+</div>
+<table>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
+        <td th:text="${user.userName}"/>
+        <td><a th:href="@{/users(id=${user.userName})}" href="users.html">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
+    </tr>
+</table>
+</body>
+</html>
