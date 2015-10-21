@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Access denied</title>
+    <title th:text="#{access.title}">Title text</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
           href="../../css/bootstrap.min.css"/>
 </head>
@@ -10,8 +10,8 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav">
-                    <li><a th:href="@{/}" href="homepage.html"> Home </a></li>
-                    <li><a th:href="@{/logout}" href="logout"> Logout </a></li>
+                    <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
+                    <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
                 </ul>
             </div>
         </div>

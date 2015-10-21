@@ -10,22 +10,26 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav">
-                    <li><a th:href="@{/}" href="homepage.html"> Home </a></li>
+                    <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
                 </ul>
             </div>
         </div>
         <div class="content">
-            <p th:if="${param.logout}" class="alert">You have been logged out</p>
-            <p th:if="${param.error}" class="alert alert-error">There was an error, please try again</p>
-            <p th:if="${param.success}" class="alert">User has been successfully created</p>
-            <h2>Login with Username and Password</h2>
+            <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
+            <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
+            <h2 th:text="#{login.header}">Login</h2>
             <form name="form" th:action="@{/login}" action="/login" method="POST">
                 <fieldset>
-                    <input type="text" name="username" value="" placeholder="Username"/>
-                    <input type="password" name="password" placeholder="Password"/>
+                    <input type="text" name="username" value="" th:placeholder="#{login.username}"/>
+                    <input type="password" name="password" th:placeholder="#{login.password}"/>
                 </fieldset>
-                <input type="submit" id="login" value="Login" class="btn btn-primary"/>
+                <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
             </form>
+        </div>
+        <div class="languageselect">
+            <span th:text="#{languageselect.languages}">Languages</span>:
+            <a href="?lang=en" th:text="#{languageselect.english}">English</a> -
+            <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
         </div>
     </div>
 </body>
