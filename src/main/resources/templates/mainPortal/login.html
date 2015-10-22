@@ -20,8 +20,8 @@
             <h2 th:text="#{login.header}">Login</h2>
             <form name="form" th:action="@{/login}" action="/login" method="POST">
                 <fieldset>
-                    <input type="text" name="username" value="" th:placeholder="#{login.username}"/>
-                    <input type="password" name="password" th:placeholder="#{login.password}"/>
+                    <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
+                    <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
                 </fieldset>
                 <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
             </form>

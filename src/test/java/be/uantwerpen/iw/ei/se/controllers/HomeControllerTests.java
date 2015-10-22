@@ -9,10 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
@@ -39,6 +44,8 @@ public class HomeControllerTests
     @Test
     public void viewHomepageTest() throws Exception
     {
+        MockHttpServletRequestBuilder loginCredentials = post("login").param("username", "thomas.huybrechts").param("password", "test");
+        mockMvc.perform(loginCredentials);
         mockMvc.perform(get("/homepage")).andExpect(view().name("mainPortal/homepage"));
     }
 }

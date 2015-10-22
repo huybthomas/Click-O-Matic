@@ -35,7 +35,7 @@ public class SecurityService implements UserDetailsService
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException
     {
-        UserDetails userDetails = null;
+        UserDetails userDetails;
 
         User user = userService.findByUserName(userName);
         if(user != null)
@@ -53,35 +53,4 @@ public class SecurityService implements UserDetailsService
 
         return userDetails;
     }
-    /*
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException
-    {
-        UserDetails userDetails = null;
-
-        for(User user : userService.findAll())
-        {
-            if(userName.equals(user.getUserName()))
-            {
-                Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-                for(Role role : user.getRoles())
-                {
-                    for(Permission permission : role.getPermissions())
-                    {
-                        authorities.add(new SimpleGrantedAuthority(permission.getName()));
-                    }
-                }
-
-                userDetails = new org.springframework.security.core.userdetails.User(userName, user.getPassword(), true, true, true, true, authorities);
-            }
-        }
-
-        if(userDetails == null)
-        {
-            throw new UsernameNotFoundException("No user with username '" + userName + "' found!");
-        }
-
-        return userDetails;
-    }*/
 }

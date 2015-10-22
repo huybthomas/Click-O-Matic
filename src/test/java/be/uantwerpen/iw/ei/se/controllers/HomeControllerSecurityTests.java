@@ -46,7 +46,7 @@ public class HomeControllerSecurityTests
 
     @Test
     @WithUserDetails("thomas.huybrechts")
-    public void testOpenHomepageUserEdwin()
+    public void testOpenHomepageUserThomas()
     {
         homeController.showHomepage(new ModelMap());
     }

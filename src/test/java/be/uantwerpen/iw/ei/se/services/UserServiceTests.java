@@ -3,6 +3,8 @@ package be.uantwerpen.iw.ei.se.services;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
+import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,11 +30,20 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTests
 {
-    @InjectMocks
-    UserDetailsService securityService;
+    @Mock
+    UserService userService;
 
     @Mock
-    private UserRepository userRepository;
+    SecurityService securityService;
+
+    @Mock
+    UserRepository userRepository;
+
+    @Mock
+    RoleRepository roleRepository;
+
+    @Mock
+    PermissionRepository permissionRepository;
 
     List<User> userList;
 
@@ -41,6 +52,10 @@ public class UserServiceTests
     {
         Permission p1 = new Permission("logon");
         Permission p2 = new Permission("secret-message");
+
+        permissionRepository.save(p1);
+        permissionRepository.save(p2);
+
         Role administrator = new Role("Administrator");
         Role tester = new Role("Tester");
         List<Permission> permissions = new ArrayList<Permission>();
@@ -51,6 +66,9 @@ public class UserServiceTests
         permissions.add(p2);
         administrator.setPermissions(permissions);
 
+        roleRepository.save(administrator);
+        roleRepository.save(tester);
+
         User u1 = new User("U", "1");
         u1.setUserName("username");
         u1.setRoles(Arrays.asList(administrator));
@@ -60,6 +78,10 @@ public class UserServiceTests
         userList = new ArrayList<User>();
         userList.add(u1);
         userList.add(u2);
+
+        userRepository.save(u1);
+        userRepository.save(u2);
+
         MockitoAnnotations.initMocks(this);
     }
 
