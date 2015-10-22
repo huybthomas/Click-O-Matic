@@ -7,6 +7,7 @@ import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -63,5 +64,18 @@ public class UserService implements UserDetailsService
         }
 
         return userDetails;
+    }
+
+
+    public User getPrincipalUser() {
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        for(User u : findAll())
+        {
+            if(u.getUserName().compareTo(user.getUsername()) == 0)
+            {
+                return u;
+            }
+        }
+        return null;
     }
 }

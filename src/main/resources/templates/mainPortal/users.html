@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="#{users.title}">Title text</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+            <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+            <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
+        </ul>
+    </div>
+</div>
+<div class="content">
+    <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+        <table>
+            <tr>
+                <td>First name:</td>
+                <td><input type="text" th:field="*{firstName}"/></td>
+                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td><input type="text" th:field="*{lastName}"/></td>
+                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" th:field="*{userName}"/></td>
+                <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" th:field="*{password}"/></td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+            </tr>
+        </table>
+        <p><input type="submit" value="Create"/></p>
+    </form>
+    <table>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
+            <td th:text="${user.userName}"/>
+            <td><a th:href="@{/users(id=${user.userName})}" href="users.html">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
