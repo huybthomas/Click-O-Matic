@@ -72,35 +72,6 @@ public class ClickOMaticApplication extends WebMvcConfigurerAdapter
         }
     }
 
-    @Bean
-    public ApplicationSecurity applicationSecurity()
-    {
-        return new ApplicationSecurity();
-    }
-
-    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-    protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter
-    {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception
-        {
-            http.authorizeRequests().antMatchers("/login")
-                                        .permitAll()
-                                        .anyRequest()
-                                        .fullyAuthenticated()
-                                        .and()
-                                    .formLogin()
-                                        .loginPage("/login")
-                                        .failureUrl("/login?error")
-                                        .and()
-                                    .logout()
-                                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                        .and()
-                                    .exceptionHandling()
-                                        .accessDeniedPage("/access?accessdenied");
-        }
-    }
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry)
     {
