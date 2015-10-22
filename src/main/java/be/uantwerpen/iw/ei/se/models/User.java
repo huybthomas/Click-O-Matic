@@ -1,9 +1,8 @@
 package be.uantwerpen.iw.ei.se.models;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumns;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  * Created by Thomas on 19/10/2015.
  */
 @Entity
-public class User
+public class User extends AbstractPersistable<Long>
 {
     @Size(min=2, max=30)
     @NotNull
@@ -30,13 +29,13 @@ public class User
     @NotNull
     private String password;
 
-//    @ManyToMany
-//    @JoinTable(
-//           name="USER_ROLE",
-//            joinColumns={
- //               @JoinColumns(name="USER_ID", referencedColumnName="ID")},
- //           inverseJoinColumns= {
-//                @JoinColumns(name="ROLE_ID", referencedColumnName="ID")})
+    @ManyToMany
+    @JoinTable(
+            name="USER_ROLE",
+            joinColumns={
+                @JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                @JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
 
     public User()

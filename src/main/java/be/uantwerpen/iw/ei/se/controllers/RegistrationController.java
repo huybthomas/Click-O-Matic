@@ -27,12 +27,12 @@ public class RegistrationController
     @Autowired
     private UserService userService;
 
-//    @RequestMapping({"/registration"})
-//    @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
-//    public String showCreateUsers(ModelMap model)
-//    {
-//        return "mainPortal/registration";
-//    }
+    @RequestMapping({"/registration"})
+    @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
+    public String showCreateUsers(ModelMap model)
+    {
+        return "mainPortal/registration";
+    }
 
     @RequestMapping(value="/registration", method= RequestMethod.GET)
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
