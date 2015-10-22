@@ -66,8 +66,20 @@ public class UserService implements UserDetailsService
         return userDetails;
     }
 
+    public User loadSimpleUserByUsername(String userName) throws UsernameNotFoundException
+    {
+        for(User user : findAll())
+        {
+            if(user.getUserName().equals(userName))
+            {
+                return user;
+            }
+        }
+        throw new UsernameNotFoundException("No user with username '" + userName + "' found!");
+    }
 
-    public User getPrincipalUser() {
+    public User getPrincipalUser()
+    {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         for(User u : findAll())
         {
@@ -78,4 +90,5 @@ public class UserService implements UserDetailsService
         }
         return null;
     }
+
 }
