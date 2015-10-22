@@ -1,5 +1,9 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -7,6 +11,7 @@ import java.util.List;
 /**
  * Created by Thomas on 19/10/2015.
  */
+@Entity
 public class User
 {
     @Size(min=2, max=30)
@@ -25,6 +30,13 @@ public class User
     @NotNull
     private String password;
 
+//    @ManyToMany
+//    @JoinTable(
+//           name="USER_ROLE",
+//            joinColumns={
+ //               @JoinColumns(name="USER_ID", referencedColumnName="ID")},
+ //           inverseJoinColumns= {
+//                @JoinColumns(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
 
     public User()
