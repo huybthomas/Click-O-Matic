@@ -6,46 +6,46 @@
           href="../../css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
-                <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
-            </ul>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
+                    <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <p th:if="${param.success}" class="alert" th:text="#{registration.alerts.success}">New user has been created</p>
+            <p th:if="${param.error}" class="alert alert-error" th:text="#{registration.alerts.error}">There was an error, please try again</p>
+            <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</p>
+            <h2 th:text="#{registration.header}">Registration</h2>
+            <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+                <table>
+                    <tr>
+                        <td th:text="#{registration.firstname}">firstname</td>
+                        <td><input type="text" th:field="*{firstName}"/></td>
+                        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{registration.lastname}">lastname</td>
+                        <td><input type="text" th:field="*{lastName}"/></td>
+                        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{registration.username}">username</td>
+                        <td><input type="text" th:field="*{userName}"/></td>
+                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{registration.password}">password</td>
+                        <td><input type="password" th:field="*{password}"/></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                    </tr>
+                </table>
+                <p><input type="submit" th:value="#{registration.create}"/></p>
+            </form>
         </div>
     </div>
-    <div class="content">
-        <p th:if="${param.success}" class="alert" th:text="#{registration.alerts.success}">New user has been created</p>
-        <p th:if="${param.error}" class="alert alert-error" th:text="#{registration.alerts.error}">There was an error, please try again</p>
-        <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</p>
-        <h2 th:text="#{registration.header}">Registration</h2>
-        <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
-            <table>
-                <tr>
-                    <td th:text="#{registration.firstname}">firstname</td>
-                    <td><input type="text" th:field="*{firstName}"/></td>
-                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{registration.lastname}">lastname</td>
-                    <td><input type="text" th:field="*{lastName}"/></td>
-                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{registration.username}">username</td>
-                    <td><input type="text" th:field="*{userName}"/></td>
-                    <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{registration.password}">password</td>
-                    <td><input type="password" th:field="*{password}"/></td>
-                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-                </tr>
-            </table>
-            <p><input type="submit" th:value="#{registration.create}"/></p>
-        </form>
-    </div>
-</div>
 </body>
 </html>

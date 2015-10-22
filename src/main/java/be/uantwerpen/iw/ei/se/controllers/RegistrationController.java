@@ -27,12 +27,6 @@ public class RegistrationController
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("allUsers")
-    public List<User> populateUsers()
-    {
-        return this.userService.findAll();
-    }
-
     @RequestMapping({"/registration"})
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String showCreateUsers(ModelMap model)

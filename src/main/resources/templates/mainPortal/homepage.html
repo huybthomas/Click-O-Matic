@@ -9,17 +9,17 @@
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
-                <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
-                <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+                <li><a th:href="@{/registration}" href="registration.html" th:text="#{navbar.registration}">Create user</a></li>
+                <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
                 <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
             </ul>
         </div>
     </div>
     <table>
         <tr>
-            <th>NAME</th>
-            <th>ROLE</th>
-            <th>PERMISSION</th>
+            <th th:text="#{homepage.table.name}">NAME</th>
+            <th th:text="#{homepage.table.role}">ROLE</th>
+            <th th:text="#{homepage.table.permission}">PERMISSION</th>
         </tr>
         <tr th:each="user : ${allUsers}">
             <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
