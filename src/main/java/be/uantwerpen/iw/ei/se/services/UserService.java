@@ -21,53 +21,33 @@ import java.util.List;
  * Created by Thomas on 19/10/2015.
  */
 @Service
-public class UserService implements UserDetailsService
+public class UserService
 {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll()
+    public Iterable<User> findAll()
     {
         return this.userRepository.findAll();
     }
 
     public void add(final User user)
     {
-        //this.userRepository.add(user);
+        this.userRepository.save(user);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException
+    public void delete(Long id)
     {
-        UserDetails userDetails = null;
-
-        for(User user : findAll())
-        {
-            if(userName.equals(user.getUserName()))
-            {
-                Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-                for(Role role : user.getRoles())
-                {
-                    for(Permission permission : role.getPermissions())
-                    {
-                        authorities.add(new SimpleGrantedAuthority(permission.getName()));
-                    }
-                }
-
-                userDetails = new org.springframework.security.core.userdetails.User(userName, user.getPassword(), true, true, true, true, authorities);
-            }
-        }
-
-        if(userDetails == null)
-        {
-            throw new UsernameNotFoundException("No user with username '" + userName + "' found!");
-        }
-
-        return userDetails;
+        this.userRepository.delete(id);
     }
 
+    public User findByUserName(String userName)
+    {
+        return userRepository.findByUserName(userName);
+    }
 
-    public User getPrincipalUser() {
+    public User getPrincipalUser()
+    {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         for(User u : findAll())
         {

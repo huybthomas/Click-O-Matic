@@ -12,6 +12,11 @@ public class Permission extends AbstractPersistable<Long>
 {
     private String name;
 
+    public Permission()
+    {
+        this.name = "";
+    }
+
     public Permission(String name)
     {
         this.name = name;

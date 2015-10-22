@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -63,12 +64,12 @@ public class ClickOMaticApplication extends WebMvcConfigurerAdapter
     protected static class AuthenticationSecurity extends GlobalAuthenticationConfigurerAdapter
     {
         @Autowired
-        private UserService userService;
+        private UserDetailsService securityService;
 
         @Override
         public void init(AuthenticationManagerBuilder authBuilder) throws Exception
         {
-            authBuilder.userDetailsService(userService);
+            authBuilder.userDetailsService(securityService);
         }
     }
 

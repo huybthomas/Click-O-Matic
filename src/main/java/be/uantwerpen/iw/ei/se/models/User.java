@@ -44,6 +44,8 @@ public class User extends AbstractPersistable<Long>
         this.lastName = "";
         this.userName = "";
         this.password = "";
+
+        this.roles = null;
     }
 
     public User(String firstName, String lastName, String userName, String password)
@@ -52,6 +54,8 @@ public class User extends AbstractPersistable<Long>
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+
+        this.roles = null;
     }
 
     public User(String firstName, String lastName)
@@ -60,6 +64,8 @@ public class User extends AbstractPersistable<Long>
         this.lastName = lastName;
         this.userName = "";
         this.password = "";
+
+        this.roles = null;
     }
 
     public String getFirstName()

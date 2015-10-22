@@ -28,7 +28,7 @@ public class HomeController
     }
 
     @ModelAttribute("allUsers")
-    public List<User> populateUsers()
+    public Iterable<User> populateUsers()
     {
         return userService.findAll();
     }

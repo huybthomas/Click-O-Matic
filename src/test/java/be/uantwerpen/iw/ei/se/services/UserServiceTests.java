@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.when;
 public class UserServiceTests
 {
     @InjectMocks
-    UserService userService;
+    UserDetailsService securityService;
 
     @Mock
     private UserRepository userRepository;
@@ -66,14 +67,14 @@ public class UserServiceTests
     public void nonExistingUsernameTest()
     {
         when(userRepository.findAll()).thenReturn(userList);
-        userService.loadUserByUsername("bla");
+        securityService.loadUserByUsername("bla");
     }
 
     @Test
     public void loadedAuthoritiesTest()
     {
         when(userRepository.findAll()).thenReturn(userList);
-        UserDetails testUser = userService.loadUserByUsername("username");
+        UserDetails testUser = securityService.loadUserByUsername("username");
         assertTrue(!testUser.getAuthorities().isEmpty());
     }
 }

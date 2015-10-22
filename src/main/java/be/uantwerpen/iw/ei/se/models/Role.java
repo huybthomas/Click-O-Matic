@@ -25,6 +25,12 @@ public class Role extends AbstractPersistable<Long>
                     @JoinColumn(name="PERMISSION_ID", referencedColumnName="ID")})
     private List<Permission> permissions;
 
+    public Role()
+    {
+        this.name = "";
+        this.permissions = null;
+    }
+
     public Role(String name)
     {
         this.name = name;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -62,15 +63,14 @@ public class RegistrationController
             roles.add(tester);
             user.setRoles(roles);
 
-            int i = 0;
             boolean userNameMatch = false;
-            while(i < userService.findAll().size() && !userNameMatch)
+            Iterator<User> userIterator = userService.findAll().iterator();
+            while(userIterator.hasNext() && !userNameMatch)
             {
-                if(userService.findAll().get(i).getUserName().equals(user.getUserName()))
+                if(userIterator.next().getUserName().equals(user.getUserName()))
                 {
                     userNameMatch = true;
                 }
-                i++;
             }
 
             if(userNameMatch)
