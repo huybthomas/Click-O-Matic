@@ -14,23 +14,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
+        //Permit access to H2 console --Development only (Order of defining is important!)
+        http.authorizeRequests().antMatchers("/h2console/**")
+                                    .permitAll();
+
         http.authorizeRequests().antMatchers("/login")
                                     .permitAll()
                                     .anyRequest()
                                     .fullyAuthenticated()
                                     .and()
-            .authorizeRequests().antMatchers("/h2console/**")
-                                    .permitAll()
+                                .formLogin()
+                                    .loginPage("/login")
+                                    .failureUrl("/login?error")
                                     .and()
-            .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                .and()
-            .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and()
-            .exceptionHandling()
-                .accessDeniedPage("/access?accessdenied");
+                                .logout()
+                                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                    .and()
+                                .exceptionHandling()
+                                    .accessDeniedPage("/access?accessdenied");
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

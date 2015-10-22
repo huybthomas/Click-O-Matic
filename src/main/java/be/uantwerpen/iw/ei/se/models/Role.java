@@ -1,5 +1,7 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by Thomas on 19/10/2015.
  */
 @Entity
-public class Role
+public class Role extends AbstractPersistable<Long>
 {
     private String name;
 

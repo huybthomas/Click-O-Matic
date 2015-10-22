@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService
 
     public void add(final User user)
     {
-        this.userRepository.add(user);
+        //this.userRepository.add(user);
     }
 
     @Override
