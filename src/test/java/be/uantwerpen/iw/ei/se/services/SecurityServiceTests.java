@@ -76,6 +76,7 @@ public class SecurityServiceTests
     public void nonExistingUsernameTest()
     {
         when(userService.findByUserName("bla")).thenReturn(null);
+
         securityService.loadUserByUsername("bla");
     }
 
@@ -84,6 +85,7 @@ public class SecurityServiceTests
     {
         when(userService.findByUserName("username")).thenReturn(userList.get(1));                       //Get User u2 (administrator)
         when(permissionRepository.findAllForUser(userList.get(1))).thenReturn(permissionListAdmin);     //Get permission of User u2 (administrator)
+
         UserDetails testUser = securityService.loadUserByUsername("username");
         assertTrue(!testUser.getAuthorities().isEmpty());
     }

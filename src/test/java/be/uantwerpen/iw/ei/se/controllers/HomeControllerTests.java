@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_EXCLUSIONPeer;
 import org.junit.Before;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -33,9 +35,13 @@ public class HomeControllerTests
 
     private MockMvc mockMvc;
 
+    User principalUser;
+
     @Before
     public void setup()
     {
+        principalUser = new User("Test", "User");
+
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
@@ -44,8 +50,8 @@ public class HomeControllerTests
     @Test
     public void viewHomepageTest() throws Exception
     {
-        MockHttpServletRequestBuilder loginCredentials = post("login").param("username", "thomas.huybrechts").param("password", "test");
-        mockMvc.perform(loginCredentials);
+        when(userService.getPrincipalUser()).thenReturn(principalUser);
+
         mockMvc.perform(get("/homepage")).andExpect(view().name("mainPortal/homepage"));
     }
 }
