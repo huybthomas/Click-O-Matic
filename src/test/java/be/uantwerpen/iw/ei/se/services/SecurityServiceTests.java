@@ -28,24 +28,20 @@ import static org.mockito.Mockito.when;
  * Created by Thomas on 20/10/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceTests
+public class SecurityServiceTests
 {
-    @Mock
-    UserService userService;
-
-    @Mock
+    @InjectMocks
     SecurityService securityService;
 
     @Mock
-    UserRepository userRepository;
-
-    @Mock
-    RoleRepository roleRepository;
+    UserService userService;
 
     @Mock
     PermissionRepository permissionRepository;
 
     List<User> userList;
+    List<Permission> permissionListTester;
+    List<Permission> permissionListAdmin;
 
     @Before
     public void init()
@@ -53,21 +49,15 @@ public class UserServiceTests
         Permission p1 = new Permission("logon");
         Permission p2 = new Permission("secret-message");
 
-        permissionRepository.save(p1);
-        permissionRepository.save(p2);
-
         Role administrator = new Role("Administrator");
         Role tester = new Role("Tester");
-        List<Permission> permissions = new ArrayList<Permission>();
-        permissions.add(p1);
-        tester.setPermissions(permissions);
-        permissions = new ArrayList<Permission>();
-        permissions.add(p1);
-        permissions.add(p2);
-        administrator.setPermissions(permissions);
-
-        roleRepository.save(administrator);
-        roleRepository.save(tester);
+        permissionListTester = new ArrayList<Permission>();
+        permissionListTester.add(p1);
+        tester.setPermissions(permissionListTester);
+        permissionListAdmin = new ArrayList<Permission>();
+        permissionListAdmin.add(p1);
+        permissionListAdmin.add(p2);
+        administrator.setPermissions(permissionListAdmin);
 
         User u1 = new User("U", "1");
         u1.setUserName("username");
@@ -79,23 +69,21 @@ public class UserServiceTests
         userList.add(u1);
         userList.add(u2);
 
-        userRepository.save(u1);
-        userRepository.save(u2);
-
         MockitoAnnotations.initMocks(this);
     }
 
     @Test(expected = UsernameNotFoundException.class)
     public void nonExistingUsernameTest()
     {
-        when(userRepository.findAll()).thenReturn(userList);
+        when(userService.findByUserName("bla")).thenReturn(null);
         securityService.loadUserByUsername("bla");
     }
 
     @Test
     public void loadedAuthoritiesTest()
     {
-        when(userRepository.findAll()).thenReturn(userList);
+        when(userService.findByUserName("username")).thenReturn(userList.get(1));                       //Get User u2 (administrator)
+        when(permissionRepository.findAllForUser(userList.get(1))).thenReturn(permissionListAdmin);     //Get permission of User u2 (administrator)
         UserDetails testUser = securityService.loadUserByUsername("username");
         assertTrue(!testUser.getAuthorities().isEmpty());
     }
