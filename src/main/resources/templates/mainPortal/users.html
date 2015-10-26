@@ -56,7 +56,7 @@
             <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>
             <td th:text="${u.userName}"/>
             <td th:text="'/users/' + ${u.userName}"/>
-            <td><a th:href="@{'/users?'+${u.userName}}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
+            <td><a th:href="@{'/users/'+${u.userName}}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
         </tr>
     </table>
 </div>
