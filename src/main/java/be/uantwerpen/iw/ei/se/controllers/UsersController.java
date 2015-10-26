@@ -23,7 +23,8 @@ public class UsersController
     private UserService userService;
 
     @ModelAttribute("currentUser")
-    public User getCurrentUser() {
+    public User getCurrentUser()
+    {
         return userService.getPrincipalUser();
     }
 
@@ -35,12 +36,15 @@ public class UsersController
 
     @RequestMapping({"/users"})
     @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
-    public String showViewUsers(ModelMap model) {   return "mainPortal/users";    }
+    public String showViewUsers(ModelMap model)
+    {
+        return "mainPortal/users";
+    }
 
 
     @RequestMapping(value="/users/{userName}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
-    public String editUserForm(@PathVariable String userName, Model model)
+    public String editUserForm(@PathVariable String userName, ModelMap model)
     {
         try
         {
@@ -48,7 +52,7 @@ public class UsersController
             model.addAttribute("user", user);
             return "mainPortal/profile"; // + userName
         }
-        catch (UsernameNotFoundException e)
+        catch(UsernameNotFoundException e)
         {
             model.addAttribute("user", null);
             return "mainPortal/users/";

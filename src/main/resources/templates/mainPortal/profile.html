@@ -48,7 +48,7 @@
                 <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
             </tr>
         </table>
-        <p><input type="submit" th:value="#{users.create}"/></p>
+        <p><input type="submit" th:value="#{users.edit}"/></p>
     </form>
 
     <p th:if="!${user}">Bleh</p>
