@@ -14,49 +14,13 @@
         </ul>
     </div>
 </div>
-<div class="content" th:object="${user}">
-    <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
-        <table>
-            <tr>
-                <td th:text="#{users.firstname}">firstname</td>
-                <td><input type="text" th:field="*{firstName}" th:text="${user.firstName}"/></td>
-                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
-            </tr>
-            <tr>
-                <td th:text="#{users.lastname}">lastname</td>
-                <td><input type="text" th:field="*{lastName}" th:text="${user.lastName}"/></td>
-                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
-            </tr>
-            <tr>
-                <td th:text="#{users.username}">username</td>
-                <td><input type="text" th:field="*{userName}" th:text="${user.userName}"/></td>
-                <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
-            </tr>
-            <tr>
-                <td th:text="#{users.oldPassword}">password</td>
-                <td><input type="password" th:field="*{password}"/></td>
-                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-            </tr>
-            <tr>
-                <td th:text="#{users.newPassword}">password</td>
-                <td><input type="password" th:field="*{password}"/></td>
-                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-            </tr>
-            <tr>
-                <td th:text="#{users.newPasswordRepeat}">password</td>
-                <td><input type="password" th:field="*{password}"/></td>
-                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-            </tr>
-        </table>
-        <p><input type="submit" th:value="#{users.create}"/></p>
-    </form>
-
-    <table th:if="!${user}">
+<div>
+    <table>
         <tr th:each="u : ${allUsers}">
             <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>
             <td th:text="${u.userName}"/>
-            <td th:text="'/users/' + ${u.userName}"/>
-            <td><a th:href="@{'/users?'+${u.userName}}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
+            <td th:text="'/users/' + ${u.userName} + '/'"/>
+            <td><a th:href="@{'/users/'+${u.userName}+'/'}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
         </tr>
     </table>
 </div>

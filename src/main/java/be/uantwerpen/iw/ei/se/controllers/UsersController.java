@@ -35,24 +35,21 @@ public class UsersController
 
     @RequestMapping({"/users"})
     @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
-    public String showViewUsers(ModelMap model) {   System.out.println("lala0"); return "mainPortal/users";    }
+    public String showViewUsers(ModelMap model) {   return "mainPortal/users";    }
 
 
-    @RequestMapping(value="/users?{userName}/", method=RequestMethod.GET)
+    @RequestMapping(value="/users/{userName}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
-    public String editUserForm(@PathVariable("userName") String userName, Model model)
+    public String editUserForm(@PathVariable String userName, Model model)
     {
-        System.out.println("lala: " + userName);
         try
         {
             User user = userService.findByUserName(userName);
             model.addAttribute("user", user);
-            System.out.println("lalala: " + userName);
-            return "mainPortal/users/" + userName;
+            return "mainPortal/profile"; // + userName
         }
         catch (UsernameNotFoundException e)
         {
-            System.out.println("lelele: " + userName);
             model.addAttribute("user", null);
             return "mainPortal/users/";
         }
