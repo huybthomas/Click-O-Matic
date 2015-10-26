@@ -19,7 +19,8 @@
 <body onload="document.f.username.focus();">
     <div class="container">
         <canvas id="backgroundCanvas" style="position: absolute; z-index: 1">
-            <script>
+            <script th:inline="javascript">
+                /*<![CDATA[*/   //Needed for XML parser to interpret '<' (&lt;)
                 (function() {
                     var canvas = document.getElementById('backgroundCanvas');
                     var context = canvas.getContext('2d');
@@ -63,19 +64,20 @@
                         rectWidth = canvas.width - (rectX * 2);
                         rectHeight = canvas.height - (rectY);
 
-/*                      if(rectWidth &lt; minWidth)     /*Smaller than
+                        if(rectWidth < minWidth)
                         {
                             rectWidth = minWidth;
                         }
-/*
-                        if(rectHeight &lt; minHeight)   /*Smaller than
+
+                        if(rectHeight < minHeight)
                         {
                             rectHeight = minHeight;
-                        }*/
+                        }
 
                         redraw();
                     }
                 })();
+                /*]]>*/     //Needed for XML parser to interpret (&lt;)
             </script>
         </canvas>
 
