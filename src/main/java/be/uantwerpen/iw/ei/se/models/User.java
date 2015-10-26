@@ -1,5 +1,8 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -7,7 +10,8 @@ import java.util.List;
 /**
  * Created by Thomas on 19/10/2015.
  */
-public class User
+@Entity
+public class User extends AbstractPersistable<Long>
 {
     @Size(min=2, max=30)
     @NotNull
@@ -25,6 +29,13 @@ public class User
     @NotNull
     private String password;
 
+    @ManyToMany
+    @JoinTable(
+            name="USER_ROLE",
+            joinColumns={
+                @JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                @JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
 
     public User()
@@ -33,6 +44,8 @@ public class User
         this.lastName = "";
         this.userName = "";
         this.password = "";
+
+        this.roles = null;
     }
 
     public User(String firstName, String lastName, String userName, String password)
@@ -41,6 +54,8 @@ public class User
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+
+        this.roles = null;
     }
 
     public User(String firstName, String lastName)
@@ -49,6 +64,8 @@ public class User
         this.lastName = lastName;
         this.userName = "";
         this.password = "";
+
+        this.roles = null;
     }
 
     public String getFirstName()

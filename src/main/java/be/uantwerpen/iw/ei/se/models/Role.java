@@ -1,14 +1,35 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 /**
  * Created by Thomas on 19/10/2015.
  */
-public class Role
+@Entity
+public class Role extends AbstractPersistable<Long>
 {
     private String name;
+
+    @ManyToMany
+    @JoinTable(
+            name="ROLE_PERMISSION",
+            joinColumns={
+                    @JoinColumn(name="ROLE_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="PERMISSION_ID", referencedColumnName="ID")})
     private List<Permission> permissions;
+
+    public Role()
+    {
+        this.name = "";
+        this.permissions = null;
+    }
 
     public Role(String name)
     {
