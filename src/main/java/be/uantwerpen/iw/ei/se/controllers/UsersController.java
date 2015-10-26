@@ -5,10 +5,11 @@ import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,10 +35,27 @@ public class UsersController
 
     @RequestMapping({"/users"})
     @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
-    public String showViewUsers(ModelMap model) {   return "mainPortal/users";    }
+    public String showViewUsers(ModelMap model) {   System.out.println("lala0"); return "mainPortal/users";    }
 
-    /* @RequestMapping({"/users(id="})
-    @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
-    public String showViewUsers(ModelMap model) {   return "mainPortal/users";    } */
+
+    @RequestMapping(value="/users?{userName}/", method=RequestMethod.GET)
+    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
+    public String editUserForm(@PathVariable("userName") String userName, Model model)
+    {
+        System.out.println("lala: " + userName);
+        try
+        {
+            User user = userService.loadSimpleUserByUsername(userName);
+            model.addAttribute("user", user);
+            System.out.println("lalala: " + userName);
+            return "mainPortal/users/" + userName;
+        }
+        catch (UsernameNotFoundException e)
+        {
+            System.out.println("lelele: " + userName);
+            model.addAttribute("user", null);
+            return "mainPortal/users/";
+        }
+    }
 
 }
