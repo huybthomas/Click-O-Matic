@@ -45,7 +45,7 @@ public class UsersController
         System.out.println("lala: " + userName);
         try
         {
-            User user = userService.loadSimpleUserByUsername(userName);
+            User user = userService.findByUserName(userName);
             model.addAttribute("user", user);
             System.out.println("lalala: " + userName);
             return "mainPortal/users/" + userName;
