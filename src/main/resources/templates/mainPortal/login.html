@@ -4,32 +4,106 @@
     <title th:text="#{login.title}">Title text</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
           href="../../css/bootstrap.min.css"/>
+    <style>
+        html, body
+        {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            border: 0;
+            overflow: hidden;   /*Disable scrollbars*/
+            display: block;     /*No floating content on sides*/
+        }
+    </style>
 </head>
 <body onload="document.f.username.focus();">
     <div class="container">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <ul class="nav">
-                    <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
-                </ul>
+        <canvas id="backgroundCanvas" style="position: absolute; z-index: 1">
+            <script>
+                (function() {
+                    var canvas = document.getElementById('backgroundCanvas');
+                    var context = canvas.getContext('2d');
+
+                    var rectWidth;
+                    var rectHeight;
+                    var minWidth = 800;
+                    var minHeight = 600;
+                    var rectX = 10;
+                    var rectY = 10;
+                    var cornerRadius = 350;
+
+                    initialize();
+
+                    function initialize() {
+                        //Register event listener each time window is resized
+                        window.addEventListener('resize', resizeCanvas, false);
+
+                        resizeCanvas();
+                    }
+
+                    function redraw() {
+                        context.beginPath();
+                        context.moveTo(rectX, rectY);
+                        context.lineTo(rectX, rectY + rectHeight - cornerRadius);
+                        context.arcTo(rectX, rectY + rectHeight, rectX + rectWidth, rectY + rectHeight, cornerRadius);
+                        context.lineTo(rectX + rectWidth, rectY + rectHeight);
+                        context.lineTo(rectX + rectWidth, rectY);
+                        context.closePath();
+                        context.lineWidth = 1;
+                        context.fillStyle = '#8ED6FF';
+                        context.fill();
+                        context.strokeStyle = '#8ED6FF';
+                        context.stroke();
+                    }
+
+                    function resizeCanvas() {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+
+                        rectWidth = canvas.width - (rectX * 2);
+                        rectHeight = canvas.height - (rectY);
+
+/*                      if(rectWidth &lt; minWidth)     /*Smaller than
+                        {
+                            rectWidth = minWidth;
+                        }
+/*
+                        if(rectHeight &lt; minHeight)   /*Smaller than
+                        {
+                            rectHeight = minHeight;
+                        }*/
+
+                        redraw();
+                    }
+                })();
+            </script>
+        </canvas>
+
+        <div class="frontContent" style="position: absolute; z-index: 2">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <ul class="nav">
+                        <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="content">
-            <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
-            <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
-            <h2 th:text="#{login.header}">Login</h2>
-            <form name="form" th:action="@{/login}" action="/login" method="POST">
-                <fieldset>
-                    <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
-                    <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
-                </fieldset>
-                <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
-            </form>
-        </div>
-        <div class="languageselect">
-            <span th:text="#{languageselect.languages}">Languages</span>:
-            <a href="?lang=en" th:text="#{languageselect.english}">English</a> -
-            <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
+            <div class="content">
+                <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
+                <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
+                <h2 th:text="#{login.header}">Login</h2>
+                <form name="form" th:action="@{/login}" action="/login" method="POST">
+                    <fieldset>
+                        <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
+                        <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
+                    </fieldset>
+                    <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div class="languageselect">
+                <span th:text="#{languageselect.languages}">Languages</span>:
+                <a href="?lang=en" th:text="#{languageselect.english}">English</a> -
+                <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
+            </div>
         </div>
     </div>
 </body>
