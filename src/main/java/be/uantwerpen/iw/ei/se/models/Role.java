@@ -2,10 +2,7 @@ package be.uantwerpen.iw.ei.se.models;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -75,5 +72,15 @@ public class Role extends MyAbstractPersistable<Long>
         Role role  = (Role) object;
 
         return this.name.equals(role.getName());
+    }
+
+    //Remove first all existing links between users and this role in the database
+    @PreRemove
+    private void removeRolesFromUsers()
+    {
+        for(User user : users)
+        {
+            user.getRoles().remove(this);
+        }
     }
 }
