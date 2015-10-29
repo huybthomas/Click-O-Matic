@@ -81,18 +81,16 @@
         var companyLogoObj = new Image();
         companyLogoObj.src = '../../images/companyLogo.png';
 
-        var minWidth = 800;
-        var minHeight = 600;
+        var minWidth = 1024;
+        var minHeight = 768;
 
-        var rectWidth;
-        var rectHeight;
-        var rectX = 10;
-        var rectY = 10;
+        var rectWidth = 1024;
+        var rectHeight = 768;
+        var rectX;
+        var rectY;
         var cornerRadius = 350;
 
-        var cirWidth;
-        var cirHeight;
-        var cirX = 350;
+        var cirX;
         var cirY;
         var cirRadius = 250;
 
@@ -135,19 +133,10 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            if(canvas.width < minWidth)
-            {
-                canvas.width = minWidth;
-            }
+            rectX = canvas.width/2 - rectWidth/2;
+            rectY = canvas.height/2 - rectHeight/2;
 
-            if(canvas.height < minHeight)
-            {
-                canvas.height = minHeight;
-            }
-
-            rectWidth = canvas.width - (rectX * 2);
-            rectHeight = canvas.height - (rectY);
-
+            cirX = canvas.width/2 - cirRadius;
             cirY = canvas.height/2 - cirRadius/8;
 
             redraw();
