@@ -1,14 +1,12 @@
 package be.uantwerpen.iw.ei.se.models;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.Entity;
 
 /**
  * Created by Thomas on 19/10/2015.
  */
 @Entity
-public class Permission extends AbstractPersistable<Long>
+public class Permission extends MyAbstractPersistable<Long>
 {
     private String name;
 

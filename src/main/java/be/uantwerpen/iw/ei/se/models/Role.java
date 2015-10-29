@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Thomas on 19/10/2015.
  */
 @Entity
-public class Role extends AbstractPersistable<Long>
+public class Role extends MyAbstractPersistable<Long>
 {
     private String name;
 
@@ -24,6 +24,9 @@ public class Role extends AbstractPersistable<Long>
             inverseJoinColumns={
                     @JoinColumn(name="PERMISSION_ID", referencedColumnName="ID")})
     private List<Permission> permissions;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role()
     {
