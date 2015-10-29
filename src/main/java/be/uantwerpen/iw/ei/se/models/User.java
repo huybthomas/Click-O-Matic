@@ -118,4 +118,22 @@ public class User extends MyAbstractPersistable<Long>
     {
         this.roles = roles;
     }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object)
+        {
+            return true;
+        }
+
+        if(object == null || this.getClass() != object.getClass())
+        {
+            return false;
+        }
+
+        User user = (User) object;
+
+        return this.userName.equals(user.getUserName());
+    }
 }

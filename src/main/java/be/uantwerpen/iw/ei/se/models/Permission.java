@@ -29,4 +29,22 @@ public class Permission extends MyAbstractPersistable<Long>
     {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object)
+        {
+            return true;
+        }
+
+        if(object == null || this.getClass() != object.getClass())
+        {
+            return false;
+        }
+
+        Permission permission = (Permission) object;
+
+        return this.name.equals(permission.getName());
+    }
 }
