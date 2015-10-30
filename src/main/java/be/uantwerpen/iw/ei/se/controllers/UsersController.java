@@ -50,7 +50,7 @@ public class UsersController
         {
             User user = userService.findByUserName(userName);
             model.addAttribute("user", user);
-            return "mainPortal/profile"; //
+            return "mainPortal/profile";
         }
         catch(UsernameNotFoundException e)
         {

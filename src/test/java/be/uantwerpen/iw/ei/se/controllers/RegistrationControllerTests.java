@@ -33,7 +33,9 @@ public class RegistrationControllerTests
     public void setup()
     {
         principalUser = new User("Test", "User");
+
         MockitoAnnotations.initMocks(this);
+
         mockMvc = MockMvcBuilders.standaloneSetup(registrationController).build();
     }
 

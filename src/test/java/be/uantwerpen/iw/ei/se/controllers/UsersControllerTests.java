@@ -11,6 +11,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static org.mockito.Mockito.when;
@@ -20,11 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Quinten on 28/10/2015.
  */
-public class UsersControllerTests {
-
+public class UsersControllerTests
+{
     @Mock
     private UserService userService;
-    private UserRepository userRepository;
 
     @InjectMocks
     private UsersController usersController;
@@ -32,13 +35,22 @@ public class UsersControllerTests {
     private MockMvc mockMvc;
 
     User principalUser;
+    User testUser;
+    Iterable<User> users;
 
     @Before
     public void setup()
     {
-        // Create principal user and save
+        List<User> userList = new ArrayList<User>();
+
+        // Create principal user and test user
         principalUser = new User("Test", "User", "testusername", "test");
-        userRepository.save(principalUser);
+        testUser = new User("User", "Testing", "userName", "test");
+
+        userList.add(principalUser);
+        userList.add(testUser);
+
+        users = (Iterable<User>) userList;
 
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(usersController).build();
@@ -48,6 +60,7 @@ public class UsersControllerTests {
     public void viewUsersTest() throws Exception
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
+
         mockMvc.perform(get("/users")).andExpect(view().name("mainPortal/users"));
     }
 
@@ -55,7 +68,8 @@ public class UsersControllerTests {
     public void viewEditSpecificUser() throws Exception
     {
         when(userService.findByUserName("userName")).thenReturn(principalUser);
-        mockMvc.perform(get("/users/{userName}/")).andExpect(view().name("mainPortal/profile"));
-    }
+        when(userService.findAll()).thenReturn(users);
 
+        mockMvc.perform(get("/users/userName/")).andExpect(view().name("mainPortal/profile"));
+    }
 }
