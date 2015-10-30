@@ -79,6 +79,10 @@
         var contextCir = canvas.getContext('2d');
         var contextCompanyLogo = canvas.getContext('2d');
         var companyLogoObj = new Image();
+
+        companyLogoObj.onload = function(){
+          resizeCanvas();
+        };
         companyLogoObj.src = '../../images/companyLogo.png';
 
         var minWidth = 1024;
@@ -94,6 +98,8 @@
         var cirY;
         var cirRadius = 250;
 
+        var companyLogoX;
+        var companyLogoY;
         var companyLogoWidth = 186.17;
         var companyLogoHeight = 95;
 
@@ -120,7 +126,7 @@
             contextRect.fill();
 
             //Company logo
-            //contextCompanyLogo.drawImage(companyLogoObj, 0, canvas.height - companyLogoHeight, companyLogoWidth, companyLogoHeight);
+            contextCompanyLogo.drawImage(companyLogoObj, companyLogoX, companyLogoY, companyLogoWidth, companyLogoHeight);
 
             //Login circle
             contextCir.beginPath();
@@ -138,6 +144,9 @@
 
             cirX = canvas.width/2 - cirRadius;
             cirY = canvas.height/2 - cirRadius/8;
+
+            companyLogoX = rectX;
+            companyLogoY = rectY + rectHeight - companyLogoHeight;
 
             redraw();
             repositionText();
