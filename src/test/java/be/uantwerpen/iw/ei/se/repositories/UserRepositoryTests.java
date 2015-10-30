@@ -4,6 +4,7 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.models.User;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,18 @@ public class UserRepositoryTests
     @Autowired
     UserRepository userRepository;
 
-    @Test
-    public void testSaveProduct()
+    int origUserRepositorySize;
+
+    @Before
+    public void setup()
     {
-        //Setup product
+       origUserRepositorySize = (int)userRepository.count();
+    }
+
+    @Test
+    public void testSaveUser()
+    {
+        //Setup user
         User user = new User();
         user.setUserName("TestUserName");
         user.setFirstName("firstname");
@@ -59,11 +68,11 @@ public class UserRepositoryTests
         User fetchedUpdatedUser = userRepository.findOne(fetchedUser.getId());
         assertEquals(fetchedUser.getUserName(), fetchedUpdatedUser.getUserName());
 
-        //Verify count of products in database
+        //Verify count of users in database
         long userCount = userRepository.count();
-        assertEquals(userCount, 5);                 //There are originally 4 users declared in the database
+        assertEquals(userCount, origUserRepositorySize + 1);        //One user has been added to the database
 
-        //Get all products, list should only have one more then initial value
+        //Get all users, list should only have one more then initial value
         Iterable<User> users = userRepository.findAll();
 
         int count = 0;
@@ -73,7 +82,7 @@ public class UserRepositoryTests
             count++;
         }
 
-        //There are originally 4 users declared in the database
-        assertEquals(count, 5);
+        //There are originally 'origUserRepositorySize' users declared in the database (+1 has been added in this test)
+        assertEquals(count, origUserRepositorySize + 1);
     }
 }

@@ -14,74 +14,37 @@
             overflow: hidden;   /*Disable scrollbars*/
             display: block;     /*No floating content on sides*/
         }
+        .alert
+        {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+        .alert-error
+        {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
     </style>
 </head>
-<body onload="document.f.username.focus();">
+<body onload="document.loginForm.username.focus();">
     <div class="container">
-        <canvas id="backgroundCanvas" style="position: absolute; z-index: 1">
-            <script th:inline="javascript">
-                /*<![CDATA[*/   //Needed for XML parser to interpret '<' (&lt;)
-                (function() {
-                    var canvas = document.getElementById('backgroundCanvas');
-                    var context = canvas.getContext('2d');
+        <canvas id="backgroundCanvas" style="position: absolute; z-index: 1"></canvas>
 
-                    var rectWidth;
-                    var rectHeight;
-                    var minWidth = 800;
-                    var minHeight = 600;
-                    var rectX = 10;
-                    var rectY = 10;
-                    var cornerRadius = 350;
+        <canvas id="imageCanvas" style="position: absolute; z-index: 2"></canvas>
 
-                    initialize();
+        <canvas id="loginCanvas" style="position: absolute; z-index: 3"></canvas>
 
-                    function initialize() {
-                        //Register event listener each time window is resized
-                        window.addEventListener('resize', resizeCanvas, false);
-
-                        resizeCanvas();
-                    }
-
-                    function redraw() {
-                        context.beginPath();
-                        context.moveTo(rectX, rectY);
-                        context.lineTo(rectX, rectY + rectHeight - cornerRadius);
-                        context.arcTo(rectX, rectY + rectHeight, rectX + rectWidth, rectY + rectHeight, cornerRadius);
-                        context.lineTo(rectX + rectWidth, rectY + rectHeight);
-                        context.lineTo(rectX + rectWidth, rectY);
-                        context.closePath();
-                        context.lineWidth = 1;
-                        context.fillStyle = '#8ED6FF';
-                        context.fill();
-                        context.strokeStyle = '#8ED6FF';
-                        context.stroke();
-                    }
-
-                    function resizeCanvas() {
-                        canvas.width = window.innerWidth;
-                        canvas.height = window.innerHeight;
-
-                        rectWidth = canvas.width - (rectX * 2);
-                        rectHeight = canvas.height - (rectY);
-
-                        if(rectWidth < minWidth)
-                        {
-                            rectWidth = minWidth;
-                        }
-
-                        if(rectHeight < minHeight)
-                        {
-                            rectHeight = minHeight;
-                        }
-
-                        redraw();
-                    }
-                })();
-                /*]]>*/     //Needed for XML parser to interpret (&lt;)
-            </script>
-        </canvas>
-
-        <div class="frontContent" style="position: absolute; z-index: 2">
+        <div class="frontContent" style="position: absolute; z-index: 4">
             <div class="navbar">
                 <div class="navbar-inner">
                     <ul class="nav">
@@ -89,11 +52,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" id="content">
                 <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
-                <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
+                <p th:if="${param.error}" class="alert-error" th:text="#{login.alerts.error}">Error message</p>
                 <h2 th:text="#{login.header}">Login</h2>
-                <form name="form" th:action="@{/login}" action="/login" method="POST">
+                <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
                     <fieldset>
                         <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
                         <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
@@ -108,5 +71,95 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/   //Needed for XML parser to interpret '<' (&lt;)
+        var canvas = document.getElementById('backgroundCanvas');
+        var contextRect = canvas.getContext('2d');
+        var contextCir = canvas.getContext('2d');
+        var contextCompanyLogo = canvas.getContext('2d');
+        var companyLogoObj = new Image();
+        companyLogoObj.src = '../../images/companyLogo.png';
+
+        var minWidth = 800;
+        var minHeight = 600;
+
+        var rectWidth;
+        var rectHeight;
+        var rectX = 10;
+        var rectY = 10;
+        var cornerRadius = 350;
+
+        var cirWidth;
+        var cirHeight;
+        var cirX = 350;
+        var cirY;
+        var cirRadius = 250;
+
+        var companyLogoWidth = 186.17;
+        var companyLogoHeight = 95;
+
+        initialize();
+
+        function initialize() {
+            //Register event listener each time window is resized
+            window.addEventListener('resize', resizeCanvas, false);
+
+            resizeCanvas();
+        }
+
+        function redraw() {
+            //Background rectangle
+            contextRect.beginPath();
+            contextRect.moveTo(rectX, rectY);
+            contextRect.lineTo(rectX, rectY + rectHeight - cornerRadius);
+            contextRect.arcTo(rectX, rectY + rectHeight, rectX + rectWidth, rectY + rectHeight, cornerRadius);
+            contextRect.lineTo(rectX + rectWidth, rectY + rectHeight);
+            contextRect.lineTo(rectX + rectWidth, rectY);
+            contextRect.closePath();
+            contextRect.lineWidth = 1;
+            contextRect.fillStyle = '#8ED6FF';
+            contextRect.fill();
+
+            //Company logo
+            //contextCompanyLogo.drawImage(companyLogoObj, 0, canvas.height - companyLogoHeight, companyLogoWidth, companyLogoHeight);
+
+            //Login circle
+            contextCir.beginPath();
+            contextCir.arc(cirX, cirY, cirRadius, 0, 2 * Math.PI, false);
+            contextCir.fillStyle = 'white';
+            contextCir.fill();
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            if(canvas.width < minWidth)
+            {
+                canvas.width = minWidth;
+            }
+
+            if(canvas.height < minHeight)
+            {
+                canvas.height = minHeight;
+            }
+
+            rectWidth = canvas.width - (rectX * 2);
+            rectHeight = canvas.height - (rectY);
+
+            cirY = canvas.height/2 - cirRadius/8;
+
+            redraw();
+            repositionText();
+        }
+
+        function repositionText(){
+            document.getElementsByName('content').style.position = "absolute";
+            document.getElementById('content').style.top = canvas.height/2 - cirRadius/8 - 50;
+            document.getElementById('content').style.left = cirX + cirRadius/2 - 50;
+        }
+        /*]]>*/     //Needed for XML parser to interpret (&lt;)
+    </script>
 </body>
 </html>

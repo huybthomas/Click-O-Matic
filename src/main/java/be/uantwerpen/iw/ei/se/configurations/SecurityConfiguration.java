@@ -18,6 +18,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         http.authorizeRequests().antMatchers("/h2console/**")
                                     .permitAll();
 
+        http.authorizeRequests().antMatchers("/resources/images/**")
+                                    .permitAll();
+
         http.authorizeRequests().antMatchers("/login")
                                     .permitAll()
                                     .anyRequest()
