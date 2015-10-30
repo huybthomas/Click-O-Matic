@@ -2,17 +2,14 @@ package be.uantwerpen.iw.ei.se.models;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Thomas on 19/10/2015.
  */
 @Entity
-public class Role extends AbstractPersistable<Long>
+public class Role extends MyAbstractPersistable<Long>
 {
     private String name;
 
@@ -24,6 +21,9 @@ public class Role extends AbstractPersistable<Long>
             inverseJoinColumns={
                     @JoinColumn(name="PERMISSION_ID", referencedColumnName="ID")})
     private List<Permission> permissions;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role()
     {
@@ -54,5 +54,33 @@ public class Role extends AbstractPersistable<Long>
     public void setPermissions(List<Permission> permissions)
     {
         this.permissions = permissions;
+    }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object)
+        {
+            return true;
+        }
+
+        if(object == null || this.getClass() != object.getClass())
+        {
+            return false;
+        }
+
+        Role role  = (Role) object;
+
+        return this.name.equals(role.getName());
+    }
+
+    //Remove first all existing links between users and this role in the database
+    @PreRemove
+    private void removeRolesFromUsers()
+    {
+        for(User user : users)
+        {
+            user.getRoles().remove(this);
+        }
     }
 }

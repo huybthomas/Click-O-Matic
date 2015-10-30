@@ -5,13 +5,14 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Thomas on 19/10/2015.
  */
 @Entity
-public class User extends AbstractPersistable<Long>
+public class User extends MyAbstractPersistable<Long>
 {
     @Size(min=2, max=30)
     @NotNull
@@ -45,7 +46,7 @@ public class User extends AbstractPersistable<Long>
         this.userName = "";
         this.password = "";
 
-        this.roles = null;
+        this.roles = new ArrayList<>();
     }
 
     public User(String firstName, String lastName, String userName, String password)
@@ -55,7 +56,7 @@ public class User extends AbstractPersistable<Long>
         this.userName = userName;
         this.password = password;
 
-        this.roles = null;
+        this.roles = new ArrayList<>();
     }
 
     public User(String firstName, String lastName)
@@ -65,7 +66,7 @@ public class User extends AbstractPersistable<Long>
         this.userName = "";
         this.password = "";
 
-        this.roles = null;
+        this.roles = new ArrayList<>();
     }
 
     public String getFirstName()
@@ -116,5 +117,23 @@ public class User extends AbstractPersistable<Long>
     public void setRoles(List<Role> roles)
     {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object)
+        {
+            return true;
+        }
+
+        if(object == null || this.getClass() != object.getClass())
+        {
+            return false;
+        }
+
+        User user = (User) object;
+
+        return this.userName.equals(user.getUserName());
     }
 }
