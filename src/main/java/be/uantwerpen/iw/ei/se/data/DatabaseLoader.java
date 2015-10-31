@@ -1,4 +1,4 @@
-package be.uantwerpen.iw.ei.se.services;
+package be.uantwerpen.iw.ei.se.data;
 
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
