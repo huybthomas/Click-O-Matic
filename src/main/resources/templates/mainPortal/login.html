@@ -13,13 +13,6 @@
         <canvas id="loginCanvas" style="position: absolute; z-index: 3"></canvas>
 
         <div class="frontContent" style="position: absolute; z-index: 4">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <ul class="nav">
-                        <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="content" id="content">
                 <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
                 <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
@@ -120,7 +113,7 @@
             companyLogoY = rectY + rectHeight - companyLogoHeight;
 
             redraw();
-            repositionText();
+            //repositionText();
         }
 
         function repositionText(){
