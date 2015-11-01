@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <title th:text="#{homepage.title}">Title text</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-</head>
+<head th:replace="mainPortal/layout :: head (pageTitle=#{homepage.title})"></head>
 <body>
-    <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>
+
     <div class="navbar">
+        <!-- Import navigation bar -->
+        <div th:replace="mainPortal/layout :: navbar"></div>
+
+        <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>
         <div class="navbar-inner">
             <ul class="nav">
                 <li><a th:href="@{/registration}" href="registration.html" th:text="#{navbar.registration}">Create user</a></li>
@@ -44,5 +45,8 @@
     <div sec:authorize="hasRole('secret-message')">
         <span th:text="#{homepage.secret-message}"/>
     </div>
+
+    <!-- Import footer -->
+    <div th:replace="mainPortal/layout :: footer"></div>
 </body>
 </html>

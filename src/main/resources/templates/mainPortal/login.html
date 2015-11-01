@@ -1,40 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:substituteby="mainPortal/layout :: head (pageTitle=#{login.title})">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
-          href="../../css/bootstrap.min.css"/>
-    <style>
-        html, body
-        {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-            border: 0;
-            overflow: hidden;   /*Disable scrollbars*/
-            display: block;     /*No floating content on sides*/
-        }
-        .alert
-        {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            color: #31708f;
-            background-color: #d9edf7;
-            border-color: #bce8f1;
-        }
-        .alert-error
-        {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-    </style>
-</head>
+<head th:replace="mainPortal/layout :: head (pageTitle=#{login.title})"></head>
 <body onload="document.loginForm.username.focus();">
     <div class="container">
         <!-- Import navigation bar -->
@@ -56,7 +22,7 @@
             </div>
             <div class="content" id="content">
                 <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
-                <p th:if="${param.error}" class="alert-error" th:text="#{login.alerts.error}">Error message</p>
+                <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
                 <h2 th:text="#{login.header}">Login</h2>
                 <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
                     <fieldset>
@@ -73,6 +39,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Import footer -->
+    <div th:replace="mainPortal/layout :: footer"></div>
 
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/   //Needed for XML parser to interpret '<' (&lt;)
