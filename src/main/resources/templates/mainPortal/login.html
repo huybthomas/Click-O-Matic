@@ -6,25 +6,36 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <canvas id="backgroundCanvas" style="position: absolute; z-index: 1"></canvas>
-
-        <canvas id="imageCanvas" style="position: absolute; z-index: 2"></canvas>
-
-        <canvas id="loginCanvas" style="position: absolute; z-index: 3"></canvas>
-
-        <biv id="inlogForm" style="position:absolute; z-index: 4">       </biv>
-            <div class="frontContent" style="position: absolute; z-index: 5">
+        <div class="loginBackground">
+            <div class="messagesContent">
+                <div th:if="${param.logout}" class="alert alert-success" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Info: </span>
+                    <span th:text="#{login.alerts.logout}">Logout message</span>
+                </div>
+                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    <span th:text="#{login.alerts.error}">Error message</span>
+                </div>
+            </div>
+            <div class="frontContent">
                 <div class="content" id="content">
-                    <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
-                    <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
-                    <h2 th:text="#{login.header}">Login</h2>
-                    <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
-                        <fieldset>
-                            <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
-                            <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
-                        </fieldset>
-                        <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
-                    </form>
+                    <div class="loginFormBorder">
+                        <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
+                            <div class="input-group">
+                                <span class="input-group-addon" th:text="#{login.username}" id="usernameAddon">username</span>
+                                <input type="text" class="form-control" id="username" name="username" value="" th:placeholder="#{login.username}" aria-describedby="usernameAddon"/>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" th:text="#{login.password}" id="passwordAddon">password</span>
+                                <input type="password" class="form-control" id="password" name="password" th:placeholder="#{login.password}" aria-describedby="passwordAddon"/>
+                            </div>
+                            <div class="btn-group btn-group-lg">
+                                <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary" style="margin-top:10px"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="languageselect">
                     <span th:text="#{languageselect.languages}">Languages</span>:
@@ -32,8 +43,8 @@
                     <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
                 </div>
             </div>
+        </div>
     </div>
-
 
     <!-- Import footer -->
     <div th:replace="mainPortal/layout :: footer"></div>
