@@ -51,18 +51,18 @@ public class ClickOMaticApplication extends WebMvcConfigurerAdapter
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry)
+    public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
-        registry.addInterceptor(localeChangeInterceptor());
+        if(!registry.hasMappingForPattern("/webjars/**"))
+        {
+            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        }
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registratry)
+    public void addInterceptors(InterceptorRegistry registry)
     {
-        if(!registratry.hasMappingForPattern("/webjars/**"))
-        {
-            registratry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-        }
+        registry.addInterceptor(localeChangeInterceptor());
     }
 
     @Order(Ordered.HIGHEST_PRECEDENCE)
