@@ -2,27 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{users.title})"></head>
 <body>
-    <!-- Import navigation bar -->
-    <div th:replace="mainPortal/layout :: navbar"></div>
+    <div class="container">
+        <!-- Import navigation bar -->
+        <div th:replace="mainPortal/layout :: navbar"></div>
 
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
-                <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
-                <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
-            </ul>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+                    <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+                    <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div>
-        <table>
-            <tr th:each="u : ${allUsers}">
-                <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>
-                <td th:text="${u.userName}"/>
-                <td th:text="'/users/' + ${u.userName} + '/'"/>
-                <td><a th:href="@{'/users/'+${u.userName}+'/'}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
-            </tr>
-        </table>
+        <div>
+            <table>
+                <tr th:each="u : ${allUsers}">
+                    <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>
+                    <td th:text="${u.userName}"/>
+                    <td th:text="'/users/' + ${u.userName} + '/'"/>
+                    <td><a th:href="@{'/users/'+${u.userName}+'/'}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <!-- Import footer -->

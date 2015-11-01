@@ -2,48 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{homepage.title})"></head>
 <body>
-
-    <div class="navbar">
+    <div class="container">
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a th:href="@{/registration}" href="registration.html" th:text="#{navbar.registration}">Create user</a></li>
-                <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
-                <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
-            </ul>
+        <div class="navbar">
+            <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li><a th:href="@{/registration}" href="registration.html" th:text="#{navbar.registration}">Create user</a></li>
+                    <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
+                    <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <table>
-        <tr>
-            <th th:text="#{homepage.table.name}">NAME</th>
-            <th th:text="#{homepage.table.role}">ROLE</th>
-            <th th:text="#{homepage.table.permission}">PERMISSION</th>
-        </tr>
-        <tr th:each="user : ${allUsers}">
-            <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
-            <td>
-                <table>
-                    <tr th:each="role : ${user.roles}">
-                        <td th:text="${role.name}"/>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <div th:each="role : ${user.roles}">
+        <table>
+            <tr>
+                <th th:text="#{homepage.table.name}">NAME</th>
+                <th th:text="#{homepage.table.role}">ROLE</th>
+                <th th:text="#{homepage.table.permission}">PERMISSION</th>
+            </tr>
+            <tr th:each="user : ${allUsers}">
+                <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
+                <td>
                     <table>
-                        <tr th:each="perm : ${role.permissions}">
-                            <td th:text="${perm.name}"/>
+                        <tr th:each="role : ${user.roles}">
+                            <td th:text="${role.name}"/>
                         </tr>
                     </table>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div sec:authorize="hasRole('secret-message')">
-        <span th:text="#{homepage.secret-message}"/>
+                </td>
+                <td>
+                    <div th:each="role : ${user.roles}">
+                        <table>
+                            <tr th:each="perm : ${role.permissions}">
+                                <td th:text="${perm.name}"/>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div sec:authorize="hasRole('secret-message')">
+            <span th:text="#{homepage.secret-message}"/>
+        </div>
     </div>
 
     <!-- Import footer -->

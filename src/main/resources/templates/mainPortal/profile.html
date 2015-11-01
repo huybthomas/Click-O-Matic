@@ -2,56 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{users.title})"></head>
 <body>
+    <div class="container">
     <!-- Import navigation bar -->
-    <div th:replace="mainPortal/layout :: navbar"></div>
+        <div th:replace="mainPortal/layout :: navbar"></div>
 
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
-                <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
-                <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
-            </ul>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+                    <li><a th:href="@{/logout}" href="login.html"> Logout </a></li>
+                    <li sec:authorize="hasRole('viewUsers')"><a th:href="@{/users}" href="login.html"> View users </a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="content" th:object="${user}">
-        <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
-            <table>
-                <tr>
-                    <td th:text="#{users.firstname}">firstname</td>
-                    <td><input type="text" th:field="*{firstName}"/></td>
-                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{users.lastname}">lastname</td>
-                    <td><input type="text" th:field="*{lastName}"/></td>
-                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{users.username}">username</td>
-                    <td><input type="text" th:field="*{userName}"/></td>
-                    <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{users.oldPassword}">password</td>
-                    <td><input type="password" th:field="*{password}"/></td>
-                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{users.newPassword}">password</td>
-                    <td><input type="password" th:field="*{password}"/></td>
-                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-                </tr>
-                <tr>
-                    <td th:text="#{users.newPasswordRepeat}">password</td>
-                    <td><input type="password" th:field="*{password}"/></td>
-                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-                </tr>
-            </table>
-            <p><input type="submit" th:value="#{users.edit}"/></p>
-        </form>
+        <div class="content" th:object="${user}">
+            <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
+                <table>
+                    <tr>
+                        <td th:text="#{users.firstname}">firstname</td>
+                        <td><input type="text" th:field="*{firstName}"/></td>
+                        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{users.lastname}">lastname</td>
+                        <td><input type="text" th:field="*{lastName}"/></td>
+                        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{users.username}">username</td>
+                        <td><input type="text" th:field="*{userName}"/></td>
+                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{users.oldPassword}">password</td>
+                        <td><input type="password" th:field="*{password}"/></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{users.newPassword}">password</td>
+                        <td><input type="password" th:field="*{password}"/></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{users.newPasswordRepeat}">password</td>
+                        <td><input type="password" th:field="*{password}"/></td>
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                    </tr>
+                </table>
+                <p><input type="submit" th:value="#{users.edit}"/></p>
+            </form>
 
-        <p th:if="!${user}">Bleh</p>
+            <p th:if="!${user}">Bleh</p>
+        </div>
     </div>
 
     <!-- Import footer -->
