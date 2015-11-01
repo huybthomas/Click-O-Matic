@@ -12,116 +12,30 @@
 
         <canvas id="loginCanvas" style="position: absolute; z-index: 3"></canvas>
 
-        <div class="frontContent" style="position: absolute; z-index: 4">
-            <div class="content" id="content">
-                <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
-                <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
-                <h2 th:text="#{login.header}">Login</h2>
-                <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
-                    <fieldset>
-                        <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
-                        <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
-                    </fieldset>
-                    <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
-                </form>
+        <biv id="inlogForm" style="position:absolute; z-index: 4">       </biv>
+            <div class="frontContent" style="position: absolute; z-index: 5">
+                <div class="content" id="content">
+                    <p th:if="${param.logout}" class="alert" th:text="#{login.alerts.logout}">Logout message</p>
+                    <p th:if="${param.error}" class="alert alert-error" th:text="#{login.alerts.error}">Error message</p>
+                    <h2 th:text="#{login.header}">Login</h2>
+                    <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
+                        <fieldset>
+                            <input type="text" id="username" name="username" value="" th:placeholder="#{login.username}"/>
+                            <input type="password" id="password" name="password" th:placeholder="#{login.password}"/>
+                        </fieldset>
+                        <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary"/>
+                    </form>
+                </div>
+                <div class="languageselect">
+                    <span th:text="#{languageselect.languages}">Languages</span>:
+                    <a href="?lang=en" th:text="#{languageselect.english}">English</a> -
+                    <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
+                </div>
             </div>
-            <div class="languageselect">
-                <span th:text="#{languageselect.languages}">Languages</span>:
-                <a href="?lang=en" th:text="#{languageselect.english}">English</a> -
-                <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
-            </div>
-        </div>
     </div>
+
 
     <!-- Import footer -->
     <div th:replace="mainPortal/layout :: footer"></div>
-
-    <script type="text/javascript" th:inline="javascript">
-        /*<![CDATA[*/   //Needed for XML parser to interpret '<' (&lt;)
-        var canvas = document.getElementById('backgroundCanvas');
-        var contextRect = canvas.getContext('2d');
-        var contextCir = canvas.getContext('2d');
-        var contextCompanyLogo = canvas.getContext('2d');
-        var companyLogoObj = new Image();
-
-        companyLogoObj.onload = function(){
-          resizeCanvas();
-        };
-        companyLogoObj.src = '../../images/companyLogo.png';
-
-        var minWidth = 1024;
-        var minHeight = 768;
-
-        var rectWidth = 1024;
-        var rectHeight = 768;
-        var rectX;
-        var rectY;
-        var cornerRadius = 350;
-
-        var cirX;
-        var cirY;
-        var cirRadius = 250;
-
-        var companyLogoX;
-        var companyLogoY;
-        var companyLogoWidth = 186.17;
-        var companyLogoHeight = 95;
-
-        initialize();
-
-        function initialize() {
-            //Register event listener each time window is resized
-            window.addEventListener('resize', resizeCanvas, false);
-
-            resizeCanvas();
-        }
-
-        function redraw() {
-            //Background rectangle
-            contextRect.beginPath();
-            contextRect.moveTo(rectX, rectY);
-            contextRect.lineTo(rectX, rectY + rectHeight - cornerRadius);
-            contextRect.arcTo(rectX, rectY + rectHeight, rectX + rectWidth, rectY + rectHeight, cornerRadius);
-            contextRect.lineTo(rectX + rectWidth, rectY + rectHeight);
-            contextRect.lineTo(rectX + rectWidth, rectY);
-            contextRect.closePath();
-            contextRect.lineWidth = 1;
-            contextRect.fillStyle = '#8ED6FF';
-            contextRect.fill();
-
-            //Company logo
-            contextCompanyLogo.drawImage(companyLogoObj, companyLogoX, companyLogoY, companyLogoWidth, companyLogoHeight);
-
-            //Login circle
-            contextCir.beginPath();
-            contextCir.arc(cirX, cirY, cirRadius, 0, 2 * Math.PI, false);
-            contextCir.fillStyle = 'white';
-            contextCir.fill();
-        }
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            rectX = canvas.width/2 - rectWidth/2;
-            rectY = canvas.height/2 - rectHeight/2;
-
-            cirX = canvas.width/2 - cirRadius;
-            cirY = canvas.height/2 - cirRadius/8;
-
-            companyLogoX = rectX;
-            companyLogoY = rectY + rectHeight - companyLogoHeight;
-
-            redraw();
-            //repositionText();
-        }
-
-        function repositionText(){
-            document.getElementsByName('content').style.position = "absolute";
-            document.getElementById('content').style.top = canvas.height/2 - cirRadius/8 - 50;
-            document.getElementById('content').style.left = cirX + cirRadius/2 - 50;
-        }
-        /*]]>*/     //Needed for XML parser to interpret (&lt;)
-    </script>
 </body>
 </html>
