@@ -65,8 +65,9 @@
             <!-- Collect the navigation links, forms and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/" th:text="#{navbar.home}">Home</a></li>
-                    <li sec:authorize="hasRole('viewUsers')"><a href="/users" th:text="#{navbar.users}">Users</a></li>
+                    <li sec:authorize="hasRole('logon')"><a href="/" th:text="#{navbar.home}">Home</a></li>
+                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/users" th:text="#{navbar.users}">Users</a></li>
+                    <li sec:authorize="hasRole('logon')"><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
                 </ul>
             </div>
         </div>
