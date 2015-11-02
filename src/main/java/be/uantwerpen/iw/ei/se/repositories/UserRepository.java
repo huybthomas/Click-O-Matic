@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Thomas on 19/10/2015.
  */
@@ -51,15 +52,21 @@ public class UserRepository
         roles.add(administrator);
         u3.setRoles(roles);
 
-        User u4 = new User("Tester", "De Test", "tester", "test");
+        User u4 = new User("Timothy", "Verstraete", "timothy.verstraete", "test");
+        roles = new ArrayList<>();
+        roles.add(administrator);
+        u4.setRoles(roles);
+
+        User u5 = new User("Tester", "De Test", "tester", "test");
         roles = new ArrayList<>();
         roles.add(tester);
-        u4.setRoles(roles);
+        u5.setRoles(roles);
 
         users.add(u1);
         users.add(u2);
         users.add(u3);
         users.add(u4);
+        users.add(u5);
     }
 
     public List<User> findAll()
