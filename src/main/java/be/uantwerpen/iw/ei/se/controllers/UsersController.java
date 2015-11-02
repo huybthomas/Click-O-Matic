@@ -65,14 +65,13 @@ public class UsersController
         }
     }
 
-    @RequestMapping(value={"/users/{userName}/"}, method= RequestMethod.POST)
+    @RequestMapping(value={"/users"}, method= RequestMethod.POST)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String saveUser(@Valid User user, BindingResult result, final ModelMap model){
         if(result.hasErrors()){
             model.addAttribute("allRoles", roleService.findAll());
             return "mainPortal/user-profile";
         }
-        System.out.println("Qtest: " + user.getId());
         userService.save(user);
         return "redirect:/users";
     }
