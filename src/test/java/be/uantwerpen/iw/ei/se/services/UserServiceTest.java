@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.services;
 
+import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
@@ -13,7 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,19 +27,12 @@ import java.util.List;
 /**
  * Created by dries on 28/10/2015.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
+@WebAppConfiguration
 public class UserServiceTest {
-    @InjectMocks
+    @Autowired
     UserService userService;
-
-    @Mock
-    UserRepository userRepository;
-
-    @Mock
-    RoleRepository roleRepository;
-
-    @Mock
-    PermissionRepository permissionRepository;
 
     List<User> userList;
     List<Permission> permissionListTester;
@@ -58,9 +56,11 @@ public class UserServiceTest {
 
         User u1 = new User("Steve", "Rogers");
         u1.setUserName("Captain");
+        u1.setPassword("Vibranium");
         u1.setRoles(Arrays.asList(administrator));
-        User u2 = new User("Hank", "Pam");
+        User u2 = new User("Hank", "Pym");
         u2.setUserName("Antman");
+        u2.setPassword("PymParticles");
         u2.setRoles(Arrays.asList(tester));
         userList = new ArrayList<User>();
         userList.add(u1);
@@ -69,10 +69,12 @@ public class UserServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    //Adds user with help of the userService, checks if it's really in there.
     @Test
     public void addUser()
     {
         userService.add(userList.get(0));
+        userService.findByUserName("Captain");
     }
 
 }
