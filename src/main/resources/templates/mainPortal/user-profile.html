@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="content">
-            <form action="#" th:action="@{/users/user.username/}" method="post" th:object="${user}" th:if="${user}">
+            <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
                 <input th:type="hidden" th:field="*{id}"/>
 
                 <div class="container">
