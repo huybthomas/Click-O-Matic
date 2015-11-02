@@ -19,6 +19,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -67,7 +69,7 @@ public class UserServiceTest
         userList = new ArrayList<User>();
         userList.add(u1);
         userList.add(u2);
-        MockitoAnnotations.initMocks(this);
+
         userService.add(userList.get(0));
     }
 
@@ -75,8 +77,8 @@ public class UserServiceTest
     @Test
     public void addUser()
     {
-        userService.add(userList.get(1));
-        userService.findByUserName("Antman");
+        assertTrue(userService.add(userList.get(1)));
+        assertNotNull(userService.findByUserName("Antman"));
     }
 
     @Test
