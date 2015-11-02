@@ -86,7 +86,7 @@ public class UserServiceTest {
 
     @Test
     public void checkNotExistingName() {
-        assertTrue(!userService.usernameAlreadyExists("IronMan"));
+        assertTrue(!userService.usernameAlreadyExists("Spiderman"));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class UserServiceTest {
         User u3 = new User("Tony", "Stark");
         u3.setUserName("Captain");
         u3.setPassword("ArkReactor");
-        assertTrue(userService.isDuplicatedUsername(u3));
+        assertTrue(!userService.add(u3));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class UserServiceTest {
         User u3 = new User("Tony", "Stark");
         u3.setUserName("IronMan");
         u3.setPassword("ArkReactor");
-        assertTrue(!userService.isDuplicatedUsername(u3));
+        assertTrue(userService.add(u3));
     }
 
 }
