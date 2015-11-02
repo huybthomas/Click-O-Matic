@@ -6,11 +6,15 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <h1 th:text="${title}">Error</h1>
-        <p class="alert alert-error">Error:
-            something went wrong. We are sorry for the inconvenience.</p>
-        <div th:text="${message}">Fake content</div>
-        <div>Please contact the operator with the above information.</div>
+        <div class="mainPortalPage">
+            <div class="frontContent">
+                <h1 th:text="${title}">Error</h1>
+                <p class="alert alert-error">Error:
+                    something went wrong. We are sorry for the inconvenience.</p>
+                <div th:text="${message}">Fake content</div>
+                <div>Please contact the operator with the above information.</div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

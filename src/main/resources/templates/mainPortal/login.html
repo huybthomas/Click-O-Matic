@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{login.title})"></head>
+<head>
+    <style>
+        .frontContent
+        {
+            padding-top: 10%;
+            padding-left: 10%;
+            padding-bottom: 10%
+        }
+    </style>
+</head>
+
 <body onload="document.loginForm.username.focus();">
     <div class="container">
         <!-- Import navigation bar -->

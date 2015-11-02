@@ -80,7 +80,12 @@ public class DatabaseLoader
         roles.add(administrator);
         u3.setRoles(roles);
 
-        User u4 = new User("Tester", "De Test", "tester", "test");
+        User u4 = new User("Timothy", "Verstraete", "timothy.verstraete", "test");
+        roles = new ArrayList<>();
+        roles.add(administrator);
+        u3.setRoles(roles);
+
+        User u5 = new User("Tester", "De Test", "tester", "test");
         roles = new ArrayList<>();
         roles.add(tester);
         u4.setRoles(roles);
