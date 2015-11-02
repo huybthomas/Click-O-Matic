@@ -6,14 +6,6 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <div class="navbar">
-            <div class="navbar-inner">
-                <ul class="nav">
-                    <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
-                    <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
-                </ul>
-            </div>
-        </div>
         <h1 th:text="${title}">Error</h1>
         <p class="alert alert-error">Access denied:
             you do not have permission for that resource</p>
