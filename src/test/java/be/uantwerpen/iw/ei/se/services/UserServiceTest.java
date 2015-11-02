@@ -19,6 +19,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import static junit.framework.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,16 +66,45 @@ public class UserServiceTest {
         userList = new ArrayList<User>();
         userList.add(u1);
         userList.add(u2);
-
         MockitoAnnotations.initMocks(this);
+        userService.add(userList.get(0));
     }
 
     //Adds user with help of the userService, checks if it's really in there.
     @Test
     public void addUser()
     {
-        userService.add(userList.get(0));
-        userService.findByUserName("Captain");
+        userService.add(userList.get(1));
+        userService.findByUserName("Antman");
+    }
+
+    @Test
+    public void checkExistingName()
+    {
+        assertTrue(userService.usernameAlreadyExists("Captain"));
+    }
+
+    @Test
+    public void checkNotExistingName() {
+        assertTrue(!userService.usernameAlreadyExists("Spiderman"));
+    }
+
+    @Test
+    public void checkDuplicate()
+    {
+        User u3 = new User("Tony", "Stark");
+        u3.setUserName("Captain");
+        u3.setPassword("ArkReactor");
+        assertTrue(!userService.add(u3));
+    }
+
+    @Test
+    public void checkNotDuplicate()
+    {
+        User u3 = new User("Tony", "Stark");
+        u3.setUserName("IronMan");
+        u3.setPassword("ArkReactor");
+        assertTrue(userService.add(u3));
     }
 
 }
