@@ -1,7 +1,9 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
+import be.uantwerpen.iw.ei.se.services.RoleService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +31,9 @@ public class UsersControllerTests
     @Mock
     private UserService userService;
 
+    @Mock
+    private RoleService roleService;
+
     @InjectMocks
     private UsersController usersController;
 
@@ -37,11 +42,13 @@ public class UsersControllerTests
     User principalUser;
     User testUser;
     Iterable<User> users;
+    Iterable<Role> roles;
 
     @Before
     public void setup()
     {
         List<User> userList = new ArrayList<User>();
+        List<Role> rolesList = new ArrayList<Role>();
 
         // Create principal user and test user
         principalUser = new User("Test", "User", "testusername", "test");
@@ -51,6 +58,7 @@ public class UsersControllerTests
         userList.add(testUser);
 
         users = (Iterable<User>) userList;
+        roles = (Iterable<Role>) rolesList;
 
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(usersController).build();
@@ -69,7 +77,8 @@ public class UsersControllerTests
     {
         when(userService.findByUserName("userName")).thenReturn(principalUser);
         when(userService.findAll()).thenReturn(users);
+        when(roleService.findAll()).thenReturn(roles);
 
-        mockMvc.perform(get("/users/userName/")).andExpect(view().name("mainPortal/profile"));
+        mockMvc.perform(get("/users/userName/")).andExpect(view().name("mainPortal/user-profile"));
     }
 }
