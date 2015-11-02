@@ -89,22 +89,6 @@ public class UserService
         return null;
     }
 
-    public boolean isDuplicatedUsername(final User user)
-    {
-        List<User> users = userRepository.findAll();
-
-        for(User userIt : users)
-        {
-            if(userIt.getUserName().equals(user.getUserName()) && !userIt.getId().equals(user.getId()))
-            {
-                //Two different user objects with the same username
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public boolean usernameAlreadyExists(final String username)
     {
         List<User> users = userRepository.findAll();
@@ -113,6 +97,22 @@ public class UserService
         {
             if(userIt.getUserName().equals(username))
             {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isDuplicatedUsername(final User user)
+    {
+        List<User> users = userRepository.findAll();
+
+        for(User userIt : users)
+        {
+            if(userIt.getUserName().equals(user.getUserName()) && !userIt.getId().equals(user.getId()))
+            {
+                //Two different user objects with the same username
                 return true;
             }
         }
