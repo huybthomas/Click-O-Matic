@@ -16,12 +16,12 @@
             </div>
         </div>
         <div>
-            <table>
+            <table class="table">
                 <tr th:each="u : ${allUsers}">
                     <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>
                     <td th:text="${u.userName}"/>
-                    <td th:text="'/users/' + ${u.userName} + '/'"/>
-                    <td><a th:href="@{'/users/'+${u.userName}+'/'}">edit knopke, if permitted (researcher kan geen admin of andere researcher aanpassen)</a></td>
+                    <td><a th:href="@{'/users/'+${u.userName}+'/'}"><span class="glyphicon glyphicon-pencil" title="edit user"></span></a></td>
+                    <td><a th:href="@{'/users/'+${u.userName}+'/delete'}"><span class="glyphicon glyphicon-remove" title="delete"></span></a></td>
                 </tr>
             </table>
         </div>

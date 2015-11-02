@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.services.RoleService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,9 @@ public class UsersController
 {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @ModelAttribute("currentUser")
     public User getCurrentUser()
@@ -48,15 +52,23 @@ public class UsersController
     {
         try
         {
-            User user = userService.findByUserName(userName);
-            model.addAttribute("user", user);
-            return "mainPortal/profile";
+            model.addAttribute("user", userService.findByUserName(userName));
+            model.addAttribute("allRoles", roleService.findAll());
+            return "mainPortal/user-profile";
         }
         catch(UsernameNotFoundException e)
         {
             model.addAttribute("user", null);
             return "mainPortal/users/";
         }
+    }
+
+    @RequestMapping(value="/users/{userName}/delete")
+    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
+    public String deleteUser(@PathVariable String userName, ModelMap model){
+        userService.delete(userName);
+        model.clear();
+        return "redirect:/users/";
     }
 
 }

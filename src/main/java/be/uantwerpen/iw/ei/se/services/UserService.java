@@ -58,9 +58,10 @@ public class UserService
         this.userRepository.save(user);
     }
 
-    public void delete(Long id)
+    public void delete(String userName)
     {
-        this.userRepository.delete(id);
+        User u = findByUserName(userName);
+        this.userRepository.delete(u.getId());
     }
 
     public User findByUserName(String userName)
