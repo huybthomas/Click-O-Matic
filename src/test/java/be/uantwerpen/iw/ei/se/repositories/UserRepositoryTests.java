@@ -32,7 +32,7 @@ public class UserRepositoryTests
     @Before
     public void setup()
     {
-       origUserRepositorySize = (int)userRepository.count();
+        origUserRepositorySize = (int)userRepository.count();
     }
 
     @Test
@@ -45,7 +45,7 @@ public class UserRepositoryTests
         user.setLastName("lastname");
         user.setPassword("test");
 
-        //Save product, verify has ID value after save
+        //Save user, verify has ID value after save
         assertNull(user.getId());       //Null before save
         userRepository.save(user);
         assertNotNull(user.getId());    //Not null after save
@@ -84,5 +84,36 @@ public class UserRepositoryTests
 
         //There are originally 'origUserRepositorySize' users declared in the database (+1 has been added in this test)
         assertEquals(count, origUserRepositorySize + 1);
+    }
+
+    @Test
+    public void testDeleteUser()
+    {
+        //Setup user
+        User user = new User();
+        user.setUserName("TestDeleteName");
+        user.setFirstName("firstname");
+        user.setLastName("lastname");
+        user.setPassword("test");
+
+        //Save user, verify has ID value after save
+        assertNull(user.getId());       //Null before save
+        userRepository.save(user);
+        assertNotNull(user.getId());    //Not null after save
+
+        //Fetch from database
+        User fetchedUser = userRepository.findOne(user.getId());
+
+        //Should not be null
+        assertNotNull(fetchedUser);
+
+        //Delete user from database
+        userRepository.delete(fetchedUser.getId());
+
+        //Fetch from database (should not exist anymore)
+        fetchedUser = userRepository.findOne(user.getId());
+
+        //Should be null
+        assertNull(fetchedUser);
     }
 }
