@@ -6,14 +6,6 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <div class="navbar">
-            <div class="navbar-inner">
-                <ul class="nav">
-                    <li><a th:href="@{/}" href="homepage.html" th:text="#{navbar.home}">Home</a></li>
-                    <li><a th:href="@{/logout}" href="login.html" th:text="#{navbar.logout}">Logout</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="content">
             <p th:if="${param.success}" class="alert" th:text="#{registration.alerts.success}">New user has been created</p>
             <p th:if="${param.error}" class="alert alert-error" th:text="#{registration.alerts.error}">There was an error, please try again</p>
