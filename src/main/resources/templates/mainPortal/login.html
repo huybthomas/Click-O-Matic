@@ -6,7 +6,7 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <div class="loginBackground">
+        <div class="loginPage">
             <div class="messagesContent">
                 <div th:if="${param.logout}" class="alert alert-success" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -21,27 +21,37 @@
             </div>
             <div class="frontContent">
                 <div class="content" id="content">
-                    <div class="loginFormBorder">
-                        <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
-                            <div class="input-group">
-                                <span class="input-group-addon" th:text="#{login.username}" id="usernameAddon">username</span>
-                                <input type="text" class="form-control" id="username" name="username" value="" th:placeholder="#{login.username}" aria-describedby="usernameAddon"/>
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="loginFormBorder">
+                                <form name="loginForm" th:action="@{/login}" action="/login" method="POST">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" th:text="#{login.username}" id="usernameAddon">username</span>
+                                        <input type="text" class="form-control" id="username" name="username" value="" th:placeholder="#{login.username}" aria-describedby="usernameAddon"/>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" th:text="#{login.password}" id="passwordAddon">password</span>
+                                        <input type="password" class="form-control" id="password" name="password" th:placeholder="#{login.password}" aria-describedby="passwordAddon"/>
+                                    </div>
+                                    <div class="btn-group btn-group-lg">
+                                        <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary" style="margin-top:10px"/>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" th:text="#{login.password}" id="passwordAddon">password</span>
-                                <input type="password" class="form-control" id="password" name="password" th:placeholder="#{login.password}" aria-describedby="passwordAddon"/>
-                            </div>
-                            <div class="btn-group btn-group-lg">
-                                <input type="submit" id="login" th:value="#{login.login}" class="btn btn-primary" style="margin-top:10px"/>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="media-right media-middle">
+                            <img class="media-object" src="/images/loginAppLogo.png" style="width:auto; height:auto; max-width:75%; max-height: 100%"/>
+                        </div>
                     </div>
                 </div>
-                <div class="languageselect">
+                <div class="languageselect" style="margin-top:20px">
                     <span th:text="#{languageselect.languages}">Languages</span>:
                     <a href="?lang=en" th:text="#{languageselect.english}">English</a> -
                     <a href="?lang=nl" th:text="#{languageselect.dutch}">Dutch</a>
                 </div>
+            </div>
+            <div class="companyLogoLogin">
+                <img src="/images/companyLogo.png" style="width:150px; height:auto;"/>
             </div>
         </div>
     </div>
