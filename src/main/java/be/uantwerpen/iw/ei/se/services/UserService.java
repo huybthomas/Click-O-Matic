@@ -64,6 +64,22 @@ public class UserService
         this.userRepository.delete(u.getId());
     }
 
+    public void save(User user)
+    {
+        for(User u : findAll())
+        {
+            if(u.getId() == user.getId())
+            {
+                u.setFirstName(user.getFirstName());
+                u.setLastName(user.getLastName());
+                u.setUserName(user.getUserName());
+                u.setPassword(user.getPassword());
+                u.setRoles(user.getRoles());
+                userRepository.save(u);
+            }
+        }
+    }
+
     public User findByUserName(String userName)
     {
         return userRepository.findByUserName(userName);

@@ -27,8 +27,9 @@
                 </ul>
             </div>
         </div>
-        <div class="content" th:object="${user}">
-            <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
+        <div class="content">
+            <form action="#" th:action="@{/users/user.username/}" method="post" th:object="${user}" th:if="${user}">
+                <input th:type="hidden" th:field="*{id}"/>
 
                 <div class="container">
 
@@ -52,18 +53,18 @@
                         <tr>
                             <td th:text="#{users.oldPassword}">password</td>
                             <td><input type="password" th:field="*{password}"/></td>
-                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td th:text="#{users.newPassword}">password</td>
                             <td><input type="password" th:field="*{password}"/></td>
-                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                         </tr>
                         <tr>
                             <td th:text="#{users.newPasswordRepeat}">password</td>
                             <td><input type="password" th:field="*{password}"/></td>
-                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-                        </tr>
+                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                        </tr> -->
                     </table>
 
                     <h3 class="sub-header" th:text="#{roles}" style="vertical-align: top"></h3>
@@ -75,7 +76,7 @@
                     </select>
                 </div>
 
-                <p class="centered">
+                <p>
                     <a href="/users" th:text="#{back}" class="btn btn-primary">Back</a>
                     <button type="submit" th:text="#{save}" class="btn btn-primary">Save</button>
                 </p>

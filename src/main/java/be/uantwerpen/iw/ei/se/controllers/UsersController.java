@@ -10,8 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class UsersController
 
     @RequestMapping({"/users"})
     @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
-    public String showViewUsers(ModelMap model)
+    public String showViewUsers(final ModelMap model)
     {
         return "mainPortal/users";
     }
@@ -48,7 +50,7 @@ public class UsersController
 
     @RequestMapping(value="/users/{userName}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
-    public String editUserForm(@PathVariable String userName, ModelMap model)
+    public String editUserForm(@PathVariable String userName, final ModelMap model)
     {
         try
         {
@@ -63,12 +65,25 @@ public class UsersController
         }
     }
 
+    @RequestMapping(value={"/users/{userName}/"}, method= RequestMethod.POST)
+    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
+    public String saveUser(@Valid User user, BindingResult result, final ModelMap model){
+        if(result.hasErrors()){
+            model.addAttribute("allRoles", roleService.findAll());
+            return "mainPortal/user-profile";
+        }
+        System.out.println("Qtest: " + user.getId());
+        userService.save(user);
+        return "redirect:/users";
+    }
+
     @RequestMapping(value="/users/{userName}/delete")
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
-    public String deleteUser(@PathVariable String userName, ModelMap model){
+    public String deleteUser(@PathVariable String userName, final ModelMap model){
         userService.delete(userName);
         model.clear();
         return "redirect:/users/";
     }
+
 
 }
