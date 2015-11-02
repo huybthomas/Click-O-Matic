@@ -31,7 +31,8 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
 @WebAppConfiguration
-public class UserServiceTest {
+public class UserServiceTest
+{
     @Autowired
     UserService userService;
 
@@ -85,7 +86,8 @@ public class UserServiceTest {
     }
 
     @Test
-    public void checkNotExistingName() {
+    public void checkNotExistingName()
+    {
         assertTrue(!userService.usernameAlreadyExists("Spiderman"));
     }
 
@@ -106,5 +108,4 @@ public class UserServiceTest {
         u3.setPassword("ArkReactor");
         assertTrue(userService.add(u3));
     }
-
 }

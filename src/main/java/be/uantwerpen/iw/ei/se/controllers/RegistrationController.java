@@ -53,17 +53,7 @@ public class RegistrationController
             roles.add(tester);
             user.setRoles(roles);
 
-            boolean userNameMatch = false;
-            Iterator<User> userIterator = userService.findAll().iterator();
-            while(userIterator.hasNext() && !userNameMatch)
-            {
-                if(userIterator.next().getUserName().equals(user.getUserName()))
-                {
-                    userNameMatch = true;
-                }
-            }
-
-            if(userNameMatch)
+            if(userService.usernameAlreadyExists(user.getUserName()))
             {
                 return "redirect:/registration?errorAlreadyExists";
             }
