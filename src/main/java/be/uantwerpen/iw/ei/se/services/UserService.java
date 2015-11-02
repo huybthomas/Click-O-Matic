@@ -75,6 +75,7 @@ public class UserService
         return userRepository.findByUserName(userName);
     }
 
+    //Get logged in users
     public User getPrincipalUser()
     {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
