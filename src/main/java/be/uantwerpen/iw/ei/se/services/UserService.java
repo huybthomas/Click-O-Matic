@@ -39,8 +39,13 @@ public class UserService
         return this.userRepository.findAll();
     }
 
-    public void add(final User user)
+    public boolean add(final User user)
     {
+        if(isDuplicatedUsername(user))
+        {
+            return false;
+        }
+
         List <Role> roles = user.getRoles();
 
         for(Role role : roles)
@@ -56,6 +61,8 @@ public class UserService
         }
 
         this.userRepository.save(user);
+
+        return true;
     }
 
     public void delete(Long id)
@@ -80,5 +87,36 @@ public class UserService
             }
         }
         return null;
+    }
+
+    public boolean usernameAlreadyExists(final String username)
+    {
+        List<User> users = userRepository.findAll();
+
+        for(User userIt : users)
+        {
+            if(userIt.getUserName().equals(username))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isDuplicatedUsername(final User user)
+    {
+        List<User> users = userRepository.findAll();
+
+        for(User userIt : users)
+        {
+            if(userIt.getUserName().equals(user.getUserName()) && !userIt.getId().equals(user.getId()))
+            {
+                //Two different user objects with the same username
+                return true;
+            }
+        }
+
+        return false;
     }
 }
