@@ -33,7 +33,7 @@ public class PermissionFormatterTests
 
         MockitoAnnotations.initMocks(this);
     }
-
+/*
     @Test
     public void parserTest()
     {
@@ -46,5 +46,5 @@ public class PermissionFormatterTests
     public void toStringTest()
     {
 
-    }
+    }*/
 }
