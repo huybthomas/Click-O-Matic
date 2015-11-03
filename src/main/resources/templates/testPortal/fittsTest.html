@@ -2,23 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="testPortal/layout :: head (pageTitle=#{login.title})"></head>
 <head>
-
+    <!-- Included scripts -->
+    <script type="text/javascript" src="js/fittsTest/FittsDot.js"></script>
+    <script type="text/javascript" src="js/fittsTest/FittsTest.js"></script>
 </head>
 
 <body>
-<div class="container">
-    <!-- Import navigation bar -->
-    <div th:replace="testPortal/layout :: navbar"></div>
+    <div class="container">
+        <!-- Import navigation bar -->
+        <div th:replace="testPortal/layout :: navbar"></div>
 
-    <!-- Fitts test -->
-    <canvas id="FitssCanvas" width="1200" height="640">
-        <script src="js/fittsTest/FittsTestMain.js"></script>
-    </canvas>
+        <!-- Fitts test -->
+        <canvas id="FittsCanvas" width="1200" height="640"></canvas>
 
 
-</div>
+    </div>
 
-<!-- Import footer -->
-<div th:replace="testPortal/layout :: footer"></div>
+    <!-- Import footer -->
+    <div th:replace="testPortal/layout :: footer"></div>
+
+    <!-- Load Fitts Test script -->
+    <script type="text/javascript" src="js/fittsTest/FittsTestMain.js"></script>
 </body>
 </html>

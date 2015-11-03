@@ -4,13 +4,33 @@
 var canvas = document.getElementById("FittsCanvas");
 var context = canvas.getContext("2d");
 
-context.beginPath();
-context.rect(20, 40, 50, 50);
-context.fillStyle = "FF0000";
-context.fill();
-context.closePath();
+//Start test initialization
+FittsTestMain();
+
+function FittsTestMain()
+{
+    this.test = new FittsTest(10, 10, 30);
+    initializeTest();
+}
+
+function initializeTest()
+{
+    this.test.initializeDots();
+
+    //Set draw interval (10 ms)
+    setInterval(draw, 10);
+}
 
 function draw()
 {
+    //Clear frame
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    //Draw position circle
+
+    //Draw target circles
+    this.test.drawDots(context);
+
+    //Draw tracking path
 
 }
