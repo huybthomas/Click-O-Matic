@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<!-- Uniform header layout -->
+<head th:fragment="head (pageTitle)">
+    <title th:text="${pageTitle} + ' - ' + #{application.title}"></title>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+    <style>
+        html, body
+        {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            border: 0;
+            overflow: hidden;   /*Disable scrollbars*/
+            display: block;     /*No floating content on sides*/
+        }
+        .loginPage
+        {
+            border-radius: 0px 0px 0px 300px;
+            background: #8ED6FF;
+            height: 100%;
+            width: 100%;
+        }
+        .loginFormBorder
+        {
+            background: white;
+            height: 400px;
+            width: 400px;
+            border-radius: 50%;
+            text-align: center;
+            padding-top: 160px;
+            padding-left: 50px;
+            padding-right: 50px
+        }
+        .mainPortalPage
+        {
+            border-radius: 0px 300px 0px 0px;
+            /*background: #8ED6FF;*/
+            height: 100%;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<!-- Uniform navigationbar layout -->
+<div th:fragment="navbar">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Application logo and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="padding:0px 15px; margin-top:0px; height:50px"><img alt="Brand" src="/images/appLogo.png" style="max-height:100%; height:100%; max-width:100%; width:auto; margin:0 auto; -o-object-fit:contain; object-fit:contain"/></a>
+            </div>
+
+            <!-- Collect the navigation links, forms and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li sec:authorize="!hasRole('logon')"><a th:href="@{/login}" href="login.html"><span class="glyphicon glyphicon-log-in"></span><span> </span><span th:text="#{navbar.login}">Login</span></a></li>
+                    <li sec:authorize="hasRole('logon')"><a href="/"><span class="glyphicon glyphicon-home"></span><span> </span><span th:text="#{navbar.home}">Home</span></a></li>
+                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/users"><span class="glyphicon glyphicon-user"></span><span> </span><span th:text="#{navbar.users}">Users</span></a></li>
+                    <li sec:authorize="hasRole('logon')"><a th:href="@{/logout}" href="login.html"><span class="glyphicon glyphicon-log-out"></span><span> </span><span th:text="#{navbar.logout}">Logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Uniform footer layout -->
+<div th:fragment="footer">
+    <footer class="footer navbar-fixed-bottom" style="padding:2em; margin-top:1em; position:absolute; bottom:0; height:20px">
+        <div class="small text-center">
+            <p class="text-muted" th:text="'&copy;2015 iMaginelab, Inc. - ' + #{footer.currently} + ' v.' + #{application.version.main} + '.' + #{application.version.minor}">Footer text</p>
+        </div>
+    </footer>
+</div>
+</html>
