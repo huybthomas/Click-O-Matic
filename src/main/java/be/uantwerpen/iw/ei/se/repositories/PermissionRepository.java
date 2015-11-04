@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-// De bedoeling van een Permission Repository is om de persistantie te testen, maw of alle data goed toekomt, gebruikt word en opgehaald word
+// De bedoeling van een Permission Repository is om de persistantie te testen, maw of alle data goed toekomt, gebruikt wordt en opgehaald word
 @Repository
 public class PermissionRepository {
     private final List<Permission> permissions_patient      = new ArrayList();
