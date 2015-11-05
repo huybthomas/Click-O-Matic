@@ -5,17 +5,21 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 {
     this.numberOfDots = numberOfDots;
     this.dotsSize = dotsSize;
-    this.dotDistance = dotDistance;
+    this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
     this.dotLColor = "gray";
     this.dotsList = [];
 
     this.initializeDots = function()
     {
+
+        var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
+        var centreX = (canvas.width)/2;                  // middelpunt blijft centraal
+        var centreY = (canvas.height)/2;
         for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
-            this.dotsList[i].setPosition(i * 20, i * 20);
+            this.dotsList[i].setPosition((this.dotDistance * Math.cos((angle*i)) + centreX), (this.dotDistance*Math.sin(angle*i)+ centreY));
         }
 
         this.dotsList[5].setTarget(true);

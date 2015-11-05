@@ -9,7 +9,7 @@ FittsTestMain();
 
 function FittsTestMain()
 {
-    this.test = new FittsTest(10, 10, 30); // FittsTest(numberOfDots,dotSize,dotDistance)
+    this.test = new FittsTest(10, 10, 100); // FittsTest(numberOfDots,dotSize,dotDistance)
     initializeTest();
 }
 
