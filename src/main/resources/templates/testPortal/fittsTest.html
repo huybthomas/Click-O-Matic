@@ -3,8 +3,8 @@
 <head th:replace="testPortal/layout :: head (pageTitle=#{login.title})"></head>
 <head>
     <!-- Included scripts -->
-    <script type="text/javascript" src="js/fittsTest/FittsDot.js"></script>
-    <script type="text/javascript" src="js/fittsTest/FittsTest.js"></script>
+    <script type="text/javascript" th:src="'js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </head>
 
 <body>
@@ -12,16 +12,16 @@
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
 
-        <!-- Fitts test -->
-        <canvas id="FittsCanvas" width="1200" height="640"></canvas>
-
-
+        <div class="frontContent">
+            <!-- Fitts test -->
+            <canvas id="FittsCanvas" width="1200" height="640"></canvas>
+        </div>
     </div>
 
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
     <!-- Load Fitts Test script -->
-    <script type="text/javascript" src="js/fittsTest/FittsTestMain.js"></script>
+    <script type="text/javascript" th:src="'js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </body>
 </html>
