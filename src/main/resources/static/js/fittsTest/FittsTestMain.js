@@ -26,6 +26,9 @@ function draw()
     //Clear frame
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    //Draw border
+
+
     //Draw position circle
 
     //Draw target circles
