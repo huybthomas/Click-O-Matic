@@ -1,50 +1,63 @@
 package be.uantwerpen.iw.ei.se.formatters;
 
+import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import static org.mockito.Mockito.when;
+import java.text.ParseException;
+import java.util.Locale;
+
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by Thomas on 02/11/2015.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
+@WebAppConfiguration
 public class PermissionFormatterTests
 {
-    @InjectMocks
+    @Autowired
     PermissionFormatter permissionFormatter;
 
-    @Mock
+    @Autowired
     PermissionRepository permissionRepository;
 
     Permission permission;
+    Locale locale;
 
     @Before
     public void init()
     {
-        Permission permission = new Permission("logon");
+        permission = new Permission("formatterTest");
 
-        MockitoAnnotations.initMocks(this);
+        permissionRepository.save(permission);
+
+        locale = new Locale("default");
     }
-/*
-    @Test
-    public void parserTest()
-    {
-        when(permissionRepository.findOne(new Long(permission.getName()))).thenReturn(permission);
 
-     //   permissionFormatter.parse();
+    @Test
+    public void parserTest() throws ParseException
+    {
+        Permission parserPermission = new Permission();
+
+        parserPermission = permissionFormatter.parse(permission.getId().toString(), locale);
+
+        assertTrue(parserPermission.equals(permission));
     }
 
     @Test
     public void toStringTest()
     {
+        String parsedString = permissionFormatter.print(permission, locale);
 
-    }*/
+        assertTrue(parsedString.equals(permission.getId().toString()));
+    }
 }
