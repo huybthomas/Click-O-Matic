@@ -14,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.AbstractBindingResult;
 import org.springframework.validation.BindingResult;
 
 import javax.servlet.Registration;

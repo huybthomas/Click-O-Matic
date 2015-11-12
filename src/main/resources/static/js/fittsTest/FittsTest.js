@@ -8,14 +8,28 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
     this.dotLColor = "gray";
+    this.backCircleColor = "blue";
     this.dotsList = [];
+    this.backCircle = {};
+
+    this.initializeTest = function(canvas)
+    {
+        this.initializeDots();
+
+        this.repositionTest(canvas);
+    }
+
+    this.repositionTest = function(canvas)
+    {
+
+    }
 
     this.initializeDots = function()
     {
-
         var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
-        var centreX = (canvas.width)/2;                  // middelpunt blijft centraal
+        var centreX = (canvas.width)/2;                   // middelpunt blijft centraal
         var centreY = (canvas.height)/2;
+
         for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
@@ -30,14 +44,25 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         this.dotsSize = dotsSize;
     }
 
-    this.setDotColor = function(dotColor)
+    this.setDotColor = function(dotHColor, dotLColor)
     {
-        this.dotColor = dotColor;
+        this.dotHColor = dotHColor;
+        this.dotLColor = dotLColor;
+    }
+
+    this.setBackCircleColor = function(backCircleColor)
+    {
+        this.backCircleColor = backCircleColor;
     }
 
     this.setDistance = function(dotDistance)
     {
         this.dotDistance = dotDistance;
+    }
+
+    this.drawBackCircle = function(context)
+    {
+
     }
 
     this.drawDots = function(context)

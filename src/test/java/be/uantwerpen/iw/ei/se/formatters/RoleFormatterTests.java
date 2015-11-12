@@ -1,8 +1,8 @@
 package be.uantwerpen.iw.ei.se.formatters;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
-import be.uantwerpen.iw.ei.se.models.Permission;
-import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
+import be.uantwerpen.iw.ei.se.models.Role;
+import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,28 +17,28 @@ import java.util.Locale;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created by Thomas on 02/11/2015.
+ * Created by Thomas on 09/11/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
 @WebAppConfiguration
-public class PermissionFormatterTests
+public class RoleFormatterTests
 {
     @Autowired
-    PermissionFormatter permissionFormatter;
+    RoleFormatter roleFormatter;
 
     @Autowired
-    PermissionRepository permissionRepository;
+    RoleRepository roleRepository;
 
-    Permission permission;
+    Role role;
     Locale locale;
 
     @Before
     public void init()
     {
-        permission = new Permission("formatterTest");
+        role = new Role("formatterTest");
 
-        permissionRepository.save(permission);
+        roleRepository.save(role);
 
         locale = new Locale("default");
     }
@@ -46,18 +46,18 @@ public class PermissionFormatterTests
     @Test
     public void parserTest() throws ParseException
     {
-        Permission parserPermission = new Permission();
+        Role parserRole = new Role();
 
-        parserPermission = permissionFormatter.parse(permission.getId().toString(), locale);
+        parserRole = roleFormatter.parse(role.getId().toString(), locale);
 
-        assertTrue(parserPermission.equals(permission));
+        assertTrue(parserRole.equals(role));
     }
 
     @Test
     public void toStringTest()
     {
-        String parsedString = permissionFormatter.print(permission, locale);
+        String parsedString = roleFormatter.print(role, locale);
 
-        assertTrue(parsedString.equals(permission.getId().toString()));
+        assertTrue(parsedString.equals(role.getId().toString()));
     }
 }
