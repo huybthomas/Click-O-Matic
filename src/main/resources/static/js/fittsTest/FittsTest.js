@@ -12,9 +12,9 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotsList = [];
     this.backCircle = {};
 
-    this.initializeTest = function(canvas)
+    this.initialize = function(canvas)
     {
-        this.initializeDots();
+        this.initializeDots(canvas);
 
         this.repositionTest(canvas);
     }
@@ -24,7 +24,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     }
 
-    this.initializeDots = function()
+    this.initializeDots = function(canvas)
     {
         var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
         var centreX = (canvas.width)/2;                   // middelpunt blijft centraal
@@ -33,10 +33,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
-            this.dotsList[i].setPosition((this.dotDistance * Math.cos((angle*i)) + centreX), (this.dotDistance*Math.sin(angle*i)+ centreY));
+            this.dotsList[i].setPosition((this.dotDistance * Math.sin((angle*i)) + centreX), (this.dotDistance*Math.cos(angle*i)+ centreY));
         }
-
-        this.dotsList[5].setTarget(true);
     }
 
     this.setDotsSize = function(dotsSize)

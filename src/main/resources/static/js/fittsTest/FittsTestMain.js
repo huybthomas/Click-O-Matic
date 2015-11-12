@@ -9,16 +9,24 @@ FittsTestMain();
 
 function FittsTestMain()
 {
-    this.test = new FittsTest(10, 10, 100); // FittsTest(numberOfDots,dotSize,dotDistance)
+    this.test = new FittsTest(10, 25, 150); // FittsTest(numberOfDots,dotSize,dotDistance)
+
+    this.test.initialize(canvas);
+
     initializeTest();
 }
 
 function initializeTest()
 {
-    this.test.initializeDots();
-
     //Set draw interval (10 ms)
     setInterval(draw, 10);
+
+    //Set event listeners
+    //Cursor movement
+    canvas.addEventListener("mousemove", cursorEvent(event), false);
+
+    //Cursor click
+    canvas.addEventListener("click", cursorEvent(event), false);
 }
 
 function draw()
@@ -36,4 +44,25 @@ function draw()
 
     //Draw tracking path
 
+}
+
+function cursorEvent(event)
+{
+    var cursorPosition = getCursorPosition(event);
+    var message = "Cursor x:" + cursorPosition.x + " y:" + cursorPosition.y;
+
+    context.font = "12px Arial";
+    context.fillStyle = "black";
+    context.fillText(message, 10, 25);
+}
+
+function getCursorPosition(event)
+{
+    var rect = canvas.getBoundingClientRect();
+
+    return
+    {
+        x: event.clientX - rect.left;
+        y: event.clientY - rect.top
+    };
 }
