@@ -1,9 +1,9 @@
-package be.uantwerpen.iw.ei.se.models;
+package be.uantwerpen.iw.ei.se.fittsTest.models;
 
 /**
  * Created by dries on 3/11/2015.
  */
-public class FittsTest
+public class FittsResult
 {
     private double movementTime;
     //standaard afwijking van selected coord to target
