@@ -22,6 +22,10 @@ public class FittsResult
     public void FittsTest()
     {
         //empty FittsTest
+        this.movementTime = -1;
+        this.Sx = -1;
+        this.distance = -1;
+        this.throughput = -1;
     }
 
     public void FittsTest(double time, double Sx, double d, double throughput)
