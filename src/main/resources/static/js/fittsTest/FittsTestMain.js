@@ -9,7 +9,7 @@ FittsTestMain();
 
 function FittsTestMain()
 {
-    this.test = new FittsTest(10, 10, 100); // FittsTest(numberOfDots,dotSize,dotDistance)
+    this.test = new FittsTest(9, 10, 100); // FittsTest(numberOfDots (enkel oneven),dotSize,dotDistance)
     initializeTest();
 }
 
