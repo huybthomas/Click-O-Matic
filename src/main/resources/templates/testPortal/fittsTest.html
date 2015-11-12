@@ -8,20 +8,24 @@
 </head>
 
 <body>
+
     <div class="container">
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
 
-        <!-- Fitts test -->
-        <canvas id="FittsCanvas" width="1200" height="640"></canvas>
-
-
+        <div class="mainPortalPage">
+            <div class="loginFormBorder">
+            <!-- Fitts test -->
+            <canvas id="FittsCanvas" width="1200" height="640"></canvas>
+            </div>
+        </div>
     </div>
 
-    <!-- Import footer -->
-    <div th:replace="testPortal/layout :: footer"></div>
 
-    <!-- Load Fitts Test script -->
-    <script type="text/javascript" src="js/fittsTest/FittsTestMain.js"></script>
+        <!-- Import footer -->
+        <div th:replace="testPortal/layout :: footer"></div>
+
+        <!-- Load Fitts Test script -->
+        <script type="text/javascript" src="js/fittsTest/FittsTestMain.js"></script>
 </body>
 </html>
