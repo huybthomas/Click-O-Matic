@@ -33,7 +33,7 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd50787b-2219-465b-9b39-a1fcf46a3633" name="Default" comment="The placement of the objects in a circle on the screen.&#10;With variable radius so we can change distance between the objects.&#10;">
+    <list default="true" id="dd50787b-2219-465b-9b39-a1fcf46a3633" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Click-O-Matic.iws" />
@@ -1013,7 +1013,7 @@
       <workItem from="1445864196046" duration="2537000" />
       <workItem from="1445886823012" duration="1773000" />
       <workItem from="1446717110147" duration="6498000" />
-      <workItem from="1447321336140" duration="1535000" />
+      <workItem from="1447321336140" duration="1546000" />
     </task>
     <task id="LOCAL-00001" summary="Initial project commit">
       <created>1444494348874</created>
@@ -1081,11 +1081,17 @@
       <option name="project" value="LOCAL" />
       <updated>1447322876817</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="The placement of the objects in a circle on the screen.&#10;With variable radius so we can change distance between the objects.&#10;">
+      <created>1447322890782</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1447322890782</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51344000" />
+    <option name="totallyTimeSpent" value="51355000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1168,9 +1174,9 @@
     <MESSAGE value="Added new dependency to Maven:&#10;pom.xml&#10; + starter-thymeleaf&#10; + starter-security&#10; + thymeleaf-extras-springsecurity3 (version: 2.1.1.RELEASE)" />
     <MESSAGE value="Setup base login system and 'Hello world' display&#10;&#10;Added:&#10; + Permission&#10; + Role&#10; + homepage.html&#10; + messages.properties&#10; &#10; + Added roles (with include a list of permissions) to the User class&#10; &#10; Mapping of /homepage to mainPortal/homepage.html&#10; /homepage is the base login page and start page (root: /)&#10;" />
     <MESSAGE value="UserManagement, nog bugs. NOG NIET MEE MERGEN&#10;" />
-    <MESSAGE value="The placement of the objects in a circle on the screen.&#10;With variable radius so we can change distance between the objects.&#10;" />
     <MESSAGE value="Start of the new branch for Timo en Dries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start of the new branch for Timo en Dries" />
+    <MESSAGE value="The placement of the objects in a circle on the screen.&#10;With variable radius so we can change distance between the objects.&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="The placement of the objects in a circle on the screen.&#10;With variable radius so we can change distance between the objects.&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
