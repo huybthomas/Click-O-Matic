@@ -66,7 +66,7 @@ public class UsersController
 
     @RequestMapping(value={"/users"}, method= RequestMethod.POST)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
-    public String saveUser(@Valid User user, BindingResult result, final ModelMap model)
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors()){
             model.addAttribute("allRoles", roleService.findAll());

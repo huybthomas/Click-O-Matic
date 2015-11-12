@@ -30,6 +30,7 @@
                 <div class="content">
                     <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
                         <input th:type="hidden" th:field="*{id}"/>
+                        <input th:type="hidden" th:field="*{password}"/>
 
                         <div class="container">
 
@@ -54,12 +55,12 @@
                                     <td><input type="text" th:field="*{userName}"/></td>
                                     <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
                                 </tr>
-                                <tr>
-                                    <td th:text="#{users.oldPassword}">password</td>
+                                <!--tr>
+                                    <td th:text="#{users.newPassword}">password</td>
                                     <td><input type="password" th:field="*{password}"/></td>
                                     <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <td th:text="#{users.newPassword}">password</td>
                                     <td><input type="password" th:field="*{password}"/></td>
                                     <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
