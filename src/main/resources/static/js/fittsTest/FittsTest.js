@@ -34,6 +34,9 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         {
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
             this.dotsList[i].setPosition((this.dotDistance * Math.cos((angle*i)) + centreX), (this.dotDistance*Math.sin(angle*i)+ centreY));
+           //document.getElementById("FittsDot").onClick = function(){alert('Click')};
+            document.elementFromPoint(20,20).onclick=function(){alert('Click!')};
+
         }
 
         this.dotsList[5].setTarget(true);
@@ -89,3 +92,4 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         }
     }
 }
+
