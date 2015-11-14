@@ -3,8 +3,8 @@
 <head th:replace="testPortal/layout :: head (pageTitle=#{fittstest.title})"></head>
 <head>
     <!-- Included scripts -->
-    <script type="text/javascript" th:src="'js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
-    <script type="text/javascript" th:src="'js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </head>
 
 <body>
@@ -22,6 +22,6 @@
     <div th:replace="testPortal/layout :: footer"></div>
 
     <!-- Load Fitts Test script -->
-    <script type="text/javascript" th:src="'js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}" th:testAttr="${runningTest}"></script>
 </body>
 </html>
