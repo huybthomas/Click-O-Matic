@@ -8,7 +8,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
     this.dotLColor = "gray";
-    this.current = 5;
+    this.currentTarget = 0;
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -34,7 +34,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
-            this.dotsList[i].setPosition((this.dotDistance * Math.sin((angle*i)) + centreX), (this.dotDistance*Math.cos(angle*i)+ centreY));
+            this.dotsList[i].setPosition((-this.dotDistance * Math.sin((angle*i)) + centreX), (-this.dotDistance*Math.cos(angle*i) + centreY));
         }
     }
 
@@ -45,9 +45,9 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.setDotColor = function()
     {
-        this.dotsList[this.current].setTarget(false);
-        this.current = (this.current+Math.ceil(this.numberOfDots/2))%this.numberOfDots;
-        this.dotsList[this.current].setTarget(true);
+        this.dotsList[this.currentTarget].setTarget(false);
+        this.current = (this.currentTarget+Math.ceil(this.numberOfDots/2))%this.numberOfDots;
+        this.dotsList[this.currentTarget].setTarget(true);
     }
 
     this.setDotColor = function(dotHColor, dotLColor)
@@ -93,5 +93,15 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         {
             this.dotsList[target].drawDot(context);
         }
+    }
+
+    this.triggeredCursorEvent = function(cursorEvent)
+    {
+
+    }
+
+    this.drawStatus = function(context)
+    {
+
     }
 }
