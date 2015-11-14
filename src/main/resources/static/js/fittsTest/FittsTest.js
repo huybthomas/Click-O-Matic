@@ -12,6 +12,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
+    this.cursorState = {x: 0, y: 0, leftPressed: false};
 
     this.initialize = function(canvas)
     {
@@ -97,11 +98,18 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.triggeredCursorEvent = function(cursorEvent)
     {
-
+        this.cursorState.x = cursorEvent.x;
+        this.cursorState.y = cursorEvent.y;
+        this.cursorState.leftPressed = cursorEvent.leftPressed;
     }
 
     this.drawStatus = function(context)
     {
+        //Draw mouse position coordinates
+        var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed;
 
+        context.font = "16px Arial";
+        context.fillStyle = "black";
+        context.fillText(message, 10, 25);
     }
 }

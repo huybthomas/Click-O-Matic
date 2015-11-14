@@ -3,8 +3,7 @@
  */
 var canvas = document.getElementById("FittsCanvas");
 var context = canvas.getContext("2d");
-var cursorPosition = {x: 0, y: 0};
-var cursorState = {LeftPressed: false};
+var cursorState = {x: 0, y: 0, leftPressed: false};
 
 //Start test initialization
 FittsTestMain();
@@ -25,11 +24,11 @@ function initializeTest()
 
     //Set event listeners
     //Cursor movement
-    canvas.addEventListener("mousemove", cursorEvent, false);
+    canvas.addEventListener("mousemove", cursorEvent.bind(this), false);
 
     //Cursor click
-    canvas.addEventListener("mousedown", cursorEvent, false);
-    canvas.addEventListener("mouseup", cursorEvent, false);
+    canvas.addEventListener("mousedown", cursorEvent.bind(this), false);
+    canvas.addEventListener("mouseup", cursorEvent.bind(this), false);
 }
 
 function draw()
@@ -47,18 +46,12 @@ function draw()
 
     //Draw tracking path
 
-    //Draw mouse position coordinates
-    var message = "Cursor x: " + mousePosition.x + " y: " + mousePosition.y + " - clicked: " + mouseState.LeftPressed;
-
-    context.font = "12px Arial";
-    context.fillStyle = "black";
-    context.fillText(message, 10, 25);
+    //Draw test status
+    this.test.drawStatus(context);
 }
 
 function cursorEvent(event)
 {
-    var cursorState = {x: 0, y: 0, leftPressed: false};
-
     //Get mouse position
     cursorState.x = event.clientX;
     cursorState.y = event.clientY;
@@ -78,17 +71,13 @@ function cursorEvent(event)
     {
         if(event.type == "mousedown")
         {
-            cursorState.LeftPressed = true;
+            cursorState.leftPressed = true;
         }
         else if(event.type == "mouseup")
         {
-            cursorState.LeftPressed = false;
+            cursorState.leftPressed = false;
         }
     }
 
     this.test.triggeredCursorEvent(cursorState);
 }
-
-
-
-//"Cursor x:" + event.clientXcursorPosition.x + " y:" + cursorPosition.y
