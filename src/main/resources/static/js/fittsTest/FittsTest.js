@@ -8,7 +8,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
     this.dotLColor = "gray";
-    this.currentTarget = 0;
+    this.previousTarget = -1;
+    this.nextTarget = 0;
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -37,6 +38,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
             this.dotsList[i].setPosition((-this.dotDistance * Math.sin((angle*i)) + centreX), (-this.dotDistance*Math.cos(angle*i) + centreY));
         }
+
+        this.dotsList[0].setTarget(true);
     }
 
     this.setDotsSize = function(dotsSize)
@@ -44,11 +47,15 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         this.dotsSize = dotsSize;
     }
 
-    this.setDotColor = function()
+    this.setNextTarget = function()
     {
-        this.dotsList[this.currentTarget].setTarget(false);
-        this.current = (this.currentTarget+Math.ceil(this.numberOfDots/2))%this.numberOfDots;
-        this.dotsList[this.currentTarget].setTarget(true);
+        this.previousTarget = this.nextTarget;
+
+        this.nextTarget = (this.previousTarget + Math.ceil(this.numberOfDots/2)) % this.numberOfDots;
+
+
+        this.dotsList[this.previousTarget].setTarget(false);
+        this.dotsList[this.nextTarget].setTarget(true);
     }
 
     this.setDotColor = function(dotHColor, dotLColor)
@@ -78,7 +85,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
         for(var i = 0; i < this.numberOfDots; i++)
         {
-            if(this.dotsList[i].isTarget()) {
+            if(this.dotsList[i].isTarget())
+            {
                 //Set target dot (will be drawn as last)
                 target = i;
             }
@@ -98,9 +106,30 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.triggeredCursorEvent = function(cursorEvent)
     {
-        this.cursorState.x = cursorEvent.x;
-        this.cursorState.y = cursorEvent.y;
+        //Calculate cursor position relative to the the center of the test
+        this.cursorState.x = cursorEvent.x - (canvas.width)/2;
+        this.cursorState.y = cursorEvent.y - (canvas.height)/2;
+
         this.cursorState.leftPressed = cursorEvent.leftPressed;
+
+        //Check if cursor has clicked on target (after releasing the left mouse button)
+        if(cursorEvent.leftReleased)
+        {
+            this.checkTargetClicked();
+        }
+    }
+
+    this.checkTargetClicked = function()
+    {
+        //Temporary conversion from cursor position (relative to test center) relative to the upper left corner of the canvas (until coordinates are standardized to test center
+        var tempPosX = this.cursorState.x + (canvas.width)/2;
+        var tempPosY = this.cursorState.y + (canvas.height)/2;
+console.log("TempPosX: " + tempPosX);
+        console.log("TempPosY: " + tempPosY);
+        if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
+        {
+            this.setNextTarget();
+        }
     }
 
     this.drawStatus = function(context)

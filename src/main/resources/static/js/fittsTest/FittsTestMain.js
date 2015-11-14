@@ -3,7 +3,7 @@
  */
 var canvas = document.getElementById("FittsCanvas");
 var context = canvas.getContext("2d");
-var cursorState = {x: 0, y: 0, leftPressed: false};
+var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
 
 //Start test initialization
 FittsTestMain();
@@ -52,9 +52,11 @@ function draw()
 
 function cursorEvent(event)
 {
-    //Get mouse position
-    cursorState.x = event.clientX;
-    cursorState.y = event.clientY;
+    var boundRect = canvas.getBoundingClientRect();
+
+    //Get mouse position relative to the canvas
+    cursorState.x = event.clientX - canvas.offsetLeft;
+    cursorState.y = event.clientY - canvas.offsetTop;
 
     //Get mouse button state
     if(!event.which && event.button)    //Cross-browser approach: IE fix
@@ -69,6 +71,8 @@ function cursorEvent(event)
 
     if(event.which == 1)    //Left mouse button
     {
+        cursorState.leftReleased = false;
+
         if(event.type == "mousedown")
         {
             cursorState.leftPressed = true;
@@ -76,6 +80,7 @@ function cursorEvent(event)
         else if(event.type == "mouseup")
         {
             cursorState.leftPressed = false;
+            cursorState.leftReleased = true;
         }
     }
 

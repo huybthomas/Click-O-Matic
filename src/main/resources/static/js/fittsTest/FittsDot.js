@@ -46,4 +46,16 @@ function FittsDot(id, size, hColor, lColor)
 
         context.fill();
     }
+
+    this.cursorOver = function(cursorX, cursorY)
+    {
+        if(Math.sqrt((this.posX - cursorX) * (this.posX - cursorX) + (this.posY - cursorY) * (this.posY - cursorY)) <= this.size)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
