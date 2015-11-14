@@ -36,7 +36,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
-            this.dotsList[i].setPosition((-this.dotDistance * Math.sin((angle*i)) + centreX), (-this.dotDistance*Math.cos(angle*i) + centreY));
+            this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centreX), (-this.dotDistance*Math.cos(-angle*i) + centreY));
         }
 
         this.dotsList[0].setTarget(true);
@@ -51,7 +51,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     {
         this.previousTarget = this.nextTarget;
 
-        this.nextTarget = (this.previousTarget + Math.ceil(this.numberOfDots/2)) % this.numberOfDots;
+        this.nextTarget = (this.previousTarget + Math.floor(this.numberOfDots/2)) % this.numberOfDots;
 
 
         this.dotsList[this.previousTarget].setTarget(false);
@@ -124,8 +124,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         //Temporary conversion from cursor position (relative to test center) relative to the upper left corner of the canvas (until coordinates are standardized to test center
         var tempPosX = this.cursorState.x + (canvas.width)/2;
         var tempPosY = this.cursorState.y + (canvas.height)/2;
-console.log("TempPosX: " + tempPosX);
-        console.log("TempPosY: " + tempPosY);
+
         if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
         {
             this.setNextTarget();
