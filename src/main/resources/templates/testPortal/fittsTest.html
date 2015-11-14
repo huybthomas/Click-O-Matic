@@ -12,16 +12,47 @@
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
 
-        <div class="frontContent">
+        <div class="frontContent" id="frontContent">
             <!-- Fitts test -->
-            <canvas id="FittsCanvas" width="1200" height="640"></canvas>
+            <canvas id="FittsCanvas"></canvas>
         </div>
     </div>
 
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
+    <!-- Resize canvas -->
+    <script type="text/javascript">
+        window.addEventListener('resize', resizeEvent, false);
+
+        //Initial sizing
+        resizeEvent();
+
+        function resizeEvent(event)
+        {
+            var frontContent = document.getElementById("frontContent");
+            var FittsCanvas = document.getElementById("FittsCanvas");
+
+            var newWidth = frontContent.offsetWidth;
+            var newHeight = window.innerHeight;
+
+            FittsCanvas.width = newWidth;
+            FittsCanvas.height = newHeight;
+
+            console.log("Resize width: " + newWidth + " height: " + newHeight);
+        }
+    </script>
+
     <!-- Load Fitts Test script -->
-    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}" th:testAttr="${runningTest}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var testAttr=[];
+        testAttr.testID=/*[[${runningTest.testID}]]*/;
+        testAttr.numberOfDots=/*[[${runningTest.numberOfDots}]]*/;
+        testAttr.dotsSize=/*[[${runningTest.dotSize}]]*/;
+        testAttr.dotDistance=/*[[${runningTest.dotDistance}]]*/;
+        /*]]>*/
+    </script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </body>
 </html>

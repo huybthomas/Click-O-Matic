@@ -19,12 +19,12 @@ public class FittsResult
     //final static double LOG_TWO = 0.693147181;
     //final static double SQRT_2_PI_E = 4.132731354;
 
-    public void FittsTest()
+    public FittsResult()
     {
-        //empty FittsTest
+        //empty FittsResult
     }
 
-    public void FittsTest(double time, double Sx, double d, double throughput)
+    public FittsResult(double time, double Sx, double d, double throughput)
     {
         this.movementTime = time;
         this.Sx = Sx;

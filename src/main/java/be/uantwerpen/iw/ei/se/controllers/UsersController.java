@@ -64,7 +64,7 @@ public class UsersController
         }
     }
 
-    @RequestMapping(value={"/users"}, method= RequestMethod.POST)
+    @RequestMapping(value={"/users"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String saveUser(@Valid User user, BindingResult result, final ModelMap model)
     {

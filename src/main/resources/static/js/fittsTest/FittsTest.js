@@ -10,6 +10,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotLColor = "gray";
     this.previousTarget = -1;
     this.nextTarget = 0;
+    this.pathTracker = [];
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -19,27 +20,33 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     {
         this.initializeDots(canvas);
 
+        //this.pathTracker = new FittsTracking();
+    }
+
+    this.initializeDots = function(canvas)
+    {
+        for(var i = 0; i < this.numberOfDots; i++)
+        {
+            this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
+        }
+
+        this.dotsList[0].setTarget(true);
+
         this.repositionTest(canvas);
     }
 
     this.repositionTest = function(canvas)
     {
-
-    }
-
-    this.initializeDots = function(canvas)
-    {
         var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
-        var centreX = (canvas.width)/2;                   // middelpunt blijft centraal
-        var centreY = (canvas.height)/2;
+        var centerX = (canvas.width)/2;                   // middelpunt blijft centraal
+        var centerY = (canvas.height)/3;
 
         for(var i = 0; i < this.numberOfDots; i++)
         {
-            this.dotsList[i] = new FittsDot(i, this.dotsSize, this.dotHColor, this.dotLColor);
-            this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centreX), (-this.dotDistance*Math.cos(-angle*i) + centreY));
+            this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centerX), (-this.dotDistance*Math.cos(-angle*i) + centerY));
         }
 
-        this.dotsList[0].setTarget(true);
+        console.log("dots reposition center x: " + centerX + " center y: " + centerY);
     }
 
     this.setDotsSize = function(dotsSize)
@@ -115,7 +122,17 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         //Check if cursor has clicked on target (after releasing the left mouse button)
         if(cursorEvent.leftReleased)
         {
-            this.checkTargetClicked();
+            if(this.checkTargetClicked())
+            {
+                this.createNewTracePath();
+
+                return;
+            }
+        }
+
+        if(this.previousTarget != -1)   //Test is started
+        {
+            this.logNewCursorEvent();
         }
     }
 
@@ -128,7 +145,21 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
         {
             this.setNextTarget();
+
+            return true;
         }
+
+        return false;
+    }
+
+    this.createNewTracePath = function()
+    {
+
+    }
+
+    this.logNewCursorEvent = function()
+    {
+
     }
 
     this.drawStatus = function(context)

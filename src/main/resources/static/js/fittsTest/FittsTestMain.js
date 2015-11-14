@@ -6,11 +6,11 @@ var context = canvas.getContext("2d");
 var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
 
 //Start test initialization
-FittsTestMain();
+FittsTestStart(testAttr);
 
-function FittsTestMain()
+function FittsTestStart(testAttr)
 {
-    this.test = new FittsTest(9, 10, 100); // FittsTest(numberOfDots (enkel oneven),dotSize,dotDistance)
+    this.test = new FittsTest(testAttr.numberOfDots, testAttr.dotsSize, testAttr.dotDistance); // FittsTest(numberOfDots (enkel oneven),dotSize,dotDistance)
 
     this.test.initialize(canvas);
 
@@ -29,6 +29,9 @@ function initializeTest()
     //Cursor click
     canvas.addEventListener("mousedown", cursorEvent.bind(this), false);
     canvas.addEventListener("mouseup", cursorEvent.bind(this), false);
+
+    //Resize window
+    window.addEventListener("resize", resizeEvent.bind(this), false);
 }
 
 function draw()
@@ -89,4 +92,10 @@ function cursorEvent(event)
     }
 
     this.test.triggeredCursorEvent(cursorState);
+}
+
+function resizeEvent(event)
+{
+    console.log("RESIZE EVENT TRIGGER");
+    this.test.repositionTest(canvas);
 }
