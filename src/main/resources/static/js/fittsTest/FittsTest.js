@@ -8,6 +8,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
     this.dotLColor = "gray";
+    this.current = 5;
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -40,6 +41,13 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.setDotsSize = function(dotsSize)
     {
         this.dotsSize = dotsSize;
+    }
+
+    this.setDotColor = function()
+    {
+        this.dotsList[this.current].setTarget(false);
+        this.current = (this.current+Math.ceil(this.numberOfDots/2))%this.numberOfDots;
+        this.dotsList[this.current].setTarget(true);
     }
 
     this.setDotColor = function(dotHColor, dotLColor)
