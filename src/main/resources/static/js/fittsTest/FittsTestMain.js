@@ -59,7 +59,7 @@ function cursorEvent(event)
     cursorState.y = event.clientY - canvas.offsetTop;
 
     //Get mouse button state
-    if(!event.which && event.button)    //Cross-browser approach: IE fix
+    if(!event.which && event.button)        //Cross-browser approach: <IE9 fix
     {
         if(event.button & 1)
             event.which = 1;    //Left mouse button
@@ -82,6 +82,10 @@ function cursorEvent(event)
             cursorState.leftPressed = false;
             cursorState.leftReleased = true;
         }
+    }
+    else if(event.which == 0)               //Cross-browser approach: Chrome + Opera fix
+    {
+        cursorState.leftReleased = false;
     }
 
     this.test.triggeredCursorEvent(cursorState);
