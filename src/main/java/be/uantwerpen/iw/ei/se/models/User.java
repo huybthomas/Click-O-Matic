@@ -1,7 +1,5 @@
 package be.uantwerpen.iw.ei.se.models;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
