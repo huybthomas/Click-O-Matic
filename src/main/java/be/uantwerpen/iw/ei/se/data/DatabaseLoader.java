@@ -112,7 +112,9 @@ public class DatabaseLoader
     {
         List<FittsTest> allFittsTests = new ArrayList<FittsTest>();
         allFittsTests.add(new FittsTest("001", 9, 25, 100));
-        allFittsTests.add(new FittsTest("002", 11, 15, 150));
+        FittsTest x = new FittsTest("002", 11, 15, 150);
+        x.setCompleted(true);
+        allFittsTests.add(x);
         allFittsTests.add(new FittsTest("003", 5, 50, 110));
         allFittsTests.add(new FittsTest("004", 2, 100, 200));
 
