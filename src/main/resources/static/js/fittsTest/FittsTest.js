@@ -24,7 +24,6 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         this.initializeDots(canvas);
 
         this.pathTracker = new FittsTracking();
-        this.pathTracker.initialize();
     }
 
     this.initializeDots = function(canvas)

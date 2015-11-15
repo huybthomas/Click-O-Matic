@@ -4,12 +4,7 @@
 function FittsTracking()
 {
     this.trackPaths = [];
-    this.currentTrackPath;
-
-    this.initialize = function()
-    {
-        this.currentTrackPath = new FittsTrackPath();
-    }
+    this.currentTrackPath = new FittsTrackPath();
 
     this.addCursorEvent = function(cursorEvent)
     {
@@ -18,8 +13,8 @@ function FittsTracking()
 
     this.continueWithNextTrackPath = function()
     {
-        this.trackPaths.push(this.currentTrackPath);
         this.currentTrackPath = new FittsTrackPath();
+        this.trackPaths.push(this.currentTrackPath);
     }
 
     this.getTrackPaths = function()

@@ -4,6 +4,7 @@
 var canvas = document.getElementById("FittsCanvas");
 var context = canvas.getContext("2d");
 var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
+var postRequestSend = false;
 
 //Start test initialization
 FittsTestStart(testAttr);
@@ -96,22 +97,25 @@ function cursorEvent(event)
         this.test.triggeredCursorEvent(cursorState);
     } else {
 
-        var paths = 8;//this.test.getTrackPaths();
+        if(!postRequestSend) {
+            var paths = 8;//this.test.getTrackPaths();
 
-        $.ajax({
-            type : "POST",
-            url : "/postFittsResult/001/",               // HARDCODED: 001 should be testAttr.testID
-            data : {
-                trackPaths: paths           //"trackPaths" will be value for @RequestParam
+            $.ajax({
+                type: "POST",
+                url: "/postFittsResult/001/",               // HARDCODED: 001 should be testAttr.testID
+                data: {
+                    trackPaths: paths           //"trackPaths" will be value for @RequestParam
 
-            },
-            success : function(response) {
-                // do something ...         // route to overview/result page
-            },
-            error : function(e) {
-                alert('Error: ' + e);       //reroute to error page
-            }
-        });
+                },
+                success: function (response) {
+                    window.location.replace(response);
+                },
+                error: function (e) {
+                    alert('Error: ' + e);       //reroute to error page
+                }
+            });
+            postRequestSend = true;
+        }
     }
 }
 

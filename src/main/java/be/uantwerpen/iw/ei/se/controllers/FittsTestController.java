@@ -80,6 +80,6 @@ public class FittsTestController
         System.out.println("QQQQQ " + trackPaths);
         //FittsResult fittsResult = new FittsResult(testID, trackPaths, userService.getPrincipalUser());
 
-        return "testPortal/testPortal";
+        return "/TestResult/" + testID;
     }
 }
