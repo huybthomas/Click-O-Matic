@@ -13,6 +13,7 @@ public class FittsTest implements Serializable
     private int numberOfDots;
     private int dotSize;
     private int dotDistance;
+    private boolean completed;
 
     public FittsTest()
     {
@@ -20,6 +21,7 @@ public class FittsTest implements Serializable
         this.numberOfDots = -1;
         this.dotSize = -1;
         this.dotDistance = -1;
+        this.completed = false;
     }
 
     public FittsTest(String testID, int numberOfDots, int dotSize, int dotDistance)
@@ -28,6 +30,7 @@ public class FittsTest implements Serializable
         this.numberOfDots = numberOfDots;
         this.dotSize = dotSize;
         this.dotDistance = dotDistance;
+        this.completed = false;
     }
 
     public void setTestID(String testID)
@@ -68,5 +71,13 @@ public class FittsTest implements Serializable
     public int getDotDistance()
     {
         return this.dotDistance;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public boolean getCompleted() {
+        return completed;
     }
 }
