@@ -17,7 +17,6 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.cursorState = {x: 0, y: 0, leftPressed: false};
     this.AmountOfClicks = 0;
     var startTime = new Date();
-    var ElapsedTime = new Date();
 
     this.initialize = function(canvas)
     {
@@ -181,11 +180,13 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         var clickAmount = "Clicks: " + this.AmountOfClicks;
         var testRound = "Round: " ;
         //var timer = "Time: " ;
-        this.ElapsedTime = (new Date() - this.startTime);
-        this.seconds = addZero(ElapsedTime.getSeconds(), 2);
-        this.minutes = addZero(ElapsedTime.getMinutes(), 2);
-        this.hours = addZero(ElapsedTime.getHours(), 2);
-        var time = "Time: " + this.hours + ":" + this.minutes + ":" + this.seconds;
+        var now = new Date();
+        var ElapsedTime = Math.floor((now - startTime)/1000);
+        console.log(ElapsedTime);
+        var seconds = addZero((ElapsedTime%60), 2);
+        var minutes = addZero((Math.floor(ElapsedTime/60)%60), 2);
+        var hours = addZero(Math.floor(ElapsedTime/(60*60)), 2);
+        var time = "Time: " + hours + ":" + minutes + ":" + seconds;
 
         context.font = "16px Arial";
         context.fillStyle = "black";
