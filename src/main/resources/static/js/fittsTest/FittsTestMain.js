@@ -91,7 +91,10 @@ function cursorEvent(event)
         cursorState.leftReleased = false;
     }
 
-    this.test.triggeredCursorEvent(cursorState);
+    //evaluate cursor event only if test not finished
+    if(!this.test.getFinished()) {
+        this.test.triggeredCursorEvent(cursorState);
+    }
 }
 
 function resizeEvent(event)

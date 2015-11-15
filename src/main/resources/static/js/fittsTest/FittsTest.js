@@ -4,6 +4,9 @@
 function FittsTest(numberOfDots, dotsSize, dotDistance)
 {
     this.numberOfDots = numberOfDots;
+    this.testSize = 10              // amt of clicks untill end of test
+    this.testFinished = false;
+    this.currentTestSize = 0;
     this.dotsSize = dotsSize;
     this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
@@ -36,6 +39,10 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         this.repositionTest(canvas);
     }
 
+    this.getFinished = function() {
+        return this.testFinished;
+    }
+
     this.repositionTest = function(canvas)
     {
         var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
@@ -55,13 +62,19 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.setNextTarget = function()
     {
-        this.previousTarget = this.nextTarget;
+        if(this.currentTestSize < this.testSize) {
+            this.previousTarget = this.nextTarget;
 
-        this.nextTarget = (this.previousTarget + Math.floor(this.numberOfDots/2)) % this.numberOfDots;
+            this.nextTarget = (this.previousTarget + Math.floor(this.numberOfDots / 2)) % this.numberOfDots;
 
+            this.dotsList[this.previousTarget].setTarget(false);
+            this.dotsList[this.nextTarget].setTarget(true);
 
-        this.dotsList[this.previousTarget].setTarget(false);
-        this.dotsList[this.nextTarget].setTarget(true);
+            this.currentTestSize++;
+        } else {
+            this.dotsList[this.nextTarget].setTarget(false);
+            this.testFinished = true;
+        }
     }
 
     this.setDotColor = function(dotHColor, dotLColor)

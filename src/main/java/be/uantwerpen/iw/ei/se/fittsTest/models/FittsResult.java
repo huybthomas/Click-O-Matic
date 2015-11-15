@@ -5,7 +5,9 @@ package be.uantwerpen.iw.ei.se.fittsTest.models;
  */
 public class FittsResult
 {
-    private double movementTime;
+
+
+/*    private double movementTime;
     //standaard afwijking van selected coord to target
     private double Sx;
     //Breedte van doel
@@ -52,5 +54,5 @@ public class FittsResult
 //        We = Sx*SQRT_2_PI_E;
 //        difficutlyIndex = LOG_TWO*((d+We)/We);
 //        throughput = difficutlyIndex/movementTime;
-//    }
+//    } */
 }
