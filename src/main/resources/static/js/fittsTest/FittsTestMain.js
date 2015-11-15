@@ -96,6 +96,5 @@ function cursorEvent(event)
 
 function resizeEvent(event)
 {
-    console.log("RESIZE EVENT TRIGGER");
     this.test.repositionTest(canvas);
 }
