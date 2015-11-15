@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="testPortal/layout :: head (pageTitle=#{navbar.fittstest})"></head>
+
+<body>
+
+<div class="container">
+    <!-- Import navigation bar -->
+    <div th:replace="testPortal/layout :: navbar"></div>
+
+    <div class="testPortalPage">
+        <table class="table">
+            <tr th:each="t : ${allUserFittsTests}">
+                <td th:text="${t.testID}"/>
+                <td>Completed: <span th:class="${t.completed} ? 'glyphicon glyphicon-ok-sign' : 'glyphicon glyphicon-remove-sign'"></span></td>
+                <td><a th:href="${t.completed} ? '/TestResult/'+${t.testID}+'/' : '/TestPortal/'+${t.testID}+'/'" th:text="${t.completed} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
+                <td><a th:href="'/TestDetails/'+${t.testID}+'/'" th:text="#{fittstest.viewDetails}" class="btn btn-primary">View Details</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Import footer -->
+<div th:replace="testPortal/layout :: footer"></div>
+
+</body>
+</html>
