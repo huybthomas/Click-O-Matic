@@ -1,5 +1,7 @@
 package be.uantwerpen.iw.ei.se.data;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.repositories.FittsRepository;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
@@ -11,7 +13,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,17 +27,28 @@ public class DatabaseLoader
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final FittsRepository fittsRepository;
 
     @Autowired
-    public DatabaseLoader(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository)
+    public DatabaseLoader(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, FittsRepository fittsRepository)
     {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.fittsRepository = fittsRepository;
     }
 
     @PostConstruct
     private void initDatabase()
+    {
+        //Initialise user database
+        initUserDatabase();
+
+        //Initialise test database
+        //initTestDatabase();
+    }
+
+    private void initUserDatabase()
     {
         List<Permission> allPermissions = new ArrayList<Permission>();
         List<Role> roles = new ArrayList<Role>();
@@ -94,5 +106,20 @@ public class DatabaseLoader
         userRepository.save(u2);
         userRepository.save(u3);
         userRepository.save(u4);
+    }
+
+    private void initTestDatabase()
+    {
+        List<FittsTest> allFittsTests = new ArrayList<FittsTest>();
+        allFittsTests.add(new FittsTest("001", 9, 25, 100));
+        allFittsTests.add(new FittsTest("002", 11, 15, 150));
+        allFittsTests.add(new FittsTest("003", 5, 50, 110));
+        allFittsTests.add(new FittsTest("004", 2, 100, 200));
+
+        Iterator<FittsTest> fittsTestIterator = allFittsTests.iterator();
+        while(fittsTestIterator.hasNext())
+        {
+            fittsRepository.save(fittsTestIterator.next());
+        }
     }
 }

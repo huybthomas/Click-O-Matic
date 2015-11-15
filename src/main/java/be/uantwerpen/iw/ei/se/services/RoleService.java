@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
  * Created by Quinten on 2/11/2015.
  */
 @Service
-public class RoleService {
-
+public class RoleService
+{
     @Autowired
     private RoleRepository roleRepository;
 
@@ -18,5 +18,4 @@ public class RoleService {
     {
         return this.roleRepository.findAll();
     }
-
 }

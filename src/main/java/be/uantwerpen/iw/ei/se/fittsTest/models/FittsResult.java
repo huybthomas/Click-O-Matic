@@ -1,8 +1,11 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
+import javax.persistence.Entity;
+
 /**
  * Created by dries on 3/11/2015.
  */
+@Entity
 public class FittsResult
 {
     private double movementTime;

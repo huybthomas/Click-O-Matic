@@ -1,54 +1,25 @@
 package be.uantwerpen.iw.ei.se.repositories;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.models.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Verstraete on 3/11/2015.
- *
  */
 @Repository
-public interface FittsRepository extends CrudRepository<FittsTest,Long> {
+public interface FittsRepository extends CrudRepository<FittsTest,Long>
+{
+    //@Query(value="select t from User u left join u.tests t where u=:usr")
+    //Iterable<FittsTest> findAllForUser(@Param("usr") User user);
 
-    List<FittsTest> fittstests = new ArrayList<>();
-    FittsTest difficultyOne = new FittsTest("One");
-    FittsTest difficultyTwo = new FittsTest("two");
-    FittsTest difficultyThree = new FittsTest("three");
-    FittsTest difficultyFour = new FittsTest("four");
+    FittsTest findByTestID(String testID);
 
-    fittstests.add(difficultyOne);
-    fittstests.add(difficultyTwo);
-    fittstests.add(difficultyThree);
-    fittstests.add(difficultyFour);
-
-
-    List<FittsTest> findAll()
-    {
-        return new ArrayList<FittsTest> (this.fittstests);
-    }
-
-    FittsTest findOne(String name)
-    {
-        for(int i=0 ; i < fittstests.size();i++) {
-            if (fittstests.get(i).getName()==name)
-            {
-                return fittstests.get(i);
-            }
-            return null;
-        }
-    }
-    Long count()
-    {
-        return fittstest.size();
-    }
-    List<FittsTest> removeByFirstName ( String name);
-
-    FittsTest save(FitsTest fitstest);
-
-    boolean exists(String name);
-
-
+    List<FittsTest> findAll();
 }

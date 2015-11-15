@@ -1,14 +1,15 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
-import java.io.Serializable;
+import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
+
+import javax.persistence.Entity;
 
 /**
  * Created by Thomas on 12/11/2015.
  */
-public class FittsTest implements Serializable
+@Entity
+public class FittsTest extends MyAbstractPersistable<Long>
 {
-    private static final long serialVersionUID = 1L;
-
     private String testID;
     private int numberOfDots;
     private int dotSize;
@@ -68,5 +69,23 @@ public class FittsTest implements Serializable
     public int getDotDistance()
     {
         return this.dotDistance;
+    }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object)
+        {
+            return true;
+        }
+
+        if(object == null || this.getClass() != object.getClass())
+        {
+            return false;
+        }
+
+        FittsTest test = (FittsTest) object;
+
+        return this.testID.equals(test.getTestID());
     }
 }
