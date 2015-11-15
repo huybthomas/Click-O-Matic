@@ -95,17 +95,14 @@ function cursorEvent(event)
     if(!this.test.getFinished()) {
         this.test.triggeredCursorEvent(cursorState);
     } else {
-        console.log("pre ajax");
 
-        var paths = this.test.getTrackPaths();
-
-        console.log("tussen ajax");
+        var paths = 8;//this.test.getTrackPaths();
 
         $.ajax({
             type : "POST",
-            url : "/postFittsResult/001",               // HARDCODED: 001 should be testAttr.testID
+            url : "/postFittsResult/001/",               // HARDCODED: 001 should be testAttr.testID
             data : {
-                trackPaths: paths //"trackPaths" will be value for @RequestParam
+                trackPaths: paths           //"trackPaths" will be value for @RequestParam
 
             },
             success : function(response) {
@@ -115,7 +112,6 @@ function cursorEvent(event)
                 alert('Error: ' + e);       //reroute to error page
             }
         });
-        console.log("post ajax");
     }
 }
 

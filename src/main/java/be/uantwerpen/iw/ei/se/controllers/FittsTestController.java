@@ -74,11 +74,11 @@ public class FittsTestController
         return "testPortal/fittsTestDetails";
     }
 
-    @RequestMapping(value="/postFittsResult/{testID}", method=RequestMethod.POST)
+    @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
-    public String saveFittsResult(@RequestParam(value="trackPaths") ArrayList<FittsTrackPath> trackPaths, @PathVariable String testID, final ModelMap model){
-        System.out.println("QQQQQ");
-        FittsResult fittsResult = new FittsResult(testID, trackPaths, userService.getPrincipalUser());
+    public @ResponseBody String saveFittsResult(@RequestParam(value="trackPaths") int trackPaths, @PathVariable String testID, final ModelMap model){
+        System.out.println("QQQQQ " + trackPaths);
+        //FittsResult fittsResult = new FittsResult(testID, trackPaths, userService.getPrincipalUser());
 
         return "testPortal/testPortal";
     }
