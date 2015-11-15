@@ -14,6 +14,11 @@ public class FittsService
     @Autowired
     private FittsRepository fittsRepository;
 
+    public FittsTest findById(String testID)
+    {
+        return this.fittsRepository.findByTestID(testID);
+    }
+
     public Iterable<FittsTest> findAll()
     {
         return this.fittsRepository.findAll();

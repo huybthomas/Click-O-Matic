@@ -7,16 +7,9 @@ import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
 import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -96,6 +89,7 @@ public class UserService
     public User getPrincipalUser()
     {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         for(User u : findAll())
         {
             if(u.getUserName().compareTo(user.getUsername()) == 0)
@@ -103,6 +97,7 @@ public class UserService
                 return u;
             }
         }
+
         return null;
     }
 
