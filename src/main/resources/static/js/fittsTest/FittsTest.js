@@ -4,7 +4,7 @@
 function FittsTest(numberOfDots, dotsSize, dotDistance)
 {
     this.numberOfDots = numberOfDots;
-    this.testSize = 10              // amt of clicks untill end of test
+    this.testSize = 2;              // amt of clicks until end of test
     this.testFinished = false;
     this.currentTestSize = 0;
     this.dotsSize = dotsSize;
@@ -184,5 +184,9 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         context.font = "16px Arial";
         context.fillStyle = "black";
         context.fillText(message, 10, 25);
+    }
+
+    this.getTrackPaths = function() {
+        return this.pathTracker.getTrackPaths();
     }
 }

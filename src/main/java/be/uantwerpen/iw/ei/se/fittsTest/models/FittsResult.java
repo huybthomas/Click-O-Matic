@@ -1,11 +1,27 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
+import be.uantwerpen.iw.ei.se.models.User;
+
+import java.util.ArrayList;
+
 /**
  * Created by dries on 3/11/2015.
  */
 public class FittsResult
 {
+    private String testID;
+    private ArrayList<FittsTrackPath> fittsTrackPaths;
+    private User user;
 
+    public FittsResult(String testID, ArrayList<FittsTrackPath> fittsTrackPaths, User user) {
+        this.testID = testID;
+        this.fittsTrackPaths = fittsTrackPaths;
+        this.user = user;
+
+        if(fittsTrackPaths != null) {
+            System.out.println("Joepie");
+        }
+    }
 
 /*    private double movementTime;
     //standaard afwijking van selected coord to target

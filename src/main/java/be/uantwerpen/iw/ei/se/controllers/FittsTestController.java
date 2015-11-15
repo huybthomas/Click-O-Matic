@@ -1,6 +1,8 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
@@ -8,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 /**
  * Created by Quinten on 3/11/2015.
@@ -71,5 +72,14 @@ public class FittsTestController
     {
 
         return "testPortal/fittsTestDetails";
+    }
+
+    @RequestMapping(value="/postFittsResult/{testID}", method=RequestMethod.POST)
+    @PreAuthorize("hasRole('logon')")
+    public String saveFittsResult(@RequestParam(value="trackPaths") ArrayList<FittsTrackPath> trackPaths, @PathVariable String testID, final ModelMap model){
+        System.out.println("QQQQQ");
+        FittsResult fittsResult = new FittsResult(testID, trackPaths, userService.getPrincipalUser());
+
+        return "testPortal/testPortal";
     }
 }

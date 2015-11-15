@@ -94,6 +94,28 @@ function cursorEvent(event)
     //evaluate cursor event only if test not finished
     if(!this.test.getFinished()) {
         this.test.triggeredCursorEvent(cursorState);
+    } else {
+        console.log("pre ajax");
+
+        var paths = this.test.getTrackPaths();
+
+        console.log("tussen ajax");
+
+        $.ajax({
+            type : "POST",
+            url : "/postFittsResult/001",               // HARDCODED: 001 should be testAttr.testID
+            data : {
+                trackPaths: paths //"trackPaths" will be value for @RequestParam
+
+            },
+            success : function(response) {
+                // do something ...         // route to overview/result page
+            },
+            error : function(e) {
+                alert('Error: ' + e);       //reroute to error page
+            }
+        });
+        console.log("post ajax");
     }
 }
 
