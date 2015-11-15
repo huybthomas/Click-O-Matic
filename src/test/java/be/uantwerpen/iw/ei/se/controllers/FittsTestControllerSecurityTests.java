@@ -14,40 +14,40 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
 
 /**
- * Created by Thomas on 20/10/2015.
+ * Created by Thomas on 15/11/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ClickOMaticApplication.class)
 @WebAppConfiguration
-public class HomeControllerSecurityTests
+public class FittsTestControllerSecurityTests
 {
     @Autowired
-    private HomeController homeController;
+    private FittsTestController fittsTestController;
 
     @Test(expected = AuthenticationCredentialsNotFoundException.class)
-    public void testOpenHomepageWithoutLoginCredentials()
+    public void testOpenFittsTestWithoutLoginCredentials()
     {
-        homeController.showHomepage(new ModelMap());
+        fittsTestController.showFittsTest("001", new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(roles={"ADMIN"})
-    public void testOpenHomepageAdmin()
+    public void testOpenFittsTestAdmin()
     {
-        homeController.showHomepage(new ModelMap());
+        fittsTestController.showFittsTest("001", new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(username = "ravan")
-    public void testOpenHomepageUsernameRavan()
+    public void testOpenFittsTestUsernameRavan()
     {
-        homeController.showHomepage(new ModelMap());
+        fittsTestController.showFittsTest("001", new ModelMap());
     }
 
     @Test
     @WithUserDetails("thomas.huybrechts")
-    public void testOpenHomepageUserThomas()
+    public void testOpenFittsTestUserThomas()
     {
-        homeController.showHomepage(new ModelMap());
+        fittsTestController.showFittsTest("001", new ModelMap());
     }
 }
