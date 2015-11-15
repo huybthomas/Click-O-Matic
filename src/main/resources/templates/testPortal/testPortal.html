@@ -11,8 +11,8 @@
     <div class="testPortalPage">
         <table class="table">
             <tr th:each="t : ${allUserFittsTests}">
-                <td th:text="${t.testID}"/>
-                <td>Completed: <span th:class="${t.completed} ? 'glyphicon glyphicon-ok-sign' : 'glyphicon glyphicon-remove-sign'"></span></td>
+                <td th:text="${t.testID}" style="vertical-align: middle"/>
+                <td style="vertical-align: middle">Completed: <span th:class="${t.completed} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${t.completed} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
                 <td><a th:href="${t.completed} ? '/TestResult/'+${t.testID}+'/' : '/TestPortal/'+${t.testID}+'/'" th:text="${t.completed} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
                 <td><a th:href="'/TestDetails/'+${t.testID}+'/'" th:text="#{fittstest.viewDetails}" class="btn btn-primary">View Details</a></td>
             </tr>
