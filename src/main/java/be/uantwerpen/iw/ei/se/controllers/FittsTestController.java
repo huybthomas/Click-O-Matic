@@ -27,6 +27,13 @@ public class FittsTestController
         return userService.getPrincipalUser();
     }
 
+    @RequestMapping({"/TestPortal/"})
+    @PreAuthorize("hasRole('logon')")
+    public String showTestPortal(final ModelMap model)
+    {
+        return "mainPortal/testPortal";
+    }
+
     @RequestMapping(value={"/TestPortal/{testID}"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showFittsTest(@PathVariable String testID, final ModelMap model)
@@ -45,5 +52,21 @@ public class FittsTestController
 
         model.addAttribute("runningTest", test);
         return "testPortal/fittsTest";
+    }
+
+    @RequestMapping(value={"/TestResult/{testID}"}, method=RequestMethod.GET)
+    @PreAuthorize("hasRole('logon')")
+    public String showFittsTestResult(@PathVariable String testID, final ModelMap model)
+    {
+
+        return "testPortal/fittsTestResult";
+    }
+
+    @RequestMapping(value={"/TestDetails/{testID}"}, method=RequestMethod.GET)
+    @PreAuthorize("hasRole('logon')")
+    public String showFittsTestDetails(@PathVariable String testID, final ModelMap model)
+    {
+
+        return "testPortal/fittsTestDetails";
     }
 }

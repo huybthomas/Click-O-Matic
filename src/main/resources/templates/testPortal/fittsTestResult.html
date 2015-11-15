@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="testPortal/layout :: head (pageTitle=${fittstest.result})"></head>
+
+<body>
+
+<div class="container">
+    <!-- Import navigation bar -->
+    <div th:replace="testPortal/layout :: navbar"></div>
+
+    <div class="testPortalPage">
+        <table class="table">
+            <tr>
+                <td>Test Resultttt</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Import footer -->
+<div th:replace="testPortal/layout :: footer"></div>
+
+</body>
+</html>
