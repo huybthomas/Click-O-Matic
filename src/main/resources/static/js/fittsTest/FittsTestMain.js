@@ -102,7 +102,7 @@ function cursorEvent(event)
 
             $.ajax({
                 type: "POST",
-                url: "/postFittsResult/001/",               // HARDCODED: 001 should be testAttr.testID
+                url: "/postFittsResult/" + testAttr.testID + "/",
                 data: {
                     trackPaths: paths           //"trackPaths" will be value for @RequestParam
 
