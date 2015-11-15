@@ -51,16 +51,18 @@ public class UsersController
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
     public String editUserForm(@PathVariable String userName, final ModelMap model)
     {
-        try
+        User user = userService.findByUserName(userName);
+
+        if(user != null)
         {
-            model.addAttribute("user", userService.findByUserName(userName));
+            model.addAttribute("user", user);
             model.addAttribute("allRoles", roleService.findAll());
             return "mainPortal/user-profile";
         }
-        catch(UsernameNotFoundException e)
+        else
         {
             model.addAttribute("user", null);
-            return "mainPortal/users/";
+            return "redirect:/users?errorUserNotFound";
         }
     }
 
@@ -82,6 +84,6 @@ public class UsersController
     {
         userService.delete(userName);
         model.clear();
-        return "redirect:/users/";
+        return "redirect:/users";
     }
 }
