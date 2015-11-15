@@ -45,7 +45,7 @@ public class DatabaseLoader
         initUserDatabase();
 
         //Initialise test database
-        //initTestDatabase();
+        initTestDatabase();
     }
 
     private void initUserDatabase()
