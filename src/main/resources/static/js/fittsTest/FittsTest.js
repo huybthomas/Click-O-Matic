@@ -16,6 +16,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.backCircle = {};
     this.cursorState = {x: 0, y: 0, leftPressed: false};
     this.AmountOfClicks = 0;
+    var startTime = new Date();
+    var ElapsedTime = new Date();
 
     this.initialize = function(canvas)
     {
@@ -32,6 +34,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         }
 
         this.dotsList[0].setTarget(true);
+        var startTime = new Date();
 
         this.repositionTest(canvas);
     }
@@ -159,6 +162,13 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     }
 
+    function addZero(x,n) {
+        while (x.toString().length < n) {
+            x = "0" + x;
+        }
+        return x;
+    }
+
     this.logNewCursorEvent = function()
     {
 
@@ -170,12 +180,17 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed;
         var clickAmount = "Clicks: " + this.AmountOfClicks;
         var testRound = "Round: " ;
-        var timer = "Time: " ;
+        //var timer = "Time: " ;
+        this.ElapsedTime = (new Date() - this.startTime);
+        this.seconds = addZero(ElapsedTime.getSeconds(), 2);
+        this.minutes = addZero(ElapsedTime.getMinutes(), 2);
+        this.hours = addZero(ElapsedTime.getHours(), 2);
+        var time = "Time: " + this.hours + ":" + this.minutes + ":" + this.seconds;
 
         context.font = "16px Arial";
         context.fillStyle = "black";
         context.fillText(message, 10, 25);
-        context.fillText(timer, 10, 45);
+        context.fillText(time, 10, 45);
         context.fillText(clickAmount,10,65);
         context.fillText(testRound, 10, 85);
     }
