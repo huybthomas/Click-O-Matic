@@ -15,6 +15,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotsList = [];
     this.backCircle = {};
     this.cursorState = {x: 0, y: 0, leftPressed: false};
+    this.AmountOfClicks = 0;
 
     this.initialize = function(canvas)
     {
@@ -122,6 +123,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         //Check if cursor has clicked on target (after releasing the left mouse button)
         if(cursorEvent.leftReleased)
         {
+            this.AmountOfClicks = this.AmountOfClicks+1
             if(this.checkTargetClicked())
             {
                 this.createNewTracePath();
@@ -166,9 +168,15 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     {
         //Draw mouse position coordinates
         var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed;
+        var clickAmount = "Clicks: " + this.AmountOfClicks;
+        var testRound = "Round: " ;
+        var timer = "Time: " ;
 
         context.font = "16px Arial";
         context.fillStyle = "black";
         context.fillText(message, 10, 25);
+        context.fillText(timer, 10, 45);
+        context.fillText(clickAmount,10,65);
+        context.fillText(testRound, 10, 85);
     }
 }
