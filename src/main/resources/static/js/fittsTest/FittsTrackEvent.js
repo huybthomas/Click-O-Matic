@@ -3,7 +3,7 @@
  */
 function FittsTrackEvent(cursorPosX, cursorPosY, cursorState)
 {
-    this.timestamp = new Date();
+    this.timestamp = new Date().getTime();
     this.cursorPosX = cursorPosX;
     this.cursorPosY = cursorPosY;
     this.cursorState = cursorState;
@@ -21,5 +21,10 @@ function FittsTrackEvent(cursorPosX, cursorPosY, cursorState)
     this.getCursorState = function()
     {
         return this.cursorState;
+    }
+
+    this.getTimestamp = function()
+    {
+        return this.timestamp;
     }
 }

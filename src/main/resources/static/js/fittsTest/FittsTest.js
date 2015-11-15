@@ -10,7 +10,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     this.dotLColor = "gray";
     this.previousTarget = -1;
     this.nextTarget = 0;
-    this.pathTracker = [];
+    this.pathTracker;
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -20,7 +20,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     {
         this.initializeDots(canvas);
 
-        //this.pathTracker = new FittsTracking();
+        this.pathTracker = new FittsTracking();
+        this.pathTracker.initialize();
     }
 
     this.initializeDots = function(canvas)
@@ -45,8 +46,6 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         {
             this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centerX), (-this.dotDistance*Math.cos(-angle*i) + centerY));
         }
-
-        console.log("dots reposition center x: " + centerX + " center y: " + centerY);
     }
 
     this.setDotsSize = function(dotsSize)
@@ -119,6 +118,12 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
         this.cursorState.leftPressed = cursorEvent.leftPressed;
 
+        // add cursor event to current trackpath
+        if(this.previousTarget != -1)
+        {
+            this.logNewCursorEvent();
+        }
+
         //Check if cursor has clicked on target (after releasing the left mouse button)
         if(cursorEvent.leftReleased)
         {
@@ -128,11 +133,6 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
                 return;
             }
-        }
-
-        if(this.previousTarget != -1)   //Test is started
-        {
-            this.logNewCursorEvent();
         }
     }
 
@@ -154,18 +154,19 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.createNewTracePath = function()
     {
-
+        this.pathTracker.continueWithNextTrackPath();
     }
 
     this.logNewCursorEvent = function()
     {
-
+        var cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed)
+        this.pathTracker.addCursorEvent(cursorEvent);
     }
 
     this.drawStatus = function(context)
     {
         //Draw mouse position coordinates
-        var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed;
+        var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed  + " | Current path: " + this.pathTracker.getTrackPaths().length + " - timer: " + this.pathTracker.getCurrentTrackPath().getPathTime();
 
         context.font = "16px Arial";
         context.fillStyle = "black";
