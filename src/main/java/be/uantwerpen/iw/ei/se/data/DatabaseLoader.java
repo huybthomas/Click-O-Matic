@@ -1,7 +1,7 @@
 package be.uantwerpen.iw.ei.se.data;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.repositories.FittsRepository;
+import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
@@ -27,10 +27,10 @@ public class DatabaseLoader
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
-    private final FittsRepository fittsRepository;
+    private final FittsTestRepository fittsRepository;
 
     @Autowired
-    public DatabaseLoader(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, FittsRepository fittsRepository)
+    public DatabaseLoader(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, FittsTestRepository fittsRepository)
     {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;

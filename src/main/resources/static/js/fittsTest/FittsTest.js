@@ -4,7 +4,7 @@
 function FittsTest(numberOfDots, dotsSize, dotDistance)
 {
     this.numberOfDots = numberOfDots;
-    this.testSize = 2;              // amt of clicks until end of test
+    this.testSize = 10;              // amt of clicks until end of test
     this.testFinished = false;
     this.currentTestSize = 0;
     this.dotsSize = dotsSize;
@@ -141,9 +141,10 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         {
             if(this.checkTargetClicked())
             {
-                this.createNewTracePath();
-
-                return;
+                if(!this.testFinished)
+                {
+                    this.createNewTracePath();
+                }
             }
         }
     }
@@ -187,5 +188,17 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.getTrackPaths = function() {
         return this.pathTracker.getTrackPaths();
+    }
+
+    //Temporary function
+    this.getThroughput = function()
+    {
+        var We = this.dotsSize;
+        var d = this.dotDistance*2;
+        var difficutlyIndex = Math.log((d+We)/We)/Math.log(2);
+        console.log(this.pathTracker.getLastPath());
+        console.log(this.pathTracker.getLastPath().getLastEvent());
+        var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
+        return difficutlyIndex/movementTime*1000;
     }
 }

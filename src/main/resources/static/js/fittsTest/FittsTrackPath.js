@@ -40,6 +40,4 @@ function FittsTrackPath()
             return 0;
         }
     }
-
-
 }

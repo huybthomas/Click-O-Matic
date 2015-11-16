@@ -36,7 +36,7 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
     {
-        model.addAttribute("allUserFittsTests", fittsService.findAll());
+        model.addAttribute("allUserFittsTests", fittsService.findAllTests());
 
         return "testPortal/testPortal";
     }
@@ -45,7 +45,7 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showFittsTest(@PathVariable String testID, final ModelMap model)
     {
-        FittsTest test = fittsService.findById(testID);
+        FittsTest test = fittsService.findTestById(testID);
 
         if(test != null)
         {
@@ -62,7 +62,7 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showFittsTestResult(@PathVariable String testID, final ModelMap model)
     {
-        model.addAttribute("fittsResult", fittsService.findResultByTestId(testID));
+        model.addAttribute("fittsResult", fittsService.findResultById(testID));
         return "testPortal/fittsTestResult";
     }
 
@@ -76,10 +76,15 @@ public class FittsTestController
 
     @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
-    public @ResponseBody String saveFittsResult(@RequestParam(value="trackPaths") int trackPaths, @PathVariable String testID, final ModelMap model){
-        System.out.println("QQQQQ " + trackPaths);
-        //FittsResult fittsResult = new FittsResult(testID, trackPaths, userService.getPrincipalUser());
-
-        return "/TestResult/" + testID;
+    public @ResponseBody String saveFittsResult(@RequestParam(value="trackPaths") String trackPaths, @PathVariable String testID, final ModelMap model)
+    {
+        if(fittsService.saveTestResult(testID, trackPaths))
+        {
+            return "/TestResult/" + testID;
+        }
+        else
+        {
+            return "/TestPortal";
+        }
     }
 }

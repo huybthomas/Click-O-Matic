@@ -1,7 +1,9 @@
 package be.uantwerpen.iw.ei.se.services;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.repositories.FittsRepository;
+import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
+import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,44 @@ import org.springframework.stereotype.Service;
 public class FittsService
 {
     @Autowired
-    private FittsRepository fittsRepository;
+    private FittsTestRepository fittsTestRepository;
 
-    public FittsTest findById(String testID)
+    @Autowired
+    private FittsResultRepository fittsResultRepository;
+
+    public FittsTest findTestById(String testID)
     {
-        return this.fittsRepository.findByTestID(testID);
+        return this.fittsTestRepository.findByTestID(testID);
     }
 
-    public Iterable<FittsTest> findAll()
+    public Iterable<FittsTest> findAllTests()
     {
-        return this.fittsRepository.findAll();
+        return this.fittsTestRepository.findAll();
+    }
+
+    public Boolean saveTestResult(String testID, String trackPaths)
+    {
+        if(findTestById(testID) != null)
+        {
+            FittsResult fittsResult = new FittsResult(testID, testID, trackPaths);
+
+            fittsResultRepository.save(fittsResult);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public Iterable<FittsResult> findResultsByTestId(String testID)
+    {
+        return null;
+    }
+
+    public FittsResult findResultById(String resultID)
+    {
+        return this.fittsResultRepository.findByResultID(resultID);
     }
 }

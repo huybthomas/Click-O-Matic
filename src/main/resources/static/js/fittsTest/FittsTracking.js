@@ -26,4 +26,18 @@ function FittsTracking()
     {
         return this.currentTrackPath;
     }
+
+    this.getFirstPath = function()
+    {
+        return this.trackPaths[0];
+    }
+
+    this.getLastPath = function()
+    {
+        if(this.trackPaths.length > 0) {
+            return this.trackPaths[this.trackPaths.length-1];
+        } else {
+            return 0;
+        }
+    }
 }

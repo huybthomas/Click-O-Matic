@@ -96,15 +96,16 @@ function cursorEvent(event)
     if(!this.test.getFinished()) {
         this.test.triggeredCursorEvent(cursorState);
     } else {
-
+        
         if(!postRequestSend) {
-            var paths = 8;//this.test.getTrackPaths();
+            //var paths = this.test.getTrackPaths();
+            var paths = this.test.getThroughput();
 
             $.ajax({
                 type: "POST",
                 url: "/postFittsResult/" + testAttr.testID + "/",
                 data: {
-                    trackPaths: paths           //"trackPaths" will be value for @RequestParam
+                    trackPaths: JSON.stringify(paths)           //"trackPaths" will be value for @RequestParam
 
                 },
                 success: function (response) {

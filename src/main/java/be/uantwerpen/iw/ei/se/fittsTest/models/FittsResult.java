@@ -1,26 +1,65 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
+import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
 import be.uantwerpen.iw.ei.se.models.User;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
 
 /**
  * Created by dries on 3/11/2015.
  */
-public class FittsResult
+@Entity
+public class FittsResult extends MyAbstractPersistable<Long>
 {
+    private String resultID;
     private String testID;
-    private ArrayList<FittsTrackPath> fittsTrackPaths;
-    private User user;
+    private String fittsTrackPaths;
+    //private List<FittsTrackPath> fittsTrackPaths;
+    //private User user;
 
-    public FittsResult(String testID, ArrayList<FittsTrackPath> fittsTrackPaths, User user) {
+    public FittsResult()
+    {
+        this.resultID = "";
+        this.testID = "";
+        this.fittsTrackPaths = "";
+    }
+
+    public FittsResult(String resultID, String testID, String fittsTrackPaths)
+    {
+        this.resultID = resultID;
         this.testID = testID;
         this.fittsTrackPaths = fittsTrackPaths;
-        this.user = user;
+        //this.user = user;
+    }
 
-        if(fittsTrackPaths != null) {
-            System.out.println("Joepie");
-        }
+    public void setResultID(String resultID)
+    {
+        this.resultID = resultID;
+    }
+
+    public String getResultID()
+    {
+        return this.resultID;
+    }
+
+    public void setTestID(String testID)
+    {
+        this.testID = testID;
+    }
+
+    public String getTestID()
+    {
+        return this.testID;
+    }
+
+    public void setFittsTrackPaths(String fittsTrackPaths)
+    {
+        this.fittsTrackPaths = fittsTrackPaths;
+    }
+
+    public String getFittsTrackPaths()
+    {
+        return this.fittsTrackPaths;
     }
 
 /*    private double movementTime;
