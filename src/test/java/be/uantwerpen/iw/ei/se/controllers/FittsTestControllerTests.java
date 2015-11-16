@@ -1,6 +1,8 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,17 +27,25 @@ public class FittsTestControllerTests
     @Mock
     private UserService userService;
 
+    @Mock
+    private FittsService fittsService;
+
     @InjectMocks
     private FittsTestController fittsTestController;
 
     private MockMvc mockMvc;
 
     User principalUser;
+    Iterable<FittsTest> tests;
 
     @Before
     public void setup()
     {
         principalUser = new User("Test", "User");
+
+        List<FittsTest> testList = new ArrayList<FittsTest>();
+        testList.add(new FittsTest("001", 3, 25, 50));
+        tests = testList;
 
         MockitoAnnotations.initMocks(this);
 
@@ -43,7 +56,8 @@ public class FittsTestControllerTests
     public void viewFittsTestPageTest() throws Exception
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
+        when(fittsService.findAllTests()).thenReturn(tests);
 
-        mockMvc.perform(get("/TestPortal/001")).andExpect(view().name("testPortal/fittsTest"));
+        mockMvc.perform(get("/TestPortal")).andExpect(view().name("testPortal/testPortal"));
     }
 }
