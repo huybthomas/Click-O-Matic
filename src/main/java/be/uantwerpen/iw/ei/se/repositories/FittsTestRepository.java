@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Verstraete on 3/11/2015.
  */
 @Repository
-public interface FittsRepository extends CrudRepository<FittsTest,Long>
+public interface FittsTestRepository extends CrudRepository<FittsTest,Long>
 {
     //@Query(value="select t from User u left join u.tests t where u=:usr")
     //Iterable<FittsTest> findAllForUser(@Param("usr") User user);

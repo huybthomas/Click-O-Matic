@@ -20,10 +20,10 @@ import static junit.framework.TestCase.assertNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
 @WebAppConfiguration
-public class FittsRepositoryTests
+public class FittsTestRepositoryTests
 {
     @Autowired
-    FittsRepository fittsRepository;
+    FittsTestRepository fittsRepository;
 
     FittsTest fittstest;
     int origFittsTestRepositorySize;
