@@ -62,7 +62,7 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showFittsTestResult(@PathVariable String testID, final ModelMap model)
     {
-
+        model.addAttribute("fittsResult", fittsService.findResultByTestId(testID));
         return "testPortal/fittsTestResult";
     }
 
