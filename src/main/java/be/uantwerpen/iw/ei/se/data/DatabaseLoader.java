@@ -102,6 +102,11 @@ public class DatabaseLoader
         roles.add(tester);
         u4.setRoles(roles);
 
+        User u6 = new User("Nick", "Pauwels", "nick.pauwels", "test");
+        roles = new ArrayList<>();
+        roles.add(administrator);
+        u3.setRoles(roles);
+
         userRepository.save(u1);
         userRepository.save(u2);
         userRepository.save(u3);
