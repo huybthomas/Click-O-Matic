@@ -51,7 +51,7 @@ public class RegistrationController
             ArrayList<Permission> permissions = new ArrayList<Permission>();
             permissions.add(new Permission("logon"));
 
-            Role tester = new Role("User");
+            Role tester = new Role("Tester");
             tester.setPermissions(permissions);
 
             ArrayList<Role> roles = new ArrayList<Role>();
