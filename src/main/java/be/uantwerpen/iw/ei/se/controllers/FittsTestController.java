@@ -64,7 +64,7 @@ public class FittsTestController
     {
         //model.addAttribute("fittsResult", fittsService.findResultById(testID));
         //testarray results
-        String[] fittsResult = {"a","b","c","d"};
+        int[] fittsResult = {3,6,9,7};
         model.addAttribute("fittsResult", fittsResult);
         return "testPortal/fittsTestResult";
     }

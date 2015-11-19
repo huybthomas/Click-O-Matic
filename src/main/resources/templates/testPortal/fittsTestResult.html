@@ -10,9 +10,10 @@
 
     <div class="testPortalPage">
         <table class="table">
-            <tr>
+            <tr th:each="result : ${fittsResult}">
+
                 <td>Fitts test throughput result: </td>
-                <td th:text="${fittsResult.fittsTrackPaths}" />
+                <td th:text="${result}" />
             </tr>
         </table>
     </div>
