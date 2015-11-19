@@ -95,22 +95,25 @@ public class DatabaseLoader
         User u4 = new User("Timothy", "Verstraete", "timothy.verstraete", "test");
         roles = new ArrayList<>();
         roles.add(administrator);
-        u3.setRoles(roles);
+        u4.setRoles(roles);
 
         User u5 = new User("Tester", "De Test", "tester", "test");
         roles = new ArrayList<>();
         roles.add(tester);
-        u4.setRoles(roles);
+        u5.setRoles(roles);
 
         User u6 = new User("Nick", "Pauwels", "nick.pauwels", "test");
         roles = new ArrayList<>();
         roles.add(administrator);
-        u3.setRoles(roles);
+        u6.setRoles(roles);
 
         userRepository.save(u1);
         userRepository.save(u2);
         userRepository.save(u3);
         userRepository.save(u4);
+        userRepository.save(u5);
+        userRepository.save(u6);
+
     }
 
     private void initTestDatabase()
