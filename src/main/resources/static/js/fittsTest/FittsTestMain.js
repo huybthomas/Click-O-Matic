@@ -11,14 +11,15 @@ FittsTestStart(testAttr);
 
 function FittsTestStart(testAttr)
 {
-    this.test = new FittsTest(testAttr.numberOfDots, testAttr.dotsSize, testAttr.dotDistance); // FittsTest(numberOfDots (enkel oneven),dotSize,dotDistance)
+    //this.test = new FittsTest(testAttr.numberOfDots, testAttr.dotsSize, testAttr.dotDistance); // FittsTest(numberOfDots (enkel oneven),dotSize,dotDistance)
+    this.test = new FittsTestSeries(testAttr);
 
     this.test.initialize(canvas);
 
-    initializeTest();
+    initializeEventSystem();
 }
 
-function initializeTest()
+function initializeEventSystem()
 {
     //Set draw interval (10 ms)
     setInterval(draw, 10);
@@ -46,12 +47,12 @@ function draw()
     //Draw position circle
 
     //Draw target circles
-    this.test.drawDots(context);
+    this.test.getCurrentStage().drawDots(context);
 
     //Draw tracking path
 
     //Draw test status
-    this.test.drawStatus(context);
+    this.test.getCurrentStage().drawStatus(context);
 }
 
 function cursorEvent(event)
@@ -92,32 +93,60 @@ function cursorEvent(event)
         cursorState.leftReleased = false;
     }
 
-    //evaluate cursor event only if test not finished
-    if(!this.test.getFinished()) {
-        this.test.triggeredCursorEvent(cursorState);
-    } else {
-        
-        if(!postRequestSend) {
-            //var paths = this.test.getTrackPaths();
-            var paths = this.test.getThroughput();
-
-            $.ajax({
-                type: "POST",
-                url: "/postFittsResult/" + testAttr.testID + "/",
-                data: {
-                    trackPaths: JSON.stringify(paths)           //"trackPaths" will be value for @RequestParam
-
-                },
-                success: function (response) {
-                    window.location.replace(response);
-                },
-                error: function (e) {
-                    alert('Error: ' + e);       //reroute to error page
-                }
-            });
-            postRequestSend = true;
-        }
+    //Evaluate cursor event only if test not finished
+    if(!this.test.getCurrentStage().getFinished())
+    {
+        this.test.getCurrentStage().triggeredCursorEvent(cursorState);
     }
+
+    checkState();
+}
+
+function checkState()
+{
+    if(this.test.getCurrentStage().getFinished())
+    {
+        this.test.nextStage();
+    }
+
+    if(this.test.getTestSeriesFinished())
+    {
+       if(!postRequestSend)
+       {
+           var paths = this.test.getCurrentStage().getTrackPaths();
+
+           sendResult(paths);
+
+           postRequestSend = true;
+       }
+    }
+}
+
+function sendResult(result)
+{
+    $.ajax({
+        type: "POST",
+        url: "/postFittsResult/" + testAttr.testID + "/",
+        data: {
+            trackPaths: JSON.stringify(result)           //"trackPaths" will be value for @RequestParam
+        },
+        success: function(response) {
+            receiveSuccess(response);
+        },
+        error: function(response) {
+            receiveError(response);
+        }
+    });
+}
+
+function receiveSuccess(response)
+{
+    window.location.replace(response);
+}
+
+function receiveError(response)
+{
+    alert('Error: ' + response);       //reroute to error page
 }
 
 function resizeEvent(event)

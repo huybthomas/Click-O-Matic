@@ -4,16 +4,15 @@
 function FittsTest(numberOfDots, dotsSize, dotDistance)
 {
     this.numberOfDots = numberOfDots;
-    this.testSize = 10;              // amt of clicks until end of test
     this.testFinished = false;
-    this.currentTestSize = 0;
+    this.testProgress = 0;
     this.dotsSize = dotsSize;
     this.dotDistance = dotDistance; // Dit is de straal van de cirkel
     this.dotHColor = "red";
     this.dotLColor = "gray";
     this.previousTarget = -1;
     this.nextTarget = 0;
-    this.pathTracker;
+    this.pathTracker = {};
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -38,7 +37,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         this.repositionTest(canvas);
     }
 
-    this.getFinished = function() {
+    this.getFinished = function()
+    {
         return this.testFinished;
     }
 
@@ -61,7 +61,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
     this.setNextTarget = function()
     {
-        if(this.currentTestSize < this.testSize) {
+        if(this.testProgress < this.numberOfDots)
+        {
             this.previousTarget = this.nextTarget;
 
             this.nextTarget = (this.previousTarget + Math.floor(this.numberOfDots / 2)) % this.numberOfDots;
@@ -69,8 +70,10 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
             this.dotsList[this.previousTarget].setTarget(false);
             this.dotsList[this.nextTarget].setTarget(true);
 
-            this.currentTestSize++;
-        } else {
+            this.testProgress++;
+        }
+        else
+        {
             this.dotsList[this.nextTarget].setTarget(false);
             this.testFinished = true;
         }
@@ -130,7 +133,7 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
 
         this.cursorState.leftPressed = cursorEvent.leftPressed;
 
-        // add cursor event to current trackpath
+        //Add cursor event to current trackpath
         if(this.previousTarget != -1)
         {
             this.logNewCursorEvent();
@@ -186,19 +189,8 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
         context.fillText(message, 10, 25);
     }
 
-    this.getTrackPaths = function() {
-        return this.pathTracker.getTrackPaths();
-    }
-
-    //Temporary function
-    this.getThroughput = function()
+    this.getTrackPaths = function()
     {
-        var We = this.dotsSize;
-        var d = this.dotDistance*2;
-        var difficutlyIndex = Math.log((d+We)/We)/Math.log(2);
-        console.log(this.pathTracker.getLastPath());
-        console.log(this.pathTracker.getLastPath().getLastEvent());
-        var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
-        return difficutlyIndex/movementTime*1000;
+        return this.pathTracker.getTrackPaths();
     }
 }
