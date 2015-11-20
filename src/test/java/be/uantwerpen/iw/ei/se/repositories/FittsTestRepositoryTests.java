@@ -15,7 +15,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 
 /**
- * Created by Verstraete on 4/11/2015.
+ * Created by Thomas on 20/11/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
@@ -23,56 +23,53 @@ import static junit.framework.TestCase.assertNull;
 public class FittsTestRepositoryTests
 {
     @Autowired
-    FittsTestRepository fittsRepository;
+    FittsTestRepository fittsTestRepository;
 
-    FittsTest fittstest;
+    FittsTest fittsTest;
     int origFittsTestRepositorySize;
 
     @Before
     public void setup()
     {
         //Setup FittsTest
-        fittstest = new FittsTest();
-        fittstest.setTestID("TestName");
-        fittstest.setNumberOfDots(11);
-        fittstest.setDotDistance(100);
-        fittstest.setDotSize(25);
+        fittsTest = new FittsTest();
+        fittsTest.setTestID("Test 001");
 
-        origFittsTestRepositorySize = (int)fittsRepository.count();
+        origFittsTestRepositorySize = (int)fittsTestRepository.count();
     }
 
     @Test
-    public void testSaveFitsTest()
+    public void testSaveFittsTestStage()
     {
         //Kijk of er inderdaad een ID wordt aangemaakt na de save!
-        assertNull(fittstest.getId());       //Moet null zijn
-        fittsRepository.save(fittstest);
-        assertNotNull(fittstest.getId());    //Mag nu geen null zijn
+        assertNull(fittsTest.getId());       //Moet null zijn
+        fittsTestRepository.save(fittsTest);
+        assertNotNull(fittsTest.getId());    //Mag nu geen null zijn
 
         //Haal uit de database
-        FittsTest fetchedFittsTest = fittsRepository.findOne(fittstest.getId());
+        FittsTest fetchedFittsTest = fittsTestRepository.findOne(fittsTest.getId());
 
         //Mag geen null zijn
         assertNotNull(fetchedFittsTest);
 
         //Moet gelijk zijn
-        assertEquals(fittstest.getId(), fetchedFittsTest.getId());
-        assertEquals(fittstest, fetchedFittsTest);
+        assertEquals(fittsTest.getId(), fetchedFittsTest.getId());
+        assertEquals(fittsTest, fetchedFittsTest);
 
         //Update en save
-        fetchedFittsTest.setTestID("NewTestName");
-        fittsRepository.save(fetchedFittsTest);
+        fetchedFittsTest.setTestID("New 001");
+        fittsTestRepository.save(fetchedFittsTest);
 
         //Controle of het nu wel gesaved is
-        FittsTest fetchedUpdatedFittsTest = fittsRepository.findOne(fetchedFittsTest.getId());
+        FittsTest fetchedUpdatedFittsTest = fittsTestRepository.findOne(fetchedFittsTest.getId());
         assertEquals(fetchedFittsTest, fetchedUpdatedFittsTest);
 
         //Controle of het aantal klopt
-        long userCount = fittsRepository.count();
+        long userCount = fittsTestRepository.count();
         assertEquals(userCount, origFittsTestRepositorySize + 1);        //One test has been added to the database
 
         //Haal alle gebruikers eruit, er zou er nu 1 meer moeten zitten dan initieel.
-        Iterable<FittsTest> tests = fittsRepository.findAll();
+        Iterable<FittsTest> tests = fittsTestRepository.findAll();
 
         int count = 0;
 
