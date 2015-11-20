@@ -11,8 +11,7 @@ FittsTestStart(testAttr);
 
 function FittsTestStart(testAttr)
 {
-    //this.test = new FittsTest(testAttr.numberOfDots, testAttr.dotsSize, testAttr.dotDistance); // FittsTest(numberOfDots (enkel oneven),dotSize,dotDistance)
-    this.test = new FittsTestSeries(testAttr);
+    this.test = new FittsTest(testAttr);
 
     this.test.initialize(canvas);
 
@@ -41,24 +40,12 @@ function draw()
     //Clear frame
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    //Draw border
-
-
-    //Draw position circle
-
-    //Draw target circles
-    this.test.getCurrentStage().drawDots(context);
-
-    //Draw tracking path
-
-    //Draw test status
-    this.test.getCurrentStage().drawStatus(context);
+    //Draw test
+    this.test.draw(context);
 }
 
 function cursorEvent(event)
 {
-    var boundRect = canvas.getBoundingClientRect();
-
     //Get mouse position relative to the canvas
     cursorState.x = event.clientX - canvas.offsetLeft;
     cursorState.y = event.clientY - canvas.offsetTop;
@@ -109,7 +96,7 @@ function checkState()
         this.test.nextStage();
     }
 
-    if(this.test.getTestSeriesFinished())
+    if(this.test.getTestFinished())
     {
        if(!postRequestSend)
        {
@@ -120,6 +107,11 @@ function checkState()
            postRequestSend = true;
        }
     }
+}
+
+function testFinished()
+{
+    return this.test.getTestFinished();
 }
 
 function sendResult(result)
@@ -146,7 +138,7 @@ function receiveSuccess(response)
 
 function receiveError(response)
 {
-    alert('Error: ' + response);       //reroute to error page
+    alert('We are sorry, but an error has occurred: ' + response);       //reroute to error page
 }
 
 function resizeEvent(event)

@@ -7,8 +7,8 @@
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackEvent.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackPath.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTracking.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestStage.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
-
 </head>
 
 <body>
@@ -25,7 +25,7 @@
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
-    <!-- Resize canvas -->
+    <!-- Resize canvas script -->
     <script type="text/javascript">
         window.addEventListener('resize', resizeEvent, false);
 
@@ -45,14 +45,23 @@
         }
     </script>
 
+    <!-- Leave page script -->
+    <script type="text/javascript">
+        window.addEventListener('beforeunload', leavePageEvent, false);
+
+        function leavePageEvent(event)
+        {
+            if(!testFinished())
+            {
+                event.returnValue = "The test is not finished yet, all progress made will be lost!";
+            }
+        }
+    </script>
+
     <!-- Load Fitts Test script -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var testAttr=[];
-        testAttr.testID=/*[[${runningTest.testID}]]*/;
-        testAttr.numberOfDots=/*[[${runningTest.numberOfDots}]]*/;
-        testAttr.dotsSize=/*[[${runningTest.dotSize}]]*/;
-        testAttr.dotDistance=/*[[${runningTest.dotDistance}]]*/;
+        var testAttr=/*[[${runningTest.getTestStages()}]]*/;
         /*]]>*/
     </script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
