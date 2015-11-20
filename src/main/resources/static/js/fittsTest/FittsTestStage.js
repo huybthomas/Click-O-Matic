@@ -154,9 +154,9 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.checkTargetClicked = function()
     {
-        //Temporary conversion from cursor position (relative to test center) relative to the upper left corner of the canvas (until coordinates are standardized to test center
+        //Temporary conversion from cursor position (relative to test center) relative to the upper left corner of the canvas (until coordinates are standardized to test center)
         var tempPosX = this.cursorState.x + (canvas.width)/2;
-        var tempPosY = this.cursorState.y + (canvas.height)/2;
+        var tempPosY = this.cursorState.y + (canvas.height)/3;
 
         if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
         {
