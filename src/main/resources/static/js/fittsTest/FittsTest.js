@@ -4,7 +4,7 @@
 function FittsTest(numberOfDots, dotsSize, dotDistance)
 {
     this.numberOfDots = numberOfDots;
-    this.testSize = 10;              // amt of clicks until end of test
+    this.testSize = numberOfDots;              // amt of clicks until end of test
     this.testFinished = false;
     this.currentTestSize = 0;
     this.dotsSize = dotsSize;
@@ -193,12 +193,19 @@ function FittsTest(numberOfDots, dotsSize, dotDistance)
     //Temporary function
     this.getThroughput = function()
     {
-        var We = this.dotsSize;
+        var We = this.dotsSize*2;
         var d = this.dotDistance*2;
-        var difficutlyIndex = Math.log((d+We)/We)/Math.log(2);
+        var difficutlyIndex = Math.log((d/We)+1)/Math.log(2);
         console.log(this.pathTracker.getLastPath());
         console.log(this.pathTracker.getLastPath().getLastEvent());
+        console.log(this.pathTracker.getLastPath().getLastEvent().getTimestamp());
+        console.log(this.pathTracker.getFirstPath().getFirstEvent().getTimestamp());
         var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
-        return difficutlyIndex/movementTime*1000;
+        var totalTime = (movementTime/1000)/numberOfDots
+        console.log(We);
+        console.log(d);
+        console.log(difficutlyIndex);
+        console.log(totalTime);
+        return difficutlyIndex/totalTime;
     }
 }
