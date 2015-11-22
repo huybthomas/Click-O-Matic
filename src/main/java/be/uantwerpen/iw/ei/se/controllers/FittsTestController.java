@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 /**
  * Created by Quinten on 3/11/2015.
  */
@@ -80,12 +82,13 @@ public class FittsTestController
         if(trackPaths != null)
         //if(fittsService.saveTestResult(testID, trackPaths))
         {
-            return new JSONResponse("OK", "", "/TestPortal");
+            // get functie voor volgende test: dit id hieronder plaatsen
+            return new JSONResponse("OK", "", "/TestPortal/" + "002", true);
             //return new JSONResponse("OK", "", "/TestResult/" + testID);
         }
         else
         {
-            return new JSONResponse("ERROR", "The specified test: " + testID + " could not be found!", "/TestPortal");
+            return new JSONResponse("ERROR", "The specified test: " + testID + " could not be found!", "/TestPortal", false);
         }
     }
 }
