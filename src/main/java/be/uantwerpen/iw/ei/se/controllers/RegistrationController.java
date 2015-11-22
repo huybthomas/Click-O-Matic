@@ -3,6 +3,7 @@ package be.uantwerpen.iw.ei.se.controllers;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.services.RoleService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,11 +26,15 @@ public class RegistrationController
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @RequestMapping(value="/registration", method= RequestMethod.GET)
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String createUserForm(ModelMap model)
     {
         model.addAttribute("user", new User());
+        model.addAttribute("allRoles", roleService.findAll());
         return "mainPortal/registration";
     }
 
@@ -46,7 +51,7 @@ public class RegistrationController
             ArrayList<Permission> permissions = new ArrayList<Permission>();
             permissions.add(new Permission("logon"));
 
-            Role tester = new Role("User");
+            Role tester = new Role("Tester");
             tester.setPermissions(permissions);
 
             ArrayList<Role> roles = new ArrayList<Role>();
