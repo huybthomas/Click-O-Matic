@@ -61,7 +61,7 @@
     <!-- Load Fitts Test script -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var testAttr=/*[[${runningTest.getTestStages()}]]*/;
+        var testAttr=/*[[${runningTest}]]*/;
         /*]]>*/
     </script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
