@@ -16,6 +16,28 @@
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
 
+        <!-- Modal popup -->
+        <div id="continueModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Test finished</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You can return to the main test portal or immediately start the next test.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/TestPortal"><button type="button" class="btn btn-primary" data-dismiss="modal">Return</button></a>
+                        <a href="http://google.be" target="_blank"><button type="button" class="btn btn-primary" data-dismiss="modal">Next test</button></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="frontContent" id="frontContent">
             <!-- Fitts test -->
             <canvas id="FittsCanvas"></canvas>

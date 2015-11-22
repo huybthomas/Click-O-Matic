@@ -128,8 +128,7 @@ public class DatabaseLoader
         fittsTest02Stages.add(allFittsTestStages.get(0));
 
         fittsTest03Stages.add(allFittsTestStages.get(2));
-        fittsTest03Stages.add(allFittsTestStages.get(1));
-        fittsTest03Stages.add(allFittsTestStages.get(3));
+        fittsTest03Stages.add(allFittsTestStages.get(2));
 
         allFittsTests.add(new FittsTest("001", fittsTest01Stages));
         allFittsTests.add(new FittsTest("002", fittsTest02Stages));

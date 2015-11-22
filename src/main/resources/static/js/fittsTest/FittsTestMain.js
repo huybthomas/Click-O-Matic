@@ -98,14 +98,14 @@ function checkState()
 
     if(this.test.getTestFinished())
     {
-       if(!postRequestSend)
-       {
+        if(!postRequestSend)
+        {
            var paths = this.test.getCurrentStage().getTrackPaths();
 
            sendResult(paths);
 
            postRequestSend = true;
-       }
+        }
     }
 }
 
@@ -116,6 +116,9 @@ function testFinished()
 
 function sendResult(result)
 {
+
+    $('#continueModal').modal('show');
+
     $.ajax({
         type: "POST",
         url: "/postFittsResult/" + testAttr.testID + "/",
@@ -133,7 +136,7 @@ function sendResult(result)
 
 function receiveSuccess(response)
 {
-    window.location.replace(response);
+    //window.location.replace(response);
 }
 
 function receiveError(response)
