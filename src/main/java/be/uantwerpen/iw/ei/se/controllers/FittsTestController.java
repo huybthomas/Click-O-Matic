@@ -31,6 +31,12 @@ public class FittsTestController
         return userService.getPrincipalUser();
     }
 
+    @ModelAttribute("allFittsTest")
+    public Iterable<FittsTest> populateFitts()
+    {
+        return fittsService.findAll();
+    }
+
     @RequestMapping({"/TestPortal"})
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
@@ -71,5 +77,12 @@ public class FittsTestController
     {
 
         return "testPortal/fittsTestDetails";
+    }
+    @RequestMapping(value={"/TestCreator"})
+    @PreAuthorize("hasRole('logon')")
+    public String FittsTestCreator(final ModelMap model)
+    {
+
+        return "testPortal/fittsTestCreator";
     }
 }
