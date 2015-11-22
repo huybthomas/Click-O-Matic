@@ -29,13 +29,15 @@ public class FittsService
         return this.fittsTestRepository.findAll();
     }
 
-    public Boolean saveTestResult(String testID, String trackPaths)
+    public Boolean saveTestResult(String testID, String trackPathsJSON)
     {
         if(findTestById(testID) != null)
         {
-            FittsResult fittsResult = new FittsResult(testID, testID, trackPaths);
 
-            fittsResultRepository.save(fittsResult);
+
+           // FittsResult fittsResult = new FittsResult(testID, testID, trackPathsJSON);
+
+           // fittsResultRepository.save(fittsResult);
 
             return true;
         }
