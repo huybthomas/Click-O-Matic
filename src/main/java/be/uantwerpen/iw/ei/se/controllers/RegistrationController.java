@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -33,7 +34,21 @@ public class RegistrationController
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String createUserForm(ModelMap model)
     {
-        model.addAttribute("user", new User());
+        User user = new User();
+
+        Iterable<Role> roleList= roleService.findAll();
+        Iterator<Role> it = roleList.iterator();
+        while(it.hasNext()) {
+
+            Role temp = it.next();
+
+            if(temp.getName().equals("Tester")) {
+                user.setRoles(new ArrayList<Role>(Arrays.asList(temp)));
+                break;  // break from while loop
+            }
+        }
+
+        model.addAttribute("user", user);
         model.addAttribute("allRoles", roleService.findAll());
         return "mainPortal/registration";
     }
@@ -48,16 +63,6 @@ public class RegistrationController
         }
         else
         {
-            ArrayList<Permission> permissions = new ArrayList<Permission>();
-            permissions.add(new Permission("logon"));
-
-            Role tester = new Role("Tester");
-            tester.setPermissions(permissions);
-
-            ArrayList<Role> roles = new ArrayList<Role>();
-            roles.add(tester);
-            user.setRoles(roles);
-
             if(userService.usernameAlreadyExists(user.getUserName()))
             {
                 return "redirect:/registration?errorAlreadyExists";
