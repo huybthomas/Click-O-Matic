@@ -3,6 +3,7 @@ package be.uantwerpen.iw.ei.se.controllers;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
+import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
@@ -74,17 +75,19 @@ public class FittsTestController
         return "testPortal/fittsTestDetails";
     }
 
-    @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST)
+    @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('logon')")
-    public @ResponseBody String saveFittsResult(@RequestParam(value="trackPaths") String trackPaths, @PathVariable String testID, final ModelMap model)
+    public @ResponseBody JSONResponse saveFittsResult(@RequestBody ArrayList<FittsTrackPath> trackPaths, @PathVariable String testID, final ModelMap model)
     {
-        if(fittsService.saveTestResult(testID, trackPaths))
+        if(trackPaths != null)
+        //if(fittsService.saveTestResult(testID, trackPaths))
         {
-            return "/TestResult/" + testID;
+            return new JSONResponse("OK", "", "/TestPortal");
+            //return new JSONResponse("OK", "", "/TestResult/" + testID);
         }
         else
         {
-            return "/TestPortal";
+            return new JSONResponse("ERROR", "The specified test: " + testID + " could not be found!", "/TestPortal");
         }
     }
 }

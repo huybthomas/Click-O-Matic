@@ -7,11 +7,11 @@ var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
 var postRequestSend = false;
 
 //Start test initialization
-FittsTestStart(testAttr);
+FittsTestStart(testAttr.testStages);
 
-function FittsTestStart(testAttr)
+function FittsTestStart(testStages)
 {
-    this.test = new FittsTest(testAttr);
+    this.test = new FittsTest(testStages);
 
     this.test.initialize(canvas);
 
@@ -100,7 +100,7 @@ function checkState()
     {
        if(!postRequestSend)
        {
-           var paths = this.test.getCurrentStage().getTrackPaths();
+           var paths = this.test.getTestStages()[0].getTrackPaths();
 
            sendResult(paths);
 
@@ -116,24 +116,39 @@ function testFinished()
 
 function sendResult(result)
 {
+    console.log(JSON.stringify(result));
     $.ajax({
         type: "POST",
         url: "/postFittsResult/" + testAttr.testID + "/",
-        data: {
-            trackPaths: JSON.stringify(result)           //"trackPaths" will be value for @RequestParam
-        },
+        data: JSON.stringify(result),           //"trackPaths" will be value for @RequestParam
+        contentType: "application/json",
         success: function(response) {
-            receiveSuccess(response);
+            if(response.status = "OK")
+            {
+                receiveSuccess(response);
+            }
+            else
+            {
+                receiveError(response.errorMessage);
+            }
         },
         error: function(response) {
-            receiveError(response);
+            receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
         }
     });
 }
 
 function receiveSuccess(response)
 {
-    window.location.replace(response);
+    if(response.nextTest == true)
+    {
+        console.log("Proceed to next test?");
+        //nextTestPropose(response);
+    }
+    else
+    {
+        //window.location.replace(response.redirect);
+    }
 }
 
 function receiveError(response)
