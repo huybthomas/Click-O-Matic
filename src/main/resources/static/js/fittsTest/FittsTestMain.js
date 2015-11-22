@@ -98,14 +98,15 @@ function checkState()
 
     if(this.test.getTestFinished())
     {
-       if(!postRequestSend)
-       {
+        if(!postRequestSend)
+        {
+           // To be fixed for all stages
            var paths = this.test.getTestStages()[0].getTrackPaths();
-
+        
            sendResult(paths);
-
+        
            postRequestSend = true;
-       }
+        }
     }
 }
 
@@ -116,7 +117,6 @@ function testFinished()
 
 function sendResult(result)
 {
-    console.log(JSON.stringify(result));
     $.ajax({
         type: "POST",
         url: "/postFittsResult/" + testAttr.testID + "/",
@@ -138,16 +138,13 @@ function sendResult(result)
     });
 }
 
-function receiveSuccess(response)
-{
-    if(response.nextTest == true)
-    {
-        console.log("Proceed to next test?");
-        //nextTestPropose(response);
-    }
-    else
-    {
-        //window.location.replace(response.redirect);
+function receiveSuccess(response) {
+    // response redirect is set on server side, depending on response.nextTest boolean value
+    if(response.nextTest == false) {
+        window.location.replace(response.redirect);
+    } else {
+        $('#nextTestLink').attr("href", response.redirect);
+        $('#continueModal').modal('show');
     }
 }
 

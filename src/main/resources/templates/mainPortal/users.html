@@ -15,7 +15,7 @@
                         </ul>
                     </div>
                 </div>
-                    <div>
+                    <div style="height: 60vh; overflow-y: auto">
                         <table class="table">
                             <tr th:each="u : ${allUsers}">
                                 <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>

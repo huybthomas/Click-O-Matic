@@ -8,35 +8,40 @@
 
         <div class="mainPortalPage">
             <div class="frontContent">
+
                 <div class="navbar">
                     <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>
                 </div>
-                <table class="table">
-                    <tr>
-                        <th th:text="#{homepage.table.name}">NAME</th>
-                        <th th:text="#{homepage.table.role}">ROLE</th>
-                        <th th:text="#{homepage.table.permission}">PERMISSION</th>
-                    </tr>
-                    <tr th:each="user : ${allUsers}">
-                        <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
-                        <td>
-                            <table>
-                                <tr th:each="role : ${user.roles}">
-                                    <td th:text="${role.name}"/>
-                                </tr>
-                            </table>
-                        </td>
-                        <td>
-                            <div th:each="role : ${user.roles}">
+
+                <div style="height: 60vh; overflow-y: auto">
+                    <table class="table">
+                        <tr>
+                            <th th:text="#{homepage.table.name}">NAME</th>
+                            <th th:text="#{homepage.table.role}">ROLE</th>
+                            <th th:text="#{homepage.table.permission}">PERMISSION</th>
+                        </tr>
+                        <tr th:each="user : ${allUsers}">
+                            <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
+                            <td>
                                 <table>
-                                    <tr th:each="perm : ${role.permissions}">
-                                        <td th:text="${perm.name}"/>
+                                    <tr th:each="role : ${user.roles}">
+                                        <td th:text="${role.name}"/>
                                     </tr>
                                 </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                            </td>
+                            <td>
+                                <div th:each="role : ${user.roles}">
+                                    <table>
+                                        <tr th:each="perm : ${role.permissions}">
+                                            <td th:text="${perm.name}"/>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
                 <div sec:authorize="hasRole('secret-message')">
                     <span th:text="#{homepage.secret-message}"/>
                 </div>
