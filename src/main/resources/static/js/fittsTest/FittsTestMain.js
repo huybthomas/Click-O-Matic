@@ -117,8 +117,6 @@ function testFinished()
 function sendResult(result)
 {
 
-    $('#continueModal').modal('show');
-
     $.ajax({
         type: "POST",
         url: "/postFittsResult/" + testAttr.testID + "/",
@@ -134,9 +132,13 @@ function sendResult(result)
     });
 }
 
-function receiveSuccess(response)
-{
-    //window.location.replace(response);
+function receiveSuccess(response) {
+    if(response.message == "NoMoreTests") {
+        window.location.replace(response);
+    } else {
+        $('#nextTestLink').attr("href", "/TestPortal/" + response.message);
+        $('#continueModal').modal('show');
+    }
 }
 
 function receiveError(response)
