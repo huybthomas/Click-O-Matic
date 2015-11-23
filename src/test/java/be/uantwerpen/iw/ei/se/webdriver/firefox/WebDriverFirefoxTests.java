@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.webdriver.firefox;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
+import be.uantwerpen.iw.ei.se.webdriver.testcases.WebDriverTestCases;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ public class WebDriverFirefoxTests
     private static WebDriver driver;
     private static boolean webdriverOK;
     private static String baseURL;
+    private static WebDriverTestCases testCases;
 
     @BeforeClass
     public static void setup()
@@ -31,6 +33,7 @@ public class WebDriverFirefoxTests
         webdriverOK = false;
         baseURL = "http://localhost:1304/";
         driver = new FirefoxDriver();
+        testCases = new WebDriverTestCases(baseURL, driver);
     }
 
     @Test
@@ -50,16 +53,7 @@ public class WebDriverFirefoxTests
         //Integrity test needs to be succeeded
         Assert.assertTrue(webdriverOK);
 
-        //Login page
-        driver.get(baseURL + "login");
-
-        driver.findElement(By.id("username")).clear();
-        driver.findElement(By.id("username")).sendKeys("thomas.huybrechts");
-        driver.findElement(By.id("password")).clear();
-        driver.findElement(By.id("password")).sendKeys("test");
-        driver.findElement(By.id("login")).click();
-
-        Assert.assertTrue("Title should start with Click-O-Matic", driver.getTitle().startsWith("Click-O-Matic"));
+        testCases.loginWithCredentialsThomasHuybrechts();
     }
 
     @AfterClass
