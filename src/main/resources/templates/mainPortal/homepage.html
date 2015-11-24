@@ -6,7 +6,7 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <div class="mainPortalPage">
+        <div class="mainPortalPage" id="mainPortalPage">
             <div class="frontContent">
                 <div class="navbar">
                     <h1 th:text="#{homepage.hello} + ', ' + ${currentUserFirstName}">Hello ...</h1>

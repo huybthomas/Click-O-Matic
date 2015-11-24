@@ -1,32 +1,29 @@
-package be.uantwerpen.iw.ei.se.webdriver.chrome;
+package be.uantwerpen.iw.ei.se.webdriver.internetExplorer;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.webdriver.testcases.WebDriverTestCases;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.io.File;
-
 /**
- * Created by Thomas on 23/11/2015.
+ * Created by Thomas on 24/11/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ClickOMaticApplication.class, loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
 @IntegrationTest
-public class WebDriverChromeTests
+public class WebDriverIETests
 {
-    //Chromedriver locations
-    private static String WINDOWS_DRIVER = "/drivers/chromedriver/windows/chromedriver.exe";
-    private static String LINUX_DRIVER = "/drivers/chromedriver/linux/chromedriver";
+    //IExplorer driver locations
+    private static String WINDOWS_DRIVER = "/drivers/iexplorerdriver/windows/iedriver.exe";
 
     private static WebDriver driver;
     private static boolean webdriverOK;
@@ -43,43 +40,33 @@ public class WebDriverChromeTests
         if(OS.contains("win"))
         {
             //Windows system
-            System.setProperty("webdriver.chrome.driver", ClickOMaticApplication.class.getResource(WINDOWS_DRIVER).getFile());
+            System.setProperty("webdriver.ie.driver", ClickOMaticApplication.class.getResource(WINDOWS_DRIVER).getFile());
 
             osCompatible = true;
-        }
-        else if(OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
-        {
-            //Unix system
-            File linuxDriver = new File(ClickOMaticApplication.class.getResource(LINUX_DRIVER).getFile());
-
-            //Set to executable
-            if(!linuxDriver.canExecute())
-            {
-                linuxDriver.setExecutable(true);
-            }
-
-            System.setProperty("webdriver.chrome.driver", ClickOMaticApplication.class.getResource(LINUX_DRIVER).getFile());
-
-            osCompatible = true;
-
         }
         else
         {
-            //Other system (no compatible drivers installed)
+            //Other system (only Windows systems are supported for IE WebDriver)
             osCompatible = false;
         }
 
-        Assume.assumeTrue("OS is not compatible with the Chrome driver! Tests will be cancelled...", osCompatible);
+        Assume.assumeTrue("No compatible OS to run tests, only Windows systems are supported for IE WebDriver! Tests will be cancelled...", osCompatible);
 
         webdriverOK = false;
         baseURL = "http://localhost:1304/";
-        driver = new ChromeDriver();
+
+        //Internet Explorer fix: Protected Mode settings are not the same for all zones
+        DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
+        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+
+        driver = new InternetExplorerDriver(ieCapabilities);
         testCases = new WebDriverTestCases(baseURL, driver);
     }
 
     @Test
-    public void startWebDriverChrome()
+    public void startWebDriverIE()
     {
+        //Only Windows systems are compatible with the IE WebDriver
         Assume.assumeTrue(osCompatible);
 
         driver.navigate().to("http://localhost:1304");

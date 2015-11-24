@@ -4,7 +4,6 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.webdriver.testcases.WebDriverTestCases;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.IntegrationTest;
@@ -51,7 +50,7 @@ public class WebDriverFirefoxTests
     public void loginWithCredentialsThomasHuybrechts()
     {
         //Integrity test needs to be succeeded
-        Assert.assertTrue(webdriverOK);
+        Assume.assumeTrue(webdriverOK);
 
         testCases.loginWithCredentialsThomasHuybrechts();
     }

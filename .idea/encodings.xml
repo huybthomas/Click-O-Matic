@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/drivers/chromedriver/linux/chromedriver" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/resources/drivers/chromedriver/windows/chromedriver.exe" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/drivers/iexplorerdriver/IEDriverServer.exe" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/drivers/iexplorerdriver/windows/iedriver.exe" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/resources/static/images/appLogo.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/resources/static/images/companyLogo.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/resources/static/images/loginAppLogo.png" charset="windows-1252" />
