@@ -101,7 +101,7 @@ function checkState()
         if(!postRequestSend)
         {
            // To be fixed for all stages
-           var paths = this.test.getTestStages()[0].getTrackPaths();
+           var paths = this.test.getTestStages();
         
            sendResult(paths);
         

@@ -3,7 +3,9 @@ package be.uantwerpen.iw.ei.se.fittsTest.models;
 import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,24 +16,26 @@ public class FittsResult extends MyAbstractPersistable<Long>
 {
     private String resultID;
     private String testID;
+    private Date resultDate;
 
-/*
     @OneToMany
     @JoinColumn(name="RESULT_ID", referencedColumnName="ID")
-    private List<FittsTrackPath> fittsTrackPaths;
-*/
+    private List<FittsTrackPath> trackPaths;
+
     public FittsResult()
     {
         this.resultID = "";
         this.testID = "";
-     //   this.fittsTrackPaths = new ArrayList<FittsTrackPath>();
+        this.resultDate = new Date();
+        this.trackPaths = new ArrayList<FittsTrackPath>();
     }
 
-    public FittsResult(String resultID, String testID, List<FittsTrackPath> fittsTrackPaths)
+    public FittsResult(String resultID, String testID, Date resultDate, List<FittsTrackPath> trackPaths)
     {
         this.resultID = resultID;
         this.testID = testID;
-     //   this.fittsTrackPaths = fittsTrackPaths;
+        this.resultDate = resultDate;
+        this.trackPaths = trackPaths;
     }
 
     public void setResultID(String resultID)
@@ -54,13 +58,23 @@ public class FittsResult extends MyAbstractPersistable<Long>
         return this.testID;
     }
 
-    public void setFittsTrackPaths(List<FittsTrackPath> fittsTrackPaths)
+    public void setResultDate(Date resultDate)
     {
-      //  this.fittsTrackPaths = fittsTrackPaths;
+        this.resultDate = resultDate;
     }
 
-    //public List<FittsTrackPath> getFittsTrackPaths()
+    public Date getResultDate()
     {
-     //   return this.fittsTrackPaths;
+        return this.resultDate;
+    }
+
+    public void setTrackPaths(List<FittsTrackPath> trackPaths)
+    {
+        this.trackPaths = trackPaths;
+    }
+
+    public List<FittsTrackPath> getFittsTrackPaths()
+    {
+        return this.trackPaths;
     }
 }

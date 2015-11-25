@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 /**
  * Created by Quinten on 15/11/2015.
  */
-//@Entity
+@Entity
 public class FittsTrackEvent extends MyAbstractPersistable<Long>
 {
     private long timestamp;

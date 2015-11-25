@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Quinten on 15/11/2015.
  */
-//@Entity
+@Entity
 public class FittsTrackPath extends MyAbstractPersistable<Long>
 {
     @OneToMany

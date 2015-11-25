@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Quinten on 3/11/2015.
@@ -77,9 +78,12 @@ public class FittsTestController
 
     @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('logon')")
-    public @ResponseBody JSONResponse saveFittsResult(@RequestBody ArrayList<FittsTrackPath> trackPaths, @PathVariable String testID, final ModelMap model)
+    public @ResponseBody JSONResponse saveFittsResult(@RequestBody List<List<FittsTrackPath>> testResults, @PathVariable String testID, final ModelMap model)
     {
-        if(trackPaths != null)
+        System.out.println(testResults);
+        System.out.println(testResults.get(0).get(0).getPath());
+        System.out.println(testResults.get(0).get(0).getPath().get(0).getTimestamp());
+        if(testResults != null)
         //if(fittsService.saveTestResult(testID, trackPaths))
         {
             // get functie voor volgende test: dit id hieronder plaatsen
