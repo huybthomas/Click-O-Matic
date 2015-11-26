@@ -1,5 +1,7 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +29,8 @@ public class User extends MyAbstractPersistable<Long>
     @Size(min=4, max=12)
     @NotNull
     private String password;
+
+    private ArrayList<FittsTest> testList;
 
     @ManyToMany
     @JoinTable(
@@ -111,6 +115,12 @@ public class User extends MyAbstractPersistable<Long>
     {
         return this.roles;
     }
+
+    public void addTest(FittsTest test) {testList.add(test);}
+
+    public FittsTest getTest(int number) {return this.testList.get(number);}
+
+    public ArrayList<FittsTest> getAllTests() {return this.testList;}
 
     public void setRoles(List<Role> roles)
     {
