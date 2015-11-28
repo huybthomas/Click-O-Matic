@@ -12,7 +12,8 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     this.dotLColor = "gray";
     this.previousTarget = -1;
     this.nextTarget = 0;
-    this.pathTracker = {};
+    this.trackPaths = [];
+    this.currentTrackPath = {};
     this.backCircleColor = "blue";
     this.dotsList = [];
     this.backCircle = {};
@@ -20,9 +21,12 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.initialize = function(canvas)
     {
-        this.initializeDots(canvas);
+        this.testProgress = 0;
+        this.previousTarget = -1;
+        this.nextTarget = 0;
+        this.currentTrackPath = new FittsTrackPath();
 
-        this.pathTracker = new FittsTracking();
+        this.initializeDots(canvas);
     }
 
     this.initializeDots = function(canvas)
@@ -170,19 +174,20 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.createNewTracePath = function()
     {
-        this.pathTracker.continueWithNextTrackPath();
+        this.currentTrackPath = new FittsTrackPath();
+        this.trackPaths.push(this.currentTrackPath);
     }
 
     this.logNewCursorEvent = function()
     {
-        var cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed)
-        this.pathTracker.addCursorEvent(cursorEvent);
+        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed)
+        this.currentTrackPath.addCursorEvent(cursorEvent);
     }
 
     this.drawStatus = function(context)
     {
         //Draw mouse position coordinates
-        var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed  + " | Current path: " + this.pathTracker.getTrackPaths().length + " - timer: " + this.pathTracker.getCurrentTrackPath().getPathTime();
+        message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed  + " | Current path: " + this.trackPaths.length + " - timer: " + this.currentTrackPath.getPathTime();
 
         context.font = "16px Arial";
         context.fillStyle = "black";
@@ -191,6 +196,6 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.getTrackPaths = function()
     {
-        return this.pathTracker.getTrackPaths();
+        return this.trackPaths;
     }
 }

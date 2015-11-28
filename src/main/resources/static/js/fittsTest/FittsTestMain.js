@@ -101,8 +101,8 @@ function checkState()
         if(!postRequestSend)
         {
            // To be fixed for all stages
-           var paths = this.test.getTestStages();
-        
+           paths = this.test.getTestStages();
+console.log(JSON.stringify(paths));
            sendResult(paths);
         
            postRequestSend = true;
@@ -138,7 +138,8 @@ function sendResult(result)
     });
 }
 
-function receiveSuccess(response) {
+function receiveSuccess(response)
+{
     // response redirect is set on server side, depending on response.nextTest boolean value
     if(response.nextTest == false) {
         window.location.replace(response.redirect);
