@@ -102,7 +102,7 @@ function checkState()
         {
            // To be fixed for all stages
            paths = this.test.getTestStages();
-console.log(JSON.stringify(paths));
+
            sendResult(paths);
         
            postRequestSend = true;
