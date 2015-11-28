@@ -18,12 +18,6 @@ public class TestManagementController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("currentUserFirstName")
-    public String getCurrentUserFirstName()
-    {
-        return userService.getPrincipalUser().getFirstName();
-    }
-
     @ModelAttribute("allUsers")
     public Iterable<User> populateUsers()
     {

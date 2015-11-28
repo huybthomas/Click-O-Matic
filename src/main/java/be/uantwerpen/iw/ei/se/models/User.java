@@ -30,7 +30,14 @@ public class User extends MyAbstractPersistable<Long>
     @NotNull
     private String password;
 
-    private ArrayList<FittsTest> testList;
+    @ManyToMany
+    @JoinTable(
+            name="USER_TEST",
+            joinColumns={
+                    @JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="FITTS_TEST_ID", referencedColumnName="ID")})
+    private List<FittsTest> tests;
 
     @ManyToMany
     @JoinTable(
@@ -116,11 +123,15 @@ public class User extends MyAbstractPersistable<Long>
         return this.roles;
     }
 
-    public void addTest(FittsTest test) {testList.add(test);}
+    public void addTest(FittsTest test) {
+        tests.add(test);
+    }
 
-    public FittsTest getTest(int number) {return this.testList.get(number);}
+    public FittsTest getTest(int number) {return this.tests.get(number);}
 
-    public ArrayList<FittsTest> getAllTests() {return this.testList;}
+    public List<FittsTest> getAllTests() {
+        return this.tests;
+    }
 
     public void setRoles(List<Role> roles)
     {
