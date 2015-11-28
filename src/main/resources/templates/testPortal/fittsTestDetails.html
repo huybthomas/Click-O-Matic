@@ -11,9 +11,20 @@
     <div class="testPortalPage">
         <table class="table">
             <tr>
-                <td>Test detailssss</td>
+                <th th:text="#{fittstest.details}">Details of test:</th>
+                <th th:text="${fittsTest.testID}">Test name</th>
+            </tr>
+            <tr>
+                <td th:text="#{fittstest.amtOfStages}">Amount of stages</td>
+                <td th:text="${amtOfStages}">#</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
             </tr>
         </table>
+        <a href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.return}">Return</button></a>
+        <a th:href="'/TestPortal/' + ${fittsTest.testID}"><button type="button" class="btn btn-primary" th:value="#{fittstest.start}">Start test</button></a>
     </div>
 </div>
 

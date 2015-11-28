@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{users.title})"></head>
-<body onload="initPage()">
-
-    <script type="text/javascript">
-        function initPage(){
-            $('#roles').multiSelect({
-                selectableHeader: '<div class="custom-header" th:text="#{selectable.items}">Selectable items</div>',
-                selectionHeader: '<div class="custom-header" th:text="#{selected.items}">Selected items</div>'
-            });
-        }
-
-    </script>
+<body>
 
     <div class="container">
         <!-- Import navigation bar -->
@@ -22,12 +12,12 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav">
-                            <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+                            <li><a th:href="@{/Registration}" href="registration.html"> Create user </a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="content">
-                    <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
+                    <form action="#" th:action="@{/Users}" method="post" th:object="${user}" th:if="${user}">
                         <input th:type="hidden" th:field="*{id}"/>
 
                         <div class="container">

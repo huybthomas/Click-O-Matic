@@ -30,7 +30,7 @@ public class HomeController
         return userService.findAll();
     }
 
-    @RequestMapping({"/", "/homepage"})
+    @RequestMapping({"/", "/Homepage"})
     @PreAuthorize("hasRole('logon')")
     public String showHomepage(ModelMap model)
     {

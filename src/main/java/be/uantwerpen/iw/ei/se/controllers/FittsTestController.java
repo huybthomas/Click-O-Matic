@@ -73,11 +73,20 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showFittsTestDetails(@PathVariable String testID, final ModelMap model)
     {
+        FittsTest test = fittsService.findTestById(testID);
+        int amtOfStages = test.getTestStages().size();
 
-        return "testPortal/fittsTestDetails";
+        if(test != null) {
+            model.addAttribute("fittsTest", test);
+            model.addAttribute("amtOfStages", amtOfStages);
+            return "testPortal/fittsTestDetails";
+        } else {
+            return "redirect:/TestPortal?errorTestNotFound";
+        }
+
     }
 
-    @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
+    @RequestMapping(value="/PostFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('logon')")
     public @ResponseBody JSONResponse saveFittsResult(@RequestBody List<FittsStageResult> testResults, @PathVariable String testID, final ModelMap model)
     {

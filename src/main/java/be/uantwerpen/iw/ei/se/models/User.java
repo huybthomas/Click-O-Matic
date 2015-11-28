@@ -1,5 +1,7 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +29,15 @@ public class User extends MyAbstractPersistable<Long>
     @Size(min=4, max=12)
     @NotNull
     private String password;
+
+    @ManyToMany
+    @JoinTable(
+            name="USER_TEST",
+            joinColumns={
+                    @JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="FITTS_TEST_ID", referencedColumnName="ID")})
+    private List<FittsTest> tests;
 
     @ManyToMany
     @JoinTable(
@@ -110,6 +121,23 @@ public class User extends MyAbstractPersistable<Long>
     public List<Role> getRoles()
     {
         return this.roles;
+    }
+
+    public void addTest(FittsTest test) {
+        tests.add(test);
+    }
+
+    public FittsTest getTest(String ID) {
+        while (tests.iterator().hasNext()) {
+            FittsTest test = tests.iterator().next();
+            if(test.getTestID().equals(ID))
+                return test;
+        }
+        return null;
+    }
+
+    public List<FittsTest> getTests() {
+        return this.tests;
     }
 
     public void setRoles(List<Role> roles)
