@@ -18,8 +18,13 @@ public class FittsResult extends MyAbstractPersistable<Long>
     private String testID;
     private Date resultDate;
 
-    @OneToMany
-    @JoinColumn(name="STAGERESULT_ID", referencedColumnName="ID")
+    @ManyToMany
+    @JoinTable(
+            name="RESULT_STAGE",
+            joinColumns={
+                    @JoinColumn(name="RESULT_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="STAGE_ID", referencedColumnName="ID")})
     private List<FittsStageResult> stages;
 
     public FittsResult()

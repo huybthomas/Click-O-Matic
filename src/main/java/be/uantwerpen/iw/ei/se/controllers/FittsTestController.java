@@ -104,7 +104,7 @@ public class FittsTestController
             String resultID = "result-" + numberOfResults;
 
             //Check for already existing resultID
-            while(fittsService.resultIDAlreadyExists(resultID))
+            while(fittsService.resultIdAlreadyExists(resultID))
             {
                 numberOfResults++;
 
