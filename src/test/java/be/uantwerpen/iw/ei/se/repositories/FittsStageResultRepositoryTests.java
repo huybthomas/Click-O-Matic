@@ -82,7 +82,7 @@ public class FittsStageResultRepositoryTests
 
         int count = 0;
 
-        for(FittsStageResult r : stageResults)
+        for(FittsStageResult s : stageResults)
         {
             count++;
         }
@@ -94,7 +94,7 @@ public class FittsStageResultRepositoryTests
     @Test
     public void testDeleteFittsStageResultTest()
     {
-        //Setup test
+        //Setup stageResult
         FittsStageResult stageResult = new FittsStageResult();
 
         //Save stageResult, verify if it has ID value after save
