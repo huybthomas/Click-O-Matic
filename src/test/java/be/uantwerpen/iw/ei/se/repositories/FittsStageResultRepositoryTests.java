@@ -28,10 +28,10 @@ import static junit.framework.TestCase.assertNull;
 public class FittsStageResultRepositoryTests
 {
     @Autowired
-    FittsStageResultRepository fittsStageResultRepository;
+    private FittsStageResultRepository fittsStageResultRepository;
 
     @Autowired
-    FittsTrackPathRepository fittsTrackPathRepository;
+    private FittsTrackPathRepository fittsTrackPathRepository;
 
     private int origFittsStageResultRepositorySize;
 

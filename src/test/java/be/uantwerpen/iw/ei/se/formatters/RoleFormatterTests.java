@@ -25,13 +25,13 @@ import static junit.framework.TestCase.assertTrue;
 public class RoleFormatterTests
 {
     @Autowired
-    RoleFormatter roleFormatter;
+    private RoleFormatter roleFormatter;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
-    Role role;
-    Locale locale;
+    private Role role;
+    private Locale locale;
 
     @Before
     public void init()
@@ -46,9 +46,7 @@ public class RoleFormatterTests
     @Test
     public void parserTest() throws ParseException
     {
-        Role parserRole = new Role();
-
-        parserRole = roleFormatter.parse(role.getId().toString(), locale);
+        Role parserRole = roleFormatter.parse(role.getId().toString(), locale);
 
         assertTrue(parserRole.equals(role));
     }
