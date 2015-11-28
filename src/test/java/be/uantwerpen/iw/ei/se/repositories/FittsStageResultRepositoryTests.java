@@ -90,4 +90,31 @@ public class FittsStageResultRepositoryTests
         //There are originally 'origFittsStageResultRepositorySize' stageResults declared in the database (+1 has been added in this test)
         assertEquals(count, origFittsStageResultRepositorySize + 1);
     }
+
+    @Test
+    public void testDeleteFittsStageResultTest()
+    {
+        //Setup test
+        FittsStageResult stageResult = new FittsStageResult();
+
+        //Save stageResult, verify if it has ID value after save
+        assertNull(stageResult.getId());              //Null before save
+        fittsStageResultRepository.save(stageResult);
+        assertNotNull(stageResult.getId());           //Not null after save
+
+        //Fetched from database
+        FittsStageResult fetchedStageResult = fittsStageResultRepository.findOne(stageResult.getId());
+
+        //Should not be null
+        assertNotNull(fetchedStageResult);
+
+        //Delete test from database
+        fittsStageResultRepository.delete(fetchedStageResult.getId());
+
+        //Fetch from database (should not exist anymore)
+        fetchedStageResult = fittsStageResultRepository.findOne(fetchedStageResult.getId());
+
+        //Should be null
+        assertNull(fetchedStageResult);
+    }
 }
