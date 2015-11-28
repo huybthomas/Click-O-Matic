@@ -127,9 +127,11 @@ public class User extends MyAbstractPersistable<Long>
         tests.add(test);
     }
 
-    public FittsTest getTest(int number) {return this.tests.get(number);}
+    public FittsTest getTest(int number) {
+        return this.tests.get(number);
+    }
 
-    public List<FittsTest> getAllTests() {
+    public List<FittsTest> getTests() {
         return this.tests;
     }
 
