@@ -8,13 +8,38 @@
     <!-- Import navigation bar -->
     <div th:replace="testPortal/layout :: navbar"></div>
 
+    <!-- Modal popup with testdetails -->
+    <div id="detailsModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 id="modal-details-title" class="modal-title" th:text="#{fittstest.details}">Details</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <td th:text="#{fittstest.amtOfStages} + ': '">Amount of stages</td>
+                        <td id="amtOfStages">#</td>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" th:value="#{fittstest.return}">Return</button>
+                    <a id="startTestLink" href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.next}">Next test</button></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="testPortalPage">
         <table class="table">
             <tr th:each="t : ${allUserFittsTests}">
                 <td th:text="${t.testID}" style="vertical-align: middle"/>
                 <td style="vertical-align: middle">Completed: <span th:class="${t.completed} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${t.completed} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
                 <td><a th:href="${t.completed} ? '/TestResult/'+${t.testID}+'/' : '/TestPortal/'+${t.testID}+'/'" th:text="${t.completed} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
-                <td><a th:href="'/TestDetails/'+${t.testID}+'/'" th:text="#{fittstest.viewDetails}" class="btn btn-primary">View Details</a></td>
+                <td><button th:text="#{fittstest.viewDetails}" class="btn btn-primary" th:onclick="'details(\''+${t.testID}+'\');'">View Details</button></td>
             </tr>
         </table>
     </div>
@@ -22,6 +47,28 @@
 
 <!-- Import footer -->
 <div th:replace="testPortal/layout :: footer"></div>
+
+
+<!-- test details script -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function details(testID) {
+        alltests = /*[[${allUserFittsTests}]]*/
+        detailstext = /*[[#{fittstest.details}]]*/ '';
+
+        for(i =0; i < alltests.length; i++) {
+            if(alltests[i].testID === testID) {
+
+                $('#modal-details-title').text(detailstext + " " + testID );
+                $('#amtOfStages').text(" " + alltests[i].testStages.length);
+                $('#startTestLink').attr("href", '/TestPortal/'+testID );
+                $('#detailsModal').modal('show');
+            }
+        }
+    }
+    /*]]>*/
+</script>
 
 </body>
 </html>
