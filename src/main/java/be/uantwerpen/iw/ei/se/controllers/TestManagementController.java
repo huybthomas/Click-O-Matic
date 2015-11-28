@@ -29,7 +29,7 @@ public class TestManagementController {
     private FittsService fittsService;
 
     @RequestMapping({"/AssignTest"})
-    @PreAuthorize("hasRole('logon')")
+    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String showAddTest(final ModelMap model)
     {
         return "mainPortal/assignTest";
