@@ -100,7 +100,6 @@ function checkState()
     {
         if(!postRequestSend)
         {
-           // To be fixed for all stages
            paths = this.test.getTestStages();
 
            sendResult(paths);
@@ -119,7 +118,7 @@ function sendResult(result)
 {
     $.ajax({
         type: "POST",
-        url: "/postFittsResult/" + testAttr.testID + "/",
+        url: "/PostFittsResult/" + testAttr.testID + "/",
         data: JSON.stringify(result),           //"trackPaths" will be value for @RequestParam
         contentType: "application/json",
         success: function(response) {
@@ -140,10 +139,13 @@ function sendResult(result)
 
 function receiveSuccess(response)
 {
-    // response redirect is set on server side, depending on response.nextTest boolean value
-    if(response.nextTest == false) {
+    //Response redirect is set on server side, depending on response.nextTest boolean value
+    if(response.nextTest == false)
+    {
         window.location.replace(response.redirect);
-    } else {
+    }
+    else
+    {
         $('#nextTestLink').attr("href", response.redirect);
         $('#continueModal').modal('show');
     }
@@ -151,7 +153,7 @@ function receiveSuccess(response)
 
 function receiveError(response)
 {
-    alert('We are sorry, but an error has occurred: ' + response);       //reroute to error page
+    alert('We are sorry, but an error has occurred: ' + response);       //Reroute to error page
 }
 
 function resizeEvent(event)
