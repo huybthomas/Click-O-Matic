@@ -21,20 +21,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         http.authorizeRequests().antMatchers("/webjars/**")
                                     .permitAll();
 
-        http.authorizeRequests().antMatchers("/login")
+        http.authorizeRequests().antMatchers("/Login")
                                     .permitAll()
                                     .anyRequest()
                                     .fullyAuthenticated()
                                     .and()
                                 .formLogin()
-                                    .loginPage("/login")
-                                    .failureUrl("/login?error")
+                                    .loginPage("/Login")
+                                    .failureUrl("/Login?error")
                                     .and()
                                 .logout()
-                                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                    .logoutRequestMatcher(new AntPathRequestMatcher("/Logout"))
                                     .and()
                                 .exceptionHandling()
-                                    .accessDeniedPage("/access?accessdenied");
+                                    .accessDeniedPage("/Access?accessdenied");
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

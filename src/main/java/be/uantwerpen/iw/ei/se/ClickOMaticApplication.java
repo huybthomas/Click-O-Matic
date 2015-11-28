@@ -77,7 +77,7 @@ public class ClickOMaticApplication extends WebMvcConfigurerAdapter
     @Override
     public void addViewControllers(ViewControllerRegistry registry)
     {
-       registry.addViewController("/login").setViewName("mainPortal/login");
-       registry.addViewController("/access").setViewName("mainPortal/access");
+       registry.addViewController("/Login").setViewName("mainPortal/login");
+       registry.addViewController("/Access").setViewName("mainPortal/access");
     }
 }

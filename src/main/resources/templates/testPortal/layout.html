@@ -74,12 +74,12 @@
             <!-- Collect the navigation links, forms and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li sec:authorize="!hasRole('logon')"><a th:href="@{/login}" href="login.html"><span class="glyphicon glyphicon-log-in"></span><span> </span><span th:text="#{navbar.login}">Login</span></a></li>
+                    <li sec:authorize="!hasRole('logon')"><a th:href="@{/Login}" href="login.html"><span class="glyphicon glyphicon-log-in"></span><span> </span><span th:text="#{navbar.login}">Login</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a href="/"><span class="glyphicon glyphicon-home"></span><span> </span><span th:text="#{navbar.home}">Home</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a href="/TestPortal"><span class="glyphicon glyphicon-hand-up"></span><span> </span><span th:text="#{navbar.fittstest}">Test Portal</span></a></li>
-                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/users"><span class="glyphicon glyphicon-user"></span><span> </span><span th:text="#{navbar.users}">Users</span></a></li>
-                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/assignTest"><span class="glyphicon glyphicon-hand-right"></span><span> </span><span th:text="#{navbar.assignTests}">Assign Tests</span></a></li>
-                    <li sec:authorize="hasRole('logon')"><a th:href="@{/logout}" href="login.html"><span class="glyphicon glyphicon-log-out"></span><span> </span><span th:text="#{navbar.logout}">Logout</span></a></li>
+                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/Users"><span class="glyphicon glyphicon-user"></span><span> </span><span th:text="#{navbar.users}">Users</span></a></li>
+                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/AssignTest"><span class="glyphicon glyphicon-hand-right"></span><span> </span><span th:text="#{navbar.assignTests}">Assign Tests</span></a></li>
+                    <li sec:authorize="hasRole('logon')"><a th:href="@{/Logout}" href="login.html"><span class="glyphicon glyphicon-log-out"></span><span> </span><span th:text="#{navbar.logout}">Logout</span></a></li>
                 </ul>
             </div>
         </div>

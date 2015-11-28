@@ -18,15 +18,9 @@ public class TestManagementController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("allUsers")
-    public Iterable<User> populateUsers()
-    {
-        return userService.findAll();
-    }
-
-    @RequestMapping({"/assignTest"})
+    @RequestMapping({"/AssignTest"})
     @PreAuthorize("hasRole('logon')")
-    public String showAddTest(ModelMap model)
+    public String showAddTest(final ModelMap model)
     {
         return "mainPortal/assignTest";
     }

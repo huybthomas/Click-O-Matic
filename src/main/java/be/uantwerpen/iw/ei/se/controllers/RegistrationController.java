@@ -30,7 +30,7 @@ public class RegistrationController
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value="/registration", method= RequestMethod.GET)
+    @RequestMapping(value="/Registration", method= RequestMethod.GET)
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String createUserForm(ModelMap model)
     {
@@ -53,7 +53,7 @@ public class RegistrationController
         return "mainPortal/registration";
     }
 
-    @RequestMapping(value="/registration", method=RequestMethod.POST)
+    @RequestMapping(value="/Registration", method=RequestMethod.POST)
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String createUserSubmit(@Valid User user, BindingResult bindingResult, ModelMap model)
     {
@@ -65,12 +65,12 @@ public class RegistrationController
         {
             if(userService.usernameAlreadyExists(user.getUserName()))
             {
-                return "redirect:/registration?errorAlreadyExists";
+                return "redirect:/Registration?errorAlreadyExists";
             }
             else
             {
                 userService.add(user);
-                return "redirect:/registration?success";
+                return "redirect:/Users?success";
             }
         }
     }

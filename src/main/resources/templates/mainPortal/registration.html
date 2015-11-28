@@ -18,14 +18,13 @@
         <div th:replace="mainPortal/layout :: navbar"></div>
 
         <div class="content">
-            <p th:if="${param.success}" class="alert" th:text="#{registration.alerts.success}">New user has been created</p>
             <p th:if="${param.error}" class="alert alert-error" th:text="#{registration.alerts.error}">There was an error, please try again</p>
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</p>
 
             <div class="mainPortalPage">
                 <div class="frontContent">
                     <h2 th:text="#{registration.header}">Registration</h2>
-                    <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+                    <form action="#" th:action="@{/Registration}" th:object="${user}" method="post">
 
                         <h3 class="sub-header col-md-6" th:text="#{user}"></h3>
                         <h3 class="sub-header col-md-6" th:text="#{roles}" style="vertical-align: top"></h3>

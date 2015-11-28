@@ -22,12 +22,12 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav">
-                            <li><a th:href="@{/registration}" href="registration.html"> Create user </a></li>
+                            <li><a th:href="@{/Registration}" href="registration.html"> Create user </a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="content">
-                    <form action="#" th:action="@{/users}" method="post" th:object="${user}" th:if="${user}">
+                    <form action="#" th:action="@{/Users}" method="post" th:object="${user}" th:if="${user}">
                         <input th:type="hidden" th:field="*{id}"/>
 
                         <div class="container">
