@@ -5,6 +5,8 @@ import be.uantwerpen.iw.ei.se.repositories.FittsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Thomas on 15/11/2015.
  */
@@ -26,6 +28,46 @@ public class FittsService
 
     public boolean add(final FittsTest fittstest)
     {
+        if(fittstest.getNumberOfDots()<2)
+        {
+            fittstest.setNumberOfDots(2);
+        }
+        if(fittstest.getDotSize()>70)
+        {
+            fittstest.setDotSize(70);
+        }
+        if(fittstest.getDotDistance()>250)
+        {
+            fittstest.setDotDistance(250);
+        }
+
+
+        int size=0;
+        int amount_zeros =0;
+        for( FittsTest u : findAll())
+        {
+            size+=1;
+        }
+        if(size>=10)
+        {
+            String givenID = fittstest.getTestID();
+            size+=1;
+            fittstest.setTestID(givenID +"0"+Integer.toString(size));
+        }
+        else if(size>100)
+        {
+            String givenID = fittstest.getTestID();
+            size+=1;
+            fittstest.setTestID(givenID +Integer.toString(size));
+        }
+        else
+        {
+            String givenID = fittstest.getTestID();
+            size += 1;
+            fittstest.setTestID(givenID +"00"+ Integer.toString(size));
+        }
+
+
         this.fittsRepository.save(fittstest);
         return true;
     }
