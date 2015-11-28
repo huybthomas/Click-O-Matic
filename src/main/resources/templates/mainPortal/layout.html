@@ -75,7 +75,7 @@
                     <li sec:authorize="hasRole('logon')"><a href="/"><span class="glyphicon glyphicon-home"></span><span> </span><span th:text="#{navbar.home}">Home</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a href="/TestPortal"><span class="glyphicon glyphicon-hand-up"></span><span> </span><span th:text="#{navbar.fittstest}">Test Portal</span></a></li>
                     <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/users"><span class="glyphicon glyphicon-user"></span><span> </span><span th:text="#{navbar.users}">Users</span></a></li>
-                    <li sec:authorize="hasRole('logon')"><a href="/TestCreator"><span class="glyphicon glyphicon-user"></span><span >Create Test</span></a></li>
+                    <li sec:authorize="hasRole('logon')"><a href="/fittsTestCreator"><span class="glyphicon glyphicon-user"></span><span >Create Test</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a th:href="@{/logout}" href="login.html"><span class="glyphicon glyphicon-log-out"></span><span> </span><span th:text="#{navbar.logout}">Logout</span></a></li>
                 </ul>
             </div>

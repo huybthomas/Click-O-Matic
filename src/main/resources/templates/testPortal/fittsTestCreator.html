@@ -12,17 +12,19 @@
                 <form action="#" th:action="@{/fittsTestCreator}" th:object="${fittstest}" method="post">
                     <table class="table">
                         <tr>
-                            <td th:text="#{fittsTestCreator.numberOfDots}">The amount of Dots</td>
+                            <td >The unique name of the Fittstest</td>
+                            <td><input type="text" th:field="*{testID}"/></td>
+                        </tr>
+                        <tr>
+                            <td >The amount of Dots</td>
                             <td><input type="text" th:field="*{numberOfDots}"/></td>
-
                         </tr>
                         <tr>
-                            <td th:text="#{fittsTestCreator.dotSize}">The size of the Dots</td>
+                            <td >The size of the Dots</td>
                             <td><input type="text" th:field="*{dotSize}"/></td>
-
                         </tr>
                         <tr>
-                            <td th:text="#{fittsTestCreator.dotDistance}">The distance between the Dots</td>
+                            <td >The distance between the Dots</td>
                             <td><input type="text" th:field="*{dotDistance}"/></td>
 
                         </tr>

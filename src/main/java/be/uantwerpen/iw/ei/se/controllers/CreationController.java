@@ -21,13 +21,13 @@ public class CreationController {
     @Autowired
     private FittsService fittsService;
     @RequestMapping(value="/fittsTestCreator", method= RequestMethod.GET)
-    @PreAuthorize(" hasRole('logon')")
+    @PreAuthorize("hasRole('logon')")
     public String createFittsForm(ModelMap model)
     {
         model.addAttribute("fittstest", new FittsTest());
         return "testPortal/fittsTestCreator";
     }
-
+    //bollen zijn oneven aantallen
     @RequestMapping(value="/fittsTestCreator", method=RequestMethod.POST)
     @PreAuthorize(" hasRole('logon')")
     public String createFittsSubmit(@Valid FittsTest fittstest, BindingResult bindingResult, ModelMap model)
