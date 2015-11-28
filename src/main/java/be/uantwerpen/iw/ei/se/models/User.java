@@ -127,8 +127,13 @@ public class User extends MyAbstractPersistable<Long>
         tests.add(test);
     }
 
-    public FittsTest getTest(int number) {
-        return this.tests.get(number);
+    public FittsTest getTest(String ID) {
+        while (tests.iterator().hasNext()) {
+            FittsTest test = tests.iterator().next();
+            if(test.getTestID().equals(ID))
+                return test;
+        }
+        return null;
     }
 
     public List<FittsTest> getTests() {
