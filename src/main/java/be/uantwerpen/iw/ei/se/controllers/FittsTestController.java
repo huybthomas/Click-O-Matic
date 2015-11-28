@@ -3,7 +3,6 @@ package be.uantwerpen.iw.ei.se.controllers;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
 import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +83,7 @@ public class FittsTestController
     {
         FittsTest test = fittsService.findTestById(testID);
 
-        if(!test.getId().equals(""))
+        if(test != null)
         {
             //Set complete state of test
             test.setCompleted(true);

@@ -1,9 +1,7 @@
 package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
 import be.uantwerpen.iw.ei.se.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,7 +87,7 @@ public class FittsService
     {
         for(FittsTest t : findAllTests())
         {
-            if(t.getId() == test.getId())
+            if(t.getId().equals(test.getId()))
             {
                 t.setTestID(test.getTestID());
                 t.setCompleted(test.getCompleted());

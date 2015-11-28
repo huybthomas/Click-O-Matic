@@ -1,10 +1,7 @@
 package be.uantwerpen.iw.ei.se.services;
 
-import be.uantwerpen.iw.ei.se.models.Permission;
-import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
-import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,7 +54,7 @@ public class UserService
     {
         for(User u : findAll())
         {
-            if(u.getId() == user.getId())
+            if(u.getId().equals(user.getId()))
             {
                 u.setFirstName(user.getFirstName());
                 u.setLastName(user.getLastName());

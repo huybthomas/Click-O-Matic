@@ -1,6 +1,5 @@
 package be.uantwerpen.iw.ei.se.services;
 
-import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
 import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
