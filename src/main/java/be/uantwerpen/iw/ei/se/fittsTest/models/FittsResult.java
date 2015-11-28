@@ -19,23 +19,23 @@ public class FittsResult extends MyAbstractPersistable<Long>
     private Date resultDate;
 
     @OneToMany
-    @JoinColumn(name="RESULT_ID", referencedColumnName="ID")
-    private List<FittsTrackPath> trackPaths;
+    @JoinColumn(name="STAGERESULT_ID", referencedColumnName="ID")
+    private List<FittsStageResult> stages;
 
     public FittsResult()
     {
         this.resultID = "";
         this.testID = "";
         this.resultDate = new Date();
-        this.trackPaths = new ArrayList<FittsTrackPath>();
+        this.stages = new ArrayList<FittsStageResult>();
     }
 
-    public FittsResult(String resultID, String testID, Date resultDate, List<FittsTrackPath> trackPaths)
+    public FittsResult(String resultID, String testID, Date resultDate, List<FittsStageResult> stageResults)
     {
         this.resultID = resultID;
         this.testID = testID;
         this.resultDate = resultDate;
-        this.trackPaths = trackPaths;
+        this.stages = stageResults;
     }
 
     public void setResultID(String resultID)
@@ -68,13 +68,13 @@ public class FittsResult extends MyAbstractPersistable<Long>
         return this.resultDate;
     }
 
-    public void setTrackPaths(List<FittsTrackPath> trackPaths)
+    public void setStageResults(List<FittsStageResult> stageResults)
     {
-        this.trackPaths = trackPaths;
+        this.stages = stageResults;
     }
 
-    public List<FittsTrackPath> getFittsTrackPaths()
+    public List<FittsStageResult> getStageResults()
     {
-        return this.trackPaths;
+        return this.stages;
     }
 }
