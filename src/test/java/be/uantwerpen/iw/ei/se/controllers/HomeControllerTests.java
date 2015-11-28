@@ -27,7 +27,7 @@ public class HomeControllerTests
 
     private MockMvc mockMvc;
 
-    User principalUser;
+    private User principalUser;
 
     @Before
     public void setup()

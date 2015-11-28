@@ -35,10 +35,10 @@ public class UsersControllerTests
 
     private MockMvc mockMvc;
 
-    User principalUser;
-    User testUser;
-    Iterable<User> users;
-    Iterable<Role> roles;
+    private User principalUser;
+    private User testUser;
+    private Iterable<User> users;
+    private Iterable<Role> roles;
 
     @Before
     public void setup()

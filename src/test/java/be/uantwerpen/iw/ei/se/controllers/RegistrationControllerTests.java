@@ -35,8 +35,8 @@ public class RegistrationControllerTests
 
     private MockMvc mockMvc;
 
-    User principalUser;
-    Iterable<Role> roleList;
+    private User principalUser;
+    private Iterable<Role> roleList;
 
     @Before
     public void setup()
