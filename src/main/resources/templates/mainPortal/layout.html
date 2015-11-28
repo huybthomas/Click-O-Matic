@@ -68,6 +68,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#" style="padding:0px 15px; margin-top:0px; height:50px"><img alt="Brand" src="/images/appLogo.png" style="max-height:100%; height:100%; max-width:100%; width:auto; margin:0 auto; -o-object-fit:contain; object-fit:contain"/></a>
             </div>
@@ -79,6 +80,7 @@
                     <li sec:authorize="hasRole('logon')"><a href="/"><span class="glyphicon glyphicon-home"></span><span> </span><span th:text="#{navbar.home}">Home</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a href="/TestPortal"><span class="glyphicon glyphicon-hand-up"></span><span> </span><span th:text="#{navbar.fittstest}">Test Portal</span></a></li>
                     <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/users"><span class="glyphicon glyphicon-user"></span><span> </span><span th:text="#{navbar.users}">Users</span></a></li>
+                    <li sec:authorize="hasRole('logon') and hasRole('viewUsers')"><a href="/assignTest"><span class="glyphicon glyphicon-hand-right"></span><span> </span><span th:text="#{navbar.assignTests}">Assign Tests</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a th:href="@{/logout}" href="login.html"><span class="glyphicon glyphicon-log-out"></span><span> </span><span th:text="#{navbar.logout}">Logout</span></a></li>
                 </ul>
             </div>

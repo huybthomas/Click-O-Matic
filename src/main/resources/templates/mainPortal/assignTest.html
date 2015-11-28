@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="mainPortal/layout :: head (pageTitle=#{assignTest.title})"></head>
+<body>
+<div class="container">
+    <!-- Import navigation bar -->
+    <div th:replace="mainPortal/layout :: navbar"></div>
+
+    <!-- tooltips voor test opgave en/of gebruiker gegevens-->
+
+    <div class="mainPortalPage">
+        <div class="frontContent">
+            <div class="navbar">
+            </div>
+            <table class="table">
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Import footer -->
+<div th:replace="mainPortal/layout :: footer"></div>
+</body>
+</html>
