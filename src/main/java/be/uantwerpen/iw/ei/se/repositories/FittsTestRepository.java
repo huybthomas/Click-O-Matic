@@ -19,6 +19,9 @@ public interface FittsTestRepository extends CrudRepository<FittsTest,Long>
     //@Query(value="select t from User u left join u.tests t where u=:usr")
     //Iterable<FittsTest> findAllForUser(@Param("usr") User user);
 
+    @Query(value="select * from FittsTest t where t.completed=:complete")
+    Iterable<FittsTest> findByCompleteState(@Param("complete") boolean completed);
+
     FittsTest findByTestID(String testID);
 
     List<FittsTest> findAll();

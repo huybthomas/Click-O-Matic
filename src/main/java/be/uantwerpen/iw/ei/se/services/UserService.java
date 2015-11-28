@@ -39,7 +39,7 @@ public class UserService
             return false;
         }
 
-        List <Role> roles = user.getRoles();
+        List<Role> roles = user.getRoles();
 
         for(Role role : roles)
         {
@@ -64,7 +64,7 @@ public class UserService
         this.userRepository.delete(u.getId());
     }
 
-    public void save(User user)
+    public boolean save(User user)
     {
         for(User u : findAll())
         {
@@ -76,8 +76,12 @@ public class UserService
                 u.setPassword(user.getPassword());
                 u.setRoles(user.getRoles());
                 userRepository.save(u);
+
+                return true;
             }
         }
+
+        return false;
     }
 
     public User findByUserName(String userName)

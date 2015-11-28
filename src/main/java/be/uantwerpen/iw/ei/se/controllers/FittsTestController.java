@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
 import be.uantwerpen.iw.ei.se.models.JSONResponse;
@@ -14,6 +15,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -78,17 +81,61 @@ public class FittsTestController
 
     @RequestMapping(value="/postFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('logon')")
-    public @ResponseBody JSONResponse saveFittsResult(@RequestBody List<List<FittsTrackPath>> testResults, @PathVariable String testID, final ModelMap model)
+    public @ResponseBody JSONResponse saveFittsResult(@RequestBody List<FittsStageResult> testResults, @PathVariable String testID, final ModelMap model)
     {
-        System.out.println(testResults);
-        System.out.println(testResults.get(0).get(0).getPath());
-        System.out.println(testResults.get(0).get(0).getPath().get(0).getTimestamp());
-        if(testResults != null)
-        //if(fittsService.saveTestResult(testID, trackPaths))
+        FittsTest test = fittsService.findTestById(testID);
+
+        if(!test.getId().equals(""))
         {
-            // get functie voor volgende test: dit id hieronder plaatsen
-            return new JSONResponse("OK", "", "/TestPortal/" + "002", true);
-            //return new JSONResponse("OK", "", "/TestResult/" + testID);
+            //Set complete state of test
+            test.setCompleted(true);
+            fittsService.saveTest(test);
+
+            //Save result to the database
+            //Get the next available result id
+            int numberOfResults = 0;
+            Iterator<FittsResult> resultIterator = fittsService.findResultsByTestId(testID).iterator();
+
+            while(resultIterator.hasNext())
+            {
+                numberOfResults++;
+            }
+
+            String resultID = "result-" + numberOfResults;
+
+            //Check for already existing resultID
+            while(fittsService.resultIDAlreadyExists(resultID))
+            {
+                numberOfResults++;
+
+                resultID = "result-" + numberOfResults;
+            }
+
+            FittsResult newResult = new FittsResult("result-" + numberOfResults, testID, new Date(), testResults);
+
+            if(fittsService.saveTestResult(newResult))
+            {
+                //Search for not completed tests
+                Iterable<FittsTest> notCompletedTests = fittsService.findTestsByCompleteState(false);
+
+                if(notCompletedTests.iterator().hasNext())
+                {
+                    //Not completed test found
+                    FittsTest nextNotCompletedTest = notCompletedTests.iterator().next();
+
+                    //Give URL of next available test
+                    return new JSONResponse("OK", "", "/TestPortal/" + nextNotCompletedTest.getTestID(), true);
+                }
+                else
+                {
+                    //No other tests available, go back to main testportal page
+                    return new JSONResponse("OK", "", "/TestPortal", false);
+                }
+            }
+            else
+            {
+                return new JSONResponse("ERROR", "The test: " + testID + " could not be saved in the database!", "/TestPortal", false);
+            }
         }
         else
         {
