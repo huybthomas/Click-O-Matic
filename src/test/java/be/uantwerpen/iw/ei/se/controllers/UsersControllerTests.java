@@ -65,7 +65,7 @@ public class UsersControllerTests
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
 
-        mockMvc.perform(get("/users")).andExpect(view().name("mainPortal/users"));
+        mockMvc.perform(get("/Users")).andExpect(view().name("mainPortal/users"));
     }
 
     @Test
@@ -75,6 +75,6 @@ public class UsersControllerTests
         when(userService.findAll()).thenReturn(users);
         when(roleService.findAll()).thenReturn(roles);
 
-        mockMvc.perform(get("/users/userName/")).andExpect(view().name("mainPortal/user-profile"));
+        mockMvc.perform(get("/Users/userName/")).andExpect(view().name("mainPortal/user-profile"));
     }
 }

@@ -55,6 +55,6 @@ public class RegistrationControllerTests
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
         when(roleService.findAll()).thenReturn(roleList);
-        mockMvc.perform(get("/registration")).andExpect(view().name("mainPortal/registration"));
+        mockMvc.perform(get("/Registration")).andExpect(view().name("mainPortal/registration"));
     }
 }
