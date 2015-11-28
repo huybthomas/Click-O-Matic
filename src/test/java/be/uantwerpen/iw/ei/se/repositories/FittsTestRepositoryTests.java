@@ -23,10 +23,10 @@ import static junit.framework.TestCase.assertNull;
 public class FittsTestRepositoryTests
 {
     @Autowired
-    FittsTestRepository fittsTestRepository;
+    private FittsTestRepository fittsTestRepository;
 
-    FittsTest fittsTest;
-    int origFittsTestRepositorySize;
+    private FittsTest fittsTest;
+    private int origFittsTestRepositorySize;
 
     @Before
     public void setup()
@@ -79,5 +79,33 @@ public class FittsTestRepositoryTests
         }
 
         assertEquals(count, origFittsTestRepositorySize + 1);
+    }
+
+    @Test
+    public void testDeleteFittsTest()
+    {
+        //Setup test
+        FittsTest test = new FittsTest();
+        test.setTestID("Test");
+
+        //Save test, verify if it has ID value after save
+        assertNull(test.getId());              //Null before save
+        fittsTestRepository.save(test);
+        assertNotNull(test.getId());           //Not null after save
+
+        //Fetched from database
+        FittsTest fetchedTest = fittsTestRepository.findOne(test.getId());
+
+        //Should not be null
+        assertNotNull(fetchedTest);
+
+        //Delete test from database
+        fittsTestRepository.delete(fetchedTest.getId());
+
+        //Fetch from database (should not exist anymore)
+        fetchedTest = fittsTestRepository.findOne(fetchedTest.getId());
+
+        //Should be null
+        assertNull(fetchedTest);
     }
 }
