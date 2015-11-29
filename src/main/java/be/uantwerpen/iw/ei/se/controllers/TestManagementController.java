@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -46,15 +47,36 @@ public class TestManagementController
         return fittsService.findAllTests();
     }
 
-    @RequestMapping(value={"/AssignTest"}, method=RequestMethod.POST)
+    @RequestMapping(value="/AssignTest/{userName}/", method=RequestMethod.GET)
+    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
+    public String editAssignedTest(@PathVariable String userName, final ModelMap model)
+    {
+        User user = userService.findByUserName(userName);
+
+        if(user != null)
+        {
+            model.addAttribute("user", user);
+            model.addAttribute("allRoles", fittsService.findAllTests());
+            return "mainPortal/assignTest";
+        }
+        else
+        {
+            model.addAttribute("user", null);
+            return "redirect:/Users?errorUserNotFound";
+        }
+    }
+
+    @RequestMapping(value={"/Users/Assign"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors()){
+            System.out.println(result.getAllErrors());
             model.addAttribute("allTest", fittsService.findAllTests());
-            return "mainPortal/AssignTest";
+            return "mainPortal/assignTest";
         }
+        System.out.println(user.getTests().isEmpty());
         userService.save(user);
-        return "redirect:/TestPortal";
+        return "redirect:/Users";
     }
 }
