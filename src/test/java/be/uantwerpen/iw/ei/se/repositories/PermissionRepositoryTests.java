@@ -23,9 +23,9 @@ import static junit.framework.TestCase.assertNull;
 public class PermissionRepositoryTests
 {
     @Autowired
-    PermissionRepository permissionRepository;
+    private PermissionRepository permissionRepository;
 
-    int origPermissionRepositorySize;
+    private int origPermissionRepositorySize;
 
     @Before
     public void setup()
@@ -88,7 +88,7 @@ public class PermissionRepositoryTests
         Permission permission = new Permission();
         permission.setName("TestPermission");
 
-        //Save permission, verify has ID value after save
+        //Save permission, verify if it has ID value after save
         assertNull(permission.getId());       //Null before save
         permissionRepository.save(permission);
         assertNotNull(permission.getId());    //Not null after save

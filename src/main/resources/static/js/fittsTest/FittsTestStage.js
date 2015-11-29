@@ -27,11 +27,11 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.currentTrackPath = new FittsTrackPath();
 
         this.initializeDots(canvas);
-    }
+    };
 
     this.initializeDots = function(canvas)
     {
-        for(var i = 0; i < this.numberOfDots; i++)
+        for(i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotRadius, this.dotHColor, this.dotLColor);
         }
@@ -39,29 +39,29 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.dotsList[0].setTarget(true);
 
         this.repositionTest(canvas);
-    }
+    };
 
     this.getFinished = function()
     {
         return this.testStageFinished;
-    }
+    };
 
     this.repositionTest = function(canvas)
     {
-        var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
-        var centerX = (canvas.width)/2;                   // middelpunt blijft centraal
-        var centerY = (canvas.height)/3;
+        angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
+        centerX = (canvas.width)/2;                   // middelpunt blijft centraal
+        centerY = (canvas.height)/3;
 
-        for(var i = 0; i < this.numberOfDots; i++)
+        for(i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centerX), (-this.dotDistance*Math.cos(-angle*i) + centerY));
         }
-    }
+    };
 
     this.setDotsRadius = function(dotsRadius)
     {
         this.dotsRadius = dotsRadius;
-    }
+    };
 
     this.setNextTarget = function()
     {
@@ -81,34 +81,34 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
             this.dotsList[this.nextTarget].setTarget(false);
             this.testStageFinished = true;
         }
-    }
+    };
 
     this.setDotColor = function(dotHColor, dotLColor)
     {
         this.dotHColor = dotHColor;
         this.dotLColor = dotLColor;
-    }
+    };
 
     this.setBackCircleColor = function(backCircleColor)
     {
         this.backCircleColor = backCircleColor;
-    }
+    };
 
     this.setDistance = function(dotDistance)
     {
         this.dotDistance = dotDistance;
-    }
+    };
 
     this.drawBackCircle = function(context)
     {
 
-    }
+    };
 
     this.drawDots = function(context)
     {
-        var target = -1;
+        target = -1;
 
-        for(var i = 0; i < this.numberOfDots; i++)
+        for(i = 0; i < this.numberOfDots; i++)
         {
             if(this.dotsList[i].isTarget())
             {
@@ -127,7 +127,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         {
             this.dotsList[target].drawDot(context);
         }
-    }
+    };
 
     this.triggeredCursorEvent = function(cursorEvent)
     {
@@ -154,7 +154,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
                 }
             }
         }
-    }
+    };
 
     this.checkTargetClicked = function()
     {
@@ -170,32 +170,22 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         }
 
         return false;
-    }
+    };
 
     this.createNewTracePath = function()
     {
         this.currentTrackPath = new FittsTrackPath();
         this.trackPaths.push(this.currentTrackPath);
-    }
+    };
 
     this.logNewCursorEvent = function()
     {
-        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed)
+        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed);
         this.currentTrackPath.addCursorEvent(cursorEvent);
-    }
-
-    this.drawStatus = function(context)
-    {
-        //Draw mouse position coordinates
-        message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed  + " | Current path: " + this.trackPaths.length + " - timer: " + this.currentTrackPath.getPathTime();
-
-        context.font = "16px Arial";
-        context.fillStyle = "black";
-        context.fillText(message, 10, 25);
-    }
+    };
 
     this.getTrackPaths = function()
     {
         return this.trackPaths;
-    }
+    };
 }

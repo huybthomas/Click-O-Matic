@@ -23,9 +23,9 @@ import static junit.framework.TestCase.assertNull;
 public class UserRepositoryTests
 {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    int origUserRepositorySize;
+    private int origUserRepositorySize;
 
     @Before
     public void setup()

@@ -5,6 +5,8 @@ var canvas = document.getElementById("FittsCanvas");
 var context = canvas.getContext("2d");
 var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
 var postRequestSend = false;
+var startTime = new Date();
+var AmountOfClicks = 0;
 
 //Start test initialization
 FittsTestStart(testAttr.testStages);
@@ -42,6 +44,27 @@ function draw()
 
     //Draw test
     this.test.draw(context);
+
+    //Draw status
+    drawStatus();
+}
+
+function drawStatus()
+{
+    clickAmount = "Clicks: " + addZero(AmountOfClicks, 2);
+    testRound = "Round: " + addZero(this.test.getCurrentStageNumber() + 1, 2) + "/" + addZero(this.test.getTestStages().length, 2);
+    now = new Date();
+    ElapsedTime = Math.floor((now - startTime)/1000);
+
+    seconds = addZero((ElapsedTime%60), 2);
+    minutes = addZero((Math.floor(ElapsedTime/60)), 2);
+    time = "Time: " + minutes + ":" + seconds;
+
+    context.font = "16px Arial";
+    context.fillStyle = "black";
+    context.fillText(time, 10, 25);
+    context.fillText(clickAmount, 10, 45);
+    context.fillText(testRound, 10, 65);
 }
 
 function cursorEvent(event)
@@ -58,7 +81,7 @@ function cursorEvent(event)
         else if(event.button & 4)
             event.which = 2;    //Middle mouse button
         else if(event.button & 2)
-            event.which = 3     //Right mouse button
+            event.which = 3;    //Right mouse button
     }
 
     if(event.which == 1)    //Left mouse button
@@ -83,6 +106,11 @@ function cursorEvent(event)
     //Evaluate cursor event only if test not finished
     if(!this.test.getCurrentStage().getFinished())
     {
+        if(cursorState.leftReleased)
+        {
+            AmountOfClicks++;
+        }
+
         this.test.getCurrentStage().triggeredCursorEvent(cursorState);
     }
 
@@ -100,9 +128,8 @@ function checkState()
     {
         if(!postRequestSend)
         {
-           // To be fixed for all stages
            paths = this.test.getTestStages();
-console.log(JSON.stringify(paths));
+
            sendResult(paths);
         
            postRequestSend = true;
@@ -119,7 +146,7 @@ function sendResult(result)
 {
     $.ajax({
         type: "POST",
-        url: "/postFittsResult/" + testAttr.testID + "/",
+        url: "/PostFittsResult/" + testAttr.testID + "/",
         data: JSON.stringify(result),           //"trackPaths" will be value for @RequestParam
         contentType: "application/json",
         success: function(response) {
@@ -140,10 +167,13 @@ function sendResult(result)
 
 function receiveSuccess(response)
 {
-    // response redirect is set on server side, depending on response.nextTest boolean value
-    if(response.nextTest == false) {
+    //Response redirect is set on server side, depending on response.nextTest boolean value
+    if(response.nextTest == false)
+    {
         window.location.replace(response.redirect);
-    } else {
+    }
+    else
+    {
         $('#nextTestLink').attr("href", response.redirect);
         $('#continueModal').modal('show');
     }
@@ -151,10 +181,19 @@ function receiveSuccess(response)
 
 function receiveError(response)
 {
-    alert('We are sorry, but an error has occurred: ' + response);       //reroute to error page
+    alert('We are sorry, but an error has occurred: ' + response);       //Reroute to error page
 }
 
 function resizeEvent(event)
 {
     this.test.repositionTest(canvas);
+}
+
+function addZero(x,n)
+{
+    while(x.toString().length < n)
+    {
+        x = "0" + x;
+    }
+    return x;
 }

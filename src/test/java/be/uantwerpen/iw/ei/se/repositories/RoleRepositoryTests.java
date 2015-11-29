@@ -23,9 +23,9 @@ import static junit.framework.TestCase.assertNull;
 public class RoleRepositoryTests
 {
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
-    int origRoleRepositorySize;
+    private int origRoleRepositorySize;
 
     @Before
     public void setup()

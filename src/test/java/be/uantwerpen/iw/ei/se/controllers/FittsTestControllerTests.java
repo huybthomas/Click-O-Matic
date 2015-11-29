@@ -36,8 +36,8 @@ public class FittsTestControllerTests
 
     private MockMvc mockMvc;
 
-    User principalUser;
-    Iterable<FittsTest> tests;
+    private User principalUser;
+    private Iterable<FittsTest> tests;
 
     @Before
     public void setup()

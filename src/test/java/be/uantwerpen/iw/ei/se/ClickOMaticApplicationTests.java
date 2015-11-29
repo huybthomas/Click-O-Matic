@@ -14,6 +14,6 @@ public class ClickOMaticApplicationTests
 	@Test
 	public void contextLoads()
 	{
-
+		//Loading basic context
 	}
 }

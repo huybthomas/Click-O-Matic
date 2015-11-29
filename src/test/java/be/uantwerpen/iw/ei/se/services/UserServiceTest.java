@@ -28,11 +28,11 @@ import java.util.List;
 public class UserServiceTest
 {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
-    List<User> userList;
-    List<Permission> permissionListTester;
-    List<Permission> permissionListAdmin;
+    private List<User> userList;
+    private List<Permission> permissionListTester;
+    private List<Permission> permissionListAdmin;
 
     @Before
     public void init()

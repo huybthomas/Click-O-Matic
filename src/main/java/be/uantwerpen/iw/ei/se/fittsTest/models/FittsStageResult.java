@@ -14,32 +14,18 @@ import java.util.List;
 @Entity
 public class FittsStageResult extends MyAbstractPersistable<Long>
 {
-    private String stageResultID;
-
     @OneToMany
     @JoinColumn(name="PATHRESULT_ID", referencedColumnName="ID")
     private List<FittsTrackPath> trackPaths;
 
     public FittsStageResult()
     {
-        this.stageResultID = "";
         this.trackPaths = new ArrayList<FittsTrackPath>();
     }
 
-    public FittsStageResult(String stageResultID, List<FittsTrackPath> trackPaths)
+    public FittsStageResult(List<FittsTrackPath> trackPaths)
     {
-        this.stageResultID = stageResultID;
         this.trackPaths = trackPaths;
-    }
-
-    public void setStageResultID(String stageResultID)
-    {
-        this.stageResultID = stageResultID;
-    }
-
-    public String getStageResultID()
-    {
-        return this.stageResultID;
     }
 
     public void setTrackPaths(List<FittsTrackPath> trackPaths)

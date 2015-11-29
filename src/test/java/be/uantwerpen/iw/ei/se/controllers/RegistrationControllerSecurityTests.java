@@ -16,8 +16,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
-import javax.servlet.Registration;
-
 import static org.mockito.Mockito.mock;
 
 /**
@@ -31,8 +29,8 @@ public class RegistrationControllerSecurityTests
     @Autowired
     private RegistrationController registrationController;
 
-    BindingResult bindingResult;
-    User newUser;
+    private BindingResult bindingResult;
+    private User newUser;
 
     @Before
     public void init()

@@ -10,7 +10,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 
@@ -23,10 +23,10 @@ import static junit.framework.TestCase.assertNull;
 public class FittsTestStageRepositoryTests
 {
     @Autowired
-    FittsTestStageRepository fittsTestStageRepository;
+    private FittsTestStageRepository fittsTestStageRepository;
 
-    FittsTestStage fittsTestStage;
-    int origFittsTestStageRepositorySize;
+    private FittsTestStage fittsTestStage;
+    private int origFittsTestStageRepositorySize;
 
     @Before
     public void setup()
@@ -82,5 +82,33 @@ public class FittsTestStageRepositoryTests
         }
 
         assertEquals(count, origFittsTestStageRepositorySize + 1);
+    }
+
+    @Test
+    public void testDeleteFittsTestStage()
+    {
+        //Setup testStage
+        FittsTestStage testStage = new FittsTestStage();
+        testStage.setTestStageID("TestStage");
+
+        //Save testStage, verify if it has ID value after save
+        assertNull(testStage.getId());              //Null before save
+        fittsTestStageRepository.save(testStage);
+        assertNotNull(testStage.getId());           //Not null after save
+
+        //Fetched from database
+        FittsTestStage fetchedTestStage = fittsTestStageRepository.findOne(testStage.getId());
+
+        //Should not be null
+        assertNotNull(fetchedTestStage);
+
+        //Delete testStage from database
+        fittsTestStageRepository.delete(fetchedTestStage.getId());
+
+        //Fetch from database (should not exist anymore)
+        fetchedTestStage = fittsTestStageRepository.findOne(fetchedTestStage.getId());
+
+        //Should be null
+        assertNull(fetchedTestStage);
     }
 }

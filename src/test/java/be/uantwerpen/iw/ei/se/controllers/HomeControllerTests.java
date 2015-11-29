@@ -27,7 +27,7 @@ public class HomeControllerTests
 
     private MockMvc mockMvc;
 
-    User principalUser;
+    private User principalUser;
 
     @Before
     public void setup()
@@ -44,6 +44,6 @@ public class HomeControllerTests
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
 
-        mockMvc.perform(get("/homepage")).andExpect(view().name("mainPortal/homepage"));
+        mockMvc.perform(get("/Homepage")).andExpect(view().name("mainPortal/homepage"));
     }
 }

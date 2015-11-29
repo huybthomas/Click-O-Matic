@@ -1,10 +1,7 @@
 package be.uantwerpen.iw.ei.se.services;
 
-import be.uantwerpen.iw.ei.se.models.Permission;
-import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
-import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +19,7 @@ public class UserService
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
 
     @Autowired
     private PermissionRepository permissionRepository;
@@ -39,19 +36,8 @@ public class UserService
             return false;
         }
 
-        List<Role> roles = user.getRoles();
-
-        for(Role role : roles)
-        {
-            for(Permission permission : role.getPermissions())
-            {
-                //Save the permissions of the role to the database
-                this.permissionRepository.save(permission);
-            }
-
-            //Save the role of the user to the database
-            this.roleRepository.save(role);
-        }
+        //Save the role of the user to the database
+        this.roleService.save(user.getRoles());
 
         this.userRepository.save(user);
 
@@ -68,13 +54,14 @@ public class UserService
     {
         for(User u : findAll())
         {
-            if(u.getId() == user.getId())
+            if(u.getId().equals(user.getId()))
             {
                 u.setFirstName(user.getFirstName());
                 u.setLastName(user.getLastName());
                 u.setUserName(user.getUserName());
                 u.setPassword(user.getPassword());
                 u.setRoles(user.getRoles());
+                roleService.save(u.getRoles());
                 userRepository.save(u);
 
                 return true;

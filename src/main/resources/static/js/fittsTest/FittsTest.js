@@ -9,7 +9,7 @@ function FittsTest(stages)
     this.canvas = {};
     this.testFinished = false;
 
-    for(var i = 0; i < stages.length; i++)
+    for(i = 0; i < stages.length; i++)
     {
         this.testStages[i] = new FittsTestStage(stages[i].numberOfDots, stages[i].dotRadius, stages[i].dotDistance);
     }
@@ -22,7 +22,7 @@ function FittsTest(stages)
         this.testFinished = false;
 
         this.currentStage.initialize(this.canvas);
-    }
+    };
 
     this.draw = function(context)
     {
@@ -36,19 +36,17 @@ function FittsTest(stages)
 
         //Draw tracking path
 
-        //Draw test status
-        this.currentStage.drawStatus(context);
-    }
+    };
 
     this.getCurrentStageNumber = function()
     {
         return this.currentStageNumber;
-    }
+    };
 
     this.getCurrentStage = function()
     {
         return this.currentStage
-    }
+    };
 
     this.nextStage = function()
     {
@@ -66,25 +64,44 @@ function FittsTest(stages)
             this.testFinished = true;
             return null;
         }
-    }
+    };
 
     this.getTestStages = function()
     {
         return this.testStages;
-    }
+    };
 
     this.getNumberOfStages = function()
     {
         return this.testStages.length;
-    }
+    };
 
     this.getTestFinished = function()
     {
         return this.testFinished;
-    }
+    };
 
     this.repositionTest = function()
     {
         this.currentStage.repositionTest(this.canvas);
-    }
+    };
+
+    //Temporary function
+    this.getThroughput = function()
+    {
+        var We = this.dotsSize*2;
+        var d = this.dotDistance*2;
+        var difficutlyIndex = Math.log((d/We)+1)/Math.log(2);
+        console.log(this.pathTracker.getLastPath());
+        console.log(this.pathTracker.getLastPath().getLastEvent());
+        console.log(this.pathTracker.getLastPath().getLastEvent().getTimestamp());
+        console.log(this.pathTracker.getFirstPath().getFirstEvent().getTimestamp());
+        var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
+        var totalTime = (movementTime/1000)/numberOfDots;
+        console.log(We);
+        console.log(d);
+        console.log(difficutlyIndex);
+        console.log(totalTime);
+        return difficutlyIndex/totalTime;
+    };
 }

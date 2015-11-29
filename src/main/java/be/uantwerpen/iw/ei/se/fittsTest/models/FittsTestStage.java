@@ -51,7 +51,7 @@ public class FittsTestStage extends MyAbstractPersistable<Long>
         return this.numberOfDots;
     }
 
-    public void setDotRadius(int dotSize)
+    public void setDotRadius(int dotRadius)
     {
         this.dotRadius = dotRadius;
     }

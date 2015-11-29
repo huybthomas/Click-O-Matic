@@ -1,8 +1,9 @@
 package be.uantwerpen.iw.ei.se.formatters;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
-import be.uantwerpen.iw.ei.se.models.Role;
-import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
+import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,33 +13,34 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created by Thomas on 09/11/2015.
+ * Created by Thomas on 29/11/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
 @WebAppConfiguration
-public class RoleFormatterTests
+public class FittsTestFormatterTests
 {
     @Autowired
-    private RoleFormatter roleFormatter;
+    private FittsTestFormatter fittsTestFormatter;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private FittsTestRepository fittsTestRepository;
 
-    private Role role;
+    private FittsTest test;
     private Locale locale;
 
     @Before
     public void init()
     {
-        role = new Role("formatterTest");
+        test = new FittsTest("TestFormatter", new ArrayList<FittsTestStage>());
 
-        roleRepository.save(role);
+        fittsTestRepository.save(test);
 
         locale = new Locale("default");
     }
@@ -46,16 +48,16 @@ public class RoleFormatterTests
     @Test
     public void parserTest() throws ParseException
     {
-        Role parserRole = roleFormatter.parse(role.getId().toString(), locale);
+        FittsTest parserFittsTest = fittsTestFormatter.parse(test.getId().toString(), locale);
 
-        assertTrue(parserRole.equals(role));
+        assertTrue(parserFittsTest.equals(test));
     }
 
     @Test
     public void toStringTest()
     {
-        String parsedString = roleFormatter.print(role, locale);
+        String parsedString = fittsTestFormatter.print(test, locale);
 
-        assertTrue(parsedString.equals(role.getId().toString()));
+        assertTrue(parsedString.equals(test.getId().toString()));
     }
 }

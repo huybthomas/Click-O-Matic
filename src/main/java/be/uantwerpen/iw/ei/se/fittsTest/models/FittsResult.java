@@ -3,7 +3,6 @@ package be.uantwerpen.iw.ei.se.fittsTest.models;
 import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +17,13 @@ public class FittsResult extends MyAbstractPersistable<Long>
     private String testID;
     private Date resultDate;
 
-    @OneToMany
-    @JoinColumn(name="STAGERESULT_ID", referencedColumnName="ID")
+    @ManyToMany
+    @JoinTable(
+            name="RESULT_STAGE",
+            joinColumns={
+                    @JoinColumn(name="RESULT_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="STAGE_ID", referencedColumnName="ID")})
     private List<FittsStageResult> stages;
 
     public FittsResult()

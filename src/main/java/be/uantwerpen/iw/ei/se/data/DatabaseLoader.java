@@ -48,14 +48,15 @@ public class DatabaseLoader
 
     private void initUserDatabase()
     {
+        List<Role> roles;
         List<Permission> allPermissions = new ArrayList<Permission>();
-        List<Role> roles = new ArrayList<Role>();
 
         allPermissions.add(new Permission("logon"));
         allPermissions.add(new Permission("secret-message"));
         allPermissions.add(new Permission("createUsers"));
         allPermissions.add(new Permission("editUsers"));
         allPermissions.add(new Permission("viewUsers"));
+        allPermissions.add(new Permission("createFittsTest"));
 
         Iterator<Permission> permissionIterator = allPermissions.iterator();
         while(permissionIterator.hasNext())
@@ -76,29 +77,29 @@ public class DatabaseLoader
         roleRepository.save(tester);
 
         User u1 = new User("Thomas", "Huybrechts", "thomas.huybrechts", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u1.setRoles(roles);
 
         User u2 = new User("Dries", "Blontrock", "dries.blontrock", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u2.setRoles(roles);
 
         User u3 = new User("Quinten", "Van Hasselt", "quinten.vanhasselt", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u3.setRoles(roles);
 
         User u4 = new User("Timothy", "Verstraete", "timothy.verstraete", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
-        u3.setRoles(roles);
+        u4.setRoles(roles);
 
         User u5 = new User("Tester", "De Test", "tester", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(tester);
-        u4.setRoles(roles);
+        u5.setRoles(roles);
 
         userRepository.save(u1);
         userRepository.save(u2);

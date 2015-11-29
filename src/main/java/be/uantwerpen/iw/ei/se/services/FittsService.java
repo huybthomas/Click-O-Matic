@@ -2,8 +2,7 @@ package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
-import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
+import be.uantwerpen.iw.ei.se.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,10 @@ public class FittsService
     private FittsTestRepository fittsTestRepository;
 
     @Autowired
-    private FittsResultRepository fittsResultRepository;
+    private FittsTestStageRepository fittsTestStageRepository;
+
+    @Autowired
+    private FittsResultService fittsResultService;
 
     public FittsTest findTestById(String testID)
     {
@@ -33,14 +35,14 @@ public class FittsService
 
     public Iterable<FittsResult> findAllResults()
     {
-        return this.fittsResultRepository.findAll();
+        return this.fittsResultService.findAll();
     }
 
-    public Boolean saveTestResult(FittsResult result)
+    public boolean saveTestResult(FittsResult result)
     {
         if(findTestById(result.getTestID()) != null)
         {
-            fittsResultRepository.save(result);
+            fittsResultService.save(result);
 
             return true;
         }
@@ -52,12 +54,12 @@ public class FittsService
 
     public Iterable<FittsResult> findResultsByTestId(String testID)
     {
-        return this.fittsResultRepository.findByTestID(testID);
+        return this.fittsResultService.findByTestID(testID);
     }
 
     public FittsResult findResultById(String resultID)
     {
-        return this.fittsResultRepository.findByResultID(resultID);
+        return this.fittsResultService.findByResultID(resultID);
     }
 
     public Iterable<FittsTest> findTestsByCompleteState(boolean completed)
@@ -72,6 +74,10 @@ public class FittsService
             return false;
         }
 
+        //Save the stages of the test to the database
+        this.fittsTestStageRepository.save(test.getTestStages());
+
+        //Save the test to the database
         this.fittsTestRepository.save(test);
 
         return true;
@@ -81,12 +87,17 @@ public class FittsService
     {
         for(FittsTest t : findAllTests())
         {
-            if(t.getId() == test.getId())
+            if(t.getId().equals(test.getId()))
             {
                 t.setTestID(test.getTestID());
                 t.setCompleted(test.getCompleted());
                 t.setTestStages(test.getTestStages());
-                fittsTestRepository.save(t);
+
+                //Save the stages of the test to the database
+                this.fittsTestStageRepository.save(test.getTestStages());
+
+                //Save the test to the database
+                this.fittsTestRepository.save(t);
 
                 return true;
             }
@@ -95,7 +106,7 @@ public class FittsService
         return false;
     }
 
-    public boolean testIDAlreadyExists(final String testID)
+    public boolean testIdAlreadyExists(final String testID)
     {
         List<FittsTest> tests = fittsTestRepository.findAll();
 
@@ -110,19 +121,9 @@ public class FittsService
         return false;
     }
 
-    public boolean resultIDAlreadyExists(final String resultID)
+    public boolean resultIdAlreadyExists(final String resultID)
     {
-        List<FittsResult> results = fittsResultRepository.findAll();
-
-        for(FittsResult resultIt : results)
-        {
-            if(resultIt.getResultID().equals(resultID))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return this.fittsResultService.resultIdAlreadyExists(resultID);
     }
 
     private boolean isDuplicatedTestId(final FittsTest test)
@@ -140,20 +141,51 @@ public class FittsService
 
         return false;
     }
-
-    private boolean isDuplicatedResultId(final FittsResult result)
+/*
+    public boolean add(final FittsTest fittstest)
     {
-        List<FittsResult> results = fittsResultRepository.findAll();
-
-        for(FittsResult resultIt : results)
+        if(fittstest.getNumberOfDots()<2)
         {
-            if(resultIt.getTestID().equals(result.getTestID()) && !resultIt.getId().equals(result.getId()))
-            {
-                //Two different test objects with the same resultID
-                return true;
-            }
+            fittstest.setNumberOfDots(2);
+        }
+        if(fittstest.getDotSize()>70)
+        {
+            fittstest.setDotSize(70);
+        }
+        if(fittstest.getDotDistance()>250)
+        {
+            fittstest.setDotDistance(250);
         }
 
-        return false;
+
+        int size=0;
+        int amount_zeros =0;
+        for( FittsTest u : findAll())
+        {
+            size+=1;
+        }
+        if(size>=10)
+        {
+            String givenID = fittstest.getTestID();
+            size+=1;
+            fittstest.setTestID(givenID +"0"+Integer.toString(size));
+        }
+        else if(size>100)
+        {
+            String givenID = fittstest.getTestID();
+            size+=1;
+            fittstest.setTestID(givenID +Integer.toString(size));
+        }
+        else
+        {
+            String givenID = fittstest.getTestID();
+            size += 1;
+            fittstest.setTestID(givenID +"00"+ Integer.toString(size));
+        }
+
+
+        this.fittsRepository.save(fittstest);
+        return true;
     }
+*/
 }

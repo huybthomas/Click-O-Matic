@@ -1,8 +1,6 @@
 package be.uantwerpen.iw.ei.se.formatters;
 
-import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
-import be.uantwerpen.iw.ei.se.repositories.RoleRepository;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
@@ -15,7 +13,8 @@ import java.util.Locale;
  * Created by dries on 28/11/2015.
  */
 @Component
-public class UserFormatter implements Formatter<User> {
+public class UserFormatter implements Formatter<User>
+{
     @Autowired
     private UserRepository userRepository;
 
