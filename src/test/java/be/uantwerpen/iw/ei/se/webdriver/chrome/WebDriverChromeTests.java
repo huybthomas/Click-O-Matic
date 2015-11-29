@@ -106,6 +106,12 @@ public class WebDriverChromeTests
         testCases.createANewUser();
     }
 
+    @Test
+    public void editUser()
+    {
+        Assume.assumeTrue(webdriverOK);
+        testCases.editUser();
+    }
     @AfterClass
     public static void destroy()
     {

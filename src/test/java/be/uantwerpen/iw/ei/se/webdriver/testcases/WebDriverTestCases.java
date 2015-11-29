@@ -65,4 +65,22 @@ public class WebDriverTestCases
         Assert.assertTrue("Title should start with Create user. Result: "  + driver.getTitle(),driver.getTitle().startsWith("Create user"));
     }
 
+    public void editUser()
+    {
+        driver.get(baseURL + "/users");
+        driver.findElement(By.xpath("//tr[4]/td[3]/a/span")).click();
+        driver.findElement(By.id("firstName")).clear();
+        driver.findElement(By.id("firstName")).sendKeys("Tim");
+        driver.findElement(By.id("lastName")).clear();
+        driver.findElement(By.id("lastName")).sendKeys("Verstraete");
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys("test");
+        driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+
+        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
+        Assert.assertTrue("Title should start with User settings. Result: "  + driver.getTitle(),driver.getTitle().startsWith("User settings"));
+    }
+
+
 }
