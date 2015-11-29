@@ -20,31 +20,45 @@
             <p th:if="${param.error}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.error}">There was an error, please try again</p>
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
             <div class="testPortalPage">
-                <h2>Create Fitts-Test</h2>
-                <form>
-                    Number of dots: <input id="numberOfDotsSlider" type="text"/>
-                </form>
-                <!--<form action="#" th:action="@{/fittsTestCreator}" th:object="${fittstest}" method="post">
-                    <table class="table">
+                <h2>Create test</h2>
+                <form action="#" th:action="@{/FittsTestCreator}" th:object="${fittstest}" method="post">
+                    <table class="table-responsive col-md-6">
                         <tr>
                             <td >The unique name of the Fittstest</td>
                             <td><input type="text" th:field="*{testID}"/> </td>
                         </tr>
+
+
+                        <!--
                         <tr>
-                            <td >The amount of Dots</td>
-                            <td><input type="text" th:field="*{numberOfDots}"/></td>
+                            <td >The amount of dots</td>
+                            <td><input id="numberOfDotsSlider" type="text" th:field="*{numberOfDots}"/></td>
                         </tr>
                         <tr>
-                            <td >The size of the Dots</td>
-                            <td><input type="text" th:field="*{dotSize}"/></td>
+                            <td >The radius of the dots</td>
+                            <td><input id="radiusOfDotsSlider" type="text" th:field="*{dotRadius}"/></td>
                         </tr>
                         <tr>
-                            <td >The distance between the Dots</td>
-                            <td><input type="text" th:field="*{dotDistance}"/></td>
-                        </tr>
+                            <td >The distance between the dots</td>
+                            <td><input id="dotDistanceSlider" type="text" th:field="*{dotDistance}"/></td>
+                        </tr>-->
                     </table>
-                    <p><input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/></p>
-                </form>-->
+                    <h3 class="col-md-6">Stages</h3>
+                    <div class="col-xs-4">
+                        <p>Number of stages: 0</p>
+                        <select th:field="*{testStages}" class="form-control">
+                            <option th:each="stage:${fittstest.testStages}"
+                                    th:value="${{stage}}"
+                                    th:text="${stage.testStageID}">
+                            </option>
+                        </select>
+                        <input id="AddStage" class="btn btn-default" th:value="#{fittsTestCreator.createStage}"/>
+                        <input id="DeleteStage" class="btn btn-danger" th:value="#{fittsTestCreator.deleteStage}"/>
+                    </div>
+                    <p class="col-md-12">
+                        <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
+                    </p>
+                </form>
             </div>
         </div>
     </div>
@@ -55,6 +69,8 @@
     <!-- Slider scripts -->
     <script type="text/javascript">
         var numberOfDotsSlider = new Slider("#numberOfDotsSlider", {step: 2, min: 3, max: 21});
+        var radiusOfDotsSlider = new Slider("#radiusOfDotsSlider", {step: 1, min: 5, max: 75});
+        var dotDistanceSlider = new Slider("#dotDistanceSlider", {step: 1, min: 20, max: 100});
     </script>
 </body>
 </html>
