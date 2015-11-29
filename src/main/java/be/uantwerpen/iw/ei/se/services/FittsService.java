@@ -141,7 +141,7 @@ public class FittsService
 
         return false;
     }
-
+/*
     public boolean add(final FittsTest fittstest)
     {
         if(fittstest.getNumberOfDots()<2)
@@ -187,20 +187,5 @@ public class FittsService
         this.fittsRepository.save(fittstest);
         return true;
     }
-
-    public void save(FittsTest fittstest)
-    {
-        for(FittsTest u : findAll())
-        {
-            if(u.getId() == fittstest.getId())
-            {
-                u.setNumberOfDots(fittstest.getNumberOfDots());
-                u.setDotSize(fittstest.getDotSize());
-                u.setDotDistance(fittstest.getDotDistance());
-                u.setCompleted(fittstest.getCompleted());
-
-                fittsRepository.save(u);
-            }
-        }
-    }
+*/
 }

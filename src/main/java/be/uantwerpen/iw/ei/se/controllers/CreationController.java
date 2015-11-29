@@ -1,7 +1,6 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.repositories.FittsRepository;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,26 +11,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by Verstraete on 20/11/2015.
  */
 @Controller
-public class CreationController {
-
+public class CreationController
+{
     @Autowired
     private FittsService fittsService;
 
-    @RequestMapping(value="/fittsTestCreator", method= RequestMethod.GET)
+    @RequestMapping(value={"/TestCreator"})
+    @PreAuthorize("hasRole('logon')")
+    public String getFittsTestCreator(final ModelMap model)
+    {
+        return "testPortal/fittsTestCreator";
+    }
+
+    @RequestMapping(value="/FittsTestCreator", method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String createFittsForm(ModelMap model)
     {
         model.addAttribute("fittstest", new FittsTest());
         return "testPortal/fittsTestCreator";
     }
+
     //bollen zijn oneven aantallen
-    @RequestMapping(value="/fittsTestCreator", method=RequestMethod.POST)
+    @RequestMapping(value="/FittsTestCreator", method=RequestMethod.POST)
     @PreAuthorize(" hasRole('logon')")
     public String createFittsSubmit(@Valid FittsTest fittstest, BindingResult bindingResult, ModelMap model)
     {
@@ -63,8 +69,8 @@ public class CreationController {
             }*/
 
 
-            fittsService.add(fittstest);
-            return "redirect:/fittsTestCreator?success";
+            fittsService.addTest(fittstest);
+            return "redirect:/FittsTestCreator?success";
         }
     }
 

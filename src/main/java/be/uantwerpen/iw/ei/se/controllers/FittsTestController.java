@@ -35,12 +35,6 @@ public class FittsTestController
         return userService.getPrincipalUser();
     }
 
-    @ModelAttribute("allFittsTest")
-    public Iterable<FittsTest> populateFitts()
-    {
-        return fittsService.findAll();
-    }
-
     @RequestMapping({"/TestPortal"})
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
@@ -82,14 +76,16 @@ public class FittsTestController
         FittsTest test = fittsService.findTestById(testID);
         int amtOfStages = test.getTestStages().size();
 
-        if(test != null) {
+        if(test != null)
+        {
             model.addAttribute("fittsTest", test);
             model.addAttribute("amtOfStages", amtOfStages);
             return "testPortal/fittsTestDetails";
-        } else {
+        }
+        else
+        {
             return "redirect:/TestPortal?errorTestNotFound";
         }
-
     }
 
     @RequestMapping(value="/PostFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
@@ -154,12 +150,5 @@ public class FittsTestController
         {
             return new JSONResponse("ERROR", "The specified test: " + testID + " could not be found!", "/TestPortal", false);
         }
-    }
-    @RequestMapping(value={"/TestCreator"})
-    @PreAuthorize("hasRole('logon')")
-    public String FittsTestCreator(final ModelMap model)
-    {
-
-        return "testPortal/fittsTestCreator";
     }
 }
