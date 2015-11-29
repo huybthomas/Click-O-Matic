@@ -9,8 +9,14 @@
 
     <script src="https://cdn.rawgit.com/seiyria/bootstrap-slider/v5.2.6/dist/bootstrap-slider.min.js"
             th:src="@{/webjars/seiyria-bootstrap-slider/5.2.6/dist/bootstrap-slider.min.js}"></script>
+
+    <!-- Included FittsTest scripts -->
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestStage.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+
 </head>
 <body>
+
     <div class="container">
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
@@ -21,7 +27,7 @@
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
             <div class="testPortalPage">
                 <h2>Create test</h2>
-                <form action="#" th:action="@{/FittsTestCreator}" th:object="${fittstest}" method="post">
+                <form action="#" th:action="@{/FittsTestCreator}" th:object="${test}" method="post">
                     <table class="table-responsive col-md-6">
                         <tr>
                             <td >The unique name of the Fittstest</td>
@@ -45,15 +51,10 @@
                     </table>
                     <h3 class="col-md-6">Stages</h3>
                     <div class="col-xs-4">
-                        <p>Number of stages: 0</p>
-                        <select th:field="*{testStages}" class="form-control">
-                            <option th:each="stage:${fittstest.testStages}"
-                                    th:value="${{stage}}"
-                                    th:text="${stage.testStageID}">
-                            </option>
-                        </select>
-                        <input id="AddStage" class="btn btn-default" th:value="#{fittsTestCreator.createStage}"/>
-                        <input id="DeleteStage" class="btn btn-danger" th:value="#{fittsTestCreator.deleteStage}"/>
+                        <p id="amtOfStages" style="float: right; font-size: smaller">Number of stages: </p>
+                        <select id="stagesSelector" th:field="*{testStages}" class="form-control"></select>
+                        <input id="AddStage" class="btn btn-default" th:value="#{fittsTestCreator.createStage}" onclick="addStage();"/>
+                        <input id="DeleteStage" class="btn btn-danger" th:value="#{fittsTestCreator.deleteStage}" onclick="removeStage();"/>
                     </div>
                     <p class="col-md-12">
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
@@ -66,10 +67,58 @@
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
-    <!-- Test stages scripts -->
-    <script type="text/javascript">
 
+
+    <!-- Test stages scripts -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var testAttr=/*[[${test}]]*/;
+
+        var selector = document.getElementById("stagesSelector");
+        var selectOptions = testAttr.testStages;
+        generateOptions();
+
+        function generateOptions() {
+            <!-- clear all options -->
+            selector.options.length = 0;
+
+            <!-- add all options -->
+            for(i=0; i < selectOptions.length; i++) {
+                var option = document.createElement("option");
+                option.text = 'Stage ' + (i+1).toString();
+                option.value = selectOptions[i].id;
+                selector.appendChild(option);
+            }
+            setAmtOfStages(selectOptions.length);
+        }
+
+        function addStage() {
+            selectOptions.push(new FittsTestStage(3, 5, 20));
+            addOption();
+            setAmtOfStages(selectOptions.length);
+        }
+
+        function addOption() {
+            var option = document.createElement("option");
+            option.text = 'Stage ' + selectOptions.length;
+            option.value = selectOptions[selectOptions.length-1].id;
+            selector.appendChild(option);
+        }
+        function removeStage() {
+            selector.options.remove(selector.selectedIndex);
+            selectOptions.splice(selector.selectedIndex, 1);
+            generateOptions();
+        }
+
+        function setAmtOfStages(amt) {
+            document.getElementById("amtOfStages").innerHTML = "Number of stages: " + amt;
+        }
+
+
+
+        /*]]>*/
     </script>
+
 
     <!-- Slider scripts -->
     <script type="text/javascript">
