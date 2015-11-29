@@ -184,16 +184,6 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.currentTrackPath.addCursorEvent(cursorEvent);
     }
 
-    this.drawStatus = function(context)
-    {
-        //Draw mouse position coordinates
-        message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed  + " | Current path: " + this.trackPaths.length + " - timer: " + this.currentTrackPath.getPathTime();
-
-        context.font = "16px Arial";
-        context.fillStyle = "black";
-        context.fillText(message, 10, 25);
-    }
-
     this.getTrackPaths = function()
     {
         return this.trackPaths;

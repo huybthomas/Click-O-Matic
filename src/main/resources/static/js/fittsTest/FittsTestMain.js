@@ -5,6 +5,8 @@ var canvas = document.getElementById("FittsCanvas");
 var context = canvas.getContext("2d");
 var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
 var postRequestSend = false;
+var startTime = new Date();
+var AmountOfClicks = 0;
 
 //Start test initialization
 FittsTestStart(testAttr.testStages);
@@ -42,6 +44,27 @@ function draw()
 
     //Draw test
     this.test.draw(context);
+
+    //Draw status
+    drawStatus();
+}
+
+function drawStatus()
+{
+    clickAmount = "Clicks: " + addZero(AmountOfClicks, 2);
+    testRound = "Round: " + addZero(this.test.getCurrentStageNumber() + 1, 2) + "/" + addZero(this.test.getTestStages().length, 2);
+    now = new Date();
+    ElapsedTime = Math.floor((now - startTime)/1000);
+
+    seconds = addZero((ElapsedTime%60), 2);
+    minutes = addZero((Math.floor(ElapsedTime/60)), 2);
+    time = "Time: " + minutes + ":" + seconds;
+
+    context.font = "16px Arial";
+    context.fillStyle = "black";
+    context.fillText(time, 10, 25);
+    context.fillText(clickAmount, 10, 45);
+    context.fillText(testRound, 10, 65);
 }
 
 function cursorEvent(event)
@@ -83,6 +106,11 @@ function cursorEvent(event)
     //Evaluate cursor event only if test not finished
     if(!this.test.getCurrentStage().getFinished())
     {
+        if(cursorState.leftReleased)
+        {
+            AmountOfClicks++;
+        }
+
         this.test.getCurrentStage().triggeredCursorEvent(cursorState);
     }
 
@@ -159,4 +187,13 @@ function receiveError(response)
 function resizeEvent(event)
 {
     this.test.repositionTest(canvas);
+}
+
+function addZero(x,n)
+{
+    while(x.toString().length < n)
+    {
+        x = "0" + x;
+    }
+    return x;
 }

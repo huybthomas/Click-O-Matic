@@ -8,8 +8,6 @@ function FittsTest(stages)
     this.currentStageNumber = 0;
     this.canvas = {};
     this.testFinished = false;
-    
-    var startTime = new Date();
 
     for(i = 0; i < stages.length; i++)
     {
@@ -38,8 +36,6 @@ function FittsTest(stages)
 
         //Draw tracking path
 
-        //Draw test status
-        this.currentStage.drawStatus(context);
     }
 
     this.getCurrentStageNumber = function()
@@ -88,28 +84,5 @@ function FittsTest(stages)
     this.repositionTest = function()
     {
         this.currentStage.repositionTest(this.canvas);
-    }
-    
-    this.drawStatus = function()
-    {
-        //Draw mouse position coordinates
-        var message = "Cursor x: " + this.cursorState.x + " y: " + this.cursorState.y + " - clicked: " + this.cursorState.leftPressed;
-        var clickAmount = "Clicks: " + this.AmountOfClicks;
-        var testRound = "Round: " ;
-        //var timer = "Time: " ;
-        var now = new Date();
-        var ElapsedTime = Math.floor((now - startTime)/1000);
-        console.log(ElapsedTime);
-        var seconds = addZero((ElapsedTime%60), 2);
-        var minutes = addZero((Math.floor(ElapsedTime/60)%60), 2);
-        var hours = addZero(Math.floor(ElapsedTime/(60*60)), 2);
-        var time = "Time: " + hours + ":" + minutes + ":" + seconds;
-
-        context.font = "16px Arial";
-        context.fillStyle = "black";
-        context.fillText(message, 10, 25);
-        context.fillText(time, 10, 45);
-        context.fillText(clickAmount,10,65);
-        context.fillText(testRound, 10, 85);
     }
 }
