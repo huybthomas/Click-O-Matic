@@ -27,7 +27,10 @@
             </select>
 
             <select multiple="multiple" class="table-responsive col-md-6">
-
+                <option th:each="test:${allTests}"
+                        th:value="${{test}}"
+                        th:text="${test.testID}">
+                </option>
             </select>
         </div>
 

@@ -41,7 +41,7 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
     {
-        model.addAttribute("allUserFittsTests", fittsService.findAllTests());
+        model.addAttribute("allUserFittsTests", userService.getPrincipalUser().getTests());
 
         return "testPortal/testPortal";
     }

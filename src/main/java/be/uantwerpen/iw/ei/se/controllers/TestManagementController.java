@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
@@ -41,6 +42,12 @@ public class TestManagementController {
         return userService.findAll();
     }
 
+    @ModelAttribute("allTests")
+    public Iterable<FittsTest> populateTest()
+    {
+        return fittsService.findAllTests();
+    }
+
     @RequestMapping(value={"/AssignTest"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
@@ -50,6 +57,6 @@ public class TestManagementController {
             return "mainPortal/AssignTest";
         }
         userService.save(user);
-        return "redirect:/AssignTest";
+        return "redirect:/TestPortal";
     }
 }
