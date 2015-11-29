@@ -105,8 +105,8 @@
             selector.appendChild(option);
         }
         function removeStage() {
-            selector.options.remove(selector.selectedIndex);
             selectOptions.splice(selector.selectedIndex, 1);
+            selector.options.remove(selector.selectedIndex);
             generateOptions();
         }
 
