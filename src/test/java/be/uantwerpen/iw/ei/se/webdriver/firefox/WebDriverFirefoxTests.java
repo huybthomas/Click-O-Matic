@@ -70,6 +70,13 @@ public class WebDriverFirefoxTests
         testCases.editUser();
     }
 
+    @Test
+    public void deleteUser()
+    {
+        Assume.assumeTrue(webdriverOK);
+        testCases.deleteUser();
+    }
+
     @AfterClass
     public static void destroy()
     {
