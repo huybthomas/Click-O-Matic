@@ -33,36 +33,45 @@ public class WebDriverTestCases
         driver.findElement(By.id("login")).click();
 
         //Wait for main portal page to load
-        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
+        Wait<WebDriver> wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
 
-        Assert.assertTrue("Title should start with Click-O-Matic. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
+        Assert.assertTrue("Title should start with 'Click-O-Matic'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
     }
-    public void createANewUser()
+
+    public void createNewUser()
     {
-        // open | /users |
-        driver.get(baseURL + "/users");
-        // click | link=Create user |
+        //Homepage
+        driver.get(baseURL + "/");
+
+        //Click Users in navbar
+        driver.findElement(By.linkText("Users")).click();
+
+        //Click Create user link
         driver.findElement(By.linkText("Create user")).click();
-        // type | id=firstName | selenium
+
+        //Fill in firstname
         driver.findElement(By.id("firstName")).clear();
         driver.findElement(By.id("firstName")).sendKeys("selenium");
-        // type | id=lastName | test
+
+        //Fill in lastname
         driver.findElement(By.id("lastName")).clear();
         driver.findElement(By.id("lastName")).sendKeys("test");
-        // type | id=userName | test
+
+        //Fill in username
         driver.findElement(By.id("userName")).clear();
         driver.findElement(By.id("userName")).sendKeys("test");
-        // type | id=password | test
+
+        //Fill in password
         driver.findElement(By.id("password")).clear();
         driver.findElement(By.id("password")).sendKeys("test");
-        // click | css=input.btn.btn-primary |
-        driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
-       // wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
+        //Click create button
+        driver.findElement(By.id("submit")).click();
 
-        Assert.assertTrue("Title should start with Create user. Result: "  + driver.getTitle(),driver.getTitle().startsWith("Create user"));
+        Wait<WebDriver> wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
+
+        Assert.assertTrue("Alert should start with 'New user has been created'. Result: " + driver.findElement(By.className("alert")).getText(), driver.findElement(By.className("alert")).getText().startsWith("New user has been created"));
     }
-
 }

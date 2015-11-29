@@ -86,11 +86,12 @@ public class WebDriverIETests
         testCases.loginWithCredentialsThomasHuybrechts();
     }
     @Test
-    public void createANewUser()
+    public void createNewUser()
     {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
-        testCases.createANewUser();
+        testCases.createNewUser();
     }
 
     @AfterClass
