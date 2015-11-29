@@ -9,19 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by dries on 26/11/2015.
  */
 @Controller
-public class TestManagementController {
-
+public class TestManagementController
+{
     @Autowired
     private UserService userService;
 

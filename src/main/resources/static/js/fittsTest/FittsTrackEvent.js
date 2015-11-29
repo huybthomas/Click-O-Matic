@@ -11,20 +11,20 @@ function FittsTrackEvent(cursorPosX, cursorPosY, cursorState)
     this.getCursorPosX = function()
     {
         return this.cursorPosX;
-    }
+    };
 
     this.getCursorPosY = function()
     {
         return this.cursorPosY;
-    }
+    };
 
     this.getCursorState = function()
     {
         return this.cursorState;
-    }
+    };
 
     this.getTimestamp = function()
     {
         return this.timestamp;
-    }
+    };
 }

@@ -17,7 +17,7 @@ function FittsCircle(size, posX, posY)
         context.arc(this.posX, this.posY, this.size, 0, 2 * Math.PI);
 
         context.stroke();
-    }
+    };
 
     this.calculateCirclePoints = function()
     {
@@ -26,5 +26,5 @@ function FittsCircle(size, posX, posY)
         pointObject = {};
         points = [];
         i = -1;
-    }
+    };
 }

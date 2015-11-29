@@ -22,7 +22,7 @@ function FittsTest(stages)
         this.testFinished = false;
 
         this.currentStage.initialize(this.canvas);
-    }
+    };
 
     this.draw = function(context)
     {
@@ -36,17 +36,17 @@ function FittsTest(stages)
 
         //Draw tracking path
 
-    }
+    };
 
     this.getCurrentStageNumber = function()
     {
         return this.currentStageNumber;
-    }
+    };
 
     this.getCurrentStage = function()
     {
         return this.currentStage
-    }
+    };
 
     this.nextStage = function()
     {
@@ -64,27 +64,27 @@ function FittsTest(stages)
             this.testFinished = true;
             return null;
         }
-    }
+    };
 
     this.getTestStages = function()
     {
         return this.testStages;
-    }
+    };
 
     this.getNumberOfStages = function()
     {
         return this.testStages.length;
-    }
+    };
 
     this.getTestFinished = function()
     {
         return this.testFinished;
-    }
+    };
 
     this.repositionTest = function()
     {
         this.currentStage.repositionTest(this.canvas);
-    }
+    };
 
     //Temporary function
     this.getThroughput = function()
@@ -97,11 +97,11 @@ function FittsTest(stages)
         console.log(this.pathTracker.getLastPath().getLastEvent().getTimestamp());
         console.log(this.pathTracker.getFirstPath().getFirstEvent().getTimestamp());
         var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
-        var totalTime = (movementTime/1000)/numberOfDots
+        var totalTime = (movementTime/1000)/numberOfDots;
         console.log(We);
         console.log(d);
         console.log(difficutlyIndex);
         console.log(totalTime);
         return difficutlyIndex/totalTime;
-    }
+    };
 }

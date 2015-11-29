@@ -81,7 +81,7 @@ function cursorEvent(event)
         else if(event.button & 4)
             event.which = 2;    //Middle mouse button
         else if(event.button & 2)
-            event.which = 3     //Right mouse button
+            event.which = 3;    //Right mouse button
     }
 
     if(event.which == 1)    //Left mouse button

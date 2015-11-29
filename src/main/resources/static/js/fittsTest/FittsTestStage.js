@@ -27,7 +27,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.currentTrackPath = new FittsTrackPath();
 
         this.initializeDots(canvas);
-    }
+    };
 
     this.initializeDots = function(canvas)
     {
@@ -39,12 +39,12 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.dotsList[0].setTarget(true);
 
         this.repositionTest(canvas);
-    }
+    };
 
     this.getFinished = function()
     {
         return this.testStageFinished;
-    }
+    };
 
     this.repositionTest = function(canvas)
     {
@@ -56,12 +56,12 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         {
             this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centerX), (-this.dotDistance*Math.cos(-angle*i) + centerY));
         }
-    }
+    };
 
     this.setDotsRadius = function(dotsRadius)
     {
         this.dotsRadius = dotsRadius;
-    }
+    };
 
     this.setNextTarget = function()
     {
@@ -81,28 +81,28 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
             this.dotsList[this.nextTarget].setTarget(false);
             this.testStageFinished = true;
         }
-    }
+    };
 
     this.setDotColor = function(dotHColor, dotLColor)
     {
         this.dotHColor = dotHColor;
         this.dotLColor = dotLColor;
-    }
+    };
 
     this.setBackCircleColor = function(backCircleColor)
     {
         this.backCircleColor = backCircleColor;
-    }
+    };
 
     this.setDistance = function(dotDistance)
     {
         this.dotDistance = dotDistance;
-    }
+    };
 
     this.drawBackCircle = function(context)
     {
 
-    }
+    };
 
     this.drawDots = function(context)
     {
@@ -127,7 +127,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         {
             this.dotsList[target].drawDot(context);
         }
-    }
+    };
 
     this.triggeredCursorEvent = function(cursorEvent)
     {
@@ -154,7 +154,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
                 }
             }
         }
-    }
+    };
 
     this.checkTargetClicked = function()
     {
@@ -170,22 +170,22 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         }
 
         return false;
-    }
+    };
 
     this.createNewTracePath = function()
     {
         this.currentTrackPath = new FittsTrackPath();
         this.trackPaths.push(this.currentTrackPath);
-    }
+    };
 
     this.logNewCursorEvent = function()
     {
-        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed)
+        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed);
         this.currentTrackPath.addCursorEvent(cursorEvent);
-    }
+    };
 
     this.getTrackPaths = function()
     {
         return this.trackPaths;
-    }
+    };
 }

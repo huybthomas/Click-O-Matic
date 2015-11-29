@@ -48,8 +48,8 @@ public class DatabaseLoader
 
     private void initUserDatabase()
     {
+        List<Role> roles;
         List<Permission> allPermissions = new ArrayList<Permission>();
-        List<Role> roles = new ArrayList<Role>();
 
         allPermissions.add(new Permission("logon"));
         allPermissions.add(new Permission("secret-message"));
@@ -76,27 +76,27 @@ public class DatabaseLoader
         roleRepository.save(tester);
 
         User u1 = new User("Thomas", "Huybrechts", "thomas.huybrechts", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u1.setRoles(roles);
 
         User u2 = new User("Dries", "Blontrock", "dries.blontrock", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u2.setRoles(roles);
 
         User u3 = new User("Quinten", "Van Hasselt", "quinten.vanhasselt", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u3.setRoles(roles);
 
         User u4 = new User("Timothy", "Verstraete", "timothy.verstraete", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(administrator);
         u3.setRoles(roles);
 
         User u5 = new User("Tester", "De Test", "tester", "test");
-        roles = new ArrayList<>();
+        roles = new ArrayList<Role>();
         roles.add(tester);
         u4.setRoles(roles);
 

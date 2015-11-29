@@ -14,18 +14,18 @@ function FittsDot(id, size, hColor, lColor)
     this.setTarget = function(flag)
     {
         this.target = flag;
-    }
+    };
 
     this.isTarget = function()
     {
         return this.target;
-    }
+    };
 
     this.setPosition = function(posX, posY)
     {
         this.posX = posX;
         this.posY = posY;
-    }
+    };
 
     this.drawDot = function(context)
     {
@@ -45,7 +45,7 @@ function FittsDot(id, size, hColor, lColor)
         }
 
         context.fill();
-    }
+    };
 
     this.cursorOver = function(cursorX, cursorY)
     {
@@ -57,5 +57,5 @@ function FittsDot(id, size, hColor, lColor)
         {
             return false;
         }
-    }
+    };
 }

@@ -8,12 +8,12 @@ function FittsTrackPath()
     this.addCursorEvent = function(cursorEvent)
     {
         this.path.push(cursorEvent);
-    }
+    };
 
     this.getPath = function()
     {
         return this.path;
-    }
+    };
 
     this.getPathTime = function()
     {
@@ -29,12 +29,12 @@ function FittsTrackPath()
             return 0;
         }
 
-    }
+    };
 
     this.getFirstEvent = function()
     {
         return this.path[0];
-    }
+    };
 
     this.getLastEvent = function()
     {
@@ -46,5 +46,5 @@ function FittsTrackPath()
         {
             return 0;
         }
-    }
+    };
 }
