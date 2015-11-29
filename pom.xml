@@ -78,6 +78,12 @@
 			<artifactId>jquery</artifactId>
 			<version>2.1.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>seiyria-bootstrap-slider</artifactId>
+			<version>5.2.6</version>
+		</dependency>
 	</dependencies>
 	
 	<build>

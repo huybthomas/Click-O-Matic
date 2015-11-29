@@ -3,33 +3,31 @@
 <head th:replace="testPortal/layout :: head (pageTitle='Fittstest details')"></head>
 
 <body>
+    <div class="container">
+        <!-- Import navigation bar -->
+        <div th:replace="testPortal/layout :: navbar"></div>
 
-<div class="container">
-    <!-- Import navigation bar -->
-    <div th:replace="testPortal/layout :: navbar"></div>
-
-    <div class="testPortalPage">
-        <table class="table">
-            <tr>
-                <th th:text="#{fittstest.details}">Details of test:</th>
-                <th th:text="${fittsTest.testID}">Test name</th>
-            </tr>
-            <tr>
-                <td th:text="#{fittstest.amtOfStages}">Amount of stages</td>
-                <td th:text="${amtOfStages}">#</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-        <a href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.return}">Return</button></a>
-        <a th:href="'/TestPortal/' + ${fittsTest.testID}"><button type="button" class="btn btn-primary" th:value="#{fittstest.start}">Start test</button></a>
+        <div class="testPortalPage">
+            <table class="table">
+                <tr>
+                    <th th:text="#{fittstest.details}">Details of test:</th>
+                    <th th:text="${fittsTest.testID}">Test name</th>
+                </tr>
+                <tr>
+                    <td th:text="#{fittstest.amtOfStages}">Amount of stages</td>
+                    <td th:text="${amtOfStages}">#</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <a href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.return}">Return</button></a>
+            <a th:href="'/TestPortal/' + ${fittsTest.testID}"><button type="button" class="btn btn-primary" th:value="#{fittstest.start}">Start test</button></a>
+        </div>
     </div>
-</div>
 
-<!-- Import footer -->
-<div th:replace="testPortal/layout :: footer"></div>
-
+    <!-- Import footer -->
+    <div th:replace="testPortal/layout :: footer"></div>
 </body>
 </html>

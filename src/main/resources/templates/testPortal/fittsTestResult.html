@@ -4,22 +4,21 @@
 
 <body>
 
-<div class="container">
-    <!-- Import navigation bar -->
-    <div th:replace="testPortal/layout :: navbar"></div>
+    <div class="container">
+        <!-- Import navigation bar -->
+        <div th:replace="testPortal/layout :: navbar"></div>
 
-    <div class="testPortalPage">
-        <table class="table">
-            <tr>
-                <td>Fitts test throughput result: </td>
-                <td th:text="${fittsResult.fittsTrackPaths}" />
-            </tr>
-        </table>
+        <div class="testPortalPage">
+            <table class="table">
+                <tr>
+                    <td>Fitts test throughput result: </td>
+                    <td th:text="${fittsResult.fittsTrackPaths}" />
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
 
-<!-- Import footer -->
-<div th:replace="testPortal/layout :: footer"></div>
-
+    <!-- Import footer -->
+    <div th:replace="testPortal/layout :: footer"></div>
 </body>
 </html>

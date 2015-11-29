@@ -61,12 +61,21 @@ public class FittsTestController
         }
     }
 
-    @RequestMapping(value={"/TestResult/{testID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestResult/{resultID}"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
-    public String showFittsTestResult(@PathVariable String testID, final ModelMap model)
+    public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
-        model.addAttribute("fittsResult", fittsService.findResultById(testID));
-        return "testPortal/fittsTestResult";
+        FittsResult result = fittsService.findResultById(resultID);
+
+        if(result != null)
+        {
+            model.addAttribute("fittsResult", result);
+            return "testPortal/fittsTestResult";
+        }
+        else
+        {
+            return "redirect:/TestResult?errorResultNotFound";
+        }
     }
 
     @RequestMapping(value={"/TestDetails/{testID}"}, method=RequestMethod.GET)

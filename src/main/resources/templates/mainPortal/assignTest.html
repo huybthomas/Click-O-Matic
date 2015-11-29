@@ -2,42 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{assignTest.title})"></head>
 <body>
+    <div class="container">
+        <!-- Import navigation bar -->
+        <div th:replace="mainPortal/layout :: navbar"></div>
 
-<div class="container">
-    <!-- Import navigation bar -->
-    <div th:replace="mainPortal/layout :: navbar"></div>
+        <!-- tooltips voor test opgave en/of gebruiker gegevens-->
 
-    <!-- tooltips voor test opgave en/of gebruiker gegevens-->
+        <div class="mainPortalPage">
+            <div class="frontContent">
+                <div class="navbar">
+                </div>
+                <table class="table">
+                    <h3 class="sub-header col-md-6" th:text="#{users}" ></h3>
+                    <h3 class="sub-header col-md-6" th:text="#{tests}" ></h3>
 
-    <div class="mainPortalPage">
-        <div class="frontContent">
-            <div class="navbar">
+                </table>
+
+                <select multiple="multiple" class="table-responsive col-md-6">
+                    <option th:each="user:${allUsers}"
+                            th:value="${{user}}"
+                            th:text="${user.userName}">
+                    </option>
+                </select>
+
+                <select multiple="multiple" class="table-responsive col-md-6">
+
+                </select>
             </div>
-            <table class="table">
-                <h3 class="sub-header col-md-6" th:text="#{users}" ></h3>
-                <h3 class="sub-header col-md-6" th:text="#{tests}" ></h3>
 
-            </table>
-
-            <select multiple="multiple" class="table-responsive col-md-6">
-                <option th:each="user:${allUsers}"
-                        th:value="${{user}}"
-                        th:text="${user.userName}">
-                </option>
-            </select>
-
-            <select multiple="multiple" class="table-responsive col-md-6">
-
-            </select>
+            <p class="col-md-12">
+                <button type="assignTest" th:text="#{assign}" class="btn btn-primary">assignTest</button>
+            </p>
         </div>
-
-        <p class="col-md-12">
-            <button type="assignTest" th:text="#{assign}" class="btn btn-primary">assignTest</button>
-        </p>
     </div>
-</div>
 
-<!-- Import footer -->
-<div th:replace="mainPortal/layout :: footer"></div>
+    <!-- Import footer -->
+    <div th:replace="mainPortal/layout :: footer"></div>
 </body>
 </html>

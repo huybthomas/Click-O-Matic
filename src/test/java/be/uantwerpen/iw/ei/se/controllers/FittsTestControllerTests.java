@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
@@ -39,6 +40,7 @@ public class FittsTestControllerTests
     private User principalUser;
     private Iterable<FittsTest> tests;
 
+
     @Before
     public void setup()
     {
@@ -54,11 +56,31 @@ public class FittsTestControllerTests
     }
 
     @Test
-    public void viewFittsTestPageTest() throws Exception
+    public void viewFittsTestOverviewPageTest() throws Exception
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
         when(fittsService.findAllTests()).thenReturn(tests);
 
         mockMvc.perform(get("/TestPortal")).andExpect(view().name("testPortal/testPortal"));
+    }
+
+    @Test
+    public void viewExistingFittsTestPageTest() throws Exception
+    {
+        FittsTest existingTest = tests.iterator().next();
+
+        when(fittsService.findTestById(existingTest.getTestID())).thenReturn(existingTest);
+
+        mockMvc.perform(get("/TestPortal/" + existingTest.getTestID())).andExpect(view().name("testPortal/fittsTest")).andExpect(model().attribute("runningTest", existingTest));
+    }
+
+    @Test
+    public void viewNotExistingFittsTestPageTest() throws Exception
+    {
+        FittsTest existingTest = tests.iterator().next();
+
+        when(fittsService.findTestById(existingTest.getTestID())).thenReturn(null);
+
+        mockMvc.perform(get("/TestPortal/" + existingTest.getTestID())).andExpect(view().name("redirect:/TestPortal?errorTestNotFound")).andExpect(model().attributeDoesNotExist("runningTest"));
     }
 }

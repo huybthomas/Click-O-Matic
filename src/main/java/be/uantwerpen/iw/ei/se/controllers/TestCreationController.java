@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * Created by Verstraete on 20/11/2015.
  */
 @Controller
-public class CreationController
+public class TestCreationController
 {
     @Autowired
     private FittsService fittsService;

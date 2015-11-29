@@ -89,5 +89,6 @@
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.188" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:2.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:seiyria-bootstrap-slider:5.2.6" level="project" />
   </component>
 </module>
