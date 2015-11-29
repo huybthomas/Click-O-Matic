@@ -85,4 +85,23 @@ function FittsTest(stages)
     {
         this.currentStage.repositionTest(this.canvas);
     }
+
+    //Temporary function
+    this.getThroughput = function()
+    {
+        var We = this.dotsSize*2;
+        var d = this.dotDistance*2;
+        var difficutlyIndex = Math.log((d/We)+1)/Math.log(2);
+        console.log(this.pathTracker.getLastPath());
+        console.log(this.pathTracker.getLastPath().getLastEvent());
+        console.log(this.pathTracker.getLastPath().getLastEvent().getTimestamp());
+        console.log(this.pathTracker.getFirstPath().getFirstEvent().getTimestamp());
+        var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
+        var totalTime = (movementTime/1000)/numberOfDots
+        console.log(We);
+        console.log(d);
+        console.log(difficutlyIndex);
+        console.log(totalTime);
+        return difficutlyIndex/totalTime;
+    }
 }
