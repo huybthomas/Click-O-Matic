@@ -38,4 +38,31 @@ public class WebDriverTestCases
 
         Assert.assertTrue("Title should start with Click-O-Matic. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
     }
+    public void createANewUser()
+    {
+        // open | /users |
+        driver.get(baseURL + "/users");
+        // click | link=Create user |
+        driver.findElement(By.linkText("Create user")).click();
+        // type | id=firstName | selenium
+        driver.findElement(By.id("firstName")).clear();
+        driver.findElement(By.id("firstName")).sendKeys("selenium");
+        // type | id=lastName | test
+        driver.findElement(By.id("lastName")).clear();
+        driver.findElement(By.id("lastName")).sendKeys("test");
+        // type | id=userName | test
+        driver.findElement(By.id("userName")).clear();
+        driver.findElement(By.id("userName")).sendKeys("test");
+        // type | id=password | test
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys("test");
+        // click | css=input.btn.btn-primary |
+        driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
+
+        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
+
+        Assert.assertTrue("Title should start with Click-O-Matic. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
+    }
+
 }
