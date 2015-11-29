@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="testPortal/layout :: head (pageTitle='Fittstest creator')"></head>
+<body>
+    <div class="container">
+        <!-- Import navigation bar -->
+        <div th:replace="testPortal/layout :: navbar"></div>
+        <div class="content">
+            <p th:if="${param.success}" class="alert" th:text="#{fittsTestCreator.alerts.success}">New user has been created</p>
+            <p th:if="${param.error}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.error}">There was an error, please try again</p>
+            <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
+            <div class="testPortalPage">
+
+                <h2 >Create your FittsTest</h2>
+                <form action="#" th:action="@{/fittsTestCreator}" th:object="${fittstest}" method="post">
+                    <table class="table">
+                        <tr>
+                            <td >The unique name of the Fittstest</td>
+                            <td><input type="text" th:field="*{testID}"/> </td>
+                        </tr>
+                        <tr>
+                            <td >The amount of Dots</td>
+                            <td><input type="text" th:field="*{numberOfDots}"/></td>
+                        </tr>
+                        <tr>
+                            <td >The size of the Dots</td>
+                            <td><input type="text" th:field="*{dotSize}"/></td>
+                        </tr>
+                        <tr>
+                            <td >The distance between the Dots</td>
+                            <td><input type="text" th:field="*{dotDistance}"/></td>
+
+                        </tr>
+                    </table>
+                <p><input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/></p>
+                </form>
+                </div>
+
+        </div>
+    </div>
+
+<!-- Import footer -->
+<div th:replace="testPortal/layout :: footer"></div>
+
+</body>
+</html>

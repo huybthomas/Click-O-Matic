@@ -56,6 +56,7 @@ public class DatabaseLoader
         allPermissions.add(new Permission("createUsers"));
         allPermissions.add(new Permission("editUsers"));
         allPermissions.add(new Permission("viewUsers"));
+        allPermissions.add(new Permission("createFittsTest"));
 
         Iterator<Permission> permissionIterator = allPermissions.iterator();
         while(permissionIterator.hasNext())
@@ -93,12 +94,12 @@ public class DatabaseLoader
         User u4 = new User("Timothy", "Verstraete", "timothy.verstraete", "test");
         roles = new ArrayList<Role>();
         roles.add(administrator);
-        u3.setRoles(roles);
+        u4.setRoles(roles);
 
         User u5 = new User("Tester", "De Test", "tester", "test");
         roles = new ArrayList<Role>();
         roles.add(tester);
-        u4.setRoles(roles);
+        u5.setRoles(roles);
 
         userRepository.save(u1);
         userRepository.save(u2);

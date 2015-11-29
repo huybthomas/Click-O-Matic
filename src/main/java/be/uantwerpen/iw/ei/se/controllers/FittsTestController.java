@@ -35,6 +35,12 @@ public class FittsTestController
         return userService.getPrincipalUser();
     }
 
+    @ModelAttribute("allFittsTest")
+    public Iterable<FittsTest> populateFitts()
+    {
+        return fittsService.findAll();
+    }
+
     @RequestMapping({"/TestPortal"})
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
@@ -148,5 +154,12 @@ public class FittsTestController
         {
             return new JSONResponse("ERROR", "The specified test: " + testID + " could not be found!", "/TestPortal", false);
         }
+    }
+    @RequestMapping(value={"/TestCreator"})
+    @PreAuthorize("hasRole('logon')")
+    public String FittsTestCreator(final ModelMap model)
+    {
+
+        return "testPortal/fittsTestCreator";
     }
 }
