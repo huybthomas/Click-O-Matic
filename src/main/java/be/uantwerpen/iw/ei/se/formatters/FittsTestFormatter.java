@@ -13,7 +13,7 @@ import java.util.Locale;
  * Created by dries on 28/11/2015.
  */
 @Component
-public class TestFormatter implements Formatter<FittsTest>
+public class FittsTestFormatter implements Formatter<FittsTest>
 {
     @Autowired
     private FittsTestRepository fittsTestRepository;
