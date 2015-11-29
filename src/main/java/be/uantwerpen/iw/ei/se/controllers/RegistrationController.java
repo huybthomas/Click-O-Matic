@@ -1,8 +1,8 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
-import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.services.RoleService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -25,15 +26,33 @@ public class RegistrationController
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/registration", method= RequestMethod.GET)
+    @Autowired
+    private RoleService roleService;
+
+    @RequestMapping(value="/Registration", method= RequestMethod.GET)
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String createUserForm(ModelMap model)
     {
-        model.addAttribute("user", new User());
+        User user = new User();
+
+        Iterable<Role> roleList= roleService.findAll();
+        Iterator<Role> it = roleList.iterator();
+        while(it.hasNext()) {
+
+            Role temp = it.next();
+
+            if(temp.getName().equals("Tester")) {
+                user.setRoles(new ArrayList<Role>(Arrays.asList(temp)));
+                break;  // break from while loop
+            }
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", roleService.findAll());
         return "mainPortal/registration";
     }
 
-    @RequestMapping(value="/registration", method=RequestMethod.POST)
+    @RequestMapping(value="/Registration", method=RequestMethod.POST)
     @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
     public String createUserSubmit(@Valid User user, BindingResult bindingResult, ModelMap model)
     {
@@ -43,24 +62,14 @@ public class RegistrationController
         }
         else
         {
-            ArrayList<Permission> permissions = new ArrayList<Permission>();
-            permissions.add(new Permission("logon"));
-
-            Role tester = new Role("User");
-            tester.setPermissions(permissions);
-
-            ArrayList<Role> roles = new ArrayList<Role>();
-            roles.add(tester);
-            user.setRoles(roles);
-
             if(userService.usernameAlreadyExists(user.getUserName()))
             {
-                return "redirect:/registration?errorAlreadyExists";
+                return "redirect:/Registration?errorAlreadyExists";
             }
             else
             {
                 userService.add(user);
-                return "redirect:/registration?success";
+                return "redirect:/Users?success";
             }
         }
     }

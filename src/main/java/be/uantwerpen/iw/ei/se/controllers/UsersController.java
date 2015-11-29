@@ -5,16 +5,12 @@ import be.uantwerpen.iw.ei.se.services.RoleService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by Quinten on 21/10/2015.
@@ -40,14 +36,14 @@ public class UsersController
         return userService.findAll();
     }
 
-    @RequestMapping({"/users"})
+    @RequestMapping({"/Users"})
     @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
     public String showViewUsers(final ModelMap model)
     {
         return "mainPortal/users";
     }
 
-    @RequestMapping(value="/users/{userName}/", method=RequestMethod.GET)
+    @RequestMapping(value="/Users/{userName}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
     public String editUserForm(@PathVariable String userName, final ModelMap model)
     {
@@ -62,11 +58,11 @@ public class UsersController
         else
         {
             model.addAttribute("user", null);
-            return "redirect:/users?errorUserNotFound";
+            return "redirect:/Users?errorUserNotFound";
         }
     }
 
-    @RequestMapping(value={"/users"}, method=RequestMethod.POST)
+    @RequestMapping(value={"/Users"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String saveUser(@Valid User user, BindingResult result, final ModelMap model)
     {
@@ -75,15 +71,15 @@ public class UsersController
             return "mainPortal/user-profile";
         }
         userService.save(user);
-        return "redirect:/users";
+        return "redirect:/Users";
     }
 
-    @RequestMapping(value="/users/{userName}/delete")
+    @RequestMapping(value="/Users/{userName}/Delete")
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String deleteUser(@PathVariable String userName, final ModelMap model)
     {
         userService.delete(userName);
         model.clear();
-        return "redirect:/users";
+        return "redirect:/Users";
     }
 }

@@ -3,6 +3,11 @@ package be.uantwerpen.iw.ei.se.fittsTest.models;
 import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Thomas on 12/11/2015.
@@ -11,26 +16,28 @@ import javax.persistence.Entity;
 public class FittsTest extends MyAbstractPersistable<Long>
 {
     private String testID;
-    private int numberOfDots;
-    private int dotSize;
-    private int dotDistance;
     private boolean completed;
+
+    @ManyToMany
+    @JoinTable(
+            name="TEST_STAGE",
+            joinColumns={
+                    @JoinColumn(name="TEST_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="SESSION_ID", referencedColumnName="ID")})
+    private List<FittsTestStage> testStages;
 
     public FittsTest()
     {
         this.testID = "";
-        this.numberOfDots = -1;
-        this.dotSize = -1;
-        this.dotDistance = -1;
+        this.testStages = new ArrayList<FittsTestStage>();
         this.completed = false;
     }
 
-    public FittsTest(String testID, int numberOfDots, int dotSize, int dotDistance)
+    public FittsTest(String testID, List<FittsTestStage> testStages)
     {
         this.testID = testID;
-        this.numberOfDots = numberOfDots;
-        this.dotSize = dotSize;
-        this.dotDistance = dotDistance;
+        this.testStages = testStages;
         this.completed = false;
     }
 
@@ -44,42 +51,27 @@ public class FittsTest extends MyAbstractPersistable<Long>
         return this.testID;
     }
 
-    public void setNumberOfDots(int numberOfDots)
+    public void setTestStages(List<FittsTestStage> testStages)
     {
-        this.numberOfDots = numberOfDots;
+        this.testStages = testStages;
     }
 
-    public int getNumberOfDots()
+    public List<FittsTestStage> getTestStages()
     {
-        return this.numberOfDots;
+        return this.testStages;
     }
 
-    public void setDotSize(int dotSize)
+    public int getNumberOfStages()
     {
-        this.dotSize = dotSize;
+        return this.testStages.size();
     }
 
-    public int getDotSize()
-    {
-        return this.dotSize;
-    }
-
-    public void setDotDistance(int dotDistance)
-    {
-        this.dotDistance = dotDistance;
-    }
-
-    public int getDotDistance()
-    {
-        return this.dotDistance;
-    }
-
-    public void setCompleted(boolean completed)
+    public void setCompleted(Boolean completed)
     {
         this.completed = completed;
     }
 
-    public boolean getCompleted()
+    public Boolean getCompleted()
     {
         return this.completed;
     }

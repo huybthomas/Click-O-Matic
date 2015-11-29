@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
@@ -35,8 +36,8 @@ public class FittsTestControllerTests
 
     private MockMvc mockMvc;
 
-    User principalUser;
-    Iterable<FittsTest> tests;
+    private User principalUser;
+    private Iterable<FittsTest> tests;
 
     @Before
     public void setup()
@@ -44,7 +45,7 @@ public class FittsTestControllerTests
         principalUser = new User("Test", "User");
 
         List<FittsTest> testList = new ArrayList<FittsTest>();
-        testList.add(new FittsTest("001", 3, 25, 50));
+        testList.add(new FittsTest("001", new ArrayList<FittsTestStage>()));
         tests = testList;
 
         MockitoAnnotations.initMocks(this);

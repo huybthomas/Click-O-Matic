@@ -12,8 +12,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,11 +28,11 @@ import java.util.List;
 public class UserServiceTest
 {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
-    List<User> userList;
-    List<Permission> permissionListTester;
-    List<Permission> permissionListAdmin;
+    private List<User> userList;
+    private List<Permission> permissionListTester;
+    private List<Permission> permissionListAdmin;
 
     @Before
     public void init()

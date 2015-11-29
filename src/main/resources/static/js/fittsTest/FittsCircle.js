@@ -17,14 +17,14 @@ function FittsCircle(size, posX, posY)
         context.arc(this.posX, this.posY, this.size, 0, 2 * Math.PI);
 
         context.stroke();
-    }
+    };
 
     this.calculateCirclePoints = function()
     {
-        var n = this.size/this.dashLength;
-        var alpha = Math.PI * 2 / dots;
-        var pointObject = {};
-        var points = [];
+        n = this.size/this.dashLength;
+        alpha = Math.PI * 2 / dots;
+        pointObject = {};
+        points = [];
         i = -1;
-    }
+    };
 }

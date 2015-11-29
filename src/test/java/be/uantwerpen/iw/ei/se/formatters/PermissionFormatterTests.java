@@ -25,13 +25,13 @@ import static junit.framework.TestCase.assertTrue;
 public class PermissionFormatterTests
 {
     @Autowired
-    PermissionFormatter permissionFormatter;
+    private PermissionFormatter permissionFormatter;
 
     @Autowired
-    PermissionRepository permissionRepository;
+    private PermissionRepository permissionRepository;
 
-    Permission permission;
-    Locale locale;
+    private Permission permission;
+    private Locale locale;
 
     @Before
     public void init()
@@ -46,9 +46,7 @@ public class PermissionFormatterTests
     @Test
     public void parserTest() throws ParseException
     {
-        Permission parserPermission = new Permission();
-
-        parserPermission = permissionFormatter.parse(permission.getId().toString(), locale);
+        Permission parserPermission = permissionFormatter.parse(permission.getId().toString(), locale);
 
         assertTrue(parserPermission.equals(permission));
     }

@@ -14,5 +14,7 @@ public interface FittsResultRepository extends CrudRepository<FittsResult,Long>
 {
     FittsResult findByResultID(String resultID);
 
+    Iterable<FittsResult> findByTestID(String testID);
+
     List<FittsResult> findAll();
 }

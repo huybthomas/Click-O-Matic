@@ -6,15 +6,36 @@
     <script type="text/javascript" th:src="'/js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackEvent.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackPath.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
-    <script type="text/javascript" th:src="'/js/fittsTest/FittsTracking.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestStage.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
-
 </head>
 
 <body>
     <div class="container">
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
+
+        <!-- Modal popup -->
+        <div id="continueModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Test finished</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You can return to the main test portal or immediately start the next test.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.return}">Return</button></a>
+                        <a id="nextTestLink" href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.next}">Next test</button></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <div class="frontContent" id="frontContent">
             <!-- Fitts test -->
@@ -25,7 +46,7 @@
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
-    <!-- Resize canvas -->
+    <!-- Resize canvas script -->
     <script type="text/javascript">
         window.addEventListener('resize', resizeEvent, false);
 
@@ -45,14 +66,23 @@
         }
     </script>
 
+    <!-- Leave page script -->
+    <script type="text/javascript">
+        window.addEventListener('beforeunload', leavePageEvent, false);
+
+        function leavePageEvent(event)
+        {
+            if(!testFinished())
+            {
+                event.returnValue = "The test is not finished yet, all progress made will be lost!";
+            }
+        }
+    </script>
+
     <!-- Load Fitts Test script -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var testAttr=[];
-        testAttr.testID=/*[[${runningTest.testID}]]*/;
-        testAttr.numberOfDots=/*[[${runningTest.numberOfDots}]]*/;
-        testAttr.dotsSize=/*[[${runningTest.dotSize}]]*/;
-        testAttr.dotDistance=/*[[${runningTest.dotDistance}]]*/;
+        var testAttr=/*[[${runningTest}]]*/;
         /*]]>*/
     </script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTestMain.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.when;
 
 /**
@@ -28,17 +28,17 @@ import static org.mockito.Mockito.when;
 public class SecurityServiceTests
 {
     @InjectMocks
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Mock
-    UserService userService;
+    private UserService userService;
 
     @Mock
-    PermissionRepository permissionRepository;
+    private PermissionRepository permissionRepository;
 
-    List<User> userList;
-    List<Permission> permissionListTester;
-    List<Permission> permissionListAdmin;
+    private List<User> userList;
+    private List<Permission> permissionListTester;
+    private List<Permission> permissionListAdmin;
 
     @Before
     public void init()

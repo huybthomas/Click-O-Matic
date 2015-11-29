@@ -14,7 +14,7 @@ function FittsTimer()
             this.startTime = new Date();
             this.running = true;
         }
-    }
+    };
 
     this.stopTimer = function()
     {
@@ -23,17 +23,17 @@ function FittsTimer()
             this.endTime = new Date();
             this.running = false;
         }
-    }
+    };
 
     this.getStartTime = function()
     {
         return this.startTime;
-    }
+    };
 
     this.getEndTime = function()
     {
         return this.endTime;
-    }
+    };
 
     this.getElapsedTime = function()
     {
@@ -47,5 +47,5 @@ function FittsTimer()
         {
             return this.endTime - this.startTime;
         }
-    }
+    };
 }
