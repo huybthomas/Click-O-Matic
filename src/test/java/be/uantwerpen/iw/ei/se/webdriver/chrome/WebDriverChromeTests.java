@@ -99,7 +99,7 @@ public class WebDriverChromeTests
         testCases.loginWithCredentialsThomasHuybrechts();
     }
 
-    @Test
+   @Test
     public void createANewUser()
     {
         Assume.assumeTrue(webdriverOK);

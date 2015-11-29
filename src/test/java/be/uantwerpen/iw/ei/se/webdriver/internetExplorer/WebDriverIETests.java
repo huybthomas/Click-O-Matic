@@ -85,6 +85,13 @@ public class WebDriverIETests
 
         testCases.loginWithCredentialsThomasHuybrechts();
     }
+    @Test
+    public void createANewUser()
+    {
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.createANewUser();
+    }
 
     @AfterClass
     public static void destroy()

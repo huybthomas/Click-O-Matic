@@ -60,9 +60,9 @@ public class WebDriverTestCases
         driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
         Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
+       // wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
 
-        Assert.assertTrue("Title should start with Click-O-Matic. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
+        Assert.assertTrue("Title should start with Create user. Result: "  + driver.getTitle(),driver.getTitle().startsWith("Create user"));
     }
 
 }
