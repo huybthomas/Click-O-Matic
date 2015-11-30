@@ -51,6 +51,8 @@ public class DatabaseLoader
         List<Role> roles;
         List<Permission> allPermissions = new ArrayList<Permission>();
 
+
+        // usermanagement algemene permission van maken
         allPermissions.add(new Permission("logon"));
         allPermissions.add(new Permission("secret-message"));
         allPermissions.add(new Permission("createUsers"));
@@ -105,6 +107,7 @@ public class DatabaseLoader
         userRepository.save(u2);
         userRepository.save(u3);
         userRepository.save(u4);
+        userRepository.save(u5);
     }
 
     private void initTestDatabase()

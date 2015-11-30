@@ -27,11 +27,11 @@
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
             <div class="testPortalPage">
                 <h2>Create test</h2>
-                <form action="#" th:action="@{/FittsTestCreator}" th:object="${fittsTest}" method="post">
+                <form action="javascript:sendFittsTest();" th:object="${fittsTest}">
                     <table class="table-responsive col-md-6">
                         <tr>
                             <td >The unique name of the Fittstest</td>
-                            <td><input type="text" th:field="*{testID}"/> </td>
+                            <td><input id="fittsTestID" type="text" th:field="*{testID}"/> </td>
                         </tr>
 
                         <tr>
@@ -147,6 +147,38 @@
         dotDistanceSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt;
         });
+
+
+        function sendFittsTest() {
+
+            testAttr.testID = document.getElementById("fittsTestID").value;
+            testAttr.testStages = selectOptions;
+            testAttr.testFinished = false;
+
+            $.ajax({
+                type: "POST",
+                url: "/PostFittsTest/",
+                data: JSON.stringify(testAttr),           //"fittsTest" will be value for @RequestParam
+                contentType: "application/json",
+                success: function(response) {
+                    if(response.status = "OK")
+                    {
+                        window.location.replace(response.redirect);
+                    }
+                    else
+                    {
+                        receiveError(response.errorMessage);
+                    }
+                },
+                error: function(response) {
+                    receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
+                }
+            });
+        }
+
+        function receiveError(response) {
+            alert('We are sorry, but an error has occurred: ' + response);       //Reroute to error page
+        }
 
 
 
