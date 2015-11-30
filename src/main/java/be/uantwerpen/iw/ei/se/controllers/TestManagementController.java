@@ -71,7 +71,7 @@ public class TestManagementController
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors()){
-            model.addAttribute("allTest", fittsService.findAllTests());
+            model.addAttribute("allTests", fittsService.findAllTests());
             return "mainPortal/assignTest";
         }
         userService.save(user);
