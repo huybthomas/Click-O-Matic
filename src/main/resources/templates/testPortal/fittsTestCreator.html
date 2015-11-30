@@ -30,23 +30,23 @@
                 <form action="javascript:sendFittsTest();" th:object="${fittsTest}">
                     <table class="table-responsive col-md-6">
                         <tr>
-                            <td >The unique name of the Fittstest</td>
+                            <td>The unique name of the Fittstest</td>
                             <td><input id="fittsTestID" type="text" th:field="*{testID}"/> </td>
                         </tr>
-
                         <tr>
-                            <td >The amount of dots</td>
+                            <td id="dotAmt">The amount of dots: </td>
                             <td><input id="numberOfDotsSlider" type="text"/></td>
                         </tr>
                         <tr>
-                            <td >The radius of the dots</td>
+                            <td id="dotRad">The radius of the dots</td>
                             <td><input id="dotRadiusSlider" type="text"/></td>
                         </tr>
                         <tr>
-                            <td >The distance between the dots</td>
+                            <td id="dotDist">The distance between the dots</td>
                             <td><input id="dotDistanceSlider" type="text"/></td>
                         </tr>
                     </table>
+
                     <h3 class="col-md-6">Stages</h3>
                     <div class="col-xs-4">
                         <p id="amtOfStages" style="float: right; font-size: smaller">Number of stages: </p>
@@ -85,28 +85,37 @@
             <!-- clear all options -->
             selector.options.length = 0;
 
-            <!-- add all options -->
-            for(i=0; i < selectOptions.length; i++) {
-                var option = document.createElement("option");
-                option.text = 'Stage ' + (i+1).toString();
-                if(selectOptions[i].id) {
-                    option.value = selectOptions[i].id;
-                } else {
-                    option.value = "";
+            if(selectOptions.length > 0) {
+                <!-- add all options -->
+                for (i = 0; i < selectOptions.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = 'Stage ' + (i + 1).toString();
+                    if (selectOptions[i].id) {
+                        option.value = selectOptions[i].id;
+                    } else {
+                        option.value = "";
+                    }
+                    selector.appendChild(option);
                 }
-                selector.appendChild(option);
+                setSliders();
+            } else {
+                // disable sliders and selection
+                $('#stagesSelector').prop('disabled', 'disabled');
+                numberOfDotsSlider.disable();
+                dotRadiusSlider.disable();
+                dotDistanceSlider.disable();
             }
-            setAmtOfStages(selectOptions.length);
-            setSliders();
+            setAmtOfStages();
         }
 
         function addStage() {
             selectOptions.push(new FittsTestStage(3, 5, 20));
             addOption();
-            setAmtOfStages(selectOptions.length);
+            setAmtOfStages();
         }
 
         function addOption() {
+            $('#stagesSelector').prop('disabled', false);
             var option = document.createElement("option");
             option.text = 'Stage ' + selectOptions.length;
             if(selectOptions[selectOptions.length-1].id) {
@@ -122,58 +131,72 @@
         function removeStage() {
             selectOptions.splice(selector.selectedIndex, 1);
             selector.options.remove(selector.selectedIndex);
+            setAmtOfStages(selectOptions.length);
             generateOptions();
         }
 
-        function setAmtOfStages(amt) {
-            document.getElementById("amtOfStages").innerHTML = "Number of stages: " + amt;
+        function setAmtOfStages() {
+            if(selectOptions.length > 0) {
+                $("#amtOfStages").text("Number of stages: " + selectOptions.length);
+            } else {
+                $("#amtOfStages").text("Number of stages: 0");
+            }
         }
 
         function setSliders() {
             stage = selectOptions[selector.selectedIndex];
+            numberOfDotsSlider.enable();
+            dotRadiusSlider.enable();
+            dotDistanceSlider.enable();
             numberOfDotsSlider.setValue(stage.numberOfDots);
             dotRadiusSlider.setValue(stage.dotRadius);
             dotDistanceSlider.setValue(stage.dotDistance);
+            $("#dotAmt").text("The amount of dots: " + stage.numberOfDots);
+            $("#dotRad").text("The radius of the dots: " + stage.dotRadius);
+            $("#dotDist").text("The distance between the dots: " + stage.dotDistance);
         }
 
         numberOfDotsSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].numberOfDots = slideEvt;
+            $("#dotAmt").text("The amount of dots: " + slideEvt);
         });
 
         dotRadiusSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotRadius = slideEvt;
+            $("#dotRad").text("The radius of the dots: " + slideEvt);
         });
 
         dotDistanceSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt;
+            $("#dotDist").text("The distance between the dots: " + slideEvt);
         });
 
 
         function sendFittsTest() {
-
             testAttr.testID = document.getElementById("fittsTestID").value;
             testAttr.testStages = selectOptions;
             testAttr.testFinished = false;
 
-            $.ajax({
-                type: "POST",
-                url: "/PostFittsTest/",
-                data: JSON.stringify(testAttr),           //"fittsTest" will be value for @RequestParam
-                contentType: "application/json",
-                success: function(response) {
-                    if(response.status = "OK")
-                    {
-                        window.location.replace(response.redirect);
+            if((testAttr.testStages.length > 0) && (testAttr.testID != "")){
+                $.ajax({
+                    type: "POST",
+                    url: "/PostFittsTest/",
+                    data: JSON.stringify(testAttr),           //"fittsTest" will be value for @RequestParam
+                    contentType: "application/json",
+                    success: function (response) {
+                        if (response.status = "OK") {
+                            window.location.replace(response.redirect);
+                        } else {
+                            receiveError(response.errorMessage);
+                        }
+                    },
+                    error: function (response) {
+                        receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
                     }
-                    else
-                    {
-                        receiveError(response.errorMessage);
-                    }
-                },
-                error: function(response) {
-                    receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
-                }
-            });
+                });
+            } else {
+                // error message
+            }
         }
 
         function receiveError(response) {
