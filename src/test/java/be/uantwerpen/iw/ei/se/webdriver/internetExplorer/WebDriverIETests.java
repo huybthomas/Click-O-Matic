@@ -99,6 +99,21 @@ public class WebDriverIETests
         testCases.createNewUser();
     }
 
+    @Test
+    public void editUser()
+    {
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.editUser();
+    }
+
+    @Test
+    public void deleteUser()
+    {
+        Assume.assumeTrue(webdriverOK);
+        testCases.deleteUser();
+    }
+
     @AfterClass
     public static void destroy()
     {

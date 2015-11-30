@@ -83,4 +83,31 @@ public class WebDriverTestCases
 
         Assert.assertTrue("Alert should start with 'New user has been created'. Result: " + driver.findElement(By.className("alert")).getText(), driver.findElement(By.className("alert")).getText().startsWith("New user has been created"));
     }
+    
+    public void editUser()
+    {
+        driver.get(baseURL + "/users");
+        driver.findElement(By.xpath("//tr[4]/td[3]/a/span")).click();
+        driver.findElement(By.id("firstName")).clear();
+        driver.findElement(By.id("firstName")).sendKeys("Tim");
+        driver.findElement(By.id("lastName")).clear();
+        driver.findElement(By.id("lastName")).sendKeys("Verstraete");
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys("test");
+        driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+
+        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
+        Assert.assertTrue("Title should start with User settings. Result: "  + driver.getTitle(),driver.getTitle().startsWith("User settings"));
+    }
+
+    public void deleteUser(){
+        driver.get(baseURL + "/");
+        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[3]/a/span[3]")).click();
+        driver.findElement(By.xpath("//tr[4]/td[4]/a/span")).click();
+
+        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
+        Assert.assertTrue("Title should start with User settings. Result: "  + driver.getTitle(),driver.getTitle().startsWith("User settings"));
+
+    }
 }
