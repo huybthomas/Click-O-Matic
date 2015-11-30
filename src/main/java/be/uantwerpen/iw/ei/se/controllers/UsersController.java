@@ -37,14 +37,14 @@ public class UsersController
     }
 
     @RequestMapping({"/Users"})
-    @PreAuthorize("hasRole('viewUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")
     public String showViewUsers(final ModelMap model)
     {
         return "mainPortal/users";
     }
 
     @RequestMapping(value="/Users/{userName}/", method=RequestMethod.GET)
-    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
     public String editUserForm(@PathVariable String userName, final ModelMap model)
     {
         User user = userService.findByUserName(userName);
@@ -63,7 +63,7 @@ public class UsersController
     }
 
     @RequestMapping(value={"/Users"}, method=RequestMethod.POST)
-    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")
     public String saveUser(@Valid User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors()){
@@ -75,7 +75,7 @@ public class UsersController
     }
 
     @RequestMapping(value="/Users/{userName}/Delete")
-    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")
     public String deleteUser(@PathVariable String userName, final ModelMap model)
     {
         userService.delete(userName);

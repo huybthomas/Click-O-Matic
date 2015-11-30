@@ -55,10 +55,12 @@ public class DatabaseLoader
         // usermanagement algemene permission van maken
         allPermissions.add(new Permission("logon"));
         allPermissions.add(new Permission("secret-message"));
-        allPermissions.add(new Permission("createUsers"));
-        allPermissions.add(new Permission("editUsers"));
-        allPermissions.add(new Permission("viewUsers"));
-        allPermissions.add(new Permission("createFittsTest"));
+        allPermissions.add(new Permission("user-management"));
+        allPermissions.add(new Permission("test-management"));
+        //allPermissions.add(new Permission("createUsers"));
+        //allPermissions.add(new Permission("editUsers"));
+        //allPermissions.add(new Permission("viewUsers"));
+        //allPermissions.add(new Permission("createFittsTest"));
 
         Iterator<Permission> permissionIterator = allPermissions.iterator();
         while(permissionIterator.hasNext())

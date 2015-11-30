@@ -29,21 +29,21 @@ public class TestCreationController
     private FittsService fittsService;
 
     @RequestMapping(value={"/TestCreator"})
-    @PreAuthorize("hasRole('logon')")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String getFittsTestCreator(final ModelMap model)
     {
         return "testPortal/fittsTestCreator";
     }
 
     @RequestMapping(value="/FittsTestCreator", method=RequestMethod.GET)
-    @PreAuthorize("hasRole('logon')")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String createFittsForm(ModelMap model) {
         model.addAttribute("fittsTest", new FittsTest());
         return "testPortal/fittsTestCreator";
     }
 
     @RequestMapping(value="/FittsTestCreator/{testID}", method=RequestMethod.GET)
-    @PreAuthorize("hasRole('logon')")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String editFittsForm(@PathVariable String testID, ModelMap model) {
         FittsTest fittsTest = fittsService.findTestById(testID);
         model.addAttribute("fittsTest", fittsTest);
@@ -51,7 +51,7 @@ public class TestCreationController
     }
 
     @RequestMapping(value="/PostFittsTest/", method=RequestMethod.POST, headers={"Content-type=application/json"})
-    @PreAuthorize("hasRole('logon')")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public @ResponseBody
     JSONResponse submitFittsTest(@RequestBody FittsTest fittsTest, final ModelMap model) {
         if(fittsTest != null) {

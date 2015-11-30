@@ -27,7 +27,7 @@ public class TestManagementController
     private FittsService fittsService;
 
     @RequestMapping({"/AssignTest"})
-    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String showAddTest(final ModelMap model)
     {
         return "mainPortal/assignTest";
@@ -40,7 +40,7 @@ public class TestManagementController
     }
 
     @RequestMapping(value={"/AssignTest"}, method=RequestMethod.POST)
-    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors()){
