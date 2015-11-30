@@ -39,7 +39,7 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
     {
-        if(userService.getPrincipalUser().hasTestManagementPermission()) {
+        if(userService.getPrincipalUser().hasPermission("test-management")) {
             model.addAttribute("allUserFittsTests", fittsService.findAllTests());
         } else {
             model.addAttribute("allUserFittsTests", userService.getPrincipalUser().getTests());

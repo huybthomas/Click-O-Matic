@@ -28,7 +28,7 @@
             <div class="testPortalPage">
                 <h2 th:text="#{fittstest.createTitle}"></h2>
                 <form action="javascript:sendFittsTest();" th:object="${fittsTest}">
-                    <table class="table-responsive col-md-6">
+                    <table class="table-responsive col-md-6" style="line-height: 40px;">
                         <tr>
                             <td th:text="#{fittstest.uniqueName}"></td>
                             <td><input id="fittsTestID" type="text" th:field="*{testID}"/> </td>
@@ -51,8 +51,8 @@
                     <div class="col-xs-4">
                         <p id="amtOfStages" style="float: right; font-size: smaller">Number of stages: </p>
                         <select id="stagesSelector" th:field="*{testStages}" class="form-control" onchange="setSliders()"></select>
-                        <button id="AddStage" class="btn btn-default" th:text="#{fittsTestCreator.createStage}" onclick="addStage();"/>
-                        <button id="DeleteStage" class="btn btn-danger" th:text="#{fittsTestCreator.deleteStage}" onclick="removeStage();"/>
+                        <button id="AddStage" type="button" class="btn btn-default" th:text="#{fittsTestCreator.createStage}" onclick="addStage();"/>
+                        <button id="DeleteStage" type="button" class="btn btn-danger" th:text="#{fittsTestCreator.deleteStage}" onclick="removeStage();"/>
                     </div>
                     <p class="col-md-12">
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>

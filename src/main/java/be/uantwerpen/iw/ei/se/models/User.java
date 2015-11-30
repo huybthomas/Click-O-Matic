@@ -149,6 +149,17 @@ public class User extends MyAbstractPersistable<Long>
         return null;
     }
 
+    public boolean hasPermission(String permission) {
+        for(Role r : roles) {
+            for(Permission p : r.getPermissions()) {
+                if(p.getName().equals(permission)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object object)
     {

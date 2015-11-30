@@ -48,7 +48,7 @@ public class TestManagementController
     }
 
     @RequestMapping(value="/AssignTest/{userName}/", method=RequestMethod.GET)
-    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String editAssignedTest(@PathVariable String userName, final ModelMap model)
     {
         User user = userService.findByUserName(userName);
@@ -56,7 +56,7 @@ public class TestManagementController
         if(user != null)
         {
             model.addAttribute("user", user);
-            model.addAttribute("allRoles", fittsService.findAllTests());
+            model.addAttribute("allTests", fittsService.findAllTests());
             return "mainPortal/assignTest";
         }
         else
