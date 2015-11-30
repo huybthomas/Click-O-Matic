@@ -22,6 +22,9 @@ public class UserService
     private RoleService roleService;
 
     @Autowired
+    private FittsService fittsService;
+
+    @Autowired
     private PermissionRepository permissionRepository;
 
     public Iterable<User> findAll()
@@ -61,6 +64,7 @@ public class UserService
                 u.setUserName(user.getUserName());
                 u.setPassword(user.getPassword());
                 u.setRoles(user.getRoles());
+                u.setTests(user.getTests());
                 roleService.save(u.getRoles());
                 userRepository.save(u);
 

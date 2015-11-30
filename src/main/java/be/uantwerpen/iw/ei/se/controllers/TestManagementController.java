@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,15 +41,40 @@ public class TestManagementController
         return userService.findAll();
     }
 
-    @RequestMapping(value={"/AssignTest"}, method=RequestMethod.POST)
+    @ModelAttribute("allTests")
+    public Iterable<FittsTest> populateTest()
+    {
+        return fittsService.findAllTests();
+    }
+
+    @RequestMapping(value="/AssignTest/{userName}/", method=RequestMethod.GET)
+    @PreAuthorize("hasRole('editUsers') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
+    public String editAssignedTest(@PathVariable String userName, final ModelMap model)
+    {
+        User user = userService.findByUserName(userName);
+
+        if(user != null)
+        {
+            model.addAttribute("user", user);
+            model.addAttribute("allRoles", fittsService.findAllTests());
+            return "mainPortal/assignTest";
+        }
+        else
+        {
+            model.addAttribute("user", null);
+            return "redirect:/Users?errorUserNotFound";
+        }
+    }
+
+    @RequestMapping(value={"/Users/Assign"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors()){
             model.addAttribute("allTest", fittsService.findAllTests());
-            return "mainPortal/AssignTest";
+            return "mainPortal/assignTest";
         }
         userService.save(user);
-        return "redirect:/AssignTest";
+        return "redirect:/Users";
     }
 }

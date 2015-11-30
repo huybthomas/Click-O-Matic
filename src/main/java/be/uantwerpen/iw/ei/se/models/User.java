@@ -56,6 +56,7 @@ public class User extends MyAbstractPersistable<Long>
         this.password = "";
 
         this.roles = new ArrayList<>();
+        this.tests = new ArrayList<>();
     }
 
     public User(String firstName, String lastName, String userName, String password)
@@ -66,6 +67,7 @@ public class User extends MyAbstractPersistable<Long>
         this.password = password;
 
         this.roles = new ArrayList<>();
+        this.tests = new ArrayList<>();
     }
 
     public User(String firstName, String lastName)
@@ -123,9 +125,20 @@ public class User extends MyAbstractPersistable<Long>
         return this.roles;
     }
 
+    public void setRoles(List<Role> roles)
+    {
+        this.roles = roles;
+    }
+
     public void addTest(FittsTest test) {
         tests.add(test);
     }
+
+    public List<FittsTest> getTests() {
+        return this.tests;
+    }
+
+    public void setTests(List<FittsTest> tests) {this.tests = tests;}
 
     public FittsTest getTest(String ID) {
         while (tests.iterator().hasNext()) {
@@ -134,15 +147,6 @@ public class User extends MyAbstractPersistable<Long>
                 return test;
         }
         return null;
-    }
-
-    public List<FittsTest> getTests() {
-        return this.tests;
-    }
-
-    public void setRoles(List<Role> roles)
-    {
-        this.roles = roles;
     }
 
     @Override
