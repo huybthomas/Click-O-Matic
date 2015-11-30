@@ -59,16 +59,22 @@ public class UserService
         {
             if(u.getId().equals(user.getId()))
             {
-                u.setFirstName(user.getFirstName());
-                u.setLastName(user.getLastName());
-                u.setUserName(user.getUserName());
-                u.setPassword(user.getPassword());
-                u.setRoles(user.getRoles());
-                u.setTests(user.getTests());
-                roleService.save(u.getRoles());
-                userRepository.save(u);
+                if(!this.isDuplicatedUsername(user))
+                {
+                    u.setFirstName(user.getFirstName());
+                    u.setLastName(user.getLastName());
+                    u.setUserName(user.getUserName());
+                    u.setPassword(user.getPassword());
+                    u.setRoles(user.getRoles());
+                    roleService.save(u.getRoles());
+                    userRepository.save(u);
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

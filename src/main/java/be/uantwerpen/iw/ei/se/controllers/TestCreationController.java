@@ -52,21 +52,23 @@ public class TestCreationController
 
     @RequestMapping(value="/PostFittsTest/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public @ResponseBody
-    JSONResponse submitFittsTest(@RequestBody FittsTest fittsTest, final ModelMap model) {
-        if(fittsTest != null) {
-            // if test existed already
-            if(fittsService.saveTest(fittsTest)) {
-                return new JSONResponse("OK", "", "/TestPortal", false);
-            } else {
-                if(fittsService.addTest(fittsTest)) {
-                    return new JSONResponse("OK", "", "/TestPortal", false);
-                } else {
-                    return new JSONResponse("ERROR", "The test: " + fittsTest.getTestID() + " could not be saved in the database!", "/TestPortal", false);
-                }
+    public @ResponseBody JSONResponse submitFittsTest(@RequestBody FittsTest fittsTest, final ModelMap model)
+    {
+        //if test existed already
+        if(fittsService.saveTest(fittsTest))
+        {
+            return new JSONResponse("OK", "", "/TestPortal?testEdited", null);
+        }
+        else
+        {
+            if (fittsService.addTest(fittsTest))
+            {
+                return new JSONResponse("OK", "", "/TestPortal?testAdded", null);
             }
-        } else {
-            return new JSONResponse("ERROR", "The specified test: " + fittsTest.getTestID() + " could not be found!", "/TestPortal", false);
+            else
+            {
+                return new JSONResponse("ERROR", "The test: " + fittsTest.getTestID() + " could not be saved in the database!", "#?errorAlreadyExists", null);
+            }
         }
     }
 

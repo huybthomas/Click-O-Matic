@@ -94,17 +94,24 @@ public class FittsService
         {
             if(t.getId().equals(test.getId()))
             {
-                t.setTestID(test.getTestID());
-                t.setCompleted(test.getCompleted());
-                t.setTestStages(test.getTestStages());
+                if(!this.isDuplicatedTestId(test))
+                {
+                    t.setTestID(test.getTestID());
+                    t.setCompleted(test.getCompleted());
+                    t.setTestStages(test.getTestStages());
 
-                //Save the stages of the test to the database
-                this.fittsTestStageRepository.save(test.getTestStages());
+                    //Save the stages of the test to the database
+                    this.fittsTestStageRepository.save(test.getTestStages());
 
-                //Save the test to the database
-                this.fittsTestRepository.save(t);
+                    //Save the test to the database
+                    this.fittsTestRepository.save(t);
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
