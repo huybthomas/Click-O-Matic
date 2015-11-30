@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="testPortal/layout :: head (pageTitle=#{fittstest.result})"></head>
 
+    <script type="text/javascript" th:src="'/js/fittsTest/Plotly-latest.min.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+
 <body>
 
 <div class="container">
@@ -16,8 +18,49 @@
                 <td th:text="${result}" />
             </tr>
         </table>
-    </div>
+        <div style="height: 60vh; overflow-y: auto; overflow-x: hidden">
+            <div style="width: 90%">
+                <div id="lineGraph"></div>
+                <div id="boxPlot"></div>
+            </div>
+            </div>
 </div>
+</div>
+
+<script>
+    showLineGraph()
+
+    function showLineGraph() {
+        var trace1 = {
+            x: [1, 2, 3, 4, 5, 6, 7],
+            y: [10, 15, 13, 17, 18, 20, 22],
+            type: 'scatter'
+        };
+
+    // expandable with new traces
+        var data = [trace1];
+
+        Plotly.newPlot('lineGraph', data);
+    }
+</script>
+
+<script>
+    showBoxPlot()
+
+    function showBoxPlot() {
+        var boxData = [
+            {
+                y: [0, 1, 1, 2, 3, 5, 8, 13, 21],
+                boxpoints: 'all',
+                jitter: 0.3,
+                pointpos: -1.8,
+                type: 'box'
+            }
+        ];
+
+        Plotly.newPlot('boxPlot', boxData);
+    }
+</script>
 
 <!-- Import footer -->
 <div th:replace="testPortal/layout :: footer"></div>

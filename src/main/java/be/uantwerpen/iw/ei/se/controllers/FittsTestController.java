@@ -63,8 +63,8 @@ public class FittsTestController
     public String showFittsTestResult(@PathVariable String testID, final ModelMap model)
     {
         //model.addAttribute("fittsResult", fittsService.findResultById(testID));
-        //testarray results
-        int[] fittsResult = {3,6,9,7};
+        //test array results
+        int[] fittsResult = {3,5,8,7,8,9};
         model.addAttribute("fittsResult", fittsResult);
         return "testPortal/fittsTestResult";
     }
