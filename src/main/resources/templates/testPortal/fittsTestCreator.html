@@ -13,37 +13,41 @@
     <!-- Included FittsTest scripts -->
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTestStage.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
-
 </head>
 <body>
-
     <div class="container">
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
 
         <div class="content">
-            <p th:if="${param.success}" class="alert" th:text="#{fittsTestCreator.alerts.success}">New user has been created</p>
-            <p th:if="${param.error}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.error}">There was an error, please try again</p>
-            <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
+            <div class="messagesContent">
+                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    <span th:text="#{fittsTestCreator.alerts.error}">Error message</span>
+                </div>
+            </div>
             <div class="testPortalPage">
                 <h2 th:text="#{fittstest.createTitle}"></h2>
                 <form action="javascript:sendFittsTest();" th:object="${fittsTest}">
                     <table class="table-responsive col-md-6">
                         <tr>
-                            <td th:text="#{fittstest.uniqueName}"></td>
-                            <td><input id="fittsTestID" type="text" th:field="*{testID}"/> </td>
+                            <div class="form-group">
+                                <td th:text="#{fittstest.uniqueName}"></td>
+                                <td><input id="fittsTestID" class="form-control" type="text" th:field="*{testID}"/></td>
+                            </div>
                         </tr>
                         <tr>
                             <td id="dotAmt" th:text="#{fittstest.amtOfDotsMsg}"></td>
-                            <td><input id="numberOfDotsSlider" type="text"/></td>
+                            <td><input id="numberOfDotsSlider" type="text" data-slider-tooltip="hide"/></td>
                         </tr>
                         <tr>
                             <td id="dotRad" th:text="#{fittstest.dotRadiusMsg}"></td>
-                            <td><input id="dotRadiusSlider" type="text"/></td>
+                            <td><input id="dotRadiusSlider" type="text" data-slider-tooltip="hide"/></td>
                         </tr>
                         <tr>
                             <td id="dotDist" th:text="#{fittstest.dotDistanceMsg}"></td>
-                            <td><input id="dotDistanceSlider" type="text"/></td>
+                            <td><input id="dotDistanceSlider" type="text" data-slider-tooltip="hide"/></td>
                         </tr>
                     </table>
 
@@ -162,23 +166,24 @@
 
         }
 
-        numberOfDotsSlider.on("slideStop", function(slideEvt) {
+        numberOfDotsSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].numberOfDots = slideEvt;
             $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt);
         });
 
-        dotRadiusSlider.on("slideStop", function(slideEvt) {
+        dotRadiusSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotRadius = slideEvt;
             $("#dotRad").text(dotRadiusMsg + " " + slideEvt);
         });
 
-        dotDistanceSlider.on("slideStop", function(slideEvt) {
+        dotDistanceSlider.on("slide", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt;
             $("#dotDist").text(dotDistanceMsg + " " + slideEvt);
         });
 
 
-        function sendFittsTest() {
+        function sendFittsTest()
+        {
             testAttr.testID = document.getElementById("fittsTestID").value;
             testAttr.testStages = selectOptions;
             testAttr.testFinished = false;
@@ -189,28 +194,55 @@
                     url: "/PostFittsTest/",
                     data: JSON.stringify(testAttr),           //"fittsTest" will be value for @RequestParam
                     contentType: "application/json",
-                    success: function (response) {
-                        if (response.status = "OK") {
+                    success: function(response) {
+                        if(response.status = "OK")
+                        {
                             window.location.replace(response.redirect);
-                        } else {
-                            receiveError(response.errorMessage);
+                        }
+                        else
+                        {
+                            receiveError(response.message);
                         }
                     },
-                    error: function (response) {
+                    error: function(response) {
                         receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
                     }
                 });
-            } else {
-                // error message
+            }
+            else
+            {
+                if(testAttr.testStages.length <= 0)
+                {
+
+                }
+                else
+                {
+
+                }
+
+                if(testAttr.testID == "")
+                {
+                    divTestID = $("#fittsTestID").parents("div.control-group");
+                    divTestID.removeClass("success");
+                    divTestID.addClass("error");
+                }
+                else
+                {
+                    divTestID = $("#fittsTestID").parents("div.control-group");
+                    divTestID.removeClass("error");
+                    divTestID.addClass("success");
+                }
             }
         }
 
-        function receiveError(response) {
-            alert('We are sorry, but an error has occurred: ' + response);       //Reroute to error page
+        function receiveError(response)
+        {
+            alert("ERROR");
+            //Error, TestId is not unique
+            divTestID = $("#fittsTestID").parents("div.control-group");
+            divTestID.removeClass("success");
+            divTestID.addClass("error");
         }
-
-
-
         /*]]>*/
     </script>
 </body>

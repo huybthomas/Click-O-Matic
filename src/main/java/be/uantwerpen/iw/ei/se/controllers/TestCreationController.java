@@ -37,14 +37,16 @@ public class TestCreationController
 
     @RequestMapping(value="/FittsTestCreator", method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
-    public String createFittsForm(ModelMap model) {
+    public String createFittsForm(ModelMap model)
+    {
         model.addAttribute("fittsTest", new FittsTest());
         return "testPortal/fittsTestCreator";
     }
 
     @RequestMapping(value="/FittsTestCreator/{testID}", method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
-    public String editFittsForm(@PathVariable String testID, ModelMap model) {
+    public String editFittsForm(@PathVariable String testID, ModelMap model)
+    {
         FittsTest fittsTest = fittsService.findTestById(testID);
         model.addAttribute("fittsTest", fittsTest);
         return "testPortal/fittsTestCreator";
@@ -52,22 +54,23 @@ public class TestCreationController
 
     @RequestMapping(value="/PostFittsTest/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('logon')")
-    public @ResponseBody
-    JSONResponse submitFittsTest(@RequestBody FittsTest fittsTest, final ModelMap model) {
-        if(fittsTest != null) {
-            // if test existed already
-            if(fittsService.saveTest(fittsTest)) {
-                return new JSONResponse("OK", "", "/TestPortal", false);
-            } else {
-                if(fittsService.addTest(fittsTest)) {
-                    return new JSONResponse("OK", "", "/TestPortal", false);
-                } else {
-                    return new JSONResponse("ERROR", "The test: " + fittsTest.getTestID() + " could not be saved in the database!", "/TestPortal", false);
-                }
+    public @ResponseBody JSONResponse submitFittsTest(@RequestBody FittsTest fittsTest, final ModelMap model)
+    {
+        //if test existed already
+        if(fittsService.saveTest(fittsTest))
+        {
+            return new JSONResponse("OK", "", "/TestPortal?testEdited", null);
+        }
+        else
+        {
+            if(fittsService.addTest(fittsTest))
+            {
+                return new JSONResponse("OK", "", "/TestPortal?testAdded", null);
             }
-        } else {
-            return new JSONResponse("ERROR", "The specified test: " + fittsTest.getTestID() + " could not be found!", "/TestPortal", false);
+            else
+            {
+                return new JSONResponse("ERROR", "The test: " + fittsTest.getTestID() + " could not be saved in the database!", "#?errorAlreadyExists", null);
+            }
         }
     }
-
 }
