@@ -20,7 +20,7 @@ public class WebDriverTestCases
     {
         this.baseURL = baseURL;
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 6);
+        this.wait = new WebDriverWait(driver, 15);
     }
 
     public void loginWithCredentialsThomasHuybrechts()
