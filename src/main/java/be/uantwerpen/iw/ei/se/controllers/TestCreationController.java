@@ -52,14 +52,13 @@ public class TestCreationController
         temp.setId(4L);
         fittsTestStages.add(temp);
 
-        model.addAttribute("test", new FittsTest("019", fittsTestStages));
+        model.addAttribute("fittsTest", new FittsTest("019", fittsTestStages));
         return "testPortal/fittsTestCreator";
     }
 
-    //bollen zijn oneven aantallen
     @RequestMapping(value="/FittsTestCreator", method=RequestMethod.POST)
-    @PreAuthorize(" hasRole('logon')")
-    public String createFittsSubmit(@Valid FittsTest fittstest, BindingResult bindingResult, ModelMap model)
+    @PreAuthorize("hasRole('logon')")
+    public String createFittsSubmit(@Valid FittsTest fittsTest, BindingResult bindingResult, ModelMap model)
     {
         if(bindingResult.hasErrors())
         {
@@ -88,8 +87,7 @@ public class TestCreationController
                 fittstest.setTestID(givenID + "1");
             }*/
 
-
-            fittsService.addTest(fittstest);
+            fittsService.addTest(fittsTest);
             return "redirect:/FittsTestCreator?success";
         }
     }

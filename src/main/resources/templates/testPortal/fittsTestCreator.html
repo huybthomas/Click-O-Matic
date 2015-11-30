@@ -27,7 +27,7 @@
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
             <div class="testPortalPage">
                 <h2>Create test</h2>
-                <form action="#" th:action="@{/FittsTestCreator}" th:object="${test}" method="post">
+                <form action="#" th:action="@{/FittsTestCreator}" th:object="${fittsTest}" method="post">
                     <table class="table-responsive col-md-6">
                         <tr>
                             <td >The unique name of the Fittstest</td>
@@ -75,7 +75,7 @@
     <!-- Test stages scripts -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var testAttr=/*[[${test}]]*/;
+        var testAttr=/*[[${fittsTest}]]*/;
 
         var selector = document.getElementById("stagesSelector");
         var selectOptions = testAttr.testStages;
@@ -89,7 +89,11 @@
             for(i=0; i < selectOptions.length; i++) {
                 var option = document.createElement("option");
                 option.text = 'Stage ' + (i+1).toString();
-                option.value = selectOptions[i].id;
+                if(selectOptions[i].id) {
+                    option.value = selectOptions[i].id;
+                } else {
+                    option.value = "";
+                }
                 selector.appendChild(option);
             }
             setAmtOfStages(selectOptions.length);
@@ -105,8 +109,14 @@
         function addOption() {
             var option = document.createElement("option");
             option.text = 'Stage ' + selectOptions.length;
-            option.value = selectOptions[selectOptions.length-1].id;
+            if(selectOptions[selectOptions.length-1].id) {
+                option.value = selectOptions[selectOptions.length-1].id;
+            } else {
+                option.value = "";
+            }
             selector.appendChild(option);
+            selector.selectedIndex = selectOptions.length-1;
+            setSliders();
         }
 
         function removeStage() {
