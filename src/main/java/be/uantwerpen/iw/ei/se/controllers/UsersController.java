@@ -44,7 +44,7 @@ public class UsersController
     }
 
     @RequestMapping(value="/Users/{userName}/", method=RequestMethod.GET)
-    @PreAuthorize("hasRole('user-management') and hasRole('logon')")      // rollen voor wie wat mag editen, bv enkel eigen profiel
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")
     public String editUserForm(@PathVariable String userName, final ModelMap model)
     {
         User user = userService.findByUserName(userName);
