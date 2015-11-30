@@ -156,7 +156,7 @@ function sendResult(result)
             }
             else
             {
-                receiveError(response.errorMessage);
+                receiveError(response.message);
             }
         },
         error: function(response) {
