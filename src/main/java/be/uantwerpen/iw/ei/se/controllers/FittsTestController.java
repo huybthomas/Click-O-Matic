@@ -40,11 +40,10 @@ public class FittsTestController
     public String showTestPortal(final ModelMap model)
     {
         model.addAttribute("allUserFittsTests", fittsService.findAllTests());
-
         return "testPortal/testPortal";
     }
 
-    @RequestMapping(value={"/TestPortal/{testID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestPortal/{testID}/"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showFittsTest(@PathVariable String testID, final ModelMap model)
     {
@@ -61,7 +60,7 @@ public class FittsTestController
         }
     }
 
-    @RequestMapping(value={"/TestResult/{resultID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestResult/{resultID}/"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
@@ -78,7 +77,7 @@ public class FittsTestController
         }
     }
 
-    @RequestMapping(value={"/TestDetails/{testID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestDetails/{testID}/"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showFittsTestDetails(@PathVariable String testID, final ModelMap model)
     {
@@ -142,7 +141,7 @@ public class FittsTestController
                     FittsTest nextNotCompletedTest = notCompletedTests.iterator().next();
 
                     //Give URL of next available test
-                    return new JSONResponse("OK", "", "/TestPortal/" + nextNotCompletedTest.getTestID(), true);
+                    return new JSONResponse("OK", "", "/TestPortal/" + nextNotCompletedTest.getTestID() + "/", true);
                 }
                 else
                 {

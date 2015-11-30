@@ -19,13 +19,13 @@
                     </div>
                     <div class="modal-body">
                         <table>
-                            <td th:text="#{fittstest.amtOfStages} + ': '">Amount of stages</td>
+                            <td th:text="#{fittstest.amtOfStages} + ' '">Amount of stages</td>
                             <td id="amtOfStages">#</td>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" th:value="#{fittstest.return}">Return</button>
-                        <a id="startTestLink" href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.next}">Next test</button></a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" th:text="#{return}">Return</button>
+                        <a id="startTestLink" href="/TestPortal" th:text="#{fittstest.start}" class="btn btn-primary"></a>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                     <td style="vertical-align: middle">Completed: <span th:class="${t.completed} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${t.completed} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
                     <td><a th:href="${t.completed} ? '/TestResult/'+${t.testID}+'/' : '/TestPortal/'+${t.testID}+'/'" th:text="${t.completed} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
                     <td><button th:text="#{fittstest.viewDetails}" class="btn btn-primary" th:onclick="'details(\''+${t.testID}+'\');'">View Details</button></td>
-                    <td sec:authorize="hasRole('test-management')"><button th:text="#{fittstest.editTest}" class="btn btn-primary" th:onclick="'/FittsTestCreator/'+${t.testID}+'/'">Edit</button></td>
+                    <td sec:authorize="hasRole('test-management')"><a th:text="#{fittstest.editTest}" class="btn btn-primary" th:href="'/FittsTestCreator/'+${t.testID}+'/'">Edit</a></td>
                 </tr>
             </table>
         </div>
@@ -62,7 +62,7 @@
 
                     $('#modal-details-title').text(detailstext + " " + testID );
                     $('#amtOfStages').text(" " + alltests[i].testStages.length);
-                    $('#startTestLink').attr("href", '/TestPortal/'+testID );
+                    $('#startTestLink').attr("href", '/TestPortal/'+testID+'/' );
                     $('#detailsModal').modal('show');
                 }
             }

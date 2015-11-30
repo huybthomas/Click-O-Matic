@@ -42,7 +42,7 @@ public class TestCreationController
         return "testPortal/fittsTestCreator";
     }
 
-    @RequestMapping(value="/FittsTestCreator/{testID}", method=RequestMethod.GET)
+    @RequestMapping(value="/FittsTestCreator/{testID}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String editFittsForm(@PathVariable String testID, ModelMap model) {
         FittsTest fittsTest = fittsService.findTestById(testID);

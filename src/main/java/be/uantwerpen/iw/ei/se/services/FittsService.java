@@ -2,6 +2,7 @@ package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,10 @@ public class FittsService
     public Iterable<FittsTest> findAllTests()
     {
         return this.fittsTestRepository.findAll();
+    }
+
+    public Iterable<FittsTest> findAllTestsForUser(User user) {
+        return null; //this.fittsTestRepository.findAllForUser(user.getUserName());
     }
 
     public Iterable<FittsResult> findAllResults()

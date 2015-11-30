@@ -69,15 +69,22 @@ public class DatabaseLoader
         }
 
         Role administrator = new Role("Administrator");
+        Role researcher = new Role("Researcher");
         Role tester = new Role("Tester");
 
         administrator.setPermissions(allPermissions);
 
         List<Permission> permissions = new ArrayList<Permission>();
-        permissions.add(allPermissions.get(0));     //Logon
+        permissions.add(allPermissions.get(0));     // logon
         tester.setPermissions(permissions);
 
+        permissions = new ArrayList<Permission>();
+        permissions.add(allPermissions.get(0));     // logon
+        permissions.add(allPermissions.get(3));     // test-management
+        researcher.setPermissions(permissions);
+
         roleRepository.save(administrator);
+        roleRepository.save(researcher);
         roleRepository.save(tester);
 
         User u1 = new User("Thomas", "Huybrechts", "thomas.huybrechts", "test");
@@ -100,16 +107,28 @@ public class DatabaseLoader
         roles.add(administrator);
         u4.setRoles(roles);
 
-        User u5 = new User("Tester", "De Test", "tester", "test");
+        User u5 = new User("Nick", "Pauwels", "nick.pauwels", "test");
+        roles = new ArrayList<Role>();
+        roles.add(administrator);
+        u5.setRoles(roles);
+
+        User u6 = new User("Albert", "Einstein", "researcher", "test");
+        roles = new ArrayList<Role>();
+        roles.add(researcher);
+        u6.setRoles(roles);
+
+        User u7 = new User("Tester", "De Test", "tester", "test");
         roles = new ArrayList<Role>();
         roles.add(tester);
-        u5.setRoles(roles);
+        u7.setRoles(roles);
 
         userRepository.save(u1);
         userRepository.save(u2);
         userRepository.save(u3);
         userRepository.save(u4);
         userRepository.save(u5);
+        userRepository.save(u6);
+        userRepository.save(u7);
     }
 
     private void initTestDatabase()
