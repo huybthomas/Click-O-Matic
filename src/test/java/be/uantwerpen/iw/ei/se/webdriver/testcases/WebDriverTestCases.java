@@ -21,6 +21,9 @@ public class WebDriverTestCases
         this.baseURL = baseURL;
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 6);
+
+        //Maximize window for testing
+        driver.manage().window().maximize();
     }
 
     public void loginWithCredentialsThomasHuybrechts()
@@ -117,7 +120,7 @@ public class WebDriverTestCases
         //Wait for redirect to User page
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
-        Assert.assertTrue("User Timothy Verstraete should be renamed to Tim Verstraete. Result: "  + driver.findElement(By.xpath("//tr[4]/td[1]")).getText(), driver.findElement(By.xpath("//tr[4]/td[1]")).getText().contentEquals("Tim Verstraete"));
+        Assert.assertTrue("User Timothy Verstraete should be renamed to Tim Verstraete. Result: " + driver.findElement(By.xpath("//tr[4]/td[1]")).getText(), driver.findElement(By.xpath("//tr[4]/td[1]")).getText().contentEquals("Tim Verstraete"));
     }
 
     public void deleteUser()
