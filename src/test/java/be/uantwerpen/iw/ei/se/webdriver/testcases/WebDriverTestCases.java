@@ -78,7 +78,8 @@ public class WebDriverTestCases
         //Click create button
         driver.findElement(By.id("submit")).click();
 
-        Wait<WebDriver> wait = new WebDriverWait(driver, 2);
+        //Wait for reply server with alert
+        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
 
         Assert.assertTrue("Alert should start with 'New user has been created'. Result: " + driver.findElement(By.className("alert")).getText(), driver.findElement(By.className("alert")).getText().startsWith("New user has been created"));
@@ -86,28 +87,64 @@ public class WebDriverTestCases
     
     public void editUser()
     {
-        driver.get(baseURL + "/users");
+        //Homepage
+        driver.get(baseURL + "/");
+
+        //Click Users in navbar
+        driver.findElement(By.linkText("Users")).click();
+
+        //Wait for User page to load
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//tr[4]/td[3]/a/span")));
+
+        //Click on Edit user of User Timothy.Verstraete
         driver.findElement(By.xpath("//tr[4]/td[3]/a/span")).click();
+
+        //Wait for User edit page to load
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstName")));
+
+        //Fill in firstname
         driver.findElement(By.id("firstName")).clear();
         driver.findElement(By.id("firstName")).sendKeys("Tim");
+
+        //Fill in lastname
         driver.findElement(By.id("lastName")).clear();
         driver.findElement(By.id("lastName")).sendKeys("Verstraete");
+
+        //Fill in password
         driver.findElement(By.id("password")).clear();
         driver.findElement(By.id("password")).sendKeys("test");
-        driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
 
-        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
-        //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
-        Assert.assertTrue("Title should start with User settings. Result: "  + driver.getTitle(),driver.getTitle().startsWith("User settings"));
+        //Click save button
+        driver.findElement(By.id("submit")).click();
+
+        //Wait for redirect to User page
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//tr[4]/td[1]")));
+
+        Assert.assertTrue("User Timothy Verstraete should be renamed to Tim Verstraete. Result: "  + driver.findElement(By.xpath("//tr[4]/td[1]")).getText(), driver.findElement(By.xpath("//tr[4]/td[1]")).getText().contentEquals("Tim Verstraete"));
     }
 
-    public void deleteUser(){
+    public void deleteUser()
+    {
+        //Homepage
         driver.get(baseURL + "/");
-        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[3]/a/span[3]")).click();
+
+        //Click Users in navbar
+        driver.findElement(By.linkText("Users")).click();
+
+        //Wait for User page to load
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//tr[4]/td[4]/a/span")));
+
+        //Click on Delete user of User Timothy.Verstraete
         driver.findElement(By.xpath("//tr[4]/td[4]/a/span")).click();
 
-        Wait<WebDriver> wait = new WebDriverWait(driver, 1500);
-        Assert.assertTrue("Title should start with User settings. Result: "  + driver.getTitle(),driver.getTitle().startsWith("User settings"));
+        //Wait for redirect to User page
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
 
+        Assert.assertFalse("User Timothy.Verstraete should be removed. Result: user timothy available: "  + driver.findElement(By.xpath("//tr[4]/td[2]")).getText().contentEquals("Timothy.Verstraete"), driver.findElement(By.xpath("//tr[4]/td[2]")).getText().contentEquals("Timothy.Verstraete"));
     }
 }

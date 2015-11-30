@@ -18,6 +18,7 @@
                 </div>
 
                 <p th:if="${param.success}" class="alert" th:text="#{registration.alerts.success}">New user has been created</p>
+                <p th:if="${param.userRemoved}" class="alert" th:text="#{registration.alerts.userRemoved}">User has been removed</p>
                 <div style="height: 60vh; overflow-y: auto">
                     <table class="table">
                         <tr th:each="u : ${allUsers}">

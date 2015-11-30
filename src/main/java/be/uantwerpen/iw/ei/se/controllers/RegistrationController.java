@@ -35,13 +35,16 @@ public class RegistrationController
     {
         User user = new User();
 
-        Iterable<Role> roleList= roleService.findAll();
+        //Set default role on Tester
+        Iterable<Role> roleList = roleService.findAll();
         Iterator<Role> it = roleList.iterator();
-        while(it.hasNext()) {
-
+        while(it.hasNext())
+        {
             Role temp = it.next();
 
-            if(temp.getName().equals("Tester")) {
+            if(temp.getName().equals("Tester"))
+            {
+                //Add role: 'Tester' to list
                 user.setRoles(new ArrayList<Role>(Arrays.asList(temp)));
                 break;  // break from while loop
             }

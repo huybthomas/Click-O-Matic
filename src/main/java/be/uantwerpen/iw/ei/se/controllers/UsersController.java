@@ -66,7 +66,8 @@ public class UsersController
     @PreAuthorize("hasRole('editUsers') and hasRole('logon')")
     public String saveUser(@Valid User user, BindingResult result, final ModelMap model)
     {
-        if(result.hasErrors()){
+        if(result.hasErrors())
+        {
             model.addAttribute("allRoles", roleService.findAll());
             return "mainPortal/user-profile";
         }
@@ -80,6 +81,6 @@ public class UsersController
     {
         userService.delete(userName);
         model.clear();
-        return "redirect:/Users";
+        return "redirect:/Users?userRemoved";
     }
 }

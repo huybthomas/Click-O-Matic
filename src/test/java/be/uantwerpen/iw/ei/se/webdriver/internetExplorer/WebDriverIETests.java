@@ -100,17 +100,20 @@ public class WebDriverIETests
     }
 
     @Test
-    public void editUser()
+    public void test04_editUser()
     {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.editUser();
     }
 
     @Test
-    public void deleteUser()
+    public void test05_deleteUser()
     {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
+
         testCases.deleteUser();
     }
 
