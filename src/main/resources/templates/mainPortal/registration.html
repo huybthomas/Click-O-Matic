@@ -7,8 +7,18 @@
         <div th:replace="mainPortal/layout :: navbar"></div>
 
         <div class="content">
-            <p th:if="${param.error}" class="alert alert-error" th:text="#{registration.alerts.error}">There was an error, please try again</p>
-            <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</p>
+            <div class="messagesContent">
+                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    <span th:text="#{registration.alerts.error}">There was an error, please try again</span>
+                </div>
+                <div th:if="${param.errorAlreadyExists}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    <span th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</span>
+                </div>
+            </div>
 
             <div id="registrationPage" class="mainPortalPage">
                 <div class="frontContent">

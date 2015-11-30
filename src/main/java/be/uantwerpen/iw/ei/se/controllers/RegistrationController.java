@@ -72,7 +72,7 @@ public class RegistrationController
             else
             {
                 userService.add(user);
-                return "redirect:/Users?success";
+                return "redirect:/Users?userAdded";
             }
         }
     }

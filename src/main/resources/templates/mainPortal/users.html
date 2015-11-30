@@ -8,17 +8,32 @@
 
         <div id="usersPage" class="mainPortalPage">
             <div class="frontContent">
+                <div class="messagesContent">
+                    <div th:if="${param.userAdded}" class="alert alert-success" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Info: </span>
+                        <span th:text="#{registration.alerts.userAdded}">New user has been created</span>
+                    </div>
+                    <div th:if="${param.userEdited}" class="alert alert-success" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Info: </span>
+                        <span th:text="#{registration.alerts.userEdited}">User has been edited</span>
+                    </div>
+                    <div th:if="${param.userRemoved}" class="alert alert-warning" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Info: </span>
+                        <span th:text="#{registration.alerts.userRemoved}">User has been removed</span>
+                    </div>
+                </div>
 
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav">
-                            <li><a th:href="@{/Registration}" href="registration.html"> Create user </a></li>
+                            <li><a th:href="@{/Registration}" href="registration.html" th:text="#{users.createUser}">Create user</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <p th:if="${param.success}" class="alert" th:text="#{registration.alerts.success}">New user has been created</p>
-                <p th:if="${param.userRemoved}" class="alert" th:text="#{registration.alerts.userRemoved}">User has been removed</p>
                 <div style="height: 60vh; overflow-y: auto">
                     <table class="table">
                         <tr th:each="u : ${allUsers}">

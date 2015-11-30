@@ -72,7 +72,7 @@ public class UsersController
             return "mainPortal/user-profile";
         }
         userService.save(user);
-        return "redirect:/Users";
+        return "redirect:/Users?userEdited";
     }
 
     @RequestMapping(value="/Users/{userName}/Delete")
