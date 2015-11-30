@@ -2,6 +2,8 @@ package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
+import be.uantwerpen.iw.ei.se.models.Permission;
+import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
@@ -14,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -56,7 +59,7 @@ public class FittsTestControllerTests
     }
 
     @Test
-    public void viewFittsTestOverviewPageTest() throws Exception
+    public void viewFittsTestOverviewTestManagementPageTest() throws Exception
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
         when(fittsService.findAllTests()).thenReturn(tests);
@@ -71,7 +74,7 @@ public class FittsTestControllerTests
 
         when(fittsService.findTestById(existingTest.getTestID())).thenReturn(existingTest);
 
-        mockMvc.perform(get("/TestPortal/" + existingTest.getTestID())).andExpect(view().name("testPortal/fittsTest")).andExpect(model().attribute("runningTest", existingTest));
+        mockMvc.perform(get("/TestPortal/" + existingTest.getTestID() + "/")).andExpect(view().name("testPortal/fittsTest")).andExpect(model().attribute("runningTest", existingTest));
     }
 
     @Test
@@ -81,6 +84,6 @@ public class FittsTestControllerTests
 
         when(fittsService.findTestById(existingTest.getTestID())).thenReturn(null);
 
-        mockMvc.perform(get("/TestPortal/" + existingTest.getTestID())).andExpect(view().name("redirect:/TestPortal?errorTestNotFound")).andExpect(model().attributeDoesNotExist("runningTest"));
+        mockMvc.perform(get("/TestPortal/" + existingTest.getTestID() + "/")).andExpect(view().name("redirect:/TestPortal?errorTestNotFound")).andExpect(model().attributeDoesNotExist("runningTest"));
     }
 }

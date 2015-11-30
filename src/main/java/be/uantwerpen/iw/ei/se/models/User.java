@@ -130,29 +130,37 @@ public class User extends MyAbstractPersistable<Long>
         this.roles = roles;
     }
 
-    public void addTest(FittsTest test) {
-        tests.add(test);
-    }
-
     public List<FittsTest> getTests() {
         return this.tests;
     }
 
     public void setTests(List<FittsTest> tests) {this.tests = tests;}
 
-    public FittsTest getTest(String ID) {
-        while (tests.iterator().hasNext()) {
+    public FittsTest getTest(String ID)
+    {
+        while(tests.iterator().hasNext())
+        {
             FittsTest test = tests.iterator().next();
             if(test.getTestID().equals(ID))
+            {
                 return test;
+            }
         }
         return null;
     }
 
-    public boolean hasPermission(String permission) {
-        for(Role r : roles) {
-            for(Permission p : r.getPermissions()) {
-                if(p.getName().equals(permission)) {
+    public void addTest(FittsTest test) {
+        tests.add(test);
+    }
+
+    public boolean hasPermission(String permission)
+    {
+        for(Role r : roles)
+        {
+            for(Permission p : r.getPermissions())
+            {
+                if(p.getName().equals(permission))
+                {
                     return true;
                 }
             }

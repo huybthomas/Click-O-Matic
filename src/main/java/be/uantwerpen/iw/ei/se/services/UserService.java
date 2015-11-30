@@ -66,6 +66,7 @@ public class UserService
                     u.setUserName(user.getUserName());
                     u.setPassword(user.getPassword());
                     u.setRoles(user.getRoles());
+                    u.setTests(user.getTests());
                     roleService.save(u.getRoles());
                     userRepository.save(u);
 

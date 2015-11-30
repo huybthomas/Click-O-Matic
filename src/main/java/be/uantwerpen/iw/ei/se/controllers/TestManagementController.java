@@ -70,10 +70,12 @@ public class TestManagementController
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
     {
-        if(result.hasErrors()){
+        if(result.hasErrors())
+        {
             model.addAttribute("allTests", fittsService.findAllTests());
             return "mainPortal/assignTest";
         }
+
         userService.save(user);
         return "redirect:/Users";
     }
