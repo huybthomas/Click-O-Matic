@@ -4,11 +4,12 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.webdriver.testcases.WebDriverTestCases;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,8 +21,10 @@ import java.io.File;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ClickOMaticApplication.class, loader = SpringApplicationContextLoader.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @WebAppConfiguration
 @IntegrationTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WebDriverChromeTests
 {
     //Chromedriver locations
@@ -78,7 +81,7 @@ public class WebDriverChromeTests
     }
 
     @Test
-    public void startWebDriverChrome()
+    public void test01_startWebDriverChrome()
     {
         Assume.assumeTrue(osCompatible);
 
@@ -91,7 +94,7 @@ public class WebDriverChromeTests
     }
 
     @Test
-    public void loginWithCredentialsThomasHuybrechts()
+    public void test02_loginWithCredentialsThomasHuybrechts()
     {
         //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
@@ -99,8 +102,8 @@ public class WebDriverChromeTests
         testCases.loginWithCredentialsThomasHuybrechts();
     }
 
-   @Test
-    public void createNewUser()
+    @Test
+    public void test03_createNewUser()
     {
         //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);

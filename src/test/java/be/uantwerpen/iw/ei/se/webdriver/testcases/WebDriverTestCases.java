@@ -14,6 +14,7 @@ public class WebDriverTestCases
 {
     private static String baseURL;
     private static WebDriver driver;
+    private static Wait<WebDriver> wait;
 
     public WebDriverTestCases(String baseURL, WebDriver driver)
     {
@@ -24,7 +25,7 @@ public class WebDriverTestCases
     public void loginWithCredentialsThomasHuybrechts()
     {
         //Login page
-        driver.get(baseURL + "login");
+        driver.get(baseURL + "Login");
 
         driver.findElement(By.id("username")).clear();
         driver.findElement(By.id("username")).sendKeys("thomas.huybrechts");
@@ -33,7 +34,7 @@ public class WebDriverTestCases
         driver.findElement(By.id("login")).click();
 
         //Wait for main portal page to load
-        Wait<WebDriver> wait = new WebDriverWait(driver, 2);
+        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
 
         Assert.assertTrue("Title should start with 'Click-O-Matic'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
@@ -47,8 +48,16 @@ public class WebDriverTestCases
         //Click Users in navbar
         driver.findElement(By.linkText("Users")).click();
 
+        //Wait for Users page to load
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Create user")));
+
         //Click Create user link
         driver.findElement(By.linkText("Create user")).click();
+
+        //Wait for Registration page to load
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstName")));
 
         //Fill in firstname
         driver.findElement(By.id("firstName")).clear();

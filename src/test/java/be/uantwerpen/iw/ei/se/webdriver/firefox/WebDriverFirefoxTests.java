@@ -4,10 +4,12 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.webdriver.testcases.WebDriverTestCases;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -17,8 +19,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ClickOMaticApplication.class, loader = SpringApplicationContextLoader.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @WebAppConfiguration
 @IntegrationTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WebDriverFirefoxTests
 {
     private static WebDriver driver;
@@ -36,7 +40,7 @@ public class WebDriverFirefoxTests
     }
 
     @Test
-    public void startWebDriverFirefox()
+    public void test01_startWebDriverFirefox()
     {
         driver.navigate().to("http://localhost:1304");
 
@@ -47,15 +51,16 @@ public class WebDriverFirefoxTests
     }
 
     @Test
-    public void loginWithCredentialsThomasHuybrechts()
+    public void test02_loginWithCredentialsThomasHuybrechts()
     {
         //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.loginWithCredentialsThomasHuybrechts();
     }
+
     @Test
-    public void createNewUser()
+    public void test03_createNewUser()
     {
         //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
