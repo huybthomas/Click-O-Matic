@@ -26,28 +26,28 @@
             <p th:if="${param.error}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.error}">There was an error, please try again</p>
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{fittsTestCreator.alerts.errorAlreadyExists}">Unique ID already exists! Choose another username and try again.</p>
             <div class="testPortalPage">
-                <h2>Create test</h2>
+                <h2 th:text="#{fittstest.createTitle}"></h2>
                 <form action="javascript:sendFittsTest();" th:object="${fittsTest}">
                     <table class="table-responsive col-md-6">
                         <tr>
-                            <td>The unique name of the Fittstest</td>
+                            <td th:text="#{fittstest.uniqueName}"></td>
                             <td><input id="fittsTestID" type="text" th:field="*{testID}"/> </td>
                         </tr>
                         <tr>
-                            <td id="dotAmt">The amount of dots: </td>
+                            <td id="dotAmt" th:text="#{fittstest.amtOfDotsMsg}"></td>
                             <td><input id="numberOfDotsSlider" type="text"/></td>
                         </tr>
                         <tr>
-                            <td id="dotRad">The radius of the dots</td>
+                            <td id="dotRad" th:text="#{fittstest.dotRadiusMsg}"></td>
                             <td><input id="dotRadiusSlider" type="text"/></td>
                         </tr>
                         <tr>
-                            <td id="dotDist">The distance between the dots</td>
+                            <td id="dotDist" th:text="#{fittstest.dotDistanceMsg}"></td>
                             <td><input id="dotDistanceSlider" type="text"/></td>
                         </tr>
                     </table>
 
-                    <h3 class="col-md-6">Stages</h3>
+                    <h3 class="col-md-6" th:text="#{fittstest.stages}"></h3>
                     <div class="col-xs-4">
                         <p id="amtOfStages" style="float: right; font-size: smaller">Number of stages: </p>
                         <select id="stagesSelector" th:field="*{testStages}" class="form-control" onchange="setSliders()"></select>
@@ -76,6 +76,11 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var testAttr=/*[[${fittsTest}]]*/;
+        var amtOfStagesMsg=/*[[#{fittstest.amtOfStages}]]*/;
+        var amtOfDotsMsg=/*[[#{fittstest.amtOfDotsMsg}]]*/;
+        var dotRadiusMsg=/*[[#{fittstest.dotRadiusMsg}]]*/;
+        var dotDistanceMsg=/*[[#{fittstest.dotDistanceMsg}]]*/;
+        var stageMsg=/*[[#{fittstest.stage}]]*/;
 
         var selector = document.getElementById("stagesSelector");
         var selectOptions = testAttr.testStages;
@@ -89,7 +94,7 @@
                 <!-- add all options -->
                 for (i = 0; i < selectOptions.length; i++) {
                     var option = document.createElement("option");
-                    option.text = 'Stage ' + (i + 1).toString();
+                    option.text = stageMsg + " " + (i + 1).toString();
                     if (selectOptions[i].id) {
                         option.value = selectOptions[i].id;
                     } else {
@@ -117,7 +122,7 @@
         function addOption() {
             $('#stagesSelector').prop('disabled', false);
             var option = document.createElement("option");
-            option.text = 'Stage ' + selectOptions.length;
+            option.text = stageMsg + " " + selectOptions.length;
             if(selectOptions[selectOptions.length-1].id) {
                 option.value = selectOptions[selectOptions.length-1].id;
             } else {
@@ -137,9 +142,9 @@
 
         function setAmtOfStages() {
             if(selectOptions.length > 0) {
-                $("#amtOfStages").text("Number of stages: " + selectOptions.length);
+                $("#amtOfStages").text(amtOfStagesMsg + " " + selectOptions.length);
             } else {
-                $("#amtOfStages").text("Number of stages: 0");
+                $("#amtOfStages").text(amtOfStagesMsg + " 0");
             }
         }
 
@@ -151,24 +156,25 @@
             numberOfDotsSlider.setValue(stage.numberOfDots);
             dotRadiusSlider.setValue(stage.dotRadius);
             dotDistanceSlider.setValue(stage.dotDistance);
-            $("#dotAmt").text("The amount of dots: " + stage.numberOfDots);
-            $("#dotRad").text("The radius of the dots: " + stage.dotRadius);
-            $("#dotDist").text("The distance between the dots: " + stage.dotDistance);
+            $("#dotAmt").text(amtOfDotsMsg + " " + stage.numberOfDots);
+            $("#dotRad").text(dotRadiusMsg + " " + stage.dotRadius);
+            $("#dotDist").text(dotDistanceMsg + " " + stage.dotDistance);
+
         }
 
-        numberOfDotsSlider.on("slide", function(slideEvt) {
+        numberOfDotsSlider.on("slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].numberOfDots = slideEvt;
-            $("#dotAmt").text("The amount of dots: " + slideEvt);
+            $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt);
         });
 
-        dotRadiusSlider.on("slide", function(slideEvt) {
+        dotRadiusSlider.on("slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotRadius = slideEvt;
-            $("#dotRad").text("The radius of the dots: " + slideEvt);
+            $("#dotRad").text(dotRadiusMsg + " " + slideEvt);
         });
 
-        dotDistanceSlider.on("slide", function(slideEvt) {
+        dotDistanceSlider.on("slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt;
-            $("#dotDist").text("The distance between the dots: " + slideEvt);
+            $("#dotDist").text(dotDistanceMsg + " " + slideEvt);
         });
 
 
