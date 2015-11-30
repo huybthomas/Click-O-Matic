@@ -75,7 +75,6 @@ public class TestManagementController
             model.addAttribute("allTest", fittsService.findAllTests());
             return "mainPortal/assignTest";
         }
-        System.out.println(user.getTests().isEmpty());
         userService.save(user);
         return "redirect:/Users";
     }
