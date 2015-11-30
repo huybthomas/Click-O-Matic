@@ -166,19 +166,19 @@
 
         }
 
-        numberOfDotsSlider.on("slide", function(slideEvt) {
-            selectOptions[selector.selectedIndex].numberOfDots = slideEvt;
-            $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt);
+        $("#numberOfDotsSlider").bind("slide slideStop", function(slideEvt) {
+            selectOptions[selector.selectedIndex].numberOfDots = slideEvt.value;
+            $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt.value);
         });
 
-        dotRadiusSlider.on("slide", function(slideEvt) {
-            selectOptions[selector.selectedIndex].dotRadius = slideEvt;
-            $("#dotRad").text(dotRadiusMsg + " " + slideEvt);
+        $("#dotRadiusSlider").bind("slide slideStop", function(slideEvt) {
+            selectOptions[selector.selectedIndex].dotRadius = slideEvt.value;
+            $("#dotRad").text(dotRadiusMsg + " " + slideEvt.value);
         });
 
-        dotDistanceSlider.on("slide", function(slideEvt) {
-            selectOptions[selector.selectedIndex].dotDistance = slideEvt;
-            $("#dotDist").text(dotDistanceMsg + " " + slideEvt);
+        $("#dotDistanceSlider").bind("slide slideStop", function(slideEvt) {
+            selectOptions[selector.selectedIndex].dotDistance = slideEvt.value;
+            $("#dotDist").text(dotDistanceMsg + " " + slideEvt.value);
         });
 
 
