@@ -16,7 +16,6 @@ import java.util.List;
 public class FittsTest extends MyAbstractPersistable<Long>
 {
     private String testID;
-    private boolean completed;
 
     @ManyToMany
     @JoinTable(
@@ -31,14 +30,12 @@ public class FittsTest extends MyAbstractPersistable<Long>
     {
         this.testID = "";
         this.testStages = new ArrayList<FittsTestStage>();
-        this.completed = false;
     }
 
     public FittsTest(String testID, List<FittsTestStage> testStages)
     {
         this.testID = testID;
         this.testStages = testStages;
-        this.completed = false;
     }
 
     public void setTestID(String testID)
@@ -64,16 +61,6 @@ public class FittsTest extends MyAbstractPersistable<Long>
     public int getNumberOfStages()
     {
         return this.testStages.size();
-    }
-
-    public void setCompleted(Boolean completed)
-    {
-        this.completed = completed;
-    }
-
-    public Boolean getCompleted()
-    {
-        return this.completed;
     }
     
     @Override

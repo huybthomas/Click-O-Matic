@@ -111,10 +111,6 @@ public class FittsTestController
 
         if(test != null)
         {
-            //Set complete state of test
-            test.setCompleted(true);
-            fittsService.saveTest(test);
-
             //Save result to the database
             //Get the next available result id
             int numberOfResults = 0;

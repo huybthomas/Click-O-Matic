@@ -21,12 +21,6 @@ public class UserService
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private FittsService fittsService;
-
-    @Autowired
-    private PermissionRepository permissionRepository;
-
     public Iterable<User> findAll()
     {
         return this.userRepository.findAll();

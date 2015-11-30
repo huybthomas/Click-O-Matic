@@ -37,14 +37,16 @@ public class TestCreationController
 
     @RequestMapping(value="/FittsTestCreator", method=RequestMethod.GET)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String createFittsForm(ModelMap model) {
+    public String createFittsForm(ModelMap model)
+    {
         model.addAttribute("fittsTest", new FittsTest());
         return "testPortal/fittsTestCreator";
     }
 
     @RequestMapping(value="/FittsTestCreator/{testID}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String editFittsForm(@PathVariable String testID, ModelMap model) {
+    public String editFittsForm(@PathVariable String testID, ModelMap model)
+    {
         FittsTest fittsTest = fittsService.findTestById(testID);
         model.addAttribute("fittsTest", fittsTest);
         return "testPortal/fittsTestCreator";
@@ -54,7 +56,7 @@ public class TestCreationController
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public @ResponseBody JSONResponse submitFittsTest(@RequestBody FittsTest fittsTest, final ModelMap model)
     {
-        //if test existed already
+        //If test existed already
         if(fittsService.saveTest(fittsTest))
         {
             return new JSONResponse("OK", "", "/TestPortal?testEdited", null);

@@ -37,7 +37,7 @@ public class RegistrationController
 
         Iterable<Role> roleList= roleService.findAll();
         Iterator<Role> it = roleList.iterator();
-        while(it.hasNext()) {
+        while(it.hasNext()){
 
             Role temp = it.next();
 

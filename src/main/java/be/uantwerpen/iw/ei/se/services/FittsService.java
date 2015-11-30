@@ -34,7 +34,8 @@ public class FittsService
         return this.fittsTestRepository.findAll();
     }
 
-    public Iterable<FittsTest> findAllTestsForUser(User user) {
+    public Iterable<FittsTest> findAllTestsForUser(User user)
+    {
         return null; //this.fittsTestRepository.findAllForUser(user.getUserName());
     }
 
@@ -97,7 +98,6 @@ public class FittsService
                 if(!this.isDuplicatedTestId(test))
                 {
                     t.setTestID(test.getTestID());
-                    t.setCompleted(test.getCompleted());
                     t.setTestStages(test.getTestStages());
 
                     //Save the stages of the test to the database
@@ -153,51 +153,4 @@ public class FittsService
 
         return false;
     }
-/*
-    public boolean add(final FittsTest fittstest)
-    {
-        if(fittstest.getNumberOfDots()<2)
-        {
-            fittstest.setNumberOfDots(2);
-        }
-        if(fittstest.getDotSize()>70)
-        {
-            fittstest.setDotSize(70);
-        }
-        if(fittstest.getDotDistance()>250)
-        {
-            fittstest.setDotDistance(250);
-        }
-
-
-        int size=0;
-        int amount_zeros =0;
-        for( FittsTest u : findAll())
-        {
-            size+=1;
-        }
-        if(size>=10)
-        {
-            String givenID = fittstest.getTestID();
-            size+=1;
-            fittstest.setTestID(givenID +"0"+Integer.toString(size));
-        }
-        else if(size>100)
-        {
-            String givenID = fittstest.getTestID();
-            size+=1;
-            fittstest.setTestID(givenID +Integer.toString(size));
-        }
-        else
-        {
-            String givenID = fittstest.getTestID();
-            size += 1;
-            fittstest.setTestID(givenID +"00"+ Integer.toString(size));
-        }
-
-
-        this.fittsRepository.save(fittstest);
-        return true;
-    }
-*/
 }
