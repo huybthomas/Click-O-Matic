@@ -6,7 +6,7 @@
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <div class="mainPortalPage">
+        <div id="accessDeniedPage" class="mainPortalPage">
             <div class="frontContent">
                 <h1 th:text="${title}">Error</h1>
                 <p class="alert alert-error">Access denied:

@@ -20,12 +20,13 @@ public class WebDriverTestCases
     {
         this.baseURL = baseURL;
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, 6);
     }
 
     public void loginWithCredentialsThomasHuybrechts()
     {
         //Login page
-        driver.get(baseURL + "Login");
+        driver.get(baseURL + "Login?lang=en");
 
         driver.findElement(By.id("username")).clear();
         driver.findElement(By.id("username")).sendKeys("thomas.huybrechts");
@@ -34,8 +35,7 @@ public class WebDriverTestCases
         driver.findElement(By.id("login")).click();
 
         //Wait for main portal page to load
-        wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mainPortalPage")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("homePage")));
 
         Assert.assertTrue("Title should start with 'Click-O-Matic'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Click-O-Matic"));
     }
@@ -49,14 +49,12 @@ public class WebDriverTestCases
         driver.findElement(By.linkText("Users")).click();
 
         //Wait for Users page to load
-        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Create user")));
 
         //Click Create user link
         driver.findElement(By.linkText("Create user")).click();
 
         //Wait for Registration page to load
-        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstName")));
 
         //Fill in firstname
@@ -79,7 +77,6 @@ public class WebDriverTestCases
         driver.findElement(By.id("submit")).click();
 
         //Wait for reply server with alert
-        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
 
         Assert.assertTrue("Alert should start with 'New user has been created'. Result: " + driver.findElement(By.className("alert")).getText(), driver.findElement(By.className("alert")).getText().startsWith("New user has been created"));
@@ -94,14 +91,12 @@ public class WebDriverTestCases
         driver.findElement(By.linkText("Users")).click();
 
         //Wait for User page to load
-        wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//tr[4]/td[3]/a/span")));
+        wait.until(ExpectedConditions.titleContains("User settings"));
 
         //Click on Edit user of User Timothy.Verstraete
         driver.findElement(By.xpath("//tr[4]/td[3]/a/span")).click();
 
         //Wait for User edit page to load
-        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstName")));
 
         //Fill in firstname
@@ -120,8 +115,7 @@ public class WebDriverTestCases
         driver.findElement(By.id("submit")).click();
 
         //Wait for redirect to User page
-        wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//tr[4]/td[1]")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
         Assert.assertTrue("User Timothy Verstraete should be renamed to Tim Verstraete. Result: "  + driver.findElement(By.xpath("//tr[4]/td[1]")).getText(), driver.findElement(By.xpath("//tr[4]/td[1]")).getText().contentEquals("Tim Verstraete"));
     }
@@ -135,14 +129,12 @@ public class WebDriverTestCases
         driver.findElement(By.linkText("Users")).click();
 
         //Wait for User page to load
-        wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//tr[4]/td[4]/a/span")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
         //Click on Delete user of User Timothy.Verstraete
         driver.findElement(By.xpath("//tr[4]/td[4]/a/span")).click();
 
         //Wait for redirect to User page
-        wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
 
         Assert.assertFalse("User Timothy.Verstraete should be removed. Result: user timothy available: "  + driver.findElement(By.xpath("//tr[4]/td[2]")).getText().contentEquals("Timothy.Verstraete"), driver.findElement(By.xpath("//tr[4]/td[2]")).getText().contentEquals("Timothy.Verstraete"));

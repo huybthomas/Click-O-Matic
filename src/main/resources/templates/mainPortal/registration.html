@@ -10,7 +10,7 @@
             <p th:if="${param.error}" class="alert alert-error" th:text="#{registration.alerts.error}">There was an error, please try again</p>
             <p th:if="${param.errorAlreadyExists}" class="alert alert-error" th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</p>
 
-            <div class="mainPortalPage">
+            <div id="registrationPage" class="mainPortalPage">
                 <div class="frontContent">
                     <h2 th:text="#{registration.header}">Registration</h2>
                     <form action="#" th:action="@{/Registration}" th:object="${user}" method="post">
