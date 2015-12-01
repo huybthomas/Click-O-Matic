@@ -1,11 +1,9 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
 import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
+import be.uantwerpen.iw.ei.se.models.User;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,6 @@ import java.util.List;
 public class FittsTest extends MyAbstractPersistable<Long>
 {
     private String testID;
-    private boolean completed;
 
     @ManyToMany
     @JoinTable(
@@ -27,18 +24,19 @@ public class FittsTest extends MyAbstractPersistable<Long>
                     @JoinColumn(name="SESSION_ID", referencedColumnName="ID")})
     private List<FittsTestStage> testStages;
 
+    @ManyToMany(mappedBy = "tests")
+    private List<User> users;
+
     public FittsTest()
     {
         this.testID = "";
         this.testStages = new ArrayList<FittsTestStage>();
-        this.completed = false;
     }
 
     public FittsTest(String testID, List<FittsTestStage> testStages)
     {
         this.testID = testID;
         this.testStages = testStages;
-        this.completed = false;
     }
 
     public void setTestID(String testID)
@@ -65,16 +63,6 @@ public class FittsTest extends MyAbstractPersistable<Long>
     {
         return this.testStages.size();
     }
-
-    public void setCompleted(Boolean completed)
-    {
-        this.completed = completed;
-    }
-
-    public Boolean getCompleted()
-    {
-        return this.completed;
-    }
     
     @Override
     public boolean equals(Object object)
@@ -92,5 +80,15 @@ public class FittsTest extends MyAbstractPersistable<Long>
         FittsTest test = (FittsTest) object;
 
         return this.testID.equals(test.getTestID());
+    }
+
+    //Remove first all existing links between users and this test in the database
+    @PreRemove
+    private void removeTestsFromUsers()
+    {
+        for(User user : users)
+        {
+            user.getTests().remove(this);
+        }
     }
 }

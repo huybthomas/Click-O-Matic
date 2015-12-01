@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
 import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
+import be.uantwerpen.iw.ei.se.models.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class FittsResult extends MyAbstractPersistable<Long>
             inverseJoinColumns={
                     @JoinColumn(name="STAGE_ID", referencedColumnName="ID")})
     private List<FittsStageResult> stages;
+
+    @ManyToOne
+    private User user;
 
     public FittsResult()
     {

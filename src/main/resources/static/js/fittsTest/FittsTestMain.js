@@ -156,7 +156,7 @@ function sendResult(result)
             }
             else
             {
-                receiveError(response.errorMessage);
+                receiveError(response.message);
             }
         },
         error: function(response) {
@@ -167,8 +167,8 @@ function sendResult(result)
 
 function receiveSuccess(response)
 {
-    //Response redirect is set on server side, depending on response.nextTest boolean value
-    if(response.nextTest == false)
+    //Response redirect is set on server side, depending on response.responseObject boolean value
+    if(response.responseObject == false)
     {
         window.location.replace(response.redirect);
     }

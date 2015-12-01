@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.models;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 
 import javax.persistence.*;
@@ -32,6 +33,15 @@ public class User extends MyAbstractPersistable<Long>
 
     @ManyToMany
     @JoinTable(
+            name="USER_ROLE",
+            joinColumns={
+                @JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                @JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    private List<Role> roles;
+
+    @ManyToMany
+    @JoinTable(
             name="USER_TEST",
             joinColumns={
                     @JoinColumn(name="USER_ID", referencedColumnName="ID")},
@@ -39,14 +49,14 @@ public class User extends MyAbstractPersistable<Long>
                     @JoinColumn(name="FITTS_TEST_ID", referencedColumnName="ID")})
     private List<FittsTest> tests;
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(
-            name="USER_ROLE",
+            name="USER_RESULT",
             joinColumns={
-                @JoinColumn(name="USER_ID", referencedColumnName="ID")},
+                    @JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={
-                @JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-    private List<Role> roles;
+                    @JoinColumn(name="FITTS_RESULT_ID", referencedColumnName="ID")})
+    private List<FittsResult> results;
 
     public User()
     {
@@ -55,7 +65,9 @@ public class User extends MyAbstractPersistable<Long>
         this.userName = "";
         this.password = "";
 
-        this.roles = new ArrayList<>();
+        this.roles = new ArrayList<Role>();
+        this.tests = new ArrayList<FittsTest>();
+        this.results = new ArrayList<FittsResult>();
     }
 
     public User(String firstName, String lastName, String userName, String password)
@@ -65,7 +77,9 @@ public class User extends MyAbstractPersistable<Long>
         this.userName = userName;
         this.password = password;
 
-        this.roles = new ArrayList<>();
+        this.roles = new ArrayList<Role>();
+        this.tests = new ArrayList<FittsTest>();
+        this.results = new ArrayList<FittsResult>();
     }
 
     public User(String firstName, String lastName)
@@ -75,7 +89,9 @@ public class User extends MyAbstractPersistable<Long>
         this.userName = "";
         this.password = "";
 
-        this.roles = new ArrayList<>();
+        this.roles = new ArrayList<Role>();
+        this.tests = new ArrayList<FittsTest>();
+        this.results = new ArrayList<FittsResult>();
     }
 
     public String getFirstName()
@@ -123,26 +139,62 @@ public class User extends MyAbstractPersistable<Long>
         return this.roles;
     }
 
-    public void addTest(FittsTest test) {
-        tests.add(test);
+    public void setRoles(List<Role> roles)
+    {
+        this.roles = roles;
     }
 
-    public FittsTest getTest(String ID) {
-        while (tests.iterator().hasNext()) {
+    public List<FittsTest> getTests()
+    {
+        return this.tests;
+    }
+
+    public void setTests(List<FittsTest> tests)
+    {
+        this.tests = tests;
+    }
+
+    public List<FittsResult> getResults()
+    {
+        return this.results;
+    }
+
+    public void setResults(List<FittsResult> results)
+    {
+        this.results = results;
+    }
+
+    public FittsTest getTest(String ID)
+    {
+        while(tests.iterator().hasNext())
+        {
             FittsTest test = tests.iterator().next();
             if(test.getTestID().equals(ID))
+            {
                 return test;
+            }
         }
         return null;
     }
 
-    public List<FittsTest> getTests() {
-        return this.tests;
+    public void addResult(FittsResult result)
+    {
+        this.results.add(result);
     }
 
-    public void setRoles(List<Role> roles)
+    public boolean hasPermission(String permission)
     {
-        this.roles = roles;
+        for(Role r : roles)
+        {
+            for(Permission p : r.getPermissions())
+            {
+                if(p.getName().equals(permission))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

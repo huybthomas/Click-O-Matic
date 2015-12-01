@@ -3,6 +3,7 @@ package be.uantwerpen.iw.ei.se.services;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
 import be.uantwerpen.iw.ei.se.repositories.FittsStageResultRepository;
 import be.uantwerpen.iw.ei.se.repositories.FittsTrackEventRepository;
@@ -76,6 +77,10 @@ public class FittsResultService
         return this.fittsResultRepository.findByResultID(resultID);
     }
 
+    public Iterable<FittsResult> findByTestIDForUser(String testID, User user)
+    {
+        return this.fittsResultRepository.findByTestIDForUser(testID, user);
+    }
 
     public boolean resultIdAlreadyExists(final String resultID)
     {

@@ -7,15 +7,14 @@ import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Quinten on 3/11/2015.
@@ -39,12 +38,43 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
     {
-        model.addAttribute("allUserFittsTests", fittsService.findAllTests());
+        Map<FittsTest, Boolean> testMap = new LinkedHashMap<FittsTest, Boolean>();
+
+        /*
+        if(userService.getPrincipalUser().hasPermission("test-management"))
+        {
+            model.addAttribute("allUserFittsTests", fittsService.findAllTests());
+        }
+        else*/
+        {
+            List<FittsTest> testsOfUser = userService.getPrincipalUser().getTests();
+
+            for(FittsTest test : testsOfUser)
+            {
+                Boolean testCompleted;
+                Iterable<FittsResult> testResults = fittsService.findResultsByTestIdForUser(test.getTestID(), userService.getPrincipalUser());
+
+                if(testResults.iterator().hasNext())
+                {
+                    //User has at least one result and completed the test
+                    testCompleted = true;
+                }
+                else
+                {
+                    //No results are found, so the test has not yet been completed
+                    testCompleted = false;
+                }
+
+                testMap.put(test, testCompleted);
+            }
+
+            model.addAttribute("allUserFittsTests", testMap);
+        }
 
         return "testPortal/testPortal";
     }
 
-    @RequestMapping(value={"/TestPortal/{testID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestPortal/{testID}/"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showFittsTest(@PathVariable String testID, final ModelMap model)
     {
@@ -61,15 +91,24 @@ public class FittsTestController
         }
     }
 
-    @RequestMapping(value={"/TestResult/{testID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestResult/{resultID}/"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
-    public String showFittsTestResult(@PathVariable String testID, final ModelMap model)
+    public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
-        model.addAttribute("fittsResult", fittsService.findResultById(testID));
-        return "testPortal/fittsTestResult";
+        FittsResult result = fittsService.findResultById(resultID);
+
+        if(result != null)
+        {
+            model.addAttribute("fittsResult", result);
+            return "testPortal/fittsTestResult";
+        }
+        else
+        {
+            return "redirect:/TestResult?errorResultNotFound";
+        }
     }
 
-    @RequestMapping(value={"/TestDetails/{testID}"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/TestDetails/{testID}/"}, method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showFittsTestDetails(@PathVariable String testID, final ModelMap model)
     {
@@ -96,10 +135,6 @@ public class FittsTestController
 
         if(test != null)
         {
-            //Set complete state of test
-            test.setCompleted(true);
-            fittsService.saveTest(test);
-
             //Save result to the database
             //Get the next available result id
             int numberOfResults = 0;
@@ -108,6 +143,8 @@ public class FittsTestController
             while(resultIterator.hasNext())
             {
                 numberOfResults++;
+
+                resultIterator.next();
             }
 
             String resultID = "result-" + numberOfResults;
@@ -124,8 +161,12 @@ public class FittsTestController
 
             if(fittsService.saveTestResult(newResult))
             {
+                //Assign results to user
+                userService.getPrincipalUser().addResult(newResult);
+                userService.save(userService.getPrincipalUser());
+
                 //Search for not completed tests
-                Iterable<FittsTest> notCompletedTests = fittsService.findTestsByCompleteState(false);
+                Iterable<FittsTest> notCompletedTests = fittsService.findTestsByCompleteStateForUser(false, userService.getPrincipalUser());
 
                 if(notCompletedTests.iterator().hasNext())
                 {
@@ -133,7 +174,7 @@ public class FittsTestController
                     FittsTest nextNotCompletedTest = notCompletedTests.iterator().next();
 
                     //Give URL of next available test
-                    return new JSONResponse("OK", "", "/TestPortal/" + nextNotCompletedTest.getTestID(), true);
+                    return new JSONResponse("OK", "", "/TestPortal/" + nextNotCompletedTest.getTestID() + "/", true);
                 }
                 else
                 {

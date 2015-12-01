@@ -2,11 +2,15 @@ package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Thomas on 15/11/2015.
@@ -33,6 +37,11 @@ public class FittsService
         return this.fittsTestRepository.findAll();
     }
 
+    public Iterable<FittsTest> findAllTestsForUser(User user)
+    {
+        return this.fittsTestRepository.findAllForUser(user);
+    }
+
     public Iterable<FittsResult> findAllResults()
     {
         return this.fittsResultService.findAll();
@@ -57,14 +66,32 @@ public class FittsService
         return this.fittsResultService.findByTestID(testID);
     }
 
+    public Iterable<FittsResult> findResultsByTestIdForUser(String testID, User user)
+    {
+        return this.fittsResultService.findByTestIDForUser(testID, user);
+    }
+
     public FittsResult findResultById(String resultID)
     {
         return this.fittsResultService.findByResultID(resultID);
     }
 
-    public Iterable<FittsTest> findTestsByCompleteState(boolean completed)
+    public Iterable<FittsTest> findTestsByCompleteStateForUser(boolean completed, User user)
     {
-        return this.fittsTestRepository.findByCompleteState(completed);
+        List<FittsTest> selectedTests = new ArrayList<FittsTest>();
+
+        for(FittsTest test : user.getTests())
+        {
+            Iterable<FittsResult> testResults = this.findResultsByTestIdForUser(test.getTestID(), user);
+
+            if(testResults.iterator().hasNext() == completed)
+            {
+                //User has at least one result and completed the test
+                selectedTests.add(test);
+            }
+        }
+
+        return selectedTests;
     }
 
     public boolean addTest(final FittsTest test)
@@ -89,17 +116,23 @@ public class FittsService
         {
             if(t.getId().equals(test.getId()))
             {
-                t.setTestID(test.getTestID());
-                t.setCompleted(test.getCompleted());
-                t.setTestStages(test.getTestStages());
+                if(!this.isDuplicatedTestId(test))
+                {
+                    t.setTestID(test.getTestID());
+                    t.setTestStages(test.getTestStages());
 
-                //Save the stages of the test to the database
-                this.fittsTestStageRepository.save(test.getTestStages());
+                    //Save the stages of the test to the database
+                    this.fittsTestStageRepository.save(test.getTestStages());
 
-                //Save the test to the database
-                this.fittsTestRepository.save(t);
+                    //Save the test to the database
+                    this.fittsTestRepository.save(t);
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -141,51 +174,4 @@ public class FittsService
 
         return false;
     }
-/*
-    public boolean add(final FittsTest fittstest)
-    {
-        if(fittstest.getNumberOfDots()<2)
-        {
-            fittstest.setNumberOfDots(2);
-        }
-        if(fittstest.getDotSize()>70)
-        {
-            fittstest.setDotSize(70);
-        }
-        if(fittstest.getDotDistance()>250)
-        {
-            fittstest.setDotDistance(250);
-        }
-
-
-        int size=0;
-        int amount_zeros =0;
-        for( FittsTest u : findAll())
-        {
-            size+=1;
-        }
-        if(size>=10)
-        {
-            String givenID = fittstest.getTestID();
-            size+=1;
-            fittstest.setTestID(givenID +"0"+Integer.toString(size));
-        }
-        else if(size>100)
-        {
-            String givenID = fittstest.getTestID();
-            size+=1;
-            fittstest.setTestID(givenID +Integer.toString(size));
-        }
-        else
-        {
-            String givenID = fittstest.getTestID();
-            size += 1;
-            fittstest.setTestID(givenID +"00"+ Integer.toString(size));
-        }
-
-
-        this.fittsRepository.save(fittstest);
-        return true;
-    }
-*/
 }

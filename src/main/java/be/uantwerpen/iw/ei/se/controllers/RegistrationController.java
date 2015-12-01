@@ -30,7 +30,7 @@ public class RegistrationController
     private RoleService roleService;
 
     @RequestMapping(value="/Registration", method= RequestMethod.GET)
-    @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")
     public String createUserForm(ModelMap model)
     {
         User user = new User();
@@ -56,7 +56,7 @@ public class RegistrationController
     }
 
     @RequestMapping(value="/Registration", method=RequestMethod.POST)
-    @PreAuthorize("hasRole('createUsers') and hasRole('logon')")
+    @PreAuthorize("hasRole('user-management') and hasRole('logon')")
     public String createUserSubmit(@Valid User user, BindingResult bindingResult, ModelMap model)
     {
         if(bindingResult.hasErrors())
