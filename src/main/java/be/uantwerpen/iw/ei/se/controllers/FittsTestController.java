@@ -7,15 +7,14 @@ import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Quinten on 3/11/2015.
@@ -39,14 +38,39 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showTestPortal(final ModelMap model)
     {
+        Map<FittsTest, Boolean> testMap = new LinkedHashMap<FittsTest, Boolean>();
+
+        /*
         if(userService.getPrincipalUser().hasPermission("test-management"))
         {
             model.addAttribute("allUserFittsTests", fittsService.findAllTests());
         }
-        else
+        else*/
         {
-            model.addAttribute("allUserFittsTests", userService.getPrincipalUser().getTests());
+            List<FittsTest> testsOfUser = userService.getPrincipalUser().getTests();
+
+            for(FittsTest test : testsOfUser)
+            {
+                Boolean testCompleted;
+                Iterable<FittsResult> testResults = fittsService.findResultsByTestIdForUser(test.getTestID(), userService.getPrincipalUser());
+
+                if(testResults.iterator().hasNext())
+                {
+                    //User has at least one result and completed the test
+                    testCompleted = true;
+                }
+                else
+                {
+                    //No results are found, so the test has not yet been completed
+                    testCompleted = false;
+                }
+
+                testMap.put(test, testCompleted);
+            }
+
+            model.addAttribute("allUserFittsTests", testMap);
         }
+
         return "testPortal/testPortal";
     }
 
@@ -119,6 +143,8 @@ public class FittsTestController
             while(resultIterator.hasNext())
             {
                 numberOfResults++;
+
+                resultIterator.next();
             }
 
             String resultID = "result-" + numberOfResults;
@@ -135,8 +161,12 @@ public class FittsTestController
 
             if(fittsService.saveTestResult(newResult))
             {
+                //Assign results to user
+                userService.getPrincipalUser().addResult(newResult);
+                userService.save(userService.getPrincipalUser());
+
                 //Search for not completed tests
-                Iterable<FittsTest> notCompletedTests = fittsService.findTestsByCompleteState(false);
+                Iterable<FittsTest> notCompletedTests = fittsService.findTestsByCompleteStateForUser(false, userService.getPrincipalUser());
 
                 if(notCompletedTests.iterator().hasNext())
                 {

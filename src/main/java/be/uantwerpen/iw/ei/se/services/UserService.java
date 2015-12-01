@@ -61,6 +61,8 @@ public class UserService
                     u.setPassword(user.getPassword());
                     u.setRoles(user.getRoles());
                     u.setTests(user.getTests());
+                    u.setResults(user.getResults());
+
                     roleService.save(u.getRoles());
                     userRepository.save(u);
 

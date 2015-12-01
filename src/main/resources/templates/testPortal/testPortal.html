@@ -34,12 +34,12 @@
 
         <div class="testPortalPage">
             <table class="table">
-                <tr th:each="t : ${allUserFittsTests}">
-                    <td th:text="${t.testID}" style="vertical-align: middle"/>
-                    <td style="vertical-align: middle">Completed: <span th:class="${t.completed} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${t.completed} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
-                    <td><a th:href="${t.completed} ? '/TestResult/'+${t.testID}+'/' : '/TestPortal/'+${t.testID}+'/'" th:text="${t.completed} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
-                    <td><button th:text="#{fittstest.viewDetails}" class="btn btn-primary" th:onclick="'details(\''+${t.testID}+'\');'">View Details</button></td>
-                    <td sec:authorize="hasRole('test-management')"><a th:text="#{fittstest.editTest}" class="btn btn-primary" th:href="'/FittsTestCreator/'+${t.testID}+'/'">Edit</a></td>
+                <tr th:each="testEntry : ${allUserFittsTests}">
+                    <td th:text="${testEntry.key.testID}" style="vertical-align: middle"/>
+                    <td style="vertical-align: middle">Completed: <span th:class="${testEntry.value} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${testEntry.value} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
+                    <td><a th:href="${testEntry.value} ? '/TestResult/'+${testEntry.key.testID}+'/' : '/TestPortal/'+${testEntry.key.testID}+'/'" th:text="${testEntry.value} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
+                    <td><button th:text="#{fittstest.viewDetails}" class="btn btn-primary" th:onclick="'details(\''+${testEntry.key.testID}+'\');'">View Details</button></td>
+                    <td sec:authorize="hasRole('test-management')"><a th:text="#{fittstest.editTest}" class="btn btn-primary" th:href="'/FittsTestCreator/'+${testEntry.key.testID}+'/'">Edit</a></td>
                 </tr>
             </table>
         </div>
@@ -48,18 +48,17 @@
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
-
     <!-- test details script -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-
         function details(testID) {
-            alltests = /*[[${allUserFittsTests}]]*/
-            detailstext = /*[[#{fittstest.details}]]*/ '';
+            alltests = /*[[${allUserFittsTests.keySet()}]]*/
+            detailstext = /*[[#{fittstest.details}]]*/'';
 
-            for(i =0; i < alltests.length; i++) {
-                if(alltests[i].testID === testID) {
-
+            for(i = 0; i < alltests.length; i++)
+            {
+                if(alltests[i].testID === testID)
+                {
                     $('#modal-details-title').text(detailstext + " " + testID );
                     $('#amtOfStages').text(" " + alltests[i].testStages.length);
                     $('#startTestLink').attr("href", '/TestPortal/'+testID+'/' );
