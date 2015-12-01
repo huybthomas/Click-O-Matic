@@ -82,7 +82,7 @@ public class WebDriverTestCases
         //Wait for reply server with alert
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
 
-        Assert.assertTrue("Alert should start with 'New user has been created'. Result: " + driver.findElement(By.className("alert")).getText(), driver.findElement(By.className("alert")).getText().startsWith("New user has been created"));
+        Assert.assertTrue("Alert should start with 'New user has been created'. Result: " + driver.findElement(By.id("userAddedAlert")).getText(), driver.findElement(By.id("userAddedAlert")).getText().startsWith("New user has been created"));
     }
     
     public void editUser()
@@ -135,7 +135,7 @@ public class WebDriverTestCases
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
         //Click on Delete user of User Timothy.Verstraete
-        driver.findElement(By.xpath("//tr[4]/td[4]/a/span")).click();
+        driver.findElement(By.xpath("//tr[4]/td[5]/a/span")).click();
 
         //Wait for redirect to User page
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
