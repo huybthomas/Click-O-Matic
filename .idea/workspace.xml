@@ -33,65 +33,12 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd50787b-2219-465b-9b39-a1fcf46a3633" name="Default" comment="Click counter added, in the comments start of the timer&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/CreationController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsResultRepositoryTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/FittsResultService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/FittsStageResultRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsStageResultRepositoryTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/FittsTestFormatterTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/FittsTrackEventRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsTrackEventRepositoryTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/FittsTrackPathRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsTrackPathRepositoryTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/UserFormatterTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/testPortal/fittsTestCreator.html" />
-      <change type="MOVED" beforePath="C:\Users\dries\IdeaProjects\Click-O-Matic\src\main\java\be\uantwerpen\iw\ei\se\formatters\TestFormatter.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/formatters/FittsTestFormatter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Click-O-Matic.iml" afterPath="$PROJECT_DIR$/Click-O-Matic.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/ClickOMaticApplicationTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/ClickOMaticApplicationTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/data/DatabaseLoader.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/data/DatabaseLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsCircle.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsCircle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsDot.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsDot.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/fittsTest/models/FittsResult.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/fittsTest/models/FittsResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/FittsService.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/FittsService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/fittsTest/models/FittsStageResult.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/fittsTest/models/FittsStageResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTest.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTest.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/FittsTestController.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/FittsTestController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/FittsTestControllerTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/FittsTestControllerTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTestMain.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTestMain.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/FittsTestRepository.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/FittsTestRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsTestRepositoryTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsTestRepositoryTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/fittsTest/models/FittsTestStage.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/fittsTest/models/FittsTestStage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTestStage.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTestStage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsTestStageRepositoryTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/FittsTestStageRepositoryTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTimer.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTimer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTrackEvent.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTrackEvent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTrackPath.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/fittsTest/FittsTrackPath.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/HomeController.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/HomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/HomeControllerTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/HomeControllerTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/PermissionFormatterTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/PermissionFormatterTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/PermissionRepositoryTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/PermissionRepositoryTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/RegistrationController.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/RegistrationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/RegistrationControllerSecurityTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/RegistrationControllerSecurityTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/RegistrationControllerTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/RegistrationControllerTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/RoleFormatterTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/RoleFormatterTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/RoleRepository.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/repositories/RoleRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/RoleRepositoryTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/RoleRepositoryTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/RoleService.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/RoleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/SecurityService.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/SecurityService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/services/SecurityServiceTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/services/SecurityServiceTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/TestManagementController.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/TestManagementController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/formatters/UserFormatter.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/formatters/UserFormatter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/UserRepositoryTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/repositories/UserRepositoryTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/services/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/services/UserServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/services/UserServiceTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/UsersController.java" afterPath="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/UsersController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/UsersControllerTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/controllers/UsersControllerTests.java" />
+    <list default="true" id="dd50787b-2219-465b-9b39-a1fcf46a3633" name="Default" comment="Selenium test for assignTest&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/mainPortal/layout.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/mainPortal/layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/testPortal/layout.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/testPortal/layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages_nl.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages_nl.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Click-O-Matic.iws" />
@@ -118,11 +65,74 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="users.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/users.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.2692308">
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="assignTest.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4079602">
-              <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.05811966">
+              <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebDriverTestCases.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="159" column="79" selection-start-line="159" selection-start-column="79" selection-end-line="159" selection-end-column="79" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebDriverChromeTests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="136" column="5" selection-start-line="130" selection-start-column="3" selection-end-line="136" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebDriverFirefoxTests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages_en.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/messages_en.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.862069">
+              <caret line="70" column="12" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="ResourceBundle">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebDriverIETests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -131,7 +141,7 @@
       <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
+            <state vertical-scroll-proportion="0.0">
               <caret line="79" column="147" selection-start-line="79" selection-start-column="147" selection-end-line="79" selection-end-column="147" />
               <folding />
             </state>
@@ -141,7 +151,7 @@
       <file leaf-file-name="user-profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/user-profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1923075">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
               <folding />
             </state>
@@ -169,7 +179,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="DEV_PatientTestList" />
+        <entry key="$PROJECT_DIR$" value="Development" />
       </map>
     </option>
   </component>
@@ -212,7 +222,11 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/testPortal/layout.html" />
         <option value="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/formatters/TestFormatter.java" />
         <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/FittsTestFormatterTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html" />
+        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" />
       </list>
     </option>
   </component>
@@ -266,8 +280,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -292,9 +306,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -324,6 +335,154 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="se" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="se" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webdriver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testcases" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="se" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webdriver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="internetExplorer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="se" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webdriver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="firefox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="se" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webdriver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chrome" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -423,7 +582,89 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testPortal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainPortal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -455,6 +696,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -496,7 +740,7 @@
       <recent name="C:\Users\Thomas\IdeaProjects\Click-O-Matic\src\main\resources\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ClickOMaticApplication">
+  <component name="RunManager" selected="JUnit.WebDriverChromeTests">
     <configuration default="false" name="ClickOMaticApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="be.uantwerpen.iw.ei.se.ClickOMaticApplication" />
@@ -517,6 +761,84 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="be.uantwerpen.iw.ei.se" />
       <option name="MAIN_CLASS_NAME" value="be.uantwerpen.iw.ei.se.ClickOMaticApplicationTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="WebDriverChromeTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="be.uantwerpen.iw.ei.se.webdriver.chrome.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Click-O-Matic" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="be.uantwerpen.iw.ei.se.webdriver.chrome" />
+      <option name="MAIN_CLASS_NAME" value="be.uantwerpen.iw.ei.se.webdriver.chrome.WebDriverChromeTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="WebDriverFirefoxTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="be.uantwerpen.iw.ei.se.webdriver.firefox.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Click-O-Matic" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="be.uantwerpen.iw.ei.se.webdriver.firefox" />
+      <option name="MAIN_CLASS_NAME" value="be.uantwerpen.iw.ei.se.webdriver.firefox.WebDriverFirefoxTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="WebDriverIETests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="be.uantwerpen.iw.ei.se.webdriver.internetExplorer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Click-O-Matic" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="be.uantwerpen.iw.ei.se.webdriver.internetExplorer" />
+      <option name="MAIN_CLASS_NAME" value="be.uantwerpen.iw.ei.se.webdriver.internetExplorer.WebDriverIETests" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -745,6 +1067,9 @@
       </MavenSettings>
       <method />
     </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -802,14 +1127,20 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="2">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.ClickOMaticApplication" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.ClickOMaticApplicationTests" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.WebDriverChromeTests" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.WebDriverFirefoxTests" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.WebDriverIETests" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Spring Boot.ClickOMaticApplication" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.ClickOMaticApplicationTests" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.WebDriverChromeTests" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.WebDriverIETests" />
+        <item index="2" class="java.lang.String" itemvalue="Spring Boot.ClickOMaticApplication" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.WebDriverFirefoxTests" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.ClickOMaticApplicationTests" />
       </list>
     </recent_temporary>
   </component>
@@ -856,6 +1187,7 @@
       <workItem from="1448530584882" duration="5546000" />
       <workItem from="1448808609726" duration="110000" />
       <workItem from="1448808732726" duration="4002000" />
+      <workItem from="1449083484507" duration="2526000" />
     </task>
     <task id="LOCAL-00001" summary="Initial project commit">
       <created>1444494348874</created>
@@ -969,7 +1301,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109110000" />
+    <option name="totallyTimeSpent" value="111636000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -981,27 +1313,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261745" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32594937" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.50488997" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33868894" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18120806" sideWeight="0.49555555" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38791946" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38396624" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23007712" sideWeight="0.48464912" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2296875" sideWeight="0.48464912" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Reviews" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="News Feed" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294621" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23007712" sideWeight="0.5153509" order="2" side_tool="true" content_ui="tabs" />
@@ -1010,7 +1339,10 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="News Feed" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294621" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Reviews" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869378" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1060,7 +1392,8 @@
     <MESSAGE value="Start of timer, it doesn't count yet.&#10;" />
     <MESSAGE value="Fittstest calculation fixed&#10;" />
     <MESSAGE value="Added fucntion to user.&#10;Made start of new page.&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added fucntion to user.&#10;Made start of new page.&#10;" />
+    <MESSAGE value="Selenium test for assignTest&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Selenium test for assignTest&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1073,13 +1406,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/formatters/RoleFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18967922">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/models/Permission.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1276,13 +1602,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/users.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2692308">
-          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/error.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1319,16 +1638,6 @@
           <caret line="41" column="45" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/messages_en.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.5172415">
-          <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/messages_nl.properties">
@@ -1401,12 +1710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35747662">
           <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding>
-            <element signature="e#549#550#0" expanded="false" />
-            <element signature="e#614#615#0" expanded="false" />
-            <element signature="e#682#683#0" expanded="false" />
-            <element signature="e#726#727#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1420,16 +1723,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/user-profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="136" column="5" selection-start-line="130" selection-start-column="3" selection-end-line="136" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/messages_en.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.862069">
+          <caret line="70" column="12" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/users.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="159" column="79" selection-start-line="159" selection-start-column="79" selection-end-line="159" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4079602">
-          <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.05811966">
+          <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
           <folding />
         </state>
       </provider>

@@ -128,6 +128,13 @@ public class WebDriverChromeTests
 
         testCases.deleteUser();
     }
+    @Test
+    public void test06_assignTest()
+    {
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.assignTest();
+    }
 
     @AfterClass
     public static void destroy()
