@@ -2,33 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{assignTest.title})"></head>
 <head>
-    <script src="https://rawgit.com/crlcu/multiselect/master/js/multiselect.min.js"></script>
+    <script src="https://rawgit.com/crlcu/multiselect/v2.1.5/js/multiselect.min.js"></script>
 </head>
 <body>
-<!-- Search script -->
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('#search').multiselect({
-            search: {
-                left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-                   right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-            }
+    <!-- Search script -->
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('#search').multiselect({
+                search: {
+                    left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+                    right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+                }
+            });
         });
-    });
-</script>
+    </script>
 
     <div class="container">
         <!-- Import navigation bar -->
         <div th:replace="mainPortal/layout :: navbar"></div>
 
-        <!-- tooltips voor test opgave en/of gebruiker gegevens-->
-
         <div class="mainPortalPage">
             <div class="frontContent">
-                <div class="navbar">
-                </div>
                 <div class="content">
-
                     <form action="#" th:action="@{/Users/Assign}" method="post" th:object="${user}" th:if="${user}">
                         <input th:type="hidden" th:field="*{id}"/>
                         <input th:type="hidden" th:field="*{firstName}"/>
@@ -58,7 +53,12 @@
                             </div>
 
                             <div class="col-xs-5">
-                                <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple" th:field="*{tests}"></select>
+                                <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple" th:field="*{tests}">
+                                    <option th:each="test:*{tests}"
+                                            th:value="${{test}}"
+                                            th:text="${test.testID}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <p class="col-md-12">
