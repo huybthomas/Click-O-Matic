@@ -125,6 +125,14 @@ public class WebDriverIETests
         testCases.assignTest();
     }
 
+    @Test
+    public void test07_editTest()
+    {
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.editTest();
+    }
+
     @AfterClass
     public static void destroy()
     {

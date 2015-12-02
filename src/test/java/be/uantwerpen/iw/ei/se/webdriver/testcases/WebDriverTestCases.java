@@ -150,7 +150,7 @@ public class WebDriverTestCases
         driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[3]/a/span[3]")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
-        driver.findElement(By.xpath("//div[@id='usersPage']/div/div[3]/table/tbody/tr[4]/td[4]/a/span")).click();
+        driver.findElement(By.cssSelector("span.glyphicon.glyphicon-hand-right")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("assignTest")));
 
         Select select = new Select(driver.findElement(By.tagName("select"))); //goes to the first "select" item on the page
@@ -161,6 +161,32 @@ public class WebDriverTestCases
 
 
         Assert.assertTrue("Title should start with 'User settings'. Result: " + driver.getTitle(), driver.getTitle().startsWith("User settings"));
+    }
+
+    public void editTest() {
+
+
+        driver.get(baseURL + "/Users");
+        driver.findElement(By.linkText("Test portal")).click();
+       wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
+
+        driver.findElement(By.id("editTest")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("testPortalPage")));
+
+        driver.findElement(By.id("fittsTestID")).clear();
+        driver.findElement(By.id("fittsTestID")).sendKeys("Edited Test");
+
+        driver.findElement(By.id("numberOfDotsSlider")).clear();
+        driver.findElement(By.id("numberOfDotsSlider")).sendKeys("5");
+
+        driver.findElement(By.id("dotRadiusSlider")).clear();
+        driver.findElement(By.id("dotRadiusSlider")).sendKeys("20");
+
+        driver.findElement(By.id("dotDistanceSlider")).clear();
+        driver.findElement(By.id("dotDistanceSlider")).sendKeys("50");
+
+        driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
+       wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
     }
 
 }

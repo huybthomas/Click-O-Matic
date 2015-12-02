@@ -39,7 +39,7 @@
                     <td style="vertical-align: middle">Completed: <span th:class="${testEntry.value} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${testEntry.value} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
                     <td><a th:href="${testEntry.value} ? '/TestResult/'+${testEntry.key.testID}+'/' : '/TestPortal/'+${testEntry.key.testID}+'/'" th:text="${testEntry.value} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
                     <td><button th:text="#{fittstest.viewDetails}" class="btn btn-primary" th:onclick="'details(\''+${testEntry.key.testID}+'\');'">View Details</button></td>
-                    <td sec:authorize="hasRole('test-management')"><a th:text="#{fittstest.editTest}" class="btn btn-primary" th:href="'/FittsTestCreator/'+${testEntry.key.testID}+'/'">Edit</a></td>
+                    <td sec:authorize="hasRole('test-management')"><a id="editTest" th:text="#{fittstest.editTest}" class="btn btn-primary" th:href="'/FittsTestCreator/'+${testEntry.key.testID}+'/'">Edit</a></td>
                 </tr>
             </table>
         </div>

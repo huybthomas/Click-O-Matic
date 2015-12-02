@@ -33,12 +33,13 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd50787b-2219-465b-9b39-a1fcf46a3633" name="Default" comment="Selenium test for assignTest&#10;">
+    <list default="true" id="dd50787b-2219-465b-9b39-a1fcf46a3633" name="Default" comment="Selenium test for editTest after a test is assigned to a user&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" afterPath="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/testPortal/fittsTestCreator.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/testPortal/fittsTestCreator.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/testPortal/testPortal.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/testPortal/testPortal.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Click-O-Matic.iws" />
@@ -68,18 +69,8 @@
       <file leaf-file-name="users.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/users.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2692308">
-              <caret line="8" column="26" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="assignTest.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.05811966">
-              <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
+            <state vertical-scroll-proportion="13.615385">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -89,17 +80,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="159" column="79" selection-start-line="159" selection-start-column="79" selection-end-line="159" selection-end-column="79" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebDriverChromeTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="136" column="5" selection-start-line="130" selection-start-column="3" selection-end-line="136" selection-end-column="5" />
+              <caret line="188" column="7" selection-start-line="188" selection-start-column="7" selection-end-line="188" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -109,22 +90,29 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+              <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="messages_en.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/messages_en.properties">
+      <file leaf-file-name="testPortal.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/testPortal.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.862069">
-              <caret line="70" column="12" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.05811966">
+              <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="ResourceBundle">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="WebDriverChromeTests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="144" column="5" selection-start-line="138" selection-start-column="4" selection-end-line="144" selection-end-column="5" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -132,17 +120,39 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+              <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/layout.html">
+      <file leaf-file-name="fittsTestCreator.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/fittsTestCreator.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="79" column="147" selection-start-line="79" selection-start-column="147" selection-end-line="79" selection-end-column="147" />
+            <state vertical-scroll-proportion="-7.5">
+              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="22.884615">
+              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homepage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/homepage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -151,8 +161,8 @@
       <file leaf-file-name="user-profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/user-profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+            <state vertical-scroll-proportion="-11.769231">
+              <caret line="68" column="108" selection-start-line="68" selection-start-column="108" selection-end-line="68" selection-end-column="117" />
               <folding />
             </state>
           </provider>
@@ -222,11 +232,14 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/testPortal/layout.html" />
         <option value="$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/formatters/TestFormatter.java" />
         <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/formatters/FittsTestFormatterTests.java" />
-        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/testPortal/fittsTestCreator.html" />
+        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/mainPortal/user-profile.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/testPortal/testPortal.html" />
+        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" />
         <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java" />
-        <option value="$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java" />
       </list>
     </option>
   </component>
@@ -306,6 +319,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -694,11 +709,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".mvn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wrapper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Click-O-Matic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1138,8 +1183,8 @@
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="JUnit.WebDriverChromeTests" />
         <item index="1" class="java.lang.String" itemvalue="JUnit.WebDriverIETests" />
-        <item index="2" class="java.lang.String" itemvalue="Spring Boot.ClickOMaticApplication" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.WebDriverFirefoxTests" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.WebDriverFirefoxTests" />
+        <item index="3" class="java.lang.String" itemvalue="Spring Boot.ClickOMaticApplication" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.ClickOMaticApplicationTests" />
       </list>
     </recent_temporary>
@@ -1188,6 +1233,7 @@
       <workItem from="1448808609726" duration="110000" />
       <workItem from="1448808732726" duration="4002000" />
       <workItem from="1449083484507" duration="2526000" />
+      <workItem from="1449087102028" duration="4263000" />
     </task>
     <task id="LOCAL-00001" summary="Initial project commit">
       <created>1444494348874</created>
@@ -1301,7 +1347,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111636000" />
+    <option name="totallyTimeSpent" value="115899000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1324,7 +1370,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33868894" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18120806" sideWeight="0.49555555" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38396624" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38185653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2296875" sideWeight="0.48464912" order="0" side_tool="false" content_ui="combo" />
@@ -1393,7 +1439,8 @@
     <MESSAGE value="Fittstest calculation fixed&#10;" />
     <MESSAGE value="Added fucntion to user.&#10;Made start of new page.&#10;" />
     <MESSAGE value="Selenium test for assignTest&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Selenium test for assignTest&#10;" />
+    <MESSAGE value="Selenium test for editTest after a test is assigned to a user&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Selenium test for editTest after a test is assigned to a user&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1406,13 +1453,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/models/Permission.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/models/Role.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.019525802">
@@ -1595,25 +1635,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/registration.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/error.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/testPortal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1628,7 +1653,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="36" selection-start-line="22" selection-start-column="4" selection-end-line="23" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1636,7 +1660,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="45" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1650,14 +1673,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/configurations/WebConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1666,19 +1681,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/homepage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/uantwerpen/iw/ei/se/controllers/UsersController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="74" column="45" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1686,7 +1692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1694,7 +1699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1702,7 +1706,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="78" column="147" selection-start-line="78" selection-start-column="147" selection-end-line="78" selection-end-column="147" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1721,33 +1724,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/user-profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="136" column="5" selection-start-line="130" selection-start-column="3" selection-end-line="136" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/messages_en.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.862069">
+        <state vertical-scroll-proportion="0.0">
           <caret line="70" column="12" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="25" />
           <folding />
         </state>
@@ -1756,18 +1735,50 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+        <state vertical-scroll-proportion="-29.807692">
+          <caret line="49" column="7" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/registration.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="15.692307">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/users.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2692308">
-          <caret line="8" column="26" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="26" />
+        <state vertical-scroll-proportion="13.615385">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/user-profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.769231">
+          <caret line="68" column="108" selection-start-line="68" selection-start-column="108" selection-end-line="68" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="22.884615">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/homepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1775,12 +1786,46 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/testcases/WebDriverTestCases.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="159" column="79" selection-start-line="159" selection-start-column="79" selection-end-line="159" selection-end-column="79" />
+          <caret line="188" column="7" selection-start-line="188" selection-start-column="7" selection-end-line="188" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mainPortal/assignTest.html">
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/chrome/WebDriverChromeTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="144" column="5" selection-start-line="138" selection-start-column="4" selection-end-line="144" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/firefox/WebDriverFirefoxTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/be/uantwerpen/iw/ei/se/webdriver/internetExplorer/WebDriverIETests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/fittsTestCreator.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.5">
+          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/testPortal/testPortal.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05811966">
           <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
