@@ -94,6 +94,14 @@ public class WebDriverFirefoxTests
         testCases.assignTest();
     }
 
+    @Test
+    public void test07_testCreate()
+    {
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.testCreate();
+    }
+
     @AfterClass
     public static void destroy()
     {

@@ -163,4 +163,26 @@ public class WebDriverTestCases
         Assert.assertTrue("Title should start with 'User settings'. Result: " + driver.getTitle(), driver.getTitle().startsWith("User settings"));
     }
 
+    public void testCreate(){
+        //Homepage
+        driver.get(baseURL + "/");
+
+        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[4]/a/span[3]")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("fittsTestCreator")));
+
+        driver.findElement(By.id("AddStage")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("AddStage")));
+
+
+        driver.findElement(By.id("fittsTestID")).clear();
+        driver.findElement(By.id("fittsTestID")).sendKeys("test06");
+
+        driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dotDistanceSlider")));
+
+        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[4]/a/span[3]")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("createTest")));
+    }
+
+
 }
