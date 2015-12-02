@@ -22,6 +22,13 @@
         <div th:replace="mainPortal/layout :: navbar"></div>
 
         <div class="mainPortalPage">
+            <div class="messagesContent">
+                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    <span th:text="#{application.error.generic}">Error message</span>
+                </div>
+            </div>
             <div class="frontContent">
                 <div class="content">
                     <form action="#" th:action="@{/Users/Assign}" method="post" th:object="${user}" th:if="${user}">
@@ -31,6 +38,7 @@
                         <input th:type="hidden" th:field="*{userName}"/>
                         <input th:type="hidden" th:field="*{password}"/>
                         <input th:type="hidden" th:field="*{roles}"/>
+                        <input th:type="hidden" th:field="*{results}"/>
                         <table class="table">
                             <h3 class="sub-header col-md-6" th:text="${user.firstName + ' ' + user.lastName}" ></h3>
                         </table>
