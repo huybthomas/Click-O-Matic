@@ -56,7 +56,6 @@ public class TestManagementController
         if(user != null)
         {
             model.addAttribute("user", user);
-            model.addAttribute("allTests", fittsService.findAllTests());
             return "mainPortal/assignTest";
         }
         else
@@ -72,8 +71,7 @@ public class TestManagementController
     {
         if(result.hasErrors())
         {
-            model.addAttribute("allTests", fittsService.findAllTests());
-            return "mainPortal/assignTest";
+            return "redirect:/AssignTest/" + user.getUserName() + "/?error";
         }
 
         userService.save(user);
