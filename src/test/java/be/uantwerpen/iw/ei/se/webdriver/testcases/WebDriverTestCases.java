@@ -187,6 +187,9 @@ public class WebDriverTestCases
 
         driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
+
+        Assert.assertTrue("Title should start with 'Test portal'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Test portal"));
+
     }
 
 }
