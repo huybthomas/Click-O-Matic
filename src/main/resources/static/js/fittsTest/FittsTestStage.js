@@ -1,6 +1,8 @@
 /**
  * Created by Thomas on 03/11/2015.
  */
+
+
 function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 {
     this.numberOfDots = numberOfDots;
@@ -18,6 +20,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     this.dotsList = [];
     this.backCircle = {};
     this.cursorState = {x: 0, y: 0, leftPressed: false};
+    this.AmountOfFalseClicks = 0;
 
     this.initialize = function(canvas)
     {
@@ -65,7 +68,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.setNextTarget = function()
     {
-        if(this.testProgress < this.numberOfDots)
+        if((this.testProgress < this.numberOfDots) && (this.AmountOfFalseClicks<5) )
         {
             this.previousTarget = this.nextTarget;
 
@@ -75,6 +78,19 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
             this.dotsList[this.nextTarget].setTarget(true);
 
             this.testProgress++;
+        }
+        else if (this.AmountOfFalseClicks>=4)
+        {
+            this.testProgress = 0;
+            this.previousTarget = -1;
+            this.nextTarget = 0;
+            this.currentTrackPath = new FittsTrackPath();
+            window.alert("You have clicked wrong too many times. This stage will now restart");
+
+            this.initializeDots(canvas);
+            this.AmountOfFalseClicks=0;
+
+
         }
         else
         {
@@ -162,14 +178,22 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         var tempPosX = this.cursorState.x + (canvas.width)/2;
         var tempPosY = this.cursorState.y + (canvas.height)/3;
 
-        if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
+
+        if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY)&&(this.AmountOfFalseClicks<5))
         {
             this.setNextTarget();
 
             return true;
         }
+        else
+        {
+            this.setNextTarget();
+            this.AmountOfFalseClicks++;
 
-        return false;
+            return false;
+        }
+
+
     };
 
     this.createNewTracePath = function()

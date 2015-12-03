@@ -50,15 +50,20 @@ function FittsTest(stages)
 
     this.nextStage = function()
     {
-        if(this.currentStageNumber < (this.testStages.length - 1))
+        if((this.currentStageNumber < (this.testStages.length - 1)&& this.testStages[this.currentStageNumber].AmountOfFalseClicks<5))
         {
             this.currentStageNumber++;
             this.currentStage = this.testStages[this.currentStageNumber];
 
             this.currentStage.initialize(this.canvas);
-
             return this.currentStage;
         }
+       /* else if(this.testStages[this.currentStageNumber].AmountOfFalseClicks>=4)
+        {
+            this.currentStage = this.testStages[0];
+            this.currentStage.initialize(this.canvas);
+            return this.currentStage;
+        }*/
         else
         {
             this.testFinished = true;

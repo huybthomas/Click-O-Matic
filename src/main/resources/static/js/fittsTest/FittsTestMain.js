@@ -7,6 +7,7 @@ var cursorState = {x: 0, y: 0, leftPressed: false, leftReleased : false};
 var postRequestSend = false;
 var startTime = new Date();
 var AmountOfClicks = 0;
+//var AmountOfFalseClicks =0;
 
 //Start test initialization
 FittsTestStart(testAttr.testStages);
@@ -108,7 +109,7 @@ function cursorEvent(event)
     {
         if(cursorState.leftReleased)
         {
-            AmountOfClicks++;
+                AmountOfClicks++;
         }
 
         this.test.getCurrentStage().triggeredCursorEvent(cursorState);
