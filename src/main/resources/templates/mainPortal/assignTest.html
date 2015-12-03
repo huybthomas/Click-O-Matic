@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{assignTest.title})"></head>
 <head>
-    <script src="https://rawgit.com/crlcu/multiselect/v2.1.5/js/multiselect.min.js"></script>
+    <script src="https://rawgit.com/crlcu/multiselect/v2.1.5/js/multiselect.min.js"
+            th:src="@{/js/thirdParty/multiselect/v2.1.5/multiselect.min.js}"></script>
 </head>
 <body>
     <!-- Search script -->
