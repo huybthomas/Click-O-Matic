@@ -14,6 +14,7 @@ import java.util.List;
 public class FittsTest extends MyAbstractPersistable<Long>
 {
     private String testID;
+    private String comment;
 
     @ManyToMany
     @JoinTable(
@@ -30,12 +31,14 @@ public class FittsTest extends MyAbstractPersistable<Long>
     public FittsTest()
     {
         this.testID = "";
+        this.comment = "";
         this.testStages = new ArrayList<FittsTestStage>();
     }
 
-    public FittsTest(String testID, List<FittsTestStage> testStages)
+    public FittsTest(String testID, List<FittsTestStage> testStages, String comment)
     {
         this.testID = testID;
+        this.comment = comment;
         this.testStages = testStages;
     }
 
@@ -47,6 +50,16 @@ public class FittsTest extends MyAbstractPersistable<Long>
     public String getTestID()
     {
         return this.testID;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
+    public String getComment()
+    {
+        return this.comment;
     }
 
     public void setTestStages(List<FittsTestStage> testStages)

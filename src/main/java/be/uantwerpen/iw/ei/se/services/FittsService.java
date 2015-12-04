@@ -119,6 +119,7 @@ public class FittsService
                 if(!this.isDuplicatedTestId(test))
                 {
                     t.setTestID(test.getTestID());
+                    t.setComment(test.getComment());
                     t.setTestStages(test.getTestStages());
 
                     //Save the stages of the test to the database

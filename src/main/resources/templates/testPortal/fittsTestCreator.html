@@ -11,6 +11,11 @@
             th:src="@{/webjars/seiyria-bootstrap-slider/5.2.6/dist/bootstrap-slider.min.js}"></script>
 
     <!-- Included FittsTest scripts -->
+    <!-- Included scripts -->
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackEvent.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackPath.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTestStage.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </head>
@@ -38,6 +43,12 @@
                             </div>
                         </tr>
                         <tr>
+                            <div class="form-group">
+                                <td th:text="#{fittstest.comment}"></td>
+                                <td><input id="fittsTestComment" class="form-control" type="text" th:field="*{comment}"/></td>
+                            </div>
+                        </tr>
+                        <tr>
                             <td id="dotAmt" th:text="#{fittstest.amtOfDotsMsg}"></td>
                             <td><input id="numberOfDotsSlider" type="text" data-slider-tooltip="hide"/></td>
                         </tr>
@@ -58,6 +69,12 @@
                         <button id="AddStage" type="button" class="btn btn-default" th:text="#{fittsTestCreator.createStage}" onclick="addStage();"/>
                         <button id="DeleteStage" type="button" class="btn btn-danger" th:text="#{fittsTestCreator.deleteStage}" onclick="removeStage();"/>
                     </div>
+
+                    <div class="frontContent col-md-12" id="frontContent" style="height: 50vh">
+                        <!-- Fitts test -->
+                        <canvas id="FittsPreviewCanvas"></canvas>
+                    </div>
+
                     <p class="col-md-12">
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
                     </p>
@@ -185,6 +202,7 @@
         function sendFittsTest()
         {
             testAttr.testID = document.getElementById("fittsTestID").value;
+            testAttr.comment = document.getElementById("fittsTestComment").value;
             testAttr.testStages = selectOptions;
             testAttr.numberOfStages = selectOptions.length;
             testAttr.testFinished = false;
@@ -246,5 +264,8 @@
         }
         /*]]>*/
     </script>
+
+    <!-- Import FittsTestPreview -->
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestPreview.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </body>
 </html>
