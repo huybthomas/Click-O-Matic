@@ -3,6 +3,7 @@
  */
 function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 {
+    this.stageOrderIndex = -1;
     this.numberOfDots = numberOfDots;
     this.testStageFinished = false;
     this.testProgress = 0;
@@ -31,7 +32,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.initializeDots = function(canvas)
     {
-        for(i = 0; i < this.numberOfDots; i++)
+        for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i] = new FittsDot(i, this.dotRadius, this.dotHColor, this.dotLColor);
         }
@@ -46,13 +47,23 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         return this.testStageFinished;
     };
 
+    this.setStageOrderIndex = function(stageOrderIndex)
+    {
+        this.stageOrderIndex = stageOrderIndex;
+    };
+
+    this.getStageOrderIndex = function()
+    {
+        return this.stageOrderIndex;
+    }
+
     this.repositionTest = function(canvas)
     {
-        angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
-        centerX = (canvas.width)/2;                   // middelpunt blijft centraal
-        centerY = (canvas.height)/3;
+        var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
+        var centerX = (canvas.width)/2;                   // middelpunt blijft centraal
+        var centerY = (canvas.height)/3;
 
-        for(i = 0; i < this.numberOfDots; i++)
+        for(var i = 0; i < this.numberOfDots; i++)
         {
             this.dotsList[i].setPosition((-this.dotDistance * Math.sin((-angle*i)) + centerX), (-this.dotDistance*Math.cos(-angle*i) + centerY));
         }
@@ -106,9 +117,9 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.drawDots = function(context)
     {
-        target = -1;
+        var target = -1;
 
-        for(i = 0; i < this.numberOfDots; i++)
+        for(var i = 0; i < this.numberOfDots; i++)
         {
             if(this.dotsList[i].isTarget())
             {

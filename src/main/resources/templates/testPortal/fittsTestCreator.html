@@ -96,7 +96,7 @@
 
             if(selectOptions.length > 0) {
                 <!-- add all options -->
-                for (i = 0; i < selectOptions.length; i++) {
+                for(var i = 0; i < selectOptions.length; i++) {
                     var option = document.createElement("option");
                     option.text = stageMsg + " " + (i + 1).toString();
                     if (selectOptions[i].id) {

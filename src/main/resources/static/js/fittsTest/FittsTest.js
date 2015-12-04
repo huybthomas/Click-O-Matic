@@ -9,7 +9,7 @@ function FittsTest(stages)
     this.canvas = {};
     this.testFinished = false;
 
-    for(i = 0; i < stages.length; i++)
+    for(var i = 0; i < stages.length; i++)
     {
         this.testStages[i] = new FittsTestStage(stages[i].numberOfDots, stages[i].dotRadius, stages[i].dotDistance);
     }
@@ -17,17 +17,15 @@ function FittsTest(stages)
     this.initialize = function(canvas)
     {
         this.canvas = canvas;
-        this.currentStageNumber = 0;
-        this.currentStage = this.testStages[this.currentStageNumber];
+        this.currentStageNumber = -1;
         this.testFinished = false;
 
-        this.currentStage.initialize(this.canvas);
+        this.nextStage();
     };
 
     this.draw = function(context)
     {
         //Draw border
-
 
         //Draw position circle
 
@@ -53,7 +51,26 @@ function FittsTest(stages)
         if(this.currentStageNumber < (this.testStages.length - 1))
         {
             this.currentStageNumber++;
-            this.currentStage = this.testStages[this.currentStageNumber];
+
+            //Select random stage from list
+            var found = false;
+
+            while(!found)
+            {
+                var randomStageNumber = Math.floor((Math.random() * this.testStages.length));
+
+                if(!this.testStages[randomStageNumber].getFinished())
+                {
+                    //Not completed test stage found
+                    found = true;
+                }
+            }
+
+            //Get selected random stage
+            this.currentStage = this.testStages[randomStageNumber];
+
+            //Add index number for running order
+            this.currentStage.setStageOrderIndex(this.currentStageNumber);
 
             this.currentStage.initialize(this.canvas);
 
