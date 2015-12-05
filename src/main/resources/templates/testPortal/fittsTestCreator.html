@@ -69,15 +69,13 @@
                         <button id="AddStage" type="button" class="btn btn-default" th:text="#{fittsTestCreator.createStage}" onclick="addStage();"/>
                         <button id="DeleteStage" type="button" class="btn btn-danger" th:text="#{fittsTestCreator.deleteStage}" onclick="removeStage();"/>
                     </div>
-
-                    <div class="frontContent col-md-12" id="frontContent" style="height: 50vh">
-                        <!-- Fitts test -->
-                        <canvas id="FittsPreviewCanvas"></canvas>
-                    </div>
-
                     <p class="col-md-12">
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
                     </p>
+                    <div class="frontContent" id="frontContent">
+                        <!-- Fitts test -->
+                        <canvas id="FittsPreviewCanvas"></canvas>
+                    </div>
                 </form>
             </div>
         </div>
@@ -85,6 +83,26 @@
 
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
+
+    <!-- Resize canvas script -->
+    <script type="text/javascript">
+        window.addEventListener('resize', resizeEvent, false);
+
+        //Initial sizing
+        resizeEvent();
+
+        function resizeEvent(event)
+        {
+            var frontContent = document.getElementById("frontContent");
+            var FittsPreviewCanvas = document.getElementById("FittsPreviewCanvas");
+
+            var newWidth = frontContent.offsetWidth;
+            var newHeight = window.innerHeight * 0.9;  // Y positioning of canvas, not ideal yet.
+
+            FittsPreviewCanvas.width = newWidth;
+            FittsPreviewCanvas.height = newHeight;
+        }
+    </script>
 
     <!-- Slider scripts -->
     <script type="text/javascript">
@@ -181,21 +199,25 @@
             $("#dotRad").text(dotRadiusMsg + " " + stage.dotRadius);
             $("#dotDist").text(dotDistanceMsg + " " + stage.dotDistance);
 
+            setStage();
         }
 
         $("#numberOfDotsSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].numberOfDots = slideEvt.value;
             $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt.value);
+            initDots();
         });
 
         $("#dotRadiusSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotRadius = slideEvt.value;
             $("#dotRad").text(dotRadiusMsg + " " + slideEvt.value);
+            initDots();
         });
 
         $("#dotDistanceSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt.value;
             $("#dotDist").text(dotDistanceMsg + " " + slideEvt.value);
+            initDots();
         });
 
 

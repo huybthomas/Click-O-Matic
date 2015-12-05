@@ -24,6 +24,15 @@ function initializeEventSystem()
     window.addEventListener("resize", resizeEvent.bind(this), false);
 }
 
+function setStage() {
+    this.currentStage = this.testStages[selector.selectedIndex];
+    this.currentStage.initializeDots(canvas);
+}
+
+function initDots() {
+    this.currentStage.initializeDots(canvas);
+}
+
 function draw()
 {
     //Clear frame
@@ -32,26 +41,15 @@ function draw()
     //set current stage
     if(selector.selectedIndex >= 0) {
 
-        console.log(selector.selectedIndex);
-
-        //Set current stage
-        this.currentStage = this.testStages[selector.selectedIndex];
-        this.currentStage.initializeDots(canvas);
-
         //Draw
         this.currentStage.drawDots(context);
     }
 }
 
 
-function resizeEvent(event)
+function resizeEvent()
 {
     if(selector.selectedIndex >= 0) {
-
-        //Set current stage
-        this.currentStage = this.testStages[selector.selectedIndex];
-        this.currentStage.initializeDots(canvas);
-
         //Reposition
         this.currentStage.repositionTest(canvas);
     }
