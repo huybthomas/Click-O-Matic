@@ -17,7 +17,6 @@ public class FittsResult extends MyAbstractPersistable<Long>
     private String resultID;
     private String testID;
     private Date resultDate;
-    private FittsThroughput calculator;
 
     @ManyToMany
     @JoinTable(
@@ -85,20 +84,5 @@ public class FittsResult extends MyAbstractPersistable<Long>
     public List<FittsStageResult> getStageResults()
     {
         return this.stages;
-    }
-
-    public void calculateThroughput()
-    {
-        calculator.calculateStageThroughput(this.stages);
-    }
-
-    public List<Integer> getStageThroughput()
-    {
-        return calculator.getStageThroughput();
-    }
-
-    public int getTotalThroughput()
-    {
-       return calculator.getTotalThroughput();
     }
 }

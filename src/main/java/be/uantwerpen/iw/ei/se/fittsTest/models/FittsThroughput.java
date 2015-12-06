@@ -5,6 +5,7 @@ import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
 import be.uantwerpen.iw.ei.se.repositories.FittsTestStageRepository;
 import be.uantwerpen.iw.ei.se.services.FittsResultService;
 import be.uantwerpen.iw.ei.se.services.FittsService;
+import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class FittsThroughput {
     @Autowired
     private FittsService fittsService;
 
+    @Autowired
+    private UserService userService;
+
     private List<Integer> StageThroughput;
     private int TotalThroughput;
     private FittsTest fittsTest;
@@ -39,6 +43,14 @@ public class FittsThroughput {
     //coords.add(new ArrayList<Double>());
     //coords.add(new ArrayList<Double>());
     private List<List<Double>> lines = new ArrayList<List<Double>>();
+    private List<List<Double>> clicks = new ArrayList<List<Double>>();
+    private List<FittsStageResult> stageResults;
+    private FittsStageResult stageResult;
+    private List<FittsTrackPath> trackpaths;
+    private FittsTrackPath trackpath;
+    private List<FittsTrackEvent> trackEvents;
+    private FittsTrackEvent trackEvent;
+
 
     public List<Integer> getStageThroughput()
     {
@@ -104,7 +116,28 @@ public class FittsThroughput {
 
     private void getAllClicks(int i)
     {
-        Iterable<FittsResult> results = fittsService.findResultsByTestId(fittsTest.getTestID());
-        
+        Iterable<FittsResult> results = fittsService.findResultsByTestIdForUser(fittsTest.getTestID(), userService.getPrincipalUser());
+        while(results.iterator().hasNext()) {
+            for (FittsResult result : results) {
+                stageResults = result.getStageResults();
+                for(int l=0; l<stageResults.size(); l++)
+                {
+                    stageResult = stageResults.get(l);
+                    for(int k=0; k<stageResult.getFittsTrackPaths().size(); k++)
+                    {
+                        trackpaths = stageResult.getFittsTrackPaths();
+                        for(int m=0; m<trackpaths.size();m++)
+                        {
+                            trackpath = trackpaths.get(m);
+                            for(int n=0; n<trackpath.getPath().size(); n++)
+                            {
+                                trackEvents = trackpath.getPath(n);
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
