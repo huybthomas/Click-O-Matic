@@ -43,7 +43,7 @@ public class FittsThroughput {
     //coords.add(new ArrayList<Double>());
     //coords.add(new ArrayList<Double>());
     private List<List<Double>> lines = new ArrayList<List<Double>>();
-    private List<List<Double>> clicks = new ArrayList<List<Double>>();
+    private List<List<Integer>> clicks = new ArrayList<List<Integers>>();
     private List<FittsStageResult> stageResults;
     private FittsStageResult stageResult;
     private List<FittsTrackPath> trackpaths;
@@ -57,6 +57,7 @@ public class FittsThroughput {
         return StageThroughput
     }
 
+    //calculates the throughput per stage
     public void calculateStageThroughput(FittsTest test)
     {
         testStages = test.getTestStages();
@@ -73,6 +74,7 @@ public class FittsThroughput {
         return TotalThroughput
     }
 
+    //calculates the total throughput usinging the throughput per stage
     public void calculateThroughput(FittsTest test)
     {
         calculateStageThroughput(test);
@@ -82,6 +84,7 @@ public class FittsThroughput {
         TotalThroughput = sum/StageThroughput.size();
     }
 
+    //Calculates the coordinates of where should of been clicked
     private void calculateCoord(FittsTestStage stage)
     {
         dotNumber = stage.getNumberOfDots();
@@ -96,6 +99,8 @@ public class FittsThroughput {
         }
     }
 
+    //Calculates the lines between previous target and current target
+    //for the first target the previous target is the middle of the cirkle, coordinates (0,0)
     private void calculateLines()
     {
         for(int j=0; j<dotNumber; j++)
@@ -114,6 +119,7 @@ public class FittsThroughput {
         }
     }
 
+    //Get the positions where a click occured
     private void getAllClicks(int i)
     {
         Iterable<FittsResult> results = fittsService.findResultsByTestIdForUser(fittsTest.getTestID(), userService.getPrincipalUser());
@@ -129,10 +135,14 @@ public class FittsThroughput {
                         for(int m=0; m<trackpaths.size();m++)
                         {
                             trackpath = trackpaths.get(m);
-                            for(int n=0; n<trackpath.getPath().size(); n++)
+                            trackEvents = trackpath.getPath();
+                            for(int n=0; n<trackEvents.size(); n++)
                             {
-                                trackEvents = trackpath.getPath(n);
-
+                                if(trackEvents.get(n).getCursorState() == true)
+                                {
+                                    clicks.get(0).add(trackEvents.get(n).getCursorPosX());
+                                    clicks.get(1).add(trackEvents.get(n).getCursorPosY());
+                                }
                             }
                         }
                     }
