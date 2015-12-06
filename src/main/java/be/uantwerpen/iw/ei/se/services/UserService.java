@@ -1,10 +1,13 @@
 package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.models.User;
-import be.uantwerpen.iw.ei.se.repositories.PermissionRepository;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +22,7 @@ public class UserService
     private UserRepository userRepository;
 
     @Autowired
-    private RoleService roleService;
+    private UserDetailsService securityService;
 
     public Iterable<User> findAll()
     {
@@ -32,9 +35,6 @@ public class UserService
         {
             return false;
         }
-
-        //Save the role of the user to the database
-        this.roleService.save(user.getRoles());
 
         this.userRepository.save(user);
 
@@ -63,7 +63,6 @@ public class UserService
                     u.setTests(user.getTests());
                     u.setResults(user.getResults());
 
-                    roleService.save(u.getRoles());
                     userRepository.save(u);
 
                     return true;
@@ -83,7 +82,7 @@ public class UserService
         return userRepository.findByUserName(userName);
     }
 
-    //Get logged in users
+    //Get logged in user
     public User getPrincipalUser()
     {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -97,6 +96,15 @@ public class UserService
         }
 
         return null;
+    }
+
+    //Set logged in user
+    public void setPrincipalUser(User user)
+    {
+        UserDetails newUserDetails = securityService.loadUserByUsername(user.getUserName());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(newUserDetails, newUserDetails.getPassword(), newUserDetails.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public boolean usernameAlreadyExists(final String username)

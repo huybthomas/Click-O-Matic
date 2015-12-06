@@ -17,8 +17,6 @@
                 </div>
                 <div class="content">
                     <form action="#" th:action="@{/Users}" method="post" th:object="${user}" th:if="${user}">
-                        <input th:type="hidden" th:field="*{id}"/>
-
                         <div class="container">
 
                             <h3 class="sub-header col-md-6" th:text="#{user}" ></h3>
