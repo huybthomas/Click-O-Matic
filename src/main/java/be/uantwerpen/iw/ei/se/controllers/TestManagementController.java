@@ -9,24 +9,34 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by dries on 26/11/2015.
  */
 @Controller
+@SessionAttributes({TestManagementController.ATTRIBUTE_NAME})
 public class TestManagementController
 {
+    static final String ATTRIBUTE_NAME = "user";
+    static final String BINDING_RESULT_NAME = "org.springframework.validation.BindingResult." + ATTRIBUTE_NAME;
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private FittsService fittsService;
+
+    @InitBinder
+    private void allowFields(WebDataBinder webDataBinder)
+    {
+        webDataBinder.setAllowedFields("tests");
+    }
 
     @RequestMapping({"/AssignTest"})
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
@@ -51,30 +61,44 @@ public class TestManagementController
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String editAssignedTest(@PathVariable String userName, final ModelMap model)
     {
-        User user = userService.findByUserName(userName);
+        //Check for already open session
+        if(!model.containsAttribute(BINDING_RESULT_NAME))
+        {
+            User user = userService.findByUserName(userName);
 
-        if(user != null)
-        {
-            model.addAttribute("user", user);
-            return "mainPortal/assignTest";
+            if (user != null)
+            {
+                model.addAttribute(ATTRIBUTE_NAME, user);
+            }
+            else
+            {
+                model.addAttribute(ATTRIBUTE_NAME, null);
+                return "redirect:/Users?errorUserNotFound";
+            }
         }
-        else
-        {
-            model.addAttribute("user", null);
-            return "redirect:/Users?errorUserNotFound";
-        }
+
+        return "mainPortal/assignTest";
     }
 
     @RequestMapping(value={"/Users/Assign"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
+    public String saveAssign(@Validated @ModelAttribute(ATTRIBUTE_NAME) User user, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, final ModelMap model)
     {
         if(result.hasErrors())
         {
-            return "redirect:/AssignTest/" + user.getUserName() + "/?error";
+            return "redirect:" + request.getRequestURI() + "/?error";
         }
 
-        userService.save(user);
-        return "redirect:/Users";
+        if(userService.save(user))
+        {
+            //Finish session
+            sessionStatus.setComplete();
+            return "redirect:/Users?testsAssigned";
+        }
+        else
+        {
+            model.addAttribute(ATTRIBUTE_NAME, null);
+            return "redirect:/Users?errorUserNotFound";
+        }
     }
 }

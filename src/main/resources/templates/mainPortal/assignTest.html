@@ -33,13 +33,6 @@
             <div class="frontContent">
                 <div class="content">
                     <form action="#" th:action="@{/Users/Assign}" method="post" th:object="${user}" th:if="${user}">
-                        <input th:type="hidden" th:field="*{id}"/>
-                        <input th:type="hidden" th:field="*{firstName}"/>
-                        <input th:type="hidden" th:field="*{lastName}"/>
-                        <input th:type="hidden" th:field="*{userName}"/>
-                        <input th:type="hidden" th:field="*{password}"/>
-                        <input th:type="hidden" th:field="*{roles}"/>
-                        <input th:type="hidden" th:field="*{results}"/>
                         <table class="table">
                             <h3 class="sub-header col-md-6" th:text="${user.firstName + ' ' + user.lastName}" ></h3>
                         </table>
