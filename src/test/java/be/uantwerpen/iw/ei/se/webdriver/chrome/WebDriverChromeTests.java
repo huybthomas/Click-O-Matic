@@ -148,6 +148,7 @@ public class WebDriverChromeTests
     }
 
     @Test
+    @Ignore
     public void test08_editTest()
     {
         //Integrity test needs to be succeeded

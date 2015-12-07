@@ -30,7 +30,7 @@ public class WebDriverTestCases
     public void loginWithCredentialsThomasHuybrechts()
     {
         //Login page
-        driver.get(baseURL + "Login?lang=en");
+        driver.get(baseURL + "/Login?lang=en");
 
         driver.findElement(By.id("username")).clear();
         driver.findElement(By.id("username")).sendKeys("thomas.huybrechts");
@@ -164,7 +164,7 @@ public class WebDriverTestCases
         driver.findElement(By.id("AddStage")).click();
 
         //Select first stage
-        new Select(driver.findElement(By.id("stageSelector"))).selectByVisibleText("Stage 1");
+        new Select(driver.findElement(By.id("stagesSelector"))).selectByVisibleText("Stage 1");
 
         //Click on Remove stage (Remove stage 1)
         driver.findElement(By.id("DeleteStage")).click();
@@ -172,7 +172,7 @@ public class WebDriverTestCases
         //Click on Add stage (Add stage 2)
         driver.findElement(By.id("AddStage")).click();
 
-        Assert.assertTrue("Stage selector box contains 2 stages. Result: " + new Select(driver.findElement(By.id("stageSelector"))).getOptions().size(), new Select(driver.findElement(By.id("stageSelector"))).getOptions().size() == 2);
+        Assert.assertTrue("Stage selector box contains 2 stages. Result: " + new Select(driver.findElement(By.id("stagesSelector"))).getOptions().size(), new Select(driver.findElement(By.id("stagesSelector"))).getOptions().size() == 2);
 
         //Click Create button
         driver.findElement(By.id("submit")).click();
@@ -198,14 +198,30 @@ public class WebDriverTestCases
         driver.findElement(By.xpath("//tr[1]/td[4]/a/span")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("assignTestPage")));
 
-/*        Select select = new Select(driver.findElement(By.tagName("select"))); //goes to the first "select" item on the page
-        select.deselectAll(); // deselects them all
-        select.selectByVisibleText("001"); //  and selects the one with the displayed text of "001"
-        driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+        //Click on the left all button to move all items from right to left
+        driver.findElement(By.id("search_leftAll")).click();
+
+        //Select seleniumTest out of the left list
+        Select fromSelect = new Select(driver.findElement(By.id("search")));
+        fromSelect.deselectAll(); //Deselect all items
+        fromSelect.selectByVisibleText("seleniumTest"); //Select the one with the displayed text of "seleniumTest"
+
+        //Click on the right button to move the selected test from the search selection to the search_to selection
+        driver.findElement(By.id("search_rightSelected")).click();
+
+        Assert.assertTrue("The item in the To[] selection box must contain only the seleniumTest. Result: " + new Select(driver.findElement(By.id("search_to"))).getOptions().get(0).getText(), new Select(driver.findElement(By.id("search_to"))).getOptions().get(0).getText().contentEquals("seleniumTest"));
+
+        //Click Assign button
+        driver.findElement(By.id("submit")).click();
+
+        //Wait for redirect to User page
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
+        //Click Test portal in navbar
+        driver.findElement(By.linkText("Test portal")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("testPortalPage")));
 
-        Assert.assertTrue("Title should start with 'User settings'. Result: " + driver.getTitle(), driver.getTitle().startsWith("User settings"));*/
+        Assert.assertTrue("The list of tests must contain only the seleniumTest. Result: " + driver.findElement(By.xpath("//div[3]/table/tbody/tr/td[1]")).getText(), driver.findElement(By.xpath("//div[3]/table/tbody/tr/td[1]")).getText().contentEquals("seleniumTest"));
     }
 
     public void editTest()
@@ -213,11 +229,13 @@ public class WebDriverTestCases
         //Homepage
         driver.get(baseURL + "/");
 
+        //Not available to manipulate javascript without Karma
+        /*
         driver.get(baseURL + "/Users");
         driver.findElement(By.linkText("Test portal")).click();
-       wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
 
-/*        driver.findElement(By.id("editTest")).click();
+        driver.findElement(By.id("editTest")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("testPortalPage")));
 
         driver.findElement(By.id("fittsTestID")).clear();
@@ -235,7 +253,7 @@ public class WebDriverTestCases
         driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
 
-        Assert.assertTrue("Title should start with 'Test portal'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Test portal"));*/
-
+        Assert.assertTrue("Title should start with 'Test portal'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Test portal"));
+        */
     }
 }

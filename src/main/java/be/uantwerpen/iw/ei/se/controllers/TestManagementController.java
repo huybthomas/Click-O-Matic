@@ -75,6 +75,6 @@ public class TestManagementController
         }
 
         userService.save(user);
-        return "redirect:/Users";
+        return "redirect:/Users?testAssigned";
     }
 }
