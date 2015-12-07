@@ -21,10 +21,10 @@ function FittsCircle(size, posX, posY)
 
     this.calculateCirclePoints = function()
     {
-        n = this.size/this.dashLength;
-        alpha = Math.PI * 2 / dots;
-        pointObject = {};
-        points = [];
-        i = -1;
+        var n = this.size/this.dashLength;
+        var alpha = Math.PI * 2 / dots;
+        var pointObject = {};
+        varpoints = [];
+        var i = -1;
     };
 }

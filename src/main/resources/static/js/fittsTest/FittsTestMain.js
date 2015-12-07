@@ -129,7 +129,7 @@ function checkState()
     {
         if(!postRequestSend)
         {
-           paths = this.test.getTestStages();
+           var paths = this.test.getTestStages();
 
            sendResult(paths);
         

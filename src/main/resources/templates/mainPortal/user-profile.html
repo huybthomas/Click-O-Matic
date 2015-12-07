@@ -26,22 +26,22 @@
                             <table class="table-responsive col-md-6">
                                 <tr>
                                     <td th:text="#{users.firstname}">firstname</td>
-                                    <td><input type="text" th:field="*{firstName}"/></td>
+                                    <td><input type="text" class="form-control" th:field="*{firstName}"/></td>
                                     <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
                                 </tr>
                                 <tr>
                                     <td th:text="#{users.lastname}">lastname</td>
-                                    <td><input type="text" th:field="*{lastName}"/></td>
+                                    <td><input type="text" class="form-control" th:field="*{lastName}"/></td>
                                     <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
                                 </tr>
                                 <tr>
                                     <td th:text="#{users.username}">username</td>
-                                    <td><input type="text" th:field="*{userName}"/></td>
+                                    <td><input type="text" class="form-control" th:field="*{userName}"/></td>
                                     <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
                                 </tr>
                                 <tr>
                                     <td th:text="#{users.oldPassword}">password</td>
-                                    <td><input type="password" th:field="*{password}"/></td>
+                                    <td><input type="password" class="form-control" th:field="*{password}"/></td>
                                     <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                                 </tr>
                                 <!-- <tr>

@@ -3,11 +3,11 @@
 <head th:replace="testPortal/layout :: head (pageTitle='Fittstest creator')"></head>
 <head>
     <!-- Included bootstrap-slider -->
-    <link href="https://cdn.rawgit.com/seiyria/bootstrap-slider/v5.2.6/dist/css/bootstrap-slider.min.css"
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/v0.9.13/dist/css/bootstrap-multiselect.css"
           th:href="@{/webjars/seiyria-bootstrap-slider/5.2.6/dist/css/bootstrap-slider.min.css}"
           rel="stylesheet" media="screen"/>
 
-    <script src="https://cdn.rawgit.com/seiyria/bootstrap-slider/v5.2.6/dist/bootstrap-slider.min.js"
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/v0.9.13/dist/js/bootstrap-multiselect.js"
             th:src="@{/webjars/seiyria-bootstrap-slider/5.2.6/dist/bootstrap-slider.min.js}"></script>
 
     <!-- Included FittsTest scripts -->
@@ -96,7 +96,7 @@
 
             if(selectOptions.length > 0) {
                 <!-- add all options -->
-                for (i = 0; i < selectOptions.length; i++) {
+                for(var i = 0; i < selectOptions.length; i++) {
                     var option = document.createElement("option");
                     option.text = stageMsg + " " + (i + 1).toString();
                     if (selectOptions[i].id) {

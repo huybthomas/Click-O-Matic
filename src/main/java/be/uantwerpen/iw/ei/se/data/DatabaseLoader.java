@@ -122,6 +122,11 @@ public class DatabaseLoader
         roles.add(tester);
         u7.setRoles(roles);
 
+        User u8 = new User("Beheerder", "De Administrator", "admin", "test");
+        roles = new ArrayList<Role>();
+        roles.add(administrator);
+        u8.setRoles(roles);
+
         userRepository.save(u1);
         userRepository.save(u2);
         userRepository.save(u3);
@@ -129,6 +134,7 @@ public class DatabaseLoader
         userRepository.save(u5);
         userRepository.save(u6);
         userRepository.save(u7);
+        userRepository.save(u8);
     }
 
     private void initTestDatabase()
