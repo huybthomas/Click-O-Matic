@@ -57,7 +57,7 @@ public class WebDriverIETests
         Assume.assumeTrue("No compatible OS to run tests, only Windows systems are supported for IE WebDriver! Tests will be cancelled...", osCompatible);
 
         webdriverOK = false;
-        baseURL = "http://localhost:1304/";
+        baseURL = "http://localhost:1304";
 
         //Internet Explorer fix: Protected Mode settings are not the same for all zones
         DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
@@ -73,7 +73,7 @@ public class WebDriverIETests
         //Only Windows systems are compatible with the IE WebDriver
         Assume.assumeTrue(osCompatible);
 
-        driver.navigate().to("http://localhost:1304");
+        driver.navigate().to(baseURL);
 
         Assert.assertTrue("Title should start with Login", driver.getTitle().startsWith("Login"));
 
@@ -118,27 +118,30 @@ public class WebDriverIETests
     }
 
     @Test
-    public void test06_assignTest()
+    public void test06_testCreate()
     {
+        //Integrity test needs to be succeeded
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.testCreate();
+    }
+
+    @Test
+    public void test07_assignTest()
+    {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.assignTest();
     }
 
     @Test
-    public void test07_editTest()
+    public void test08_editTest()
     {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.editTest();
-    }
-
-    @Test
-    public void test08_testCreate()
-    {
-        Assume.assumeTrue(webdriverOK);
-
-        testCases.testCreate();
     }
 
     @AfterClass

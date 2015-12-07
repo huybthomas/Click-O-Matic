@@ -34,7 +34,7 @@ public class WebDriverFirefoxTests
     public static void setup()
     {
         webdriverOK = false;
-        baseURL = "http://localhost:1304/";
+        baseURL = "http://localhost:1304";
         driver = new FirefoxDriver();
         testCases = new WebDriverTestCases(baseURL, driver);
     }
@@ -42,7 +42,7 @@ public class WebDriverFirefoxTests
     @Test
     public void test01_startWebDriverFirefox()
     {
-        driver.navigate().to("http://localhost:1304");
+        driver.navigate().to(baseURL);
 
         Assert.assertTrue("Title should start with Login", driver.getTitle().startsWith("Login"));
 
@@ -87,27 +87,30 @@ public class WebDriverFirefoxTests
     }
 
     @Test
-    public void test06_assignTest()
+    public void test06_testCreate()
     {
+        //Integrity test needs to be succeeded
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.testCreate();
+    }
+
+    @Test
+    public void test07_assignTest()
+    {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.assignTest();
     }
 
     @Test
-    public void test07_editTest()
+    public void test08_editTest()
     {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.editTest();
-    }
-
-    @Test
-    public void test07_testCreate()
-    {
-        Assume.assumeTrue(webdriverOK);
-
-        testCases.testCreate();
     }
 
     @AfterClass

@@ -33,6 +33,14 @@
         </div>
 
         <div class="testPortalPage">
+            <div class="messagesContent">
+                <div th:if="${param.testAdded}" class="alert alert-success" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Info: </span>
+                    <span id="userAddedAlert" th:text="#{fittsTestCreator.alerts.success}">New test has been created</span>
+                </div>
+            </div>
+
             <table class="table">
                 <tr th:each="testEntry : ${allUserFittsTests}">
                     <td th:text="${testEntry.key.testID}" style="vertical-align: middle"/>

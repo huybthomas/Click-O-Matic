@@ -75,7 +75,7 @@ public class WebDriverChromeTests
         Assume.assumeTrue("OS is not compatible with the Chrome driver! Tests will be cancelled...", osCompatible);
 
         webdriverOK = false;
-        baseURL = "http://localhost:1304/";
+        baseURL = "http://localhost:1304";
         driver = new ChromeDriver();
         testCases = new WebDriverTestCases(baseURL, driver);
     }
@@ -85,7 +85,7 @@ public class WebDriverChromeTests
     {
         Assume.assumeTrue(osCompatible);
 
-        driver.navigate().to("http://localhost:1304");
+        driver.navigate().to(baseURL);
 
         Assert.assertTrue("Title should start with Login", driver.getTitle().startsWith("Login"));
 
@@ -128,28 +128,32 @@ public class WebDriverChromeTests
 
         testCases.deleteUser();
     }
+
     @Test
-    public void test06_assignTest()
+    public void test06_testCreate()
     {
+        //Integrity test needs to be succeeded
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.testCreate();
+    }
+
+    @Test
+    public void test07_assignTest()
+    {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.assignTest();
     }
 
     @Test
-    public void test07_editTest()
+    public void test08_editTest()
     {
+        //Integrity test needs to be succeeded
         Assume.assumeTrue(webdriverOK);
 
         testCases.editTest();
-    }
-
-    @Test
-    public void test08_testCreate()
-    {
-        Assume.assumeTrue(webdriverOK);
-
-        testCases.testCreate();
     }
 
     @AfterClass

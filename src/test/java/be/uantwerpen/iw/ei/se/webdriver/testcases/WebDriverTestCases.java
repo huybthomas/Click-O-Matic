@@ -144,33 +144,80 @@ public class WebDriverTestCases
         Assert.assertFalse("User Timothy.Verstraete should be removed. Result: user timothy available: "  + driver.findElement(By.xpath("//tr[4]/td[2]")).getText().contentEquals("Timothy.Verstraete"), driver.findElement(By.xpath("//tr[4]/td[2]")).getText().contentEquals("Timothy.Verstraete"));
     }
 
-    public void assignTest() {
+    public void testCreate()
+    {
+        //Homepage
         driver.get(baseURL + "/");
 
-        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[3]/a/span[3]")).click();
+        //Click Create test in navbar
+        driver.findElement(By.linkText("Create test")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("fittsTestCreator")));
+
+        //Fill in Fitts test ID
+        driver.findElement(By.id("fittsTestID")).clear();
+        driver.findElement(By.id("fittsTestID")).sendKeys("seleniumTest");
+
+        //Click on Add stage (Add stage 1)
+        driver.findElement(By.id("AddStage")).click();
+
+        //Click on Add stage (Add stage 2)
+        driver.findElement(By.id("AddStage")).click();
+
+        //Select first stage
+        new Select(driver.findElement(By.id("stageSelector"))).selectByVisibleText("Stage 1");
+
+        //Click on Remove stage (Remove stage 1)
+        driver.findElement(By.id("DeleteStage")).click();
+
+        //Click on Add stage (Add stage 2)
+        driver.findElement(By.id("AddStage")).click();
+
+        Assert.assertTrue("Stage selector box contains 2 stages. Result: " + new Select(driver.findElement(By.id("stageSelector"))).getOptions().size(), new Select(driver.findElement(By.id("stageSelector"))).getOptions().size() == 2);
+
+        //Click Create button
+        driver.findElement(By.id("submit")).click();
+
+        //Wait for redirect to Test portal page
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));
+
+        Assert.assertTrue("Alert should start with 'New test has been created'. Result: " + driver.findElement(By.id("testAddedAlert")).getText(), driver.findElement(By.id("testAddedAlert")).getText().startsWith("New test has been created"));
+    }
+
+    public void assignTest()
+    {
+        //Homepage
+        driver.get(baseURL + "/");
+
+        //Click Users in navbar
+        driver.findElement(By.linkText("Users")).click();
+
+        //Wait for User page to load
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
-        driver.findElement(By.cssSelector("span.glyphicon.glyphicon-hand-right")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("assignTest")));
+        //Click on Assign test of user Thomas Huybrechts
+        driver.findElement(By.xpath("//tr[1]/td[4]/a/span")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("assignTestPage")));
 
-        Select select = new Select(driver.findElement(By.tagName("select"))); //goes to the first "select" item on the page
+/*        Select select = new Select(driver.findElement(By.tagName("select"))); //goes to the first "select" item on the page
         select.deselectAll(); // deselects them all
         select.selectByVisibleText("001"); //  and selects the one with the displayed text of "001"
         driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
 
-        Assert.assertTrue("Title should start with 'User settings'. Result: " + driver.getTitle(), driver.getTitle().startsWith("User settings"));
+        Assert.assertTrue("Title should start with 'User settings'. Result: " + driver.getTitle(), driver.getTitle().startsWith("User settings"));*/
     }
 
-    public void editTest() {
-
+    public void editTest()
+    {
+        //Homepage
+        driver.get(baseURL + "/");
 
         driver.get(baseURL + "/Users");
         driver.findElement(By.linkText("Test portal")).click();
        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
 
-        driver.findElement(By.id("editTest")).click();
+/*        driver.findElement(By.id("editTest")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("testPortalPage")));
 
         driver.findElement(By.id("fittsTestID")).clear();
@@ -188,30 +235,7 @@ public class WebDriverTestCases
         driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detailsModal")));
 
-        Assert.assertTrue("Title should start with 'Test portal'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Test portal"));
+        Assert.assertTrue("Title should start with 'Test portal'. Result: " + driver.getTitle(), driver.getTitle().startsWith("Test portal"));*/
 
     }
-
-    public void testCreate(){
-        //Homepage
-        driver.get(baseURL + "/");
-
-        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[4]/a/span[3]")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("fittsTestCreator")));
-
-        driver.findElement(By.id("AddStage")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("AddStage")));
-
-
-        driver.findElement(By.id("fittsTestID")).clear();
-        driver.findElement(By.id("fittsTestID")).sendKeys("test06");
-
-        driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dotDistanceSlider")));
-
-        driver.findElement(By.xpath("//div[@id='bs-example-navbar-collapse-1']/ul/li[4]/a/span[3]")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("createTest")));
-    }
-
-
 }
