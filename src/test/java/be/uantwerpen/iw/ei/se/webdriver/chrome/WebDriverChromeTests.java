@@ -144,6 +144,14 @@ public class WebDriverChromeTests
         testCases.editTest();
     }
 
+    @Test
+    public void test08_testCreate()
+    {
+        Assume.assumeTrue(webdriverOK);
+
+        testCases.testCreate();
+    }
+
     @AfterClass
     public static void destroy()
     {

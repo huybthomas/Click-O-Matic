@@ -15,7 +15,7 @@
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="fittsTestCreator">
         <!-- Import navigation bar -->
         <div th:replace="testPortal/layout :: navbar"></div>
 
@@ -58,7 +58,7 @@
                         <button id="AddStage" type="button" class="btn btn-default" th:text="#{fittsTestCreator.createStage}" onclick="addStage();"/>
                         <button id="DeleteStage" type="button" class="btn btn-danger" th:text="#{fittsTestCreator.deleteStage}" onclick="removeStage();"/>
                     </div>
-                    <p class="col-md-12">
+                    <p class="col-md-12" id="createTest">
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
                     </p>
                 </form>
