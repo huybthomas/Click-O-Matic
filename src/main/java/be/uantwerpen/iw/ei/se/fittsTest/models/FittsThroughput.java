@@ -1,9 +1,6 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
 import be.uantwerpen.iw.ei.se.repositories.FittsStageResultRepository;
-import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
-import be.uantwerpen.iw.ei.se.repositories.FittsTestStageRepository;
-import be.uantwerpen.iw.ei.se.services.FittsResultService;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +14,13 @@ import java.util.List;
 public class FittsThroughput {
 
     @Autowired
-    private FittsTestStageRepository fittsTestStageRepository;
-
-    @Autowired
-    private FittsTestRepository fittsTestRepository;
-
-    @Autowired
-    private FittsStageResultRepository fittsStageResultRepository;
-
-    @Autowired
     private FittsService fittsService;
 
     @Autowired
     private UserService userService;
 
-    private List<Integer> StageThroughput;
-    private int TotalThroughput;
+    private List<Double> stageThroughput;
+    private Double TotalThroughput;
     private FittsTest fittsTest;
     private List<FittsTestStage> testStages;
     private int dotNumber;
@@ -40,21 +28,27 @@ public class FittsThroughput {
     private int dotDistance;
     private double angle;
     private List<List<Double>> coords = new ArrayList<List<Double>>();
+    private List<Double> deviations;
+    private Double meanDeviation;
+    private Double constante=4.133;
     //coords.add(new ArrayList<Double>());
     //coords.add(new ArrayList<Double>());
     private List<List<Double>> lines = new ArrayList<List<Double>>();
-    private List<List<Integer>> clicks = new ArrayList<List<Integers>>();
+    private List<List<Integer>> clickEventes = new ArrayList<List<Integer>>();
+    private List<List<Double>> projectedClicks = new ArrayList<List<Double>>();
     private List<FittsStageResult> stageResults;
     private FittsStageResult stageResult;
     private List<FittsTrackPath> trackpaths;
     private FittsTrackPath trackpath;
     private List<FittsTrackEvent> trackEvents;
     private FittsTrackEvent trackEvent;
+    private Double difficultyIndex;
+    private List<Long> timestamps;
 
 
-    public List<Integer> getStageThroughput()
+    public List<Double> getStagesThroughput()
     {
-        return StageThroughput
+        return stageThroughput;
     }
 
     //calculates the throughput per stage
@@ -65,23 +59,28 @@ public class FittsThroughput {
         {
             calculateCoord(testStages.get(i));
             calculateLines();
-            getAllClicks(i);
+            getAllClickEventes(i);
+            getAllClickEventes(i);
+            calculateProjectedPoints();
+            calculateDeveations();
+            stageThroughput.add(Math.log(((dotDistance*2)+(meanDeviation*constante))/(meanDeviation*constante))/
+                    (timestamps.get(timestamps.size()-1)-timestamps.get(0)));
         }
     }
 
-    public int getTotalThroughput()
+    public Double getTotalThroughput()
     {
-        return TotalThroughput
+        return TotalThroughput;
     }
 
     //calculates the total throughput usinging the throughput per stage
     public void calculateThroughput(FittsTest test)
     {
         calculateStageThroughput(test);
-        int sum = 0;
-        for(int i=0; i<StageThroughput.size(); i++)
-            sum = sum+StageThroughput.get(i);
-        TotalThroughput = sum/StageThroughput.size();
+        Double sum = 0.0;
+        for(int i=0; i<stageThroughput.size(); i++)
+            sum = sum+stageThroughput.get(i);
+        TotalThroughput = sum/stageThroughput.size();
     }
 
     //Calculates the coordinates of where should of been clicked
@@ -113,14 +112,14 @@ public class FittsThroughput {
             }
             else
             {
-                lines.get(0).add((coords.get(1).get(j) - coords.get(1).get(j - 1) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
+                lines.get(0).add(coords.get(1).get(j) - coords.get(1).get(j - 1) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
                 lines.get(1).add(coords.get(0).get(j));
             }
         }
     }
 
     //Get the positions where a click occured
-    private void getAllClicks(int i)
+    private void getAllClickEventes(int i)
     {
         Iterable<FittsResult> results = fittsService.findResultsByTestIdForUser(fittsTest.getTestID(), userService.getPrincipalUser());
         while(results.iterator().hasNext()) {
@@ -140,8 +139,9 @@ public class FittsThroughput {
                             {
                                 if(trackEvents.get(n).getCursorState() == true)
                                 {
-                                    clicks.get(0).add(trackEvents.get(n).getCursorPosX());
-                                    clicks.get(1).add(trackEvents.get(n).getCursorPosY());
+                                    clickEventes.get(0).add(trackEvents.get(n).getCursorPosX());
+                                    clickEventes.get(1).add(trackEvents.get(n).getCursorPosY());
+                                    timestamps.add(trackEvents.get(n).getTimestamp());
                                 }
                             }
                         }
@@ -149,5 +149,33 @@ public class FittsThroughput {
                 }
             }
         }
+    }
+
+    private void calculateProjectedPoints()
+    {
+        for(int i=0; i<clickEventes.get(0).size();i++)
+        {
+            double clickX = clickEventes.get(0).get(i);
+            double clickY = clickEventes.get(1).get(i);
+            double slope = lines.get(0).get(i);
+            double offset = lines.get(1).get(i);
+            double projectSlope = -1/slope;
+            double projectOffset = clickY-projectSlope*clickX;
+            projectedClicks.get(0).add((offset-projectOffset)/(slope-projectSlope));
+            projectedClicks.get(1).add(slope*((offset-projectOffset)/(slope-projectSlope))-offset);
+        }
+    }
+
+    private void calculateDeveations()
+    {
+        double power = 2;
+        meanDeviation =0.0;
+        for(int i=0; i<projectedClicks.get(0).size(); i++)
+        {
+            deviations.add(Math.sqrt(Math.pow((projectedClicks.get(0).get(i)-coords.get(0).get(i)),power))
+                    +Math.pow((projectedClicks.get(1).get(i)-coords.get(1).get(i)),power));
+            meanDeviation=meanDeviation+deviations.get(i);
+        }
+        meanDeviation = meanDeviation/deviations.size();
     }
 }
