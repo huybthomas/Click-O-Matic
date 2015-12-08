@@ -186,8 +186,6 @@
         {
             testAttr.testID = document.getElementById("fittsTestID").value;
             testAttr.testStages = selectOptions;
-            testAttr.numberOfStages = selectOptions.length;
-            testAttr.testFinished = false;
 
             if((testAttr.testStages.length > 0) && (testAttr.testID != "")){
                 $.ajax({
