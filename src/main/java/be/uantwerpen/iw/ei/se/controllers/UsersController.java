@@ -73,7 +73,7 @@ public class UsersController
             }
             else
             {
-                model.addAttribute("user", null);
+                model.clear();
                 return "redirect:/Users?errorUserNotFound";
             }
         }

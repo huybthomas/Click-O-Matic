@@ -66,13 +66,13 @@ public class TestManagementController
         {
             User user = userService.findByUserName(userName);
 
-            if (user != null)
+            if(user != null)
             {
                 model.addAttribute(ATTRIBUTE_NAME, user);
             }
             else
             {
-                model.addAttribute(ATTRIBUTE_NAME, null);
+                model.clear();
                 return "redirect:/Users?errorUserNotFound";
             }
         }
@@ -97,7 +97,7 @@ public class TestManagementController
         }
         else
         {
-            model.addAttribute(ATTRIBUTE_NAME, null);
+            model.clear();
             return "redirect:/Users?errorUserNotFound";
         }
     }
