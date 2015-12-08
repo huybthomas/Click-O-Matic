@@ -1,6 +1,5 @@
 package be.uantwerpen.iw.ei.se.fittsTest.models;
 
-import be.uantwerpen.iw.ei.se.repositories.FittsStageResultRepository;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,58 +18,53 @@ public class FittsThroughput {
     @Autowired
     private UserService userService;
 
-    private List<Double> stageThroughput;
-    private Double TotalThroughput;
+    private List<Double> stageThroughput = new ArrayList<Double>();
+    private Double totalThroughput;
     private FittsTest fittsTest;
     private List<FittsTestStage> testStages;
     private int dotNumber;
-    private int dotRadius;
     private int dotDistance;
     private double angle;
     private List<List<Double>> coords = new ArrayList<List<Double>>();
-    private List<Double> deviations;
+    private List<Double> deviations = new ArrayList<Double>();
     private Double meanDeviation;
     private Double constante=4.133;
     //coords.add(new ArrayList<Double>());
     //coords.add(new ArrayList<Double>());
     private List<List<Double>> lines = new ArrayList<List<Double>>();
-    private List<List<Integer>> clickEventes = new ArrayList<List<Integer>>();
+    private List<List<Integer>> clickEvents = new ArrayList<List<Integer>>();
     private List<List<Double>> projectedClicks = new ArrayList<List<Double>>();
-    private List<FittsStageResult> stageResults;
     private FittsStageResult stageResult;
-    private List<FittsTrackPath> trackpaths;
     private FittsTrackPath trackpath;
     private List<FittsTrackEvent> trackEvents;
-    private FittsTrackEvent trackEvent;
-    private Double difficultyIndex;
-    private List<Long> timestamps;
+    private List<Long> timestamps= new ArrayList<Long>();
 
 
     public List<Double> getStagesThroughput()
     {
-        return stageThroughput;
+        return this.stageThroughput;
     }
 
     //calculates the throughput per stage
     public void calculateStageThroughput(FittsTest test)
     {
-        testStages = test.getTestStages();
+        this.fittsTest = test;
+        this.testStages = test.getTestStages();
         for(int i=0; i<test.getTestStages().size(); i++)
         {
-            calculateCoord(testStages.get(i));
+            calculateCoord(this.testStages.get(i));
             calculateLines();
-            getAllClickEventes(i);
             getAllClickEventes(i);
             calculateProjectedPoints();
             calculateDeveations();
-            stageThroughput.add(Math.log(((dotDistance*2)+(meanDeviation*constante))/(meanDeviation*constante))/
-                    (timestamps.get(timestamps.size()-1)-timestamps.get(0)));
+            this.stageThroughput.add(Math.log(((this.dotDistance*2)+(this.meanDeviation*this.constante))/(this.meanDeviation*this.constante))/
+                    (this.timestamps.get(this.timestamps.size()-1)-this.timestamps.get(0)));
         }
     }
 
     public Double getTotalThroughput()
     {
-        return TotalThroughput;
+        return this.totalThroughput;
     }
 
     //calculates the total throughput usinging the throughput per stage
@@ -78,23 +72,22 @@ public class FittsThroughput {
     {
         calculateStageThroughput(test);
         Double sum = 0.0;
-        for(int i=0; i<stageThroughput.size(); i++)
-            sum = sum+stageThroughput.get(i);
-        TotalThroughput = sum/stageThroughput.size();
+        for(int i=0; i<this.stageThroughput.size(); i++)
+            sum = sum+this.stageThroughput.get(i);
+        this.totalThroughput = sum/this.stageThroughput.size();
     }
 
     //Calculates the coordinates of where should of been clicked
     private void calculateCoord(FittsTestStage stage)
     {
-        dotNumber = stage.getNumberOfDots();
-        dotRadius = stage.getDotRadius();
-        dotDistance = stage.getDotDistance();
-        angle = 2*Math.PI/dotNumber;
+        this.dotNumber = stage.getNumberOfDots();
+        this.dotDistance = stage.getDotDistance();
+        this.angle = 2*Math.PI/this.dotNumber;
 
-        for(int j=0; j<dotNumber; j++)
+        for(int j=0; j<this.dotNumber; j++)
         {
-            coords.get(0).add(-dotDistance * Math.sin(-angle * j));
-            coords.get(1).add(-dotDistance * Math.cos(-angle * j));
+            this.coords.get(0).add(-this.dotDistance * Math.sin(-this.angle * j));
+            this.coords.get(1).add(-this.dotDistance * Math.cos(-this.angle * j));
         }
     }
 
@@ -102,18 +95,21 @@ public class FittsThroughput {
     //for the first target the previous target is the middle of the cirkle, coordinates (0,0)
     private void calculateLines()
     {
-        for(int j=0; j<dotNumber; j++)
+        for(int j=0; j<this.dotNumber; j++)
         {
             if(j==0)
             {
                 //eerste punt is het middelpunt
-                lines.get(0).add(coords.get(1).get(j)/coords.get(0).get(j));
-                lines.get(1).add(coords.get(0).get(j));
+                this.lines.get(0).add(this.coords.get(1).get(j)/this.coords.get(0).get(j));
+                this.lines.get(1).add(this.coords.get(0).get(j));
             }
             else
             {
-                lines.get(0).add(coords.get(1).get(j) - coords.get(1).get(j - 1) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
-                lines.get(1).add(coords.get(0).get(j));
+                if(this.coords.get(0).get(j) - this.coords.get(0).get(j - 1) == 0)
+                    this.lines.get(0).add(0.0);
+                else
+                    this.lines.get(0).add(this.coords.get(1).get(j) - this.coords.get(1).get(j - 1) / (this.coords.get(0).get(j) - this.coords.get(0).get(j - 1)));
+                this.lines.get(1).add(this.coords.get(0).get(j));
             }
         }
     }
@@ -121,28 +117,21 @@ public class FittsThroughput {
     //Get the positions where a click occured
     private void getAllClickEventes(int i)
     {
-        Iterable<FittsResult> results = fittsService.findResultsByTestIdForUser(fittsTest.getTestID(), userService.getPrincipalUser());
+        Iterable<FittsResult> results = this.fittsService.findResultsByTestIdForUser(this.fittsTest.getTestID(), this.userService.getPrincipalUser());
         while(results.iterator().hasNext()) {
             for (FittsResult result : results) {
-                stageResults = result.getStageResults();
-                for(int l=0; l<stageResults.size(); l++)
+                for(int l=0; l<result.getStageResults().size(); l++)
                 {
-                    stageResult = stageResults.get(l);
-                    for(int k=0; k<stageResult.getFittsTrackPaths().size(); k++)
+                    this.stageResult = result.getStageResults().get(l);
+                    for(int k=0; k<this.stageResult.getFittsTrackPaths().size(); k++)
                     {
-                        trackpaths = stageResult.getFittsTrackPaths();
-                        for(int m=0; m<trackpaths.size();m++)
-                        {
-                            trackpath = trackpaths.get(m);
-                            trackEvents = trackpath.getPath();
-                            for(int n=0; n<trackEvents.size(); n++)
-                            {
-                                if(trackEvents.get(n).getCursorState() == true)
-                                {
-                                    clickEventes.get(0).add(trackEvents.get(n).getCursorPosX());
-                                    clickEventes.get(1).add(trackEvents.get(n).getCursorPosY());
-                                    timestamps.add(trackEvents.get(n).getTimestamp());
-                                }
+                        for(int m=0; m<this.stageResult.getFittsTrackPaths().size();m++) {
+                            this.trackpath = this.stageResult.getFittsTrackPaths().get(m);
+                            this.trackEvents = this.trackpath.getPath();
+                            if (this.trackEvents.get(this.trackEvents.size()-1).getCursorState()) {
+                                this.clickEvents.get(0).add(this.trackEvents.get(this.trackEvents.size()-1).getCursorPosX());
+                                this.clickEvents.get(1).add(this.trackEvents.get(this.trackEvents.size()-1).getCursorPosY());
+                                this.timestamps.add(this.trackEvents.get(this.trackEvents.size()-1).getTimestamp());
                             }
                         }
                     }
@@ -153,29 +142,38 @@ public class FittsThroughput {
 
     private void calculateProjectedPoints()
     {
-        for(int i=0; i<clickEventes.get(0).size();i++)
+        for(int i=0; i<this.clickEvents.get(0).size();i++)
         {
-            double clickX = clickEventes.get(0).get(i);
-            double clickY = clickEventes.get(1).get(i);
-            double slope = lines.get(0).get(i);
-            double offset = lines.get(1).get(i);
-            double projectSlope = -1/slope;
+            double clickX = this.clickEvents.get(0).get(i);
+            double clickY = this.clickEvents.get(1).get(i);
+            double slope = this.lines.get(0).get(i);
+            double offset = this.lines.get(1).get(i);
+            double projectSlope = 0;
             double projectOffset = clickY-projectSlope*clickX;
-            projectedClicks.get(0).add((offset-projectOffset)/(slope-projectSlope));
-            projectedClicks.get(1).add(slope*((offset-projectOffset)/(slope-projectSlope))-offset);
+            if(slope!=0)
+                projectSlope = -1/slope;
+
+            if(slope == 0)
+            {
+                this.projectedClicks.get(0).add(offset-projectOffset);
+                this.projectedClicks.get(1).add(-projectOffset);
+            }
+            else {
+                this.projectedClicks.get(0).add((offset - projectOffset) / (slope - projectSlope));
+                this.projectedClicks.get(1).add(slope * ((offset - projectOffset) / (slope - projectSlope)) - offset);
+            }
         }
     }
 
     private void calculateDeveations()
     {
-        double power = 2;
-        meanDeviation =0.0;
-        for(int i=0; i<projectedClicks.get(0).size(); i++)
+        this.meanDeviation =0.0;
+        for(int i=0; i<this.projectedClicks.get(0).size(); i++)
         {
-            deviations.add(Math.sqrt(Math.pow((projectedClicks.get(0).get(i)-coords.get(0).get(i)),power))
-                    +Math.pow((projectedClicks.get(1).get(i)-coords.get(1).get(i)),power));
-            meanDeviation=meanDeviation+deviations.get(i);
+            deviations.add(Math.sqrt(Math.pow((this.projectedClicks.get(0).get(i)-coords.get(0).get(i)),2.0))
+                    +Math.pow((this.projectedClicks.get(1).get(i)-coords.get(1).get(i)),2.0));
+            this.meanDeviation=meanDeviation+deviations.get(i);
         }
-        meanDeviation = meanDeviation/deviations.size();
+        this.meanDeviation = this.meanDeviation/this.deviations.size();
     }
 }
