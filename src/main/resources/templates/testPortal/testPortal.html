@@ -52,7 +52,7 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         function details(testID) {
-            var alltests = /*[[${allUserFittsTests.keySet()}]]*/
+            var alltests = /*[[${allUserFittsTests.keySet()}]]*/;
             var detailstext = /*[[#{fittstest.details}]]*/'';
 
             for(var i = 0; i < alltests.length; i++)

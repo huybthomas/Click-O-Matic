@@ -15,6 +15,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.support.SessionStatus;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.mockito.Mockito.mock;
 
@@ -30,6 +33,8 @@ public class RegistrationControllerSecurityTests
     private RegistrationController registrationController;
 
     private BindingResult bindingResult;
+    private HttpServletRequest request;
+    private SessionStatus sessionStatus;
     private User newUser;
 
     @Before
@@ -38,6 +43,8 @@ public class RegistrationControllerSecurityTests
         newUser = new User("Registration", "Test", "regTest", "test");
 
         bindingResult = mock(BindingResult.class);
+        request = mock(HttpServletRequest.class);
+        sessionStatus = mock(SessionStatus.class);
     }
 
     // --- Create User Form --- \\\
@@ -82,34 +89,34 @@ public class RegistrationControllerSecurityTests
     @Test(expected = AuthenticationCredentialsNotFoundException.class)
     public void testCreateUserSubmit_NoCredentials()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(roles={"createUsers"})
     public void testCreateUserSubmit_MayCreate_NotLoggedIn()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(roles={"logon"})
     public void testCreateUserSubmit_LoggedIn_MayNotCreate()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(username = "tester")
     public void testCreateUserSubmit_NormalUser()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test
     @WithUserDetails("quinten.vanhasselt")
     public void testCreateUserSubmit_AllowedUser()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 }
