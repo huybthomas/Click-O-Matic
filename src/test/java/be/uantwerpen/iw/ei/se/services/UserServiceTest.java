@@ -33,6 +33,9 @@ public class UserServiceTest
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     private List<User> userList;
     private List<Permission> permissionListTester;
     private List<Permission> permissionListAdmin;
@@ -45,9 +48,11 @@ public class UserServiceTest
 
         Role administrator = new Role("Administrator");
         Role tester = new Role("Tester");
+
         permissionListTester = new ArrayList<Permission>();
         permissionListTester.add(p1);
         tester.setPermissions(permissionListTester);
+
         permissionListAdmin = new ArrayList<Permission>();
         permissionListAdmin.add(p1);
         permissionListAdmin.add(p2);
@@ -57,13 +62,18 @@ public class UserServiceTest
         u1.setUserName("Captain");
         u1.setPassword("Vibranium");
         u1.setRoles(Arrays.asList(administrator));
+
         User u2 = new User("Hank", "Pym");
         u2.setUserName("Antman");
         u2.setPassword("PymParticles");
         u2.setRoles(Arrays.asList(tester));
+
         userList = new ArrayList<User>();
         userList.add(u1);
         userList.add(u2);
+
+        roleService.save(Arrays.asList(administrator));
+        roleService.save(Arrays.asList(tester));
 
         userService.add(userList.get(0));
     }

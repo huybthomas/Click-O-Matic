@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
 import be.uantwerpen.iw.ei.se.models.Permission;
@@ -67,7 +68,11 @@ public class FittsTestControllerTests
     public void viewFittsTestOverviewTestManagementPageTest() throws Exception
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
-        when(fittsService.findAllTests()).thenReturn(tests);
+
+        for(FittsTest test : principalUser.getTests())
+        {
+            when(fittsService.findResultsByTestIdForUser(test.getTestID(), principalUser)).thenReturn(new ArrayList<FittsResult>());
+        }
 
         mockMvc.perform(get("/TestPortal")).andExpect(view().name("testPortal/testPortal"));
     }
@@ -78,6 +83,7 @@ public class FittsTestControllerTests
         FittsTest existingTest = tests.iterator().next();
 
         when(fittsService.findTestById(existingTest.getTestID())).thenReturn(existingTest);
+        when(userService.getPrincipalUser()).thenReturn(principalUser);
 
         mockMvc.perform(get("/TestPortal/" + existingTest.getTestID() + "/")).andExpect(view().name("testPortal/fittsTest")).andExpect(model().attribute("runningTest", existingTest));
     }

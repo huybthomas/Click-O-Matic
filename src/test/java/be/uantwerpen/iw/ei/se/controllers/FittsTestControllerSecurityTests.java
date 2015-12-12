@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by Thomas on 15/11/2015.
  */
@@ -48,6 +50,7 @@ public class FittsTestControllerSecurityTests
     }
 
     @Test
+    @Transactional
     @WithUserDetails("thomas.huybrechts")
     public void testOpenFittsTestUserThomas()
     {
