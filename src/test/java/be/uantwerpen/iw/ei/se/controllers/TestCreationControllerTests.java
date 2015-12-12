@@ -1,17 +1,14 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
  * Created by Thomas on 29/11/2015.
  */
-@RunWith(MockitoJUnitRunner.class)
 public class TestCreationControllerTests
 {
     @InjectMocks
