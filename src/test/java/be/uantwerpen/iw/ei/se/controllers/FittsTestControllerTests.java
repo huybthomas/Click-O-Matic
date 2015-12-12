@@ -53,6 +53,8 @@ public class FittsTestControllerTests
         testList.add(new FittsTest("001", new ArrayList<FittsTestStage>()));
         tests = testList;
 
+        principalUser.setTests(testList);
+
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.standaloneSetup(fittsTestController).build();
