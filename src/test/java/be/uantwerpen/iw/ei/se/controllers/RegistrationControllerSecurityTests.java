@@ -1,16 +1,18 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
+import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.models.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
@@ -25,7 +27,8 @@ import static org.mockito.Mockito.mock;
  * Created by Quinten on 28/10/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ClickOMaticApplication.class)
+@SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
+@ActiveProfiles(profiles = {"dev"}, resolver = SystemPropertyActiveProfileResolver.class)
 @WebAppConfiguration
 public class RegistrationControllerSecurityTests
 {
