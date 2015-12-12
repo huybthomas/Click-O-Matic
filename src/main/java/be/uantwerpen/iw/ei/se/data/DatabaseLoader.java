@@ -39,6 +39,13 @@ public class DatabaseLoader
     @PostConstruct
     private void initDatabase()
     {
+        //Check if tables are initialized or empty
+        if(permissionRepository.findAll().iterator().hasNext())
+        {
+            //Tables are initialized, no need to refill database
+            return;
+        }
+
         //Initialise user database
         initUserDatabase();
 
@@ -50,7 +57,6 @@ public class DatabaseLoader
     {
         List<Role> roles;
         List<Permission> allPermissions = new ArrayList<Permission>();
-
 
         // usermanagement algemene permission van maken
         allPermissions.add(new Permission("logon"));
