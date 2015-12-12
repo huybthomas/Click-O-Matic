@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
+import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
 import be.uantwerpen.iw.ei.se.models.User;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -24,11 +26,15 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
+@ActiveProfiles(profiles = {"dev"}, resolver = SystemPropertyActiveProfileResolver.class)
 @WebAppConfiguration
 public class UserServiceTest
 {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     private List<User> userList;
     private List<Permission> permissionListTester;
@@ -42,9 +48,11 @@ public class UserServiceTest
 
         Role administrator = new Role("Administrator");
         Role tester = new Role("Tester");
+
         permissionListTester = new ArrayList<Permission>();
         permissionListTester.add(p1);
         tester.setPermissions(permissionListTester);
+
         permissionListAdmin = new ArrayList<Permission>();
         permissionListAdmin.add(p1);
         permissionListAdmin.add(p2);
@@ -54,13 +62,18 @@ public class UserServiceTest
         u1.setUserName("Captain");
         u1.setPassword("Vibranium");
         u1.setRoles(Arrays.asList(administrator));
+
         User u2 = new User("Hank", "Pym");
         u2.setUserName("Antman");
         u2.setPassword("PymParticles");
         u2.setRoles(Arrays.asList(tester));
+
         userList = new ArrayList<User>();
         userList.add(u1);
         userList.add(u2);
+
+        roleService.save(Arrays.asList(administrator));
+        roleService.save(Arrays.asList(tester));
 
         userService.add(userList.get(0));
     }

@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
 import be.uantwerpen.iw.ei.se.models.Permission;
@@ -9,9 +10,11 @@ import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -27,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Thomas on 15/11/2015.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class FittsTestControllerTests
 {
     @Mock
@@ -53,6 +57,8 @@ public class FittsTestControllerTests
         testList.add(new FittsTest("001", new ArrayList<FittsTestStage>()));
         tests = testList;
 
+        principalUser.setTests(testList);
+
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.standaloneSetup(fittsTestController).build();
@@ -62,7 +68,11 @@ public class FittsTestControllerTests
     public void viewFittsTestOverviewTestManagementPageTest() throws Exception
     {
         when(userService.getPrincipalUser()).thenReturn(principalUser);
-        when(fittsService.findAllTests()).thenReturn(tests);
+
+        for(FittsTest test : principalUser.getTests())
+        {
+            when(fittsService.findResultsByTestIdForUser(test.getTestID(), principalUser)).thenReturn(new ArrayList<FittsResult>());
+        }
 
         mockMvc.perform(get("/TestPortal")).andExpect(view().name("testPortal/testPortal"));
     }
@@ -73,6 +83,7 @@ public class FittsTestControllerTests
         FittsTest existingTest = tests.iterator().next();
 
         when(fittsService.findTestById(existingTest.getTestID())).thenReturn(existingTest);
+        when(userService.getPrincipalUser()).thenReturn(principalUser);
 
         mockMvc.perform(get("/TestPortal/" + existingTest.getTestID() + "/")).andExpect(view().name("testPortal/fittsTest")).andExpect(model().attribute("runningTest", existingTest));
     }

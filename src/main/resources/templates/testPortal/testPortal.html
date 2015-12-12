@@ -52,10 +52,10 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         function details(testID) {
-            alltests = /*[[${allUserFittsTests.keySet()}]]*/
-            detailstext = /*[[#{fittstest.details}]]*/'';
+            var alltests = /*[[${allUserFittsTests.keySet()}]]*/;
+            var detailstext = /*[[#{fittstest.details}]]*/'';
 
-            for(i = 0; i < alltests.length; i++)
+            for(var i = 0; i < alltests.length; i++)
             {
                 if(alltests[i].testID === testID)
                 {

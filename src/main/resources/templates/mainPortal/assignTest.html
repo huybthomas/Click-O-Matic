@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="mainPortal/layout :: head (pageTitle=#{assignTest.title})"></head>
 <head>
-    <script src="https://rawgit.com/crlcu/multiselect/v2.1.5/js/multiselect.min.js"></script>
+    <script src="https://rawgit.com/crlcu/multiselect/v2.1.5/js/multiselect.min.js"
+            th:src="@{/js/thirdParty/multiselect/v2.1.5/multiselect.min.js}"></script>
 </head>
 <body>
     <!-- Search script -->
@@ -32,13 +33,6 @@
             <div class="frontContent">
                 <div class="content">
                     <form action="#" th:action="@{/Users/Assign}" method="post" th:object="${user}" th:if="${user}">
-                        <input th:type="hidden" th:field="*{id}"/>
-                        <input th:type="hidden" th:field="*{firstName}"/>
-                        <input th:type="hidden" th:field="*{lastName}"/>
-                        <input th:type="hidden" th:field="*{userName}"/>
-                        <input th:type="hidden" th:field="*{password}"/>
-                        <input th:type="hidden" th:field="*{roles}"/>
-                        <input th:type="hidden" th:field="*{results}"/>
                         <table class="table">
                             <h3 class="sub-header col-md-6" th:text="${user.firstName + ' ' + user.lastName}" ></h3>
                         </table>

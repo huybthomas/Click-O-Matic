@@ -23,10 +23,10 @@ import java.util.stream.StreamSupport;
 public class SecurityService implements UserDetailsService
 {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    PermissionRepository permissionRepository;
+    private PermissionRepository permissionRepository;
 
     @Override
     @Transactional
@@ -35,6 +35,7 @@ public class SecurityService implements UserDetailsService
         UserDetails userDetails;
 
         User user = userService.findByUserName(userName);
+
         if(user != null)
         {
             Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

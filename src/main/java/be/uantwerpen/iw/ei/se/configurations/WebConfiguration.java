@@ -4,6 +4,7 @@ import org.h2.server.web.WebServlet;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 /**
  * Created by Thomas on 22/10/2015.
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class WebConfiguration
 {
     @Bean
+    @Profile("dev")
     ServletRegistrationBean h2servletRegistration()
     {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());

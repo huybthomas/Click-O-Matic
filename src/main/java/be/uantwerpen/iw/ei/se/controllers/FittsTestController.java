@@ -7,13 +7,16 @@ import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -22,11 +25,21 @@ import java.util.*;
 @Controller
 public class FittsTestController
 {
+    static final String ATTRIBUTE_NAME = "runningTest";
+    static final String BINDING_RESULT_NAME = "org.springframework.validation.BindingResult." + ATTRIBUTE_NAME;
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private FittsService fittsService;
+
+    @InitBinder
+    private void allowFields(WebDataBinder webDataBinder)
+    {
+        //No fields needs to be changed
+        webDataBinder.setAllowedFields("");
+    }
 
     @ModelAttribute("currentUser")
     public User getCurrentUser()
@@ -78,21 +91,34 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon')")
     public String showFittsTest(@PathVariable String testID, final ModelMap model)
     {
-        FittsTest test = fittsService.findTestById(testID);
+        //Check for already open session
+        if(!model.containsAttribute(BINDING_RESULT_NAME))
+        {
+            FittsTest test = fittsService.findTestById(testID);
 
-        if(test != null)
-        {
-            model.addAttribute("runningTest", test);
-            return "testPortal/fittsTest";
+            if(test != null)
+            {
+                //Check if user is authorized to run the test
+                if(userService.getPrincipalUser().getTests().contains(test) || userService.getPrincipalUser().hasPermission("test-management"))
+                {
+                    model.addAttribute(ATTRIBUTE_NAME, test);
+                }
+                else
+                {
+                    return "redirect:/TestPortal?errorTestNotFound";
+                }
+            }
+            else
+            {
+                return "redirect:/TestPortal?errorTestNotFound";
+            }
         }
-        else
-        {
-            return "redirect:/TestPortal?errorTestNotFound";
-        }
+
+        return "testPortal/fittsTest";
     }
 
     @RequestMapping(value={"/TestResult/{resultID}/"}, method=RequestMethod.GET)
-    @PreAuthorize("hasRole('logon')")
+    @PreAuthorize("hasRole('logon') and hasRole('test-management')")
     public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
         FittsResult result = fittsService.findResultById(resultID);
@@ -129,8 +155,13 @@ public class FittsTestController
 
     @RequestMapping(value="/PostFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('logon')")
-    public @ResponseBody JSONResponse saveFittsResult(@RequestBody List<FittsStageResult> testResults, @PathVariable String testID, final ModelMap model)
+    public @ResponseBody JSONResponse saveFittsResult(@ModelAttribute(ATTRIBUTE_NAME) FittsTest fittsTestModel, @RequestBody List<FittsStageResult> testResults, @PathVariable String testID, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, final ModelMap model)
     {
+        if(result.hasErrors())
+        {
+            return new JSONResponse("ERROR", "Connection error", "#?error", null);
+        }
+
         FittsTest test = fittsService.findTestById(testID);
 
         if(test != null)
@@ -161,6 +192,9 @@ public class FittsTestController
 
             if(fittsService.saveTestResult(newResult))
             {
+                //Finish session
+                sessionStatus.setComplete();
+
                 //Assign results to user
                 userService.getPrincipalUser().addResult(newResult);
                 userService.save(userService.getPrincipalUser());

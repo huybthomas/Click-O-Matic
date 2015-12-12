@@ -4,9 +4,11 @@ import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Thomas on 20/10/2015.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class HomeControllerTests
 {
     @Mock

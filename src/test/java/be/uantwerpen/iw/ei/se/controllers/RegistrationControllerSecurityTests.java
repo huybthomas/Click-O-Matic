@@ -1,20 +1,25 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
+import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.models.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.support.SessionStatus;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.mockito.Mockito.mock;
 
@@ -22,7 +27,8 @@ import static org.mockito.Mockito.mock;
  * Created by Quinten on 28/10/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ClickOMaticApplication.class)
+@SpringApplicationConfiguration(classes = ClickOMaticApplication.class)
+@ActiveProfiles(profiles = {"dev"}, resolver = SystemPropertyActiveProfileResolver.class)
 @WebAppConfiguration
 public class RegistrationControllerSecurityTests
 {
@@ -30,6 +36,8 @@ public class RegistrationControllerSecurityTests
     private RegistrationController registrationController;
 
     private BindingResult bindingResult;
+    private HttpServletRequest request;
+    private SessionStatus sessionStatus;
     private User newUser;
 
     @Before
@@ -38,6 +46,8 @@ public class RegistrationControllerSecurityTests
         newUser = new User("Registration", "Test", "regTest", "test");
 
         bindingResult = mock(BindingResult.class);
+        request = mock(HttpServletRequest.class);
+        sessionStatus = mock(SessionStatus.class);
     }
 
     // --- Create User Form --- \\\
@@ -82,34 +92,34 @@ public class RegistrationControllerSecurityTests
     @Test(expected = AuthenticationCredentialsNotFoundException.class)
     public void testCreateUserSubmit_NoCredentials()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(roles={"createUsers"})
     public void testCreateUserSubmit_MayCreate_NotLoggedIn()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(roles={"logon"})
     public void testCreateUserSubmit_LoggedIn_MayNotCreate()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(username = "tester")
     public void testCreateUserSubmit_NormalUser()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 
     @Test
     @WithUserDetails("quinten.vanhasselt")
     public void testCreateUserSubmit_AllowedUser()
     {
-        registrationController.createUserSubmit(newUser, bindingResult, new ModelMap());
+        registrationController.createUserSubmit(newUser, bindingResult, request, sessionStatus, new ModelMap());
     }
 }
