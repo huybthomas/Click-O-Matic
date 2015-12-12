@@ -16,10 +16,6 @@ public class FittsCalculateService
     @Autowired
     private FittsService fittsService;
 
-    @Autowired
-    private UserService userService;
-
-    private List<List<Double>> coords = new ArrayList<List<Double>>();
     private Double constant=4.133;
 
     //calculates the total throughput using the throughput per stage
@@ -55,16 +51,14 @@ public class FittsCalculateService
             List<FittsTrackEvent> clickEvents = new ArrayList<FittsTrackEvent>();
             int dotDistance = test.getTestStages().get(i).getDotDistance();
             int dotNumber = test.getTestStages().get(i).getNumberOfDots();
-            Double meanDeviation;
 
             coordinates = calculateCoord(test.getTestStages().get(i), dotNumber, dotDistance);
             lines = calculateLines(dotNumber, coordinates);
             clickEvents = getAllClickEvents(result);
             projectedClicks = calculateProjectedPoints(clickEvents, lines);
-            meanDeviation = calculateDeviations(projectedClicks);
+            Double meanDeviation = calculateDeviations(projectedClicks, coordinates);
 
-            stageThroughputs.add(Math.log(((dotDistance*2)+(meanDeviation*this.constant))/(meanDeviation*this.constant))/
-                    (clickEvents.get(clickEvents.size() - 1).getTimestamp() - clickEvents.get(0).getTimestamp()));
+            stageThroughputs.add(Math.log(((dotDistance*2) + (meanDeviation*this.constant)) / (meanDeviation*this.constant)) / (clickEvents.get(clickEvents.size() - 1).getTimestamp() - clickEvents.get(0).getTimestamp()));
         }
 
         return stageThroughputs;
@@ -86,7 +80,7 @@ public class FittsCalculateService
     }
 
     //Calculates the lines between previous target and current target
-    //for the first target the previous target is the middle of the cirkle, coordinates (0,0)
+    //for the first target the previous target is the middle of the circle, coordinates (0,0)
     private List<List<Double>> calculateLines(int dotNumber, List<List<Double>> coords)
     {
         List<List<Double>> lines = new ArrayList<List<Double>>();
@@ -107,7 +101,7 @@ public class FittsCalculateService
                 }
                 else
                 {
-                    lines.get(0).add(this.coords.get(1).get(j) - coords.get(1).get(j - 1) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
+                    lines.get(0).add(coords.get(1).get(j) - coords.get(1).get(j - 1) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
                 }
 
                 lines.get(1).add(coords.get(0).get(j));
@@ -178,15 +172,14 @@ public class FittsCalculateService
         return projectedClicks;
     }
 
-    private Double calculateDeviations(List<List<Double>> projectedClicks)
+    private Double calculateDeviations(List<List<Double>> projectedClicks, List<List<Double>> coords)
     {
         Double meanDeviation = 0.0;
-        int i = 0;
+        int i;
 
         for(i = 0; i < projectedClicks.get(0).size(); i++)
         {
-            Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(i)-coords.get(0).get(i)),2.0))
-                    +Math.pow((projectedClicks.get(1).get(i)-coords.get(1).get(i)),2.0));
+            Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(i) - coords.get(0).get(i)), 2.0)) + Math.pow((projectedClicks.get(1).get(i) - coords.get(1).get(i)), 2.0));
 
             meanDeviation = meanDeviation + deviation;
         }
