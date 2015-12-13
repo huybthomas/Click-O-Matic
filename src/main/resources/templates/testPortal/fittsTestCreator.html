@@ -45,7 +45,7 @@
                         <tr>
                             <div class="form-group">
                                 <td th:text="#{fittstest.comment}"></td>
-                                <td><textarea id="fittsTestComment" class="form-control" type="text" th:field="*{comment}"></textarea></td>
+                                <td><textarea id="fittsTestComment" class="form-control" rows="4" type="text" th:field="*{comment}" style="min-height: 100px; resize: none"></textarea></td>
                             </div>
                         </tr>
                         <tr>
@@ -73,6 +73,8 @@
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
                     </p>
                     <div class="frontContent" id="frontContent">
+                        <h3 class="col-md-6 col-md-offset-3" th:text="#{fittsTestCreator.preview}"></h3>
+
                         <!-- Fitts test -->
                         <canvas id="FittsPreviewCanvas"></canvas>
                     </div>
@@ -97,7 +99,7 @@
             var FittsPreviewCanvas = document.getElementById("FittsPreviewCanvas");
 
             var newWidth = frontContent.offsetWidth;
-            var newHeight = window.innerHeight * 0.9;  // Y positioning of canvas, not ideal yet.
+            var newHeight = window.innerHeight * 0.5;  // Y positioning of canvas, not ideal yet.
 
             FittsPreviewCanvas.width = newWidth;
             FittsPreviewCanvas.height = newHeight;

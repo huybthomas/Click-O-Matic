@@ -50,7 +50,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     {
         angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
         centerX = (canvas.width)/2;                   // middelpunt blijft centraal
-        centerY = (canvas.height)/3;
+        centerY = (canvas.height)/2;
 
         for(i = 0; i < this.numberOfDots; i++)
         {
