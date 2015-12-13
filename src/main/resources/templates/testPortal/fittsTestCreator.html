@@ -111,7 +111,7 @@
         var dotDistanceSlider = new Slider("#dotDistanceSlider", {step: 1, min: 20, max: 300});
     </script>
 
-    <!-- Test stages scripts -->
+    <!-- Load vars -->
     <script th:inline="javascript">
         /*<![CDATA[*/
         var testAttr=/*[[${fittsTest}]]*/;
@@ -123,6 +123,15 @@
 
         var selector = document.getElementById("stagesSelector");
         var selectOptions = testAttr.testStages;
+        /*]]>*/
+    </script>
+
+    <!-- Import FittsTestPreview -->
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestPreview.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+
+    <!-- Test stages script -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         generateOptions();
 
         function generateOptions() {
@@ -287,7 +296,5 @@
         /*]]>*/
     </script>
 
-    <!-- Import FittsTestPreview -->
-    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestPreview.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </body>
 </html>
