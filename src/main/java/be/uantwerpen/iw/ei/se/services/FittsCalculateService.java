@@ -51,47 +51,67 @@ public class FittsCalculateService
             List<FittsTrackEvent> clickEvents = new ArrayList<FittsTrackEvent>();
             int dotDistance = test.getTestStages().get(i).getDotDistance();
             int dotNumber = test.getTestStages().get(i).getNumberOfDots();
+            int dotRadius = test.getTestStages().get(i).getDotRadius();
 
             coordinates = calculateCoord(test.getTestStages().get(i), dotNumber, dotDistance);
             lines = calculateLines(dotNumber, coordinates);
             clickEvents = getAllClickEvents(result);
             projectedClicks = calculateProjectedPoints(clickEvents, lines);
             Double meanDeviation = calculateDeviations(projectedClicks, coordinates);
+            Double We = this.constant*meanDeviation;
+            //without deviation
+            //Double DifficultyIndex = Math.log(((dotDistance*2)+ (dotRadius*2))/(dotRadius*2))/Math.log(2);
+            //with  deviation
+            Double DifficultyIndex = Math.log(((dotDistance*2) + (We)) / (We)) / Math.log(2);
+            Double TotalTime = (double)(clickEvents.get(clickEvents.size() - 1).getTimestamp() - clickEvents.get(0).getTimestamp())/1000;
+            Double AverageTime = TotalTime/dotNumber;
 
-            stageThroughputs.add(Math.log(((dotDistance*2) + (meanDeviation*this.constant)) / (meanDeviation*this.constant)) / (clickEvents.get(clickEvents.size() - 1).getTimestamp() - clickEvents.get(0).getTimestamp()));
+            stageThroughputs.add(DifficultyIndex/AverageTime);
         }
 
         return stageThroughputs;
     }
 
-    //Calculates the coordinates of where should of been clicked
+    //Calculates the coordinates of where should of been clicked, checked
     private List<List<Double>> calculateCoord(FittsTestStage stage, int dotNumber, int dotDistance)
     {
         List<List<Double>> coords = new ArrayList<List<Double>>();
+        coords.add(new ArrayList<Double>());
+        coords.add(new ArrayList<Double>());
         Double angle = 2*Math.PI/dotNumber;
+        int nextDot = 0;
 
         for(int j=0; j<dotNumber; j++)
         {
-            coords.get(0).add(-dotDistance * Math.sin(-angle * j));
-            coords.get(1).add(-dotDistance * Math.cos(-angle * j));
+            coords.get(0).add(-dotDistance * Math.sin(-angle * nextDot));
+            coords.get(1).add(-dotDistance * Math.cos(-angle * nextDot));
+            nextDot = (int)((nextDot + Math.floor(dotNumber)/2)%dotNumber);
         }
 
         return coords;
     }
 
-    //Calculates the lines between previous target and current target
-    //for the first target the previous target is the middle of the circle, coordinates (0,0)
+    //Calculates the lines between previous target and current target, checked
     private List<List<Double>> calculateLines(int dotNumber, List<List<Double>> coords)
     {
         List<List<Double>> lines = new ArrayList<List<Double>>();
+        lines.add(new ArrayList<Double>());
+        lines.add(new ArrayList<Double>());
 
-        for(int j=0; j<dotNumber; j++)
+        for(int j=1; j<=dotNumber; j++)
         {
-            if(j==0)
+            if(j==dotNumber)
             {
-                //eerste punt is het middelpunt
-                lines.get(0).add(coords.get(1).get(j)/coords.get(0).get(j));
-                lines.get(1).add(coords.get(0).get(j));
+                if(coords.get(0).get(0) - coords.get(0).get(j - 1) == 0)
+                {
+                    lines.get(0).add(0.0);
+                }
+                else
+                {
+                    lines.get(0).add((coords.get(1).get(0) - coords.get(1).get(j - 1)) / (coords.get(0).get(0) - coords.get(0).get(j - 1)));
+                }
+
+                lines.get(1).add(coords.get(1).get(0)-(lines.get(0).get(j-1)*coords.get(0).get(0)));
             }
             else
             {
@@ -101,10 +121,10 @@ public class FittsCalculateService
                 }
                 else
                 {
-                    lines.get(0).add(coords.get(1).get(j) - coords.get(1).get(j - 1) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
+                    lines.get(0).add((coords.get(1).get(j) - coords.get(1).get(j - 1)) / (coords.get(0).get(j) - coords.get(0).get(j - 1)));
                 }
 
-                lines.get(1).add(coords.get(0).get(j));
+                lines.get(1).add(coords.get(1).get(j)-(lines.get(0).get(j-1)*coords.get(0).get(j)));
             }
         }
 
@@ -126,12 +146,6 @@ public class FittsCalculateService
             {
                 FittsTrackPath trackpath = stageResult.getFittsTrackPaths().get(k);
 
-                //First cursor position is the first element
-                if(k == 0)
-                {
-                    clickEvents.add(trackpath.getPath().get(0));
-                }
-
                 clickEvents.add(trackpath.getPath().get(trackpath.getPath().size() - 1));
             }
         }
@@ -142,6 +156,8 @@ public class FittsCalculateService
     private List<List<Double>> calculateProjectedPoints(List<FittsTrackEvent> clickEvents, List<List<Double>> lines)
     {
         List<List<Double>> projectedClicks = new ArrayList<List<Double>>();
+        projectedClicks.add(new ArrayList<Double>());
+        projectedClicks.add(new ArrayList<Double>());
 
         for(int i=0; i < clickEvents.size(); i++)
         {

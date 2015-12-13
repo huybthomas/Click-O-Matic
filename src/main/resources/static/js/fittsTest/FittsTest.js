@@ -106,19 +106,12 @@ function FittsTest(stages)
     //Temporary function
     this.getThroughput = function()
     {
-        var We = this.dotsSize*2;
-        var d = this.dotDistance*2;
+        var We = this.testStages[0].dotRadius*2;
+        var d = this.testStages[0].dotDistance*2;
         var difficutlyIndex = Math.log((d/We)+1)/Math.log(2);
-        console.log(this.pathTracker.getLastPath());
-        console.log(this.pathTracker.getLastPath().getLastEvent());
-        console.log(this.pathTracker.getLastPath().getLastEvent().getTimestamp());
-        console.log(this.pathTracker.getFirstPath().getFirstEvent().getTimestamp());
-        var movementTime = this.pathTracker.getLastPath().getLastEvent().getTimestamp() - this.pathTracker.getFirstPath().getFirstEvent().getTimestamp();
-        var totalTime = (movementTime/1000)/numberOfDots;
-        console.log(We);
-        console.log(d);
-        console.log(difficutlyIndex);
-        console.log(totalTime);
+        var movementTime = this.testStages[0].getTrackPaths()[this.testStages[0].getTrackPaths().length-1].getLastEvent().getTimestamp() -
+            this.testStages[0].getTrackPaths()[0].getFirstEvent().getTimestamp();
+        var totalTime = (movementTime/1000)/this.testStages[0].numberOfDots;
         return difficutlyIndex/totalTime;
     };
 }

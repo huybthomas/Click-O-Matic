@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by dries on 13/12/2015.
@@ -32,35 +33,21 @@ public class FittsCalculateServiceTest {
     @Mock
     private FittsService fittsService;
 
-    @Mock
-    private FittsTrackEventRepository fittsTrackEventRepository;
-
-    @Mock
-    private FittsTrackPathRepository fittsTrackPathRepository;
-
-    @Mock
-    private FittsStageResultRepository fittsStageResultRepository;
-
-    @Mock
-    private FittsResultRepository fittsResultRepository;
-
-    @Mock
-    private UserRepository userRepository;
-
-    @Mock
-    private UserService userService;
+    private Iterable trackEvents1;
+    private Iterable trackEvents2;
+    private Iterable trackEvents3;
+    private Iterable trackEvents4;
+    private Iterable trackEvents5;
+    private Iterable trackPaths;
+    private Iterable stages;
+    private FittsResult result;
+    private FittsTest test;
+    private FittsTestStage testStage;
+    private List<FittsTestStage> testStages;
 
     @Before
     public void init()
     {
-        List<Role> roles;
-        Role administrator = new Role("Administrator");
-
-        User u1 = new User("Black", "Panther", "T'Challa", "test");
-        roles = new ArrayList<Role>();
-        roles.add(administrator);
-        u1.setRoles(roles);
-
         //Trackpath 01
         FittsTrackEvent event1 = new FittsTrackEvent(1450017881937L, 554, 391, false);
         FittsTrackEvent event2 = new FittsTrackEvent(1450017881995L, 570, 408, false);
@@ -71,8 +58,7 @@ public class FittsCalculateServiceTest {
         FittsTrackEvent event7 = new FittsTrackEvent(1450017882212L, 628, 569, false);
         FittsTrackEvent event8 = new FittsTrackEvent(1450017882332L, 632, 574, true);
         FittsTrackEvent event9 = new FittsTrackEvent(1450017882412L, 632, 574, false);
-        Iterable trackEvents1 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
-        fittsTrackEventRepository.save(trackEvents1);
+        trackEvents1 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
 
         //Trackpath 02
         event1 = new FittsTrackEvent(1450017882413L, 632, 574, false);
@@ -84,8 +70,7 @@ public class FittsCalculateServiceTest {
         event7 = new FittsTrackEvent(1450017882692L, 466, 440, false);
         event8 = new FittsTrackEvent(1450017882748L, 465, 440, true);
         event9 = new FittsTrackEvent(1450017882820L, 465, 440, false);
-        Iterable trackEvents2 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
-        fittsTrackEventRepository.save(trackEvents2);
+        trackEvents2 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
 
         //Trackpath 03
         event1 = new FittsTrackEvent(1450017882821L, 465, 440, false);
@@ -95,8 +80,7 @@ public class FittsCalculateServiceTest {
         event5 = new FittsTrackEvent(1450017883228L, 679, 445, true);
         event6 = new FittsTrackEvent(1450017883259L, 678, 445, true);
         event7 = new FittsTrackEvent(1450017883268L, 678, 445, false);
-        Iterable trackEvents3 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7));
-        fittsTrackEventRepository.save(trackEvents3);
+        trackEvents3 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7));
 
         //Trackpath 04
         event1 = new FittsTrackEvent(1450017883269L, 678, 445, false);
@@ -110,8 +94,7 @@ public class FittsCalculateServiceTest {
         event9 = new FittsTrackEvent(1450017883620L, 522, 555, false);
         FittsTrackEvent event10 = new FittsTrackEvent(1450017883756L, 511, 563, true);
         FittsTrackEvent event11 = new FittsTrackEvent(1450017883819L, 511, 563, false);
-        Iterable trackEvents4 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11));
-        fittsTrackEventRepository.save(trackEvents4);
+        trackEvents4 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11));
 
         //Trackpath 05
         event1 = new FittsTrackEvent(1450017883821L, 511, 563, false);
@@ -123,8 +106,7 @@ public class FittsCalculateServiceTest {
         event7 = new FittsTrackEvent(1450017884108L, 586, 379, false);
         event8 = new FittsTrackEvent(1450017884188L, 586, 373, true);
         event9 = new FittsTrackEvent(1450017884267L, 586, 373, false);
-        Iterable trackEvents5 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
-        fittsTrackEventRepository.save(trackEvents5);
+        trackEvents5 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
 
         //Trackpaths
         FittsTrackPath trackPath1 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents1);
@@ -132,27 +114,32 @@ public class FittsCalculateServiceTest {
         FittsTrackPath trackPath3 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents3);
         FittsTrackPath trackPath4 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents4);
         FittsTrackPath trackPath5 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents5);
-        Iterable trackPaths = new ArrayList<>(Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4, trackPath5));
-        fittsTrackPathRepository.save(trackPaths);
+        trackPaths = new ArrayList<>(Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4, trackPath5));
 
         //Stages
         FittsStageResult stage1 = new FittsStageResult(0, Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4, trackPath5));
-        Iterable stages = new ArrayList<>(Arrays.asList(stage1));
-        fittsStageResultRepository.save(stages);
+        stages = new ArrayList<>(Arrays.asList(stage1));
 
         //Result
-        FittsResult result = new FittsResult("test01", "003", new Date(), Arrays.asList(stage1));
-        fittsResultRepository.save(result);
+        result = new FittsResult("003", "test01", new Date(), Arrays.asList(stage1));
 
-        u1 = userRepository.findByUserName("T'Challa");
-        u1.setResults(Arrays.asList(result));
-        userRepository.save(u1);
+        //TestStage
+        testStage = new FittsTestStage("stage1", 5, 20, 100);
+
+        //TestStages
+        testStages = new ArrayList<FittsTestStage>();
+        testStages.add(testStage);
+
+        //Test
+        test = new FittsTest("test01", testStages);
     }
 
     @Test
     public void CalculateThroughput()
     {
-        FittsThroughput fittsThroughput = fittsCalculateService.calculateThroughput(userRepository.findByUserName("T'Challa").getResults().get(0));
-        assertTrue(fittsThroughput.getTotalThroughput() >4.5 && fittsThroughput.getTotalThroughput()<5.5);
+        when(fittsService.findTestById(result.getTestID())).thenReturn(test);
+        FittsThroughput fittsThroughput = fittsCalculateService.calculateThroughput(result);
+        Double totalThroughput = fittsThroughput.getTotalThroughput();
+        assertTrue(totalThroughput >4.5 && totalThroughput<5.5);
     }
 }
