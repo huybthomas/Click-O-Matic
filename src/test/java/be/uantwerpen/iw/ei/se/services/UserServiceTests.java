@@ -137,9 +137,9 @@ public class UserServiceTests
     {
         when(userRepository.findAll()).thenReturn(userList);
 
-        String existingUsername = new String("Ironman");
+        String nonExistingUsername = new String("Ironman");
 
-        assertTrue(!userService.usernameAlreadyExists(existingUsername));
+        assertTrue(!userService.usernameAlreadyExists(nonExistingUsername));
     }
 
     @Test
