@@ -92,16 +92,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         }
         else if (this.AmountOfFalseClicks>=4)
         {
-            this.testProgress = 0;
-            this.previousTarget = -1;
-            this.nextTarget = 0;
-            this.currentTrackPath = new FittsTrackPath();
-            window.alert("You have clicked wrong too many times. This stage will now restart");
-
-            this.initializeDots(canvas);
-            this.AmountOfFalseClicks=0;
-
-
+            $('#restartModal').modal('show');
         }
         else
         {
@@ -109,6 +100,17 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
             this.testStageFinished = true;
         }
     };
+
+    this.restart = function() {
+        this.testProgress = 0;
+        this.previousTarget = -1;
+        this.nextTarget = 0;
+        this.currentTrackPath = new FittsTrackPath();
+
+        this.initializeDots(canvas);
+        this.AmountOfFalseClicks=0;
+        $("#restartModal").modal("hide");
+    }
 
     this.setDotColor = function(dotHColor, dotLColor)
     {

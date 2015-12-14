@@ -53,7 +53,7 @@ function draw()
 function drawStatus()
 {
     clickAmount = "Clicks: " + addZero(AmountOfClicks, 2);
-    testRound = "Round: " + addZero(this.test.getCurrentStageNumber() + 1, 2) + "/" + addZero(this.test.getTestStages().length, 2);
+    testRound = "Round: " + addZero(this.test.getCurrentStageNumber(), 2) + "/" + addZero(this.test.getTestStages().length, 2);
     now = new Date();
     ElapsedTime = Math.floor((now - startTime)/1000);
 
@@ -136,6 +136,10 @@ function checkState()
            postRequestSend = true;
         }
     }
+}
+
+function restartStage() {
+    this.test.currentStage.restart();
 }
 
 function testFinished()

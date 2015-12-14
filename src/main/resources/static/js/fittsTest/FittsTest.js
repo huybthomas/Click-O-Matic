@@ -17,7 +17,7 @@ function FittsTest(stages)
     this.initialize = function(canvas)
     {
         this.canvas = canvas;
-        this.currentStageNumber = -1;
+        this.currentStageNumber = 0;
         this.testFinished = false;
 
         this.nextStage();
@@ -48,7 +48,7 @@ function FittsTest(stages)
 
     this.nextStage = function()
     {
-        if((this.currentStageNumber < (this.testStages.length - 1)&& this.testStages[this.currentStageNumber].AmountOfFalseClicks<5))
+        if((this.currentStageNumber < (this.testStages.length )&& this.testStages[this.currentStageNumber].AmountOfFalseClicks<5))
         {
             this.currentStageNumber++;
 
