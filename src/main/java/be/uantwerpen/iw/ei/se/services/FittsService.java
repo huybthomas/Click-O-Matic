@@ -3,14 +3,13 @@ package be.uantwerpen.iw.ei.se.services;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.models.User;
-import be.uantwerpen.iw.ei.se.repositories.*;
+import be.uantwerpen.iw.ei.se.repositories.FittsTestRepository;
+import be.uantwerpen.iw.ei.se.repositories.FittsTestStageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Thomas on 15/11/2015.

@@ -99,7 +99,7 @@ public class FittsResultServiceTests {
         fittsResultService.save(fittsResultList);
     }
 
-    //Adds user with help of the userService, checks if it's really in there.
+
 
     @Test
     public void checkExistingResultId()
@@ -128,4 +128,5 @@ public class FittsResultServiceTests {
 
         assertTrue(!fittsResultService.resultIdAlreadyExists("e=mc20"));
     }
+
 }
