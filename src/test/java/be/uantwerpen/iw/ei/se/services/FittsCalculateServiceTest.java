@@ -140,6 +140,6 @@ public class FittsCalculateServiceTest {
         when(fittsService.findTestById(result.getTestID())).thenReturn(test);
         FittsThroughput fittsThroughput = fittsCalculateService.calculateThroughput(result);
         Double totalThroughput = fittsThroughput.getTotalThroughput();
-        assertTrue(totalThroughput >4.5 && totalThroughput<5.5);
+        assertTrue(totalThroughput >4.0 && totalThroughput<6.0);
     }
 }

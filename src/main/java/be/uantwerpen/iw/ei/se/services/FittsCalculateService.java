@@ -180,7 +180,7 @@ public class FittsCalculateService
             if(slope == 0)
             {
                 projectedClicks.get(0).add(clickX);
-                projectedClicks.get(1).add(-clickY);
+                projectedClicks.get(1).add(offset);
             }
             else
             {
@@ -199,12 +199,12 @@ public class FittsCalculateService
 
         for(i = 1; i < projectedClicks.get(0).size(); i++)
         {
-            Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(i-1) - coords.get(0).get(i)), 2.0)) + Math.pow((projectedClicks.get(1).get(i-1) - coords.get(1).get(i)), 2.0));
+            Double deviation = Math.sqrt(Math.pow((projectedClicks.get(0).get(i-1) - coords.get(0).get(i)), 2.0) + Math.pow((projectedClicks.get(1).get(i-1) - coords.get(1).get(i)), 2.0));
 
             meanDeviation = meanDeviation + deviation;
         }
 
-        Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(projectedClicks.get(0).size()-1) - coords.get(0).get(0)), 2.0)) + Math.pow((projectedClicks.get(1).get(projectedClicks.get(0).size()-1) - coords.get(1).get(0)), 2.0));
+        Double deviation = Math.sqrt(Math.pow((projectedClicks.get(0).get(projectedClicks.get(0).size()-1) - coords.get(0).get(0)), 2.0) + Math.pow((projectedClicks.get(1).get(projectedClicks.get(0).size()-1) - coords.get(1).get(0)), 2.0));
         meanDeviation = meanDeviation + deviation;
 
         if(i != 0)
