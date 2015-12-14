@@ -131,7 +131,7 @@ public class FittsCalculateService
         return lines;
     }
 
-    //Get the positions where a click occurred
+    //Get the positions where a click occurred, checked
     //clickEvents.get(0) is X-coordinates
     //clickEvents.get(1) is Y-coordinates
     private List<FittsTrackEvent> getAllClickEvents(FittsResult result)
@@ -166,22 +166,26 @@ public class FittsCalculateService
             double slope = lines.get(0).get(i);
             double offset = lines.get(1).get(i);
             double projectedSlope = 0;
-            double projectedOffset = clickY - projectedSlope * clickX;
+            double projectedOffset;
 
             if(slope != 0)
             {
+                //slope*projectedSlope = -1 (rico A * rico B = -1)
                 projectedSlope = -1 / slope;
             }
 
+            //clickY = projectedSlope*ClickX + projectedOffset (y = ax+b)
+            projectedOffset = clickY - projectedSlope * clickX;
+
             if(slope == 0)
             {
-                projectedClicks.get(0).add(offset-projectedOffset);
-                projectedClicks.get(1).add(-projectedOffset);
+                projectedClicks.get(0).add(clickX);
+                projectedClicks.get(1).add(-clickY);
             }
             else
             {
-                projectedClicks.get(0).add((offset - projectedOffset) / (slope - projectedSlope));
-                projectedClicks.get(1).add(slope * ((offset - projectedOffset) / (slope - projectedSlope)) - offset);
+                projectedClicks.get(0).add((projectedOffset - offset) / (slope - projectedSlope));
+                projectedClicks.get(1).add(slope * projectedClicks.get(0).get(projectedClicks.get(0).size()-1) + offset);
             }
         }
 
@@ -193,12 +197,15 @@ public class FittsCalculateService
         Double meanDeviation = 0.0;
         int i;
 
-        for(i = 0; i < projectedClicks.get(0).size(); i++)
+        for(i = 1; i < projectedClicks.get(0).size(); i++)
         {
-            Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(i) - coords.get(0).get(i)), 2.0)) + Math.pow((projectedClicks.get(1).get(i) - coords.get(1).get(i)), 2.0));
+            Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(i-1) - coords.get(0).get(i)), 2.0)) + Math.pow((projectedClicks.get(1).get(i-1) - coords.get(1).get(i)), 2.0));
 
             meanDeviation = meanDeviation + deviation;
         }
+
+        Double deviation = (Math.sqrt(Math.pow((projectedClicks.get(0).get(projectedClicks.get(0).size()-1) - coords.get(0).get(0)), 2.0)) + Math.pow((projectedClicks.get(1).get(projectedClicks.get(0).size()-1) - coords.get(1).get(0)), 2.0));
+        meanDeviation = meanDeviation + deviation;
 
         if(i != 0)
         {
