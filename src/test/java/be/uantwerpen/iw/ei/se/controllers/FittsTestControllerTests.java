@@ -50,7 +50,7 @@ public class FittsTestControllerTests
         principalUser = new User("Test", "User");
 
         List<FittsTest> testList = new ArrayList<FittsTest>();
-        testList.add(new FittsTest("001", new ArrayList<FittsTestStage>(), "TestComment"));
+        testList.add(new FittsTest("001", new ArrayList<FittsTestStage>(), "TestComment", ""));
         tests = testList;
 
         MockitoAnnotations.initMocks(this);

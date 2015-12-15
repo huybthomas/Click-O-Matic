@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="testPortal/layout :: head (pageTitle='Fittstest creator')"></head>
+<head th:replace="testPortal/layout :: head (pageTitle=#{fittsTestCreator.title})"></head>
 <head>
     <!-- Included bootstrap-slider -->
     <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/v0.9.13/dist/css/bootstrap-multiselect.css"
@@ -9,6 +9,21 @@
 
     <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/v0.9.13/dist/js/bootstrap-multiselect.js"
             th:src="@{/webjars/seiyria-bootstrap-slider/5.2.6/dist/bootstrap-slider.min.js}"></script>
+
+    <!-- Included File upload -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <link th:href="@{/webjars/bootstrap-fileinput/4.2.7/css/fileinput.min.css}" media="all" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+    <script th:src="@{/webjars/bootstrap-fileinput/4.2.7/js/fileinput.min.js}" type="text/javascript"></script>
+
+    <!-- optionally if you need translation for your language then include
+        locale file as mentioned below
+    <script src="path/to/js/fileinput_locale_<lang>.js"></script> -->
 
     <!-- Included FittsTest scripts -->
     <!-- Included scripts -->
@@ -31,6 +46,11 @@
                     <span class="sr-only">Error: </span>
                     <span th:text="#{fittsTestCreator.alerts.error}">Error message</span>
                 </div>
+                <div th:if="${param.errorFileUpload}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    <span th:text="#{fittsTestCreator.alerts.errorFileUpload}">Error message</span>
+                </div>
             </div>
             <div class="testPortalPage">
                 <h2 th:text="#{fittstest.createTitle}"></h2>
@@ -47,6 +67,14 @@
                                 <td th:text="#{fittstest.comment}"></td>
                                 <td><textarea id="fittsTestComment" class="form-control" rows="4" type="text" th:field="*{comment}" style="min-height: 100px; resize: none"></textarea></td>
                             </div>
+                        </tr>
+                        <tr id="currentFile" style="display: none;">
+                            <td th:text="#{fittstest.currentFile}"></td>
+                            <td><div id="currentFileName"></div></td>
+                        </tr>
+                        <tr>
+                            <td th:text="#{fittstest.selectFile}"></td>
+                            <td><input id="fileInput" type="file" class="file"/></td>
                         </tr>
                         <tr>
                             <td id="dotAmt" th:text="#{fittstest.amtOfDotsMsg}"></td>
@@ -125,7 +153,36 @@
 
         var selector = document.getElementById("stagesSelector");
         var selectOptions = testAttr.testStages;
+        var fileName = testAttr.file;
+        var showedFileName = fileName.substr(0, fileName.lastIndexOf('-_-')) + '.zip';
+
+        if(fileName != "") {
+            var button = '<a class="btn btn-primary" title="Download" href="/Download/' + fileName + '/" target="_blank">' +
+                    '<span class="glyphicon glyphicon-download-alt"></span></a>';
+            document.getElementById("currentFileName").innerHTML = showedFileName + "" + button;
+            $("#currentFile").show();
+        }
         /*]]>*/
+    </script>
+
+    <!-- Filupload init -->
+    <script type="text/javascript">
+        $("#fileInput").fileinput({
+            uploadUrl: "/UploadTestFile/",
+            showPreview: false,
+            uploadAsync: true,
+            maxFileSize: 0,
+            allowedFileExtensions: ["zip"]
+        });
+
+        $('#fileInput').on('fileuploaded', function(event, data, previewId, index) {
+            var response = data.response;
+            if(response.status = "OK") {
+                testAttr.file = response.message;
+            } else {
+                testAttr.file = "";
+            }
+        });
     </script>
 
     <!-- Import FittsTestPreview -->
@@ -231,11 +288,13 @@
             initDots();
         });
 
-
         function sendFittsTest()
         {
             testAttr.testID = document.getElementById("fittsTestID").value;
             testAttr.comment = document.getElementById("fittsTestComment").value;
+            if(!testAttr.test) {
+                testAttr.test = "";
+            }
             testAttr.testStages = selectOptions;
             testAttr.numberOfStages = selectOptions.length;
             testAttr.testFinished = false;

@@ -120,6 +120,7 @@ public class FittsService
                 {
                     t.setTestID(test.getTestID());
                     t.setComment(test.getComment());
+                    t.setFile(test.getFile());
                     t.setTestStages(test.getTestStages());
 
                     //Save the stages of the test to the database
