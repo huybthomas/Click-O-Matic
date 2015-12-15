@@ -8,12 +8,12 @@
 
         <div class="content">
             <div class="messagesContent">
-                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <div th:if="${param.error}" class="alert alertBox alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error: </span>
                     <span th:text="#{registration.alerts.error}">There was an error, please try again</span>
                 </div>
-                <div th:if="${param.errorAlreadyExists}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <div th:if="${param.errorAlreadyExists}" class="alert alertBox alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error: </span>
                     <span th:text="#{registration.alerts.errorAlreadyExists}">Username already exists! Choose another username and try again.</span>
@@ -24,39 +24,42 @@
                 <div class="frontContent">
                     <h2 th:text="#{registration.header}">Registration</h2>
                     <form action="#" th:action="@{/Registration}" th:object="${user}" method="post">
-
-                        <h3 class="sub-header col-md-6" th:text="#{user}"></h3>
-                        <h3 class="sub-header col-md-6" th:text="#{roles}" style="vertical-align: top"></h3>
-                        <table class="table-responsive col-md-6">
-                            <tr>
-                                <td th:text="#{registration.firstname}">firstname</td>
-                                <td><input type="text" class="form-control" th:field="*{firstName}"/></td>
-                                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
-                            </tr>
-                            <tr>
-                                <td th:text="#{registration.lastname}">lastname</td>
-                                <td><input type="text" class="form-control" th:field="*{lastName}"/></td>
-                                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
-                            </tr>
-                            <tr>
-                                <td th:text="#{registration.username}">username</td>
-                                <td><input type="text" class="form-control" th:field="*{userName}"/></td>
-                                <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
-                            </tr>
-                            <tr>
-                                <td th:text="#{registration.password}">password</td>
-                                <td><input type="password" class="form-control" th:field="*{password}"/></td>
-                                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-                            </tr>
-                        </table>
-
-                        <select th:field="*{roles}" multiple="multiple" class="table-responsive col-md-6">
-                            <option th:each="role:${allRoles}"
-                                    th:value="${{role}}"
-                                    th:text="${role.name}">
-                            </option>
-                        </select>
-
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="sub-header" th:text="#{user}"></h3>
+                                <table class="col-md-8">
+                                    <tr>
+                                        <td th:text="#{registration.firstname}">firstname</td>
+                                        <td><input type="text" class="form-control" th:field="*{firstName}"/></td>
+                                        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{registration.lastname}">lastname</td>
+                                        <td><input type="text" class="form-control" th:field="*{lastName}"/></td>
+                                        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{registration.username}">username</td>
+                                        <td><input type="text" class="form-control" th:field="*{userName}"/></td>
+                                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{registration.password}">password</td>
+                                        <td><input type="password" class="form-control" th:field="*{password}"/></td>
+                                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="sub-header" th:text="#{roles}"></h3>
+                                <select th:field="*{roles}" multiple="multiple" class="form-control">
+                                    <option th:each="role:${allRoles}"
+                                            th:value="${{role}}"
+                                            th:text="${role.name}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <p class="col-md-12">
                             <input id="submit" type="submit" class="btn btn-primary" th:value="#{registration.create}"/>
                         </p>

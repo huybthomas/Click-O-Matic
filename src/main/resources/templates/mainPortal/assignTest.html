@@ -24,7 +24,7 @@
 
         <div class="mainPortalPage">
             <div class="messagesContent">
-                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <div th:if="${param.error}" class="alert alertBox alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error: </span>
                     <span th:text="#{application.error.generic}">Error message</span>

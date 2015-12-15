@@ -8,58 +8,54 @@
 
         <div id="usersProfilePage" class="mainPortalPage">
             <div class="frontContent">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <ul class="nav">
-                            <li><a th:href="@{/Registration}" href="registration.html">Create user</a></li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="content">
+                    <h2 th:text="#{users.header.editUser}">Edit user</h2>
                     <form action="#" th:action="@{/Users}" method="post" th:object="${user}" th:if="${user}">
-                        <div class="container">
-
-                            <h3 class="sub-header col-md-6" th:text="#{user}" ></h3>
-                            <h3 class="sub-header col-md-6" th:text="#{roles}" style="vertical-align: top"></h3>
-                            <table class="table-responsive col-md-6">
-                                <tr>
-                                    <td th:text="#{users.firstname}">firstname</td>
-                                    <td><input type="text" class="form-control" th:field="*{firstName}"/></td>
-                                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
-                                </tr>
-                                <tr>
-                                    <td th:text="#{users.lastname}">lastname</td>
-                                    <td><input type="text" class="form-control" th:field="*{lastName}"/></td>
-                                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
-                                </tr>
-                                <tr>
-                                    <td th:text="#{users.username}">username</td>
-                                    <td><input type="text" class="form-control" th:field="*{userName}"/></td>
-                                    <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
-                                </tr>
-                                <tr>
-                                    <td th:text="#{users.oldPassword}">password</td>
-                                    <td><input type="password" class="form-control" th:field="*{password}"/></td>
-                                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-                                </tr>
-                                <!-- <tr>
-                                    <td th:text="#{users.newPassword}">password</td>
-                                    <td><input type="password" th:field="*{password}"/></td>
-                                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-                                </tr>
-                                <tr>
-                                    <td th:text="#{users.newPasswordRepeat}">password</td>
-                                    <td><input type="password" th:field="*{password}"/></td>
-                                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-                                </tr> -->
-                            </table>
-
-                            <select th:field="*{roles}" multiple="multiple" class="table-responsive col-md-6">
-                                <option th:each="role:${allRoles}"
-                                        th:value="${{role}}"
-                                        th:text="${role.name}">
-                                </option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="sub-header" th:text="#{user}" ></h3>
+                                <table class="col-md-8">
+                                    <tr>
+                                        <td th:text="#{users.firstname}">firstname</td>
+                                        <td><input type="text" class="form-control" th:field="*{firstName}"/></td>
+                                        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{users.lastname}">lastname</td>
+                                        <td><input type="text" class="form-control" th:field="*{lastName}"/></td>
+                                        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{users.username}">username</td>
+                                        <td><input type="text" class="form-control" th:field="*{userName}"/></td>
+                                        <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{users.oldPassword}">password</td>
+                                        <td><input type="password" class="form-control" th:field="*{password}"/></td>
+                                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td th:text="#{users.newPassword}">password</td>
+                                        <td><input type="password" th:field="*{password}"/></td>
+                                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td th:text="#{users.newPasswordRepeat}">password</td>
+                                        <td><input type="password" th:field="*{password}"/></td>
+                                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                                    </tr> -->
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="sub-header col-md-6" th:text="#{roles}" style="vertical-align: top"></h3>
+                                <select th:field="*{roles}" multiple="multiple" class="form-control">
+                                    <option th:each="role:${allRoles}"
+                                            th:value="${{role}}"
+                                            th:text="${role.name}">
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
                         <p class="col-md-12">

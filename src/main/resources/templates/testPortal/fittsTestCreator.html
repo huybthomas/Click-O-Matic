@@ -21,13 +21,13 @@
 
         <div class="content">
             <div class="messagesContent">
-                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <div th:if="${param.error}" class="alert alertBox alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error: </span>
                     <span th:text="#{fittsTestCreator.alerts.error}">Error message</span>
                 </div>
             </div>
-            <div class="testPortalPage">
+            <div class="frontContent testPortalPage">
                 <h2 th:text="#{fittstest.createTitle}"></h2>
                 <form action="javascript:sendFittsTest();" th:object="${fittsTest}">
                     <table class="table-responsive col-md-6" style="line-height: 40px;">

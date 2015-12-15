@@ -78,7 +78,7 @@ public class RegistrationController
     {
         if(bindingResult.hasErrors())
         {
-            return "redirect:" + request.getRequestURI() + "/?error";
+            return "mainPortal/registration";
         }
         else
         {

@@ -5,6 +5,7 @@
     <style>
         .frontContent
         {
+            color: black;
             padding-top: 10%;
             padding-left: 10%;
             padding-bottom: 10%
@@ -19,12 +20,12 @@
 
         <div id="loginPage" class="loginPage">
             <div class="messagesContent">
-                <div th:if="${param.logout}" class="alert alert-success" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <div th:if="${param.logout}" class="alert alertBox alert-success" role="alert">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                     <span class="sr-only">Info: </span>
                     <span th:text="#{login.alerts.logout}">Logout message</span>
                 </div>
-                <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <div th:if="${param.error}" class="alert alertBox alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error: </span>
                     <span th:text="#{login.alerts.error}">Error message</span>
