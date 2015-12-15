@@ -2,6 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="testPortal/layout :: head (pageTitle=#{fittstest.title})"></head>
 <head>
+    <!-- Force scroll lock to execute test -->
+    <style>
+        html, body
+        {
+            overflow: hidden;   /*Disable scrollbars*/
+        }
+    </style>
+
     <!-- Included scripts -->
     <script type="text/javascript" th:src="'/js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackEvent.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>

@@ -14,14 +14,14 @@ function FittsTestStart(testStages)
     this.testStages = testStages;
     initializeEventSystem();
 
-
-    if(this.testStages.length > 0) {
-
+    if(this.testStages.length > 0)
+    {
         // cast JSON stages to FittsTestStage object
-        for (i = 0; i < this.testStages.length; i++) {
-
+        for(var i = 0; i < this.testStages.length; i++)
+        {
             var temp = new FittsTestStage(-1, -1, -1);
-            for (var prop in this.testStages[i]) {
+            for(var prop in this.testStages[i])
+            {
                 temp[prop] = this.testStages[i][prop];
             }
             this.testStages[i] = temp;
@@ -41,12 +41,14 @@ function initializeEventSystem()
     window.addEventListener("resize", resizeEvent.bind(this), false);
 }
 
-function setStage() {
+function setStage()
+{
     this.currentStage = this.testStages[selector.selectedIndex];
     this.currentStage.initializeDots(canvas);
 }
 
-function initDots() {
+function initDots()
+{
     this.currentStage.initializeDots(canvas);
 }
 
@@ -56,8 +58,8 @@ function draw()
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     //set current stage
-    if(selector.selectedIndex >= 0) {
-
+    if(selector.selectedIndex >= 0)
+    {
         //Draw
         this.currentStage.drawDots(context);
     }
@@ -66,7 +68,8 @@ function draw()
 
 function resizeEvent()
 {
-    if(selector.selectedIndex >= 0) {
+    if(selector.selectedIndex >= 0)
+    {
         //Reposition
         this.currentStage.repositionTest(canvas);
     }
