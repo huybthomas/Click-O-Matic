@@ -130,12 +130,15 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon') and hasRole('test-management')")
     public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
-        FittsResult result = fittsResultService.findByResultID(resultID);
-        FittsThroughput totalThroughput = fittsCalculateService.calculateThroughput(result);
+        FittsResult fittsResult = fittsResultService.findByResultID(resultID);
+        FittsTest fittsTest = fittsService.findTestById(fittsResult.getTestID());
+        FittsThroughput throughput = fittsCalculateService.calculateThroughput(fittsResult);
 
-        if(result != null)
+        if(fittsResult != null)
         {
-            model.addAttribute("fittsResult", totalThroughput.getTotalThroughput());
+            model.addAttribute("fittsTest", fittsTest);
+            model.addAttribute("fittsResult", fittsResult);
+            model.addAttribute("throughput", throughput);
             return "testPortal/fittsTestResult";
         }
         else
