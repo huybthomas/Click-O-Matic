@@ -2,6 +2,7 @@ package be.uantwerpen.iw.ei.se.fittsTest.models;
 
 import be.uantwerpen.iw.ei.se.models.MyAbstractPersistable;
 import be.uantwerpen.iw.ei.se.models.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class FittsTest extends MyAbstractPersistable<Long>
 {
     private String testID;
     private String comment;
+    private String file;
 
     @ManyToMany
     @JoinTable(
@@ -32,14 +34,16 @@ public class FittsTest extends MyAbstractPersistable<Long>
     {
         this.testID = "";
         this.comment = "";
+        this.file = "";
         this.testStages = new ArrayList<FittsTestStage>();
     }
 
-    public FittsTest(String testID, List<FittsTestStage> testStages, String comment)
+    public FittsTest(String testID, List<FittsTestStage> testStages, String comment, String file)
     {
         this.testID = testID;
-        this.comment = comment;
         this.testStages = testStages;
+        this.comment = comment;
+        this.file = file;
     }
 
     public void setTestID(String testID)
@@ -76,7 +80,15 @@ public class FittsTest extends MyAbstractPersistable<Long>
     {
         return this.testStages.size();
     }
-    
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     @Override
     public boolean equals(Object object)
     {

@@ -155,9 +155,9 @@ public class DatabaseLoader
         fittsTest03Stages.add(allFittsTestStages.get(3));
         fittsTest03Stages.add(allFittsTestStages.get(3));
 
-        allFittsTests.add(new FittsTest("001", fittsTest01Stages, "TestComment"));
-        allFittsTests.add(new FittsTest("002", fittsTest02Stages, "TestComment"));
-        allFittsTests.add(new FittsTest("003", fittsTest03Stages, "TestComment"));
+        allFittsTests.add(new FittsTest("001", fittsTest01Stages, "TestComment", ""));
+        allFittsTests.add(new FittsTest("002", fittsTest02Stages, "TestComment", ""));
+        allFittsTests.add(new FittsTest("003", fittsTest03Stages, "TestComment", ""));
 
         Iterator<FittsTestStage> fittsTestStageIterator = allFittsTestStages.iterator();
         while(fittsTestStageIterator.hasNext())

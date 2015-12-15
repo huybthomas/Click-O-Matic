@@ -86,6 +86,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>bootstrap-fileinput</artifactId>
+			<version>4.2.7</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>2.48.2</version>
