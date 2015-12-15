@@ -35,6 +35,13 @@ public class FittsTest extends MyAbstractPersistable<Long>
         this.testStages = new ArrayList<FittsTestStage>();
     }
 
+    public FittsTest(String testID, List<FittsTestStage> testStages)
+    {
+        this.testID = testID;
+        this.comment = "";
+        this.testStages = testStages;
+    }
+
     public FittsTest(String testID, List<FittsTestStage> testStages, String comment)
     {
         this.testID = testID;

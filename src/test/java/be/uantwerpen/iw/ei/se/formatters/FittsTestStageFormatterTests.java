@@ -4,7 +4,6 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
 import be.uantwerpen.iw.ei.se.repositories.FittsTestStageRepository;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
