@@ -42,6 +42,7 @@ public class FittsCalculateService
     {
         FittsTest test = fittsService.findTestById(result.getTestID());
         List<Double> stageThroughputs = new ArrayList<Double>();
+        int totalDots=0;
 
         for(int i=0; i<test.getTestStages().size(); i++)
         {
@@ -56,7 +57,7 @@ public class FittsCalculateService
             coordinates = calculateCoord(test.getTestStages().get(i), dotNumber, dotDistance);
             lines = calculateLines(dotNumber, coordinates);
             clickEvents = getAllClickEvents(result);
-            projectedClicks = calculateProjectedPoints(clickEvents, lines);
+            projectedClicks = calculateProjectedPoints(clickEvents, lines, totalDots, dotNumber);
             Double meanDeviation = calculateDeviations(projectedClicks, coordinates);
             Double We = this.constant*meanDeviation;
             //without deviation
@@ -65,6 +66,7 @@ public class FittsCalculateService
             Double DifficultyIndex = Math.log(((dotDistance*2) + (We)) / (We)) / Math.log(2);
             Double TotalTime = (double)(clickEvents.get(clickEvents.size() - 1).getTimestamp() - clickEvents.get(0).getTimestamp())/1000;
             Double AverageTime = TotalTime/dotNumber;
+            totalDots = totalDots + dotNumber;
 
             stageThroughputs.add(DifficultyIndex/AverageTime);
         }
@@ -153,18 +155,18 @@ public class FittsCalculateService
         return clickEvents;
     }
 
-    private List<List<Double>> calculateProjectedPoints(List<FittsTrackEvent> clickEvents, List<List<Double>> lines)
+    private List<List<Double>> calculateProjectedPoints(List<FittsTrackEvent> clickEvents, List<List<Double>> lines, int totalDots, int dotNumber)
     {
         List<List<Double>> projectedClicks = new ArrayList<List<Double>>();
         projectedClicks.add(new ArrayList<Double>());
         projectedClicks.add(new ArrayList<Double>());
 
-        for(int i=0; i < clickEvents.size(); i++)
+        for(int i=totalDots; i < totalDots+dotNumber; i++)
         {
             double clickX = clickEvents.get(i).getCursorPosX();
             double clickY = clickEvents.get(i).getCursorPosY();
-            double slope = lines.get(0).get(i);
-            double offset = lines.get(1).get(i);
+            double slope = lines.get(0).get(i-totalDots);
+            double offset = lines.get(1).get(i-totalDots);
             double projectedSlope = 0;
             double projectedOffset;
 

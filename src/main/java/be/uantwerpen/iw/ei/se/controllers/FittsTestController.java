@@ -3,8 +3,11 @@ package be.uantwerpen.iw.ei.se.controllers;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsThroughput;
 import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.services.FittsCalculateService;
+import be.uantwerpen.iw.ei.se.services.FittsResultService;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,12 @@ public class FittsTestController
 
     @Autowired
     private FittsService fittsService;
+
+    @Autowired
+    private FittsCalculateService fittsCalculateService;
+
+    @Autowired
+    private FittsResultService fittsResultService;
 
     @InitBinder
     private void allowFields(WebDataBinder webDataBinder)
@@ -121,11 +130,12 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon') and hasRole('test-management')")
     public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
-        FittsResult result = fittsService.findResultById(resultID);
+        FittsResult result = fittsResultService.findByResultID(resultID);
+        FittsThroughput totalThroughput = fittsCalculateService.calculateThroughput(result);
 
         if(result != null)
         {
-            model.addAttribute("fittsResult", result);
+            model.addAttribute("fittsResult", totalThroughput.getTotalThroughput());
             return "testPortal/fittsTestResult";
         }
         else
@@ -151,6 +161,13 @@ public class FittsTestController
         {
             return "redirect:/TestPortal?errorTestNotFound";
         }
+    }
+
+    @RequestMapping(value={"/TestResultByTestID/{testID}/"}, method=RequestMethod.GET, headers={"Content-type=application/json"})
+    @PreAuthorize("hasRole('logon')")
+    public @ResponseBody JSONResponse getResultsByTest(@PathVariable String testID, final ModelMap model)
+    {
+        return null;
     }
 
     @RequestMapping(value="/PostFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})
