@@ -17,22 +17,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 /**
- * Created by dries on 26/11/2015.
+ * Created by Nick on 15/12/2015.
  */
 @Controller
-public class TestManagementController
-{
+public class AssignTestController {
     @Autowired
     private UserService userService;
 
     @Autowired
     private FittsService fittsService;
 
-    @RequestMapping({"/AssignTest"})
+    @RequestMapping({"/Assign/TestsToUser"})
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String showAddTest(final ModelMap model)
     {
-        return "mainPortal/assignTest";
+        System.out.println("A");
+        return "mainPortal/testsToUser";
+    }
+
+    @RequestMapping({"/Assign/UsersToTest"})
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String showAddToTest(final ModelMap model)
+    {
+        System.out.println("B");
+        return "mainPortal/usersToTest";
     }
 
     @ModelAttribute("allUsers")
@@ -47,7 +55,8 @@ public class TestManagementController
         return fittsService.findAllTests();
     }
 
-    @RequestMapping(value="/AssignTest/{userName}/", method=RequestMethod.GET)
+
+    @RequestMapping(value="/Assign/TestsToUser/{userName}/", method= RequestMethod.GET)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String editAssignedTest(@PathVariable String userName, final ModelMap model)
     {
@@ -56,7 +65,7 @@ public class TestManagementController
         if(user != null)
         {
             model.addAttribute("user", user);
-            return "mainPortal/assignTest";
+            return "mainPortal/testsToUser";
         }
         else
         {
@@ -65,13 +74,13 @@ public class TestManagementController
         }
     }
 
-    @RequestMapping(value={"/Users/Assign/"}, method=RequestMethod.POST)
+    @RequestMapping(value={"/Assign/TestsToUser/"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String saveAssign(@Valid User user, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors())
         {
-            return "redirect:/AssignTest/" + user.getUserName() + "/?error";
+            return "redirect:/Assign/TestsToUser/" + user.getUserName() + "/?error";
         }
 
         userService.save(user);

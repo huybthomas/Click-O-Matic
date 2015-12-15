@@ -77,10 +77,10 @@
                     <li sec:authorize="!hasRole('logon')"><a th:href="@{/login}" href="login.html"><span class="glyphicon glyphicon-log-in"></span><span> </span><span th:text="#{navbar.login}">Login</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a href="/"><span class="glyphicon glyphicon-home"></span><span> </span><span th:text="#{navbar.home}">Home</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a href="/TestPortal"><span class="glyphicon glyphicon-hand-up"></span><span> </span><span th:text="#{navbar.fittstest}">Test Portal</span></a></li>
-                    <li sec:authorize="hasRole('logon')"><a id="Assign" data-target="#" href="/TestsToUser" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-collapse-down"></span>Assign</a>
-                        <ul class="dropdown-menu" aria-labelledby="Assign">
-                            <li sec:authorize="hasRole('logon')"><a href="/TestsToUser"><span th:text="#{navbar.testsToUser}">Tests To User</span></a></li>
-                            <li sec:authorize="hasRole('logon')"><a href="/UsersToTest"><span th:text="#{navbar.usersToTest}">Users To Test</span></a></li>
+                    <li sec:authorize="hasRole('logon') and hasRole('test-management')"><a data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-collapse-down"></span><span th:text="#{navbar.assignTests}">Assign</span></a>
+                        <ul class="dropdown-menu" id="Assign" aria-labelledby="Assign">
+                            <li sec:authorize="hasRole('logon')and hasRole('test-management')"><a href="/Assign/TestsToUser"><span th:text="#{navbar.testsToUser}">Tests To User</span></a></li>
+                            <li sec:authorize="hasRole('logon')and hasRole('test-management')"><a href="/Assign/UsersToTest"><span th:text="#{navbar.usersToTest}">Users To Test</span></a></li>
                         </ul>
                     </li>
                     <li sec:authorize="hasRole('logon') and hasRole('user-management')"><a href="/Users"><span class="glyphicon glyphicon-user"></span><span> </span><span th:text="#{navbar.users}">Users</span></a></li>
