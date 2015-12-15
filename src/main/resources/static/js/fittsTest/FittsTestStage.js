@@ -59,9 +59,9 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.repositionTest = function(canvas)
     {
-        var angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
-        var centerX = (canvas.width)/2;                   // middelpunt blijft centraal
-        var centerY = (canvas.height)/3;
+        angle  = (2*Math.PI)/(this.numberOfDots);     // aan de hand van de hoek worden de cirkels in een cirkel gezet. Deze veranderd aan de hand van het aantal bolletjes
+        centerX = (canvas.width)/2;                   // middelpunt blijft centraal
+        centerY = (canvas.height)/2;
 
         for(var i = 0; i < this.numberOfDots; i++)
         {

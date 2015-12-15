@@ -11,6 +11,11 @@
             th:src="@{/webjars/seiyria-bootstrap-slider/5.2.6/dist/bootstrap-slider.min.js}"></script>
 
     <!-- Included FittsTest scripts -->
+    <!-- Included scripts -->
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsDot.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackEvent.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTrackPath.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTestStage.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
     <script type="text/javascript" th:src="'/js/fittsTest/FittsTest.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
 </head>
@@ -38,6 +43,12 @@
                             </div>
                         </tr>
                         <tr>
+                            <div class="form-group">
+                                <td th:text="#{fittstest.comment}"></td>
+                                <td><textarea id="fittsTestComment" class="form-control" rows="4" type="text" th:field="*{comment}" style="min-height: 100px; resize: none"></textarea></td>
+                            </div>
+                        </tr>
+                        <tr>
                             <td id="dotAmt" th:text="#{fittstest.amtOfDotsMsg}"></td>
                             <td><input id="numberOfDotsSlider" type="text" data-slider-tooltip="hide"/></td>
                         </tr>
@@ -61,6 +72,12 @@
                     <p class="col-md-12">
                         <input type="submit" class="btn btn-primary" th:value="#{fittsTestCreator.create}"/>
                     </p>
+                    <div class="frontContent" id="frontContent">
+                        <h3 class="col-md-6 col-md-offset-3" th:text="#{fittsTestCreator.preview}"></h3>
+
+                        <!-- Fitts test -->
+                        <canvas id="FittsPreviewCanvas"></canvas>
+                    </div>
                 </form>
             </div>
         </div>
@@ -69,6 +86,26 @@
     <!-- Import footer -->
     <div th:replace="testPortal/layout :: footer"></div>
 
+    <!-- Resize canvas script -->
+    <script type="text/javascript">
+        window.addEventListener('resize', resizeEvent, false);
+
+        //Initial sizing
+        resizeEvent();
+
+        function resizeEvent(event)
+        {
+            var frontContent = document.getElementById("frontContent");
+            var FittsPreviewCanvas = document.getElementById("FittsPreviewCanvas");
+
+            var newWidth = frontContent.offsetWidth;
+            var newHeight = window.innerHeight * 0.5;  // Y positioning of canvas, not ideal yet.
+
+            FittsPreviewCanvas.width = newWidth;
+            FittsPreviewCanvas.height = newHeight;
+        }
+    </script>
+
     <!-- Slider scripts -->
     <script type="text/javascript">
         var numberOfDotsSlider = new Slider("#numberOfDotsSlider", {step: 2, min: 3, max: 21});
@@ -76,7 +113,7 @@
         var dotDistanceSlider = new Slider("#dotDistanceSlider", {step: 1, min: 20, max: 300});
     </script>
 
-    <!-- Test stages scripts -->
+    <!-- Load vars -->
     <script th:inline="javascript">
         /*<![CDATA[*/
         var testAttr=/*[[${fittsTest}]]*/;
@@ -88,6 +125,15 @@
 
         var selector = document.getElementById("stagesSelector");
         var selectOptions = testAttr.testStages;
+        /*]]>*/
+    </script>
+
+    <!-- Import FittsTestPreview -->
+    <script type="text/javascript" th:src="'/js/fittsTest/FittsTestPreview.js?v=' + #{application.version.main} + '.' + #{application.version.minor}"></script>
+
+    <!-- Test stages script -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         generateOptions();
 
         function generateOptions() {
@@ -164,27 +210,32 @@
             $("#dotRad").text(dotRadiusMsg + " " + stage.dotRadius);
             $("#dotDist").text(dotDistanceMsg + " " + stage.dotDistance);
 
+            setStage();
         }
 
         $("#numberOfDotsSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].numberOfDots = slideEvt.value;
             $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt.value);
+            initDots();
         });
 
         $("#dotRadiusSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotRadius = slideEvt.value;
             $("#dotRad").text(dotRadiusMsg + " " + slideEvt.value);
+            initDots();
         });
 
         $("#dotDistanceSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt.value;
             $("#dotDist").text(dotDistanceMsg + " " + slideEvt.value);
+            initDots();
         });
 
 
         function sendFittsTest()
         {
             testAttr.testID = document.getElementById("fittsTestID").value;
+            testAttr.comment = document.getElementById("fittsTestComment").value;
             testAttr.testStages = selectOptions;
 
             if((testAttr.testStages.length > 0) && (testAttr.testID != "")){
@@ -244,5 +295,6 @@
         }
         /*]]>*/
     </script>
+
 </body>
 </html>

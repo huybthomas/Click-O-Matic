@@ -41,7 +41,7 @@ public class FittsTestFormatterTests
     @Before
     public void init()
     {
-        test = new FittsTest("TestFormatter", new ArrayList<FittsTestStage>());
+        test = new FittsTest("TestFormatter", new ArrayList<FittsTestStage>(), "TestComment");
 
         fittsTestRepository.save(test);
 
