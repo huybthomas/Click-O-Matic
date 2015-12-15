@@ -1,13 +1,18 @@
 package be.uantwerpen.iw.ei.se.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.FileSystemResourceLoader;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.FileNameMap;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +38,7 @@ public class FileService {
 
         String fileName = multipartFile.getOriginalFilename();
         // strip .zip, add random, add .zip
-        fileName = fileName.substring(0,fileName.lastIndexOf('.')) + getHash(new Date().toString()) + ".zip";
+        fileName = fileName.substring(0,fileName.lastIndexOf('.')) + "-_-" + getHash(new Date().toString()) + ".zip";
 
         File newFile = new File(fileDir + fileName);
         try {
@@ -42,6 +47,24 @@ public class FileService {
         } catch(IOException e) {
             return "";
         }
+    }
+
+    public FileSystemResource loadFile(String fileName) {
+        String curDir = Paths.get("").toAbsolutePath().toString();
+        String fileDir = curDir + "\\Tests\\Files\\";
+        File file = new File(fileDir + fileName);
+        FileSystemResource returnFile = new FileSystemResource(file);
+        return returnFile;
+        /*Path path = Paths.get(fileDir + fileName);
+
+        String contentType = "application/zip";
+        try {
+            byte[] content = Files.readAllBytes(path);
+            MultipartFile result = new MockMultipartFile(fileName, fileName, contentType, content);
+            return result;
+        } catch (final IOException e) {
+            return null;
+        }*/
     }
 
 /*    private File convert(MultipartFile file) {

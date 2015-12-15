@@ -68,8 +68,12 @@
                                 <td><textarea id="fittsTestComment" class="form-control" type="text" th:field="*{comment}"></textarea></td>
                             </div>
                         </tr>
+                        <tr id="currentFile" style="display: none;">
+                            <td th:text="#{fittstest.currentFile}"></td>
+                            <td><div id="currentFileName"></div></td>
+                        </tr>
                         <tr>
-                            <td><label class="control-label">Select File</label></td>
+                            <td th:text="#{fittstest.selectFile}"></td>
                             <td><input id="fileInput" type="file" class="file"/></td>
                         </tr>
                         <tr>
@@ -147,6 +151,15 @@
 
         var selector = document.getElementById("stagesSelector");
         var selectOptions = testAttr.testStages;
+        var fileName = testAttr.file;
+        var showedFileName = fileName.substr(0, fileName.lastIndexOf('-_-')) + '.zip';
+
+        if(fileName != "") {
+            var button = '<a class="btn btn-primary" title="Download" href="/Download/' + fileName + '/" target="_blank">' +
+                    '<span class="glyphicon glyphicon-download-alt"></span></a>';
+            document.getElementById("currentFileName").innerHTML = showedFileName + "" + button;
+            $("#currentFile").show();
+        }
         /*]]>*/
     </script>
 
