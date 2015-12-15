@@ -105,6 +105,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.testProgress = 0;
         this.previousTarget = -1;
         this.nextTarget = 0;
+        this.trackPaths = [];
         this.currentTrackPath = new FittsTrackPath();
 
         this.initializeDots(canvas);
@@ -192,17 +193,18 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         var tempPosY = this.cursorState.y + (canvas.height)/3;
 
 
-        if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY)&&(this.AmountOfFalseClicks<5))
+        if(this.AmountOfFalseClicks<5)
         {
+            if(!(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY)))
+            {
+                this.AmountOfFalseClicks++;
+            }
             this.setNextTarget();
-
             return true;
         }
         else
         {
             this.setNextTarget();
-            this.AmountOfFalseClicks++;
-
             return false;
         }
 
