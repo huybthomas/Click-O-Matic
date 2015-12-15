@@ -36,9 +36,14 @@ public class UserService
             return false;
         }
 
-        this.userRepository.save(user);
-
-        return true;
+        if(this.userRepository.save(user) != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void delete(String userName)
@@ -63,13 +68,10 @@ public class UserService
                     u.setTests(user.getTests());
                     u.setResults(user.getResults());
 
-                    userRepository.save(u);
-
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    if(userRepository.save(u) != null)
+                    {
+                        return true;
+                    }
                 }
             }
         }
