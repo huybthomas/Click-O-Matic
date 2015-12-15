@@ -33,6 +33,7 @@
         </div>
 
         <div class="frontContent testPortalPage">
+            <div th:if="${#maps.isEmpty(allUserFittsTests)}" th:text="#{testPortal.noTestsAvailable}">No tests available</div>
             <table class="table">
                 <tr th:each="testEntry : ${allUserFittsTests}">
                     <td th:text="${testEntry.key.testID}" style="vertical-align: middle"/>
