@@ -16,16 +16,6 @@ function FittsTestStart(testStages)
 
 
     if(this.testStages.length > 0) {
-
-        // cast JSON stages to FittsTestStage object
-        for (i = 0; i < this.testStages.length; i++) {
-
-            var temp = new FittsTestStage(-1, -1, -1);
-            for (var prop in this.testStages[i]) {
-                temp[prop] = this.testStages[i][prop];
-            }
-            this.testStages[i] = temp;
-        }
         // set first stage
         this.currentStage = this.testStages[0];
         this.currentStage.initializeDots(canvas);
