@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +52,7 @@ public class FittsResultFormatterTests
     }
 
     @Test
+    @Transactional
     public void parserTest() throws ParseException
     {
         FittsResult parserFittsResult = fittsResultFormatter.parse(result.getId().toString(), locale);
@@ -59,6 +61,7 @@ public class FittsResultFormatterTests
     }
 
     @Test
+    @Transactional
     public void toStringTest()
     {
         String parsedString = fittsResultFormatter.print(result, locale);

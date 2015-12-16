@@ -31,7 +31,7 @@ public class FittsResult extends MyAbstractPersistable<Long>
         this.testID = "";
         this.resultDate = new Date();
         this.stages = new ArrayList<FittsStageResult>();
-        this.user = null;
+        this.user = new User();
     }
 
     public FittsResult(String resultID, String testID, Date resultDate, List<FittsStageResult> stageResults, User user)
