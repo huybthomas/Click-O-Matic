@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dries on 26/11/2015.
@@ -101,4 +105,26 @@ public class TestManagementController
             return "redirect:/Users?errorUserNotFound";
         }
     }
+
+    @RequestMapping({"/TestManagement"})
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String showTestPortal(final ModelMap model) {
+
+        Iterable<FittsTest> allTests = fittsService.findAllTests();
+        model.addAttribute("allTests", allTests);
+
+        return "testPortal/allTests";
+    }
+
+    @RequestMapping(value="/FittsTestDelete/{testID}/")
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String deleteTest(@PathVariable String testID, final ModelMap model)
+    {
+        fittsService.delete(testID);
+        model.clear();
+
+        return "redirect:/TestManagement?testDeleted";
+    }
+
+
 }

@@ -137,6 +137,12 @@ public class FittsService
         return false;
     }
 
+    public void delete(String testID)
+    {
+        FittsTest test = findTestById(testID);
+        this.fittsTestRepository.delete(test.getId());
+    }
+
     public boolean testIdAlreadyExists(final String testID)
     {
         List<FittsTest> tests = fittsTestRepository.findAll();
