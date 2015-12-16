@@ -102,7 +102,7 @@ public class TestCreationController
             //Finish session
             sessionStatus.setComplete();
 
-            return new JSONResponse("OK", "", "/TestPortal?testEdited", null);
+            return new JSONResponse("OK", "", "/TestManagement?testEdited", null);
         }
         else
         {
@@ -111,7 +111,7 @@ public class TestCreationController
                 //Finish session
                 sessionStatus.setComplete();
 
-                return new JSONResponse("OK", "", "/TestPortal?testAdded", null);
+                return new JSONResponse("OK", "", "/TestManagement?testAdded", null);
             }
             else
             {

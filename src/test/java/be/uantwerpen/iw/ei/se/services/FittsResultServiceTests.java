@@ -2,6 +2,7 @@ package be.uantwerpen.iw.ei.se.services;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +37,8 @@ public class FittsResultServiceTests
     @Before
     public void init()
     {
-        FittsResult result1 = new FittsResult("result001", "test001", new Date(), new ArrayList<FittsStageResult>());
-        FittsResult result2 = new FittsResult("result002", "test003", new Date(), new ArrayList<FittsStageResult>());
+        FittsResult result1 = new FittsResult("result001", "test001", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult result2 = new FittsResult("result002", "test003", new Date(), new ArrayList<FittsStageResult>(), new User());
         results = new ArrayList<FittsResult>(Arrays.asList(result1, result2));
 
         MockitoAnnotations.initMocks(this);
@@ -54,7 +55,7 @@ public class FittsResultServiceTests
     @Test
     public void resultIdNotExistsTest()
     {
-        FittsResult result2 = new FittsResult("result003", "test005", new Date(), new ArrayList<FittsStageResult>());
+        FittsResult result2 = new FittsResult("result003", "test005", new Date(), new ArrayList<FittsStageResult>(), new User());
 
         when(fittsResultRepository.findAll()).thenReturn(results);
 

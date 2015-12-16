@@ -3,6 +3,7 @@ package be.uantwerpen.iw.ei.se.repositories;
 import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
+import be.uantwerpen.iw.ei.se.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import javax.transaction.Transactional;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
@@ -28,6 +31,9 @@ public class FittsResultRepositoryTests
     @Autowired
     private FittsResultRepository fittsResultRepository;
 
+    @Autowired
+    private UserService userService;
+
     private int origFittsResultRepositorySize;
 
     @Before
@@ -37,11 +43,13 @@ public class FittsResultRepositoryTests
     }
 
     @Test
+    @Transactional
     public void testSaveResult()
     {
         //Setup result
         FittsResult fittsResult = new FittsResult();
         fittsResult.setResultID("Result");
+        fittsResult.setUser(userService.findAll().iterator().next());
 
         //Save result, verify has ID value after save
         assertNull(fittsResult.getId());       //Null before save
@@ -85,6 +93,7 @@ public class FittsResultRepositoryTests
     }
 
     @Test
+    @Transactional
     public void testDeleteFittsResultTest()
     {
         //Setup result

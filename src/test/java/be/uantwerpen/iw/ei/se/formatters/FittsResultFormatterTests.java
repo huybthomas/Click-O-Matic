@@ -4,6 +4,7 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class FittsResultFormatterTests
     @Before
     public void init()
     {
-        result = new FittsResult("ResultFormatter", "TestID", new Date(), new ArrayList<FittsStageResult>());
+        result = new FittsResult("ResultFormatter", "TestID", new Date(), new ArrayList<FittsStageResult>(), new User());
 
         fittsResultRepository.save(result);
 
@@ -50,6 +52,7 @@ public class FittsResultFormatterTests
     }
 
     @Test
+    @Transactional
     public void parserTest() throws ParseException
     {
         FittsResult parserFittsResult = fittsResultFormatter.parse(result.getId().toString(), locale);
@@ -58,6 +61,7 @@ public class FittsResultFormatterTests
     }
 
     @Test
+    @Transactional
     public void toStringTest()
     {
         String parsedString = fittsResultFormatter.print(result, locale);

@@ -16,13 +16,8 @@ public class FittsTest extends MyAbstractPersistable<Long>
     private String testID;
     private String comment;
 
-    @ManyToMany
-    @JoinTable(
-            name="TEST_STAGE",
-            joinColumns={
-                    @JoinColumn(name="TEST_ID", referencedColumnName="ID")},
-            inverseJoinColumns={
-                    @JoinColumn(name="SESSION_ID", referencedColumnName="ID")})
+    @OneToMany
+    @JoinColumn(name="TESTSTAGE_ID", referencedColumnName="ID")
     private List<FittsTestStage> testStages;
 
     @ManyToMany(mappedBy = "tests")

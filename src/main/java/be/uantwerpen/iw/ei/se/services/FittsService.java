@@ -138,6 +138,35 @@ public class FittsService
         return false;
     }
 
+    public boolean deleteTest(String testID)
+    {
+        FittsTest test = findTestById(testID);
+
+        if(test != null)
+        {
+            //Delete all existing results of this test
+            for(FittsResult result : this.findResultsByTestId(testID))
+            {
+                this.fittsResultService.delete(result.getResultID());
+            }
+
+            //Delete all test stages
+            this.fittsTestStageRepository.delete(test.getTestStages());
+
+            //Delete test
+            this.fittsTestRepository.delete(test);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean deleteResult(String resultID)
+    {
+        return this.fittsResultService.delete(resultID);
+    }
+
     public boolean testIdAlreadyExists(final String testID)
     {
         List<FittsTest> tests = fittsTestRepository.findAll();

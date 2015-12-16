@@ -1,5 +1,6 @@
 package be.uantwerpen.iw.ei.se.services;
 
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +22,9 @@ public class UserService
 {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FittsService fittsService;
 
     @Autowired
     private UserDetailsService securityService;
@@ -46,10 +51,30 @@ public class UserService
         }
     }
 
-    public void delete(String userName)
+    public boolean delete(String userName)
     {
         User u = findByUserName(userName);
-        this.userRepository.delete(u.getId());
+
+        if(u != null)
+        {
+            List<String> resultIDs = new ArrayList<String>();
+
+            for(FittsResult result : u.getResults())
+            {
+                resultIDs.add(result.getResultID());
+            }
+
+            for(String resultID : resultIDs)
+            {
+                this.fittsService.deleteResult(resultID);
+            }
+
+            this.userRepository.delete(u.getId());
+
+            return true;
+        }
+
+        return false;
     }
 
     public boolean save(User user)
