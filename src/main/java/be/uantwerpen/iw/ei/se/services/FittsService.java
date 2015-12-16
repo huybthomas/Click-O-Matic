@@ -137,10 +137,27 @@ public class FittsService
         return false;
     }
 
-    public void delete(String testID)
+    public boolean deleteTest(String testID)
     {
         FittsTest test = findTestById(testID);
-        this.fittsTestRepository.delete(test.getId());
+
+        if(test != null)
+        {
+            //Delete all test stages
+            this.fittsTestStageRepository.delete(test.getTestStages());
+
+            //Delete test
+            this.fittsTestRepository.delete(test);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean deleteResult(String resultID)
+    {
+        return this.fittsResultService.delete(resultID);
     }
 
     public boolean testIdAlreadyExists(final String testID)

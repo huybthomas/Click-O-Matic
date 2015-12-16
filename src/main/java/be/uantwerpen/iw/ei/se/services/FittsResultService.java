@@ -67,6 +67,36 @@ public class FittsResultService
         this.save(new ArrayList<FittsResult>(Arrays.asList(result)));
     }
 
+    public boolean delete(String resultID)
+    {
+        FittsResult result = this.findByResultID(resultID);
+
+        if(result != null)
+        {
+            for(FittsStageResult stage : result.getStageResults())
+            {
+                for(FittsTrackPath path : stage.getFittsTrackPaths())
+                {
+                    //Delete all Track events
+                    this.fittsTrackEventRepository.delete(path.getPath());
+                }
+
+                //Delete all Track Paths
+                this.fittsTrackPathRepository.delete(stage.getFittsTrackPaths());
+            }
+
+            //Delete all Stage Results
+            this.fittsStageResultRepository.delete(result.getStageResults());
+
+            //Delete Result
+            this.fittsResultRepository.delete(result);
+
+            return true;
+        }
+
+        return false;
+    }
+
     public Iterable<FittsResult> findByTestID(String testID)
     {
         return this.fittsResultRepository.findByTestID(testID);
