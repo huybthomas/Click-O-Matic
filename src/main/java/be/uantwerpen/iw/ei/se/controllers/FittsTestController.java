@@ -188,7 +188,7 @@ public class FittsTestController
                 resultID = "result-" + numberOfResults;
             }
 
-            FittsResult newResult = new FittsResult("result-" + numberOfResults, testID, new Date(), testResults);
+            FittsResult newResult = new FittsResult("result-" + numberOfResults, testID, new Date(), testResults, userService.getPrincipalUser());
 
             if(fittsService.saveTestResult(newResult))
             {

@@ -4,6 +4,7 @@ import be.uantwerpen.iw.ei.se.ClickOMaticApplication;
 import be.uantwerpen.iw.ei.se.configurations.SystemPropertyActiveProfileResolver;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
+import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class FittsResultFormatterTests
     @Before
     public void init()
     {
-        result = new FittsResult("ResultFormatter", "TestID", new Date(), new ArrayList<FittsStageResult>());
+        result = new FittsResult("ResultFormatter", "TestID", new Date(), new ArrayList<FittsStageResult>(), new User());
 
         fittsResultRepository.save(result);
 

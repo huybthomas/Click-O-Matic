@@ -120,11 +120,9 @@ public class TestManagementController
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String deleteTest(@PathVariable String testID, final ModelMap model)
     {
-        fittsService.delete(testID);
+        fittsService.deleteTest(testID);
         model.clear();
 
         return "redirect:/TestManagement?testDeleted";
     }
-
-
 }

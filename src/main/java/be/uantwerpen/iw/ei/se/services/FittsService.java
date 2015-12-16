@@ -143,6 +143,12 @@ public class FittsService
 
         if(test != null)
         {
+            //Delete all existing results of this test
+            for(FittsResult result : this.findResultsByTestId(testID))
+            {
+                this.fittsResultService.delete(result.getResultID());
+            }
+
             //Delete all test stages
             this.fittsTestStageRepository.delete(test.getTestStages());
 
