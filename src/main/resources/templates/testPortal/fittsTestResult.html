@@ -9,20 +9,23 @@
         <div th:replace="testPortal/layout :: navbar"></div>
 
         <div class="testPortalPage">
-            <table class="table">
-                <tr>
-                    <td th:text="${fittsTest.testID}" />
-                </tr>
-                <table>
+            <h3 th:text="'Test: ' + ${fittsTest.testID}" />
+            <div class="col-md-6">
+                <table class="col-md-3">
+                    <tr th:each="stageId: ${stageResult}">
+                        <td th:text="'Throughput stage ' + ${stageId.stageOrderIndex} + ':'"/>
+                    </tr>
+                </table>
+                <table class="col-md-3">
                     <tr th:each="stageThroughput: ${throughput.stageThroughput}">
                         <td th:text="${stageThroughput}"/>
                     </tr>
                 </table>
-                <tr>
-                    <td>Fitts test throughput result: </td>
-                    <td th:text="${throughput.totalThroughput}" />
-                </tr>
-            </table>
+            </div>
+            <div class="col-md-12">
+                <td>Total throughput: </td>
+                <td th:text="${throughput.totalThroughput}" />
+            </div>
         </div>
     </div>
 

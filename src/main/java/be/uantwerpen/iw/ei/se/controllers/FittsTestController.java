@@ -133,12 +133,14 @@ public class FittsTestController
         FittsResult fittsResult = fittsResultService.findByResultID(resultID);
         FittsTest fittsTest = fittsService.findTestById(fittsResult.getTestID());
         FittsThroughput throughput = fittsCalculateService.calculateThroughput(fittsResult);
+        List<FittsStageResult> fittsStageResult = fittsResult.getStageResults();
 
         if(fittsResult != null)
         {
             model.addAttribute("fittsTest", fittsTest);
             model.addAttribute("fittsResult", fittsResult);
             model.addAttribute("throughput", throughput);
+            model.addAttribute("stageResult", fittsStageResult);
             return "testPortal/fittsTestResult";
         }
         else
