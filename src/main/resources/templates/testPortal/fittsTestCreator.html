@@ -24,8 +24,8 @@
 
     <!-- optionally if you need translation for your language then include
     locale file as mentioned below :
-        -- does not work
-        -- tried to add it on default with fr and nl:
+        does not work
+        tried to add it on default with fr and nl:
         <script th:src="@{/webjars/bootstrap-fileinput/4.2.7/js/fileinput_locale_nl.js}"></script>
 
 <script th:inline="javascript">
@@ -97,6 +97,10 @@
                         <tr>
                             <td th:text="#{fittstest.selectFile}"></td>
                             <td><input id="fileInput" type="file" class="file"/></td>
+                        </tr>
+                        <tr>
+                            <td th:text="#{fittstest.difficulty}"></td>
+                            <td id="difficultyIndex">0.000</td>
                         </tr>
                         <tr>
                             <td id="dotAmt" th:text="#{fittstest.amtOfDotsMsg}"></td>
@@ -286,27 +290,40 @@
             $("#dotAmt").text(amtOfDotsMsg + " " + stage.numberOfDots);
             $("#dotRad").text(dotRadiusMsg + " " + stage.dotRadius);
             $("#dotDist").text(dotDistanceMsg + " " + stage.dotDistance);
-
+            calcDifficulty();
             setStage();
         }
 
         $("#numberOfDotsSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].numberOfDots = slideEvt.value;
             $("#dotAmt").text(amtOfDotsMsg + " " + slideEvt.value);
+            calcDifficulty();
             initDots();
         });
 
         $("#dotRadiusSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotRadius = slideEvt.value;
             $("#dotRad").text(dotRadiusMsg + " " + slideEvt.value);
+            calcDifficulty();
             initDots();
         });
 
         $("#dotDistanceSlider").bind("slide slideStop", function(slideEvt) {
             selectOptions[selector.selectedIndex].dotDistance = slideEvt.value;
             $("#dotDist").text(dotDistanceMsg + " " + slideEvt.value);
+            calcDifficulty();
             initDots();
         });
+
+        function calcDifficulty() {
+            // index = log((2*dotDistance + 2*dotRadius) / (2*dotRadius)) / log(2)
+            var difficultyIndex = Math.log( ( (selectOptions[selector.selectedIndex].dotDistance*2)
+                                               +(selectOptions[selector.selectedIndex].dotRadius*2))
+                                            / (selectOptions[selector.selectedIndex].dotRadius*2)     )
+                                    / Math.log(2);
+
+            $('#difficultyIndex').text(difficultyIndex.toFixed(3)); // 3 fraction digits after dot
+        }
 
         function sendFittsTest()
         {
