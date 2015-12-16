@@ -27,6 +27,15 @@ public class FittsTest extends MyAbstractPersistable<Long>
     @ManyToMany(mappedBy = "tests")
     private List<User> users;
 
+    @ManyToMany
+    @JoinTable(
+            name="TESTS_USER",
+            joinColumns={
+                    @JoinColumn(name="FITTS_TEST_ID", referencedColumnName="ID")},
+            inverseJoinColumns={
+                    @JoinColumn(name="USER_ID", referencedColumnName="ID")})
+    private List<User> usersToTest;
+
     public FittsTest()
     {
         this.testID = "";
@@ -62,6 +71,16 @@ public class FittsTest extends MyAbstractPersistable<Long>
     public int getNumberOfStages()
     {
         return this.testStages.size();
+    }
+
+    public List<User> getUsers()
+    {
+        return this.usersToTest;
+    }
+
+    public void setTests(List<User> UsersToTest)
+    {
+        this.usersToTest = UsersToTest;
     }
     
     @Override

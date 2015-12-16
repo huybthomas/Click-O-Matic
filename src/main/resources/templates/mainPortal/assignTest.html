@@ -32,7 +32,7 @@
             </div>
             <div class="frontContent">
                 <div class="content">
-                    <form action="#" th:action="@{/Users/Assign}" method="post" th:object="${user}" th:if="${user}">
+                    <form action="#" th:action="@{/Assign/TestsToUser/}" method="post" th:object="${user}" th:if="${user}">
                         <input th:type="hidden" th:field="*{id}"/>
                         <input th:type="hidden" th:field="*{firstName}"/>
                         <input th:type="hidden" th:field="*{lastName}"/>
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <p class="col-md-12">
-                            <a href="/Users" th:text="#{back}" class="btn btn-primary">Back</a>
+                            <a href="/Assign/TestsToUser" th:text="#{back}" class="btn btn-primary">Back</a>
                             <button type="submit" th:text="#{assign}" class="btn btn-primary">assignTest</button>
                         </p>
                     </form>

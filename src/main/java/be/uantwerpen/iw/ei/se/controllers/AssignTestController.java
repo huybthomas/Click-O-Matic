@@ -27,22 +27,6 @@ public class AssignTestController {
     @Autowired
     private FittsService fittsService;
 
-    @RequestMapping({"/Assign/TestsToUser"})
-    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String showAddTest(final ModelMap model)
-    {
-        System.out.println("A");
-        return "mainPortal/testsToUser";
-    }
-
-    @RequestMapping({"/Assign/UsersToTest"})
-    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String showAddToTest(final ModelMap model)
-    {
-        System.out.println("B");
-        return "mainPortal/usersToTest";
-    }
-
     @ModelAttribute("allUsers")
     public Iterable<User> populateUsers()
     {
@@ -55,22 +39,53 @@ public class AssignTestController {
         return fittsService.findAllTests();
     }
 
+    @RequestMapping({"/Assign/TestsToUser"})
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String showAddTest(final ModelMap model)
+    {
+        return "mainPortal/testsToUser";
+    }
+
+    @RequestMapping({"/Assign/UsersToTest"})
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String showAddUser(final ModelMap model)
+    {
+        return "mainPortal/usersToTest";
+    }
 
     @RequestMapping(value="/Assign/TestsToUser/{userName}/", method= RequestMethod.GET)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String editAssignedTest(@PathVariable String userName, final ModelMap model)
-    {
-        User user = userService.findByUserName(userName);
-
-        if(user != null)
+        public String editAssignedTest(@PathVariable String userName, final ModelMap model)
         {
-            model.addAttribute("user", user);
-            return "mainPortal/testsToUser";
+            User user = userService.findByUserName(userName);
+
+            if(user != null)
+            {
+                model.addAttribute("user", user);
+                return "mainPortal/testsToUser";
+            }
+            else
+            {
+                model.addAttribute("user", null);
+                return "redirect:/Users?errorUserNotFound";
+            }
+    }
+
+    @RequestMapping(value="/Assign/UsersToTest/{testID}/", method= RequestMethod.GET)
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String editAssignedUser(@PathVariable String testID, final ModelMap model)
+    {
+        FittsTest test = fittsService.findTestById(testID);
+
+        if(testID != null)
+        {
+            model.addAttribute("test", testID);
+            return "mainPortal/usersToTest";
         }
         else
         {
-            model.addAttribute("user", null);
-            return "redirect:/Users?errorUserNotFound";
+            model.addAttribute("test", null);
+            return "redirect:/Tests?errorTestsNotFound";
         }
     }
 
@@ -86,4 +101,19 @@ public class AssignTestController {
         userService.save(user);
         return "redirect:/Users";
     }
+
+    @RequestMapping(value={"/Assign/UsersToTest/"}, method=RequestMethod.POST)
+    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
+    public String saveAssignUser(@Valid FittsTest testID , BindingResult result, final ModelMap model)
+    {
+        if(result.hasErrors())
+        {
+            return "redirect:/Assign/UsersToTest/" + testID.getTestID() + "/?error";
+        }
+
+
+        fittsService.saveTest(testID);
+        return "redirect:/Users";
+    }
+
 }
