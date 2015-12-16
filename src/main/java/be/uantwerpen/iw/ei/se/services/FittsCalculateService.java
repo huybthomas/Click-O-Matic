@@ -42,6 +42,8 @@ public class FittsCalculateService
     {
         FittsTest test = fittsService.findTestById(result.getTestID());
         List<Double> stageThroughputs = new ArrayList<Double>();
+        List<FittsTrackEvent> clickEvents = new ArrayList<FittsTrackEvent>();
+        clickEvents = getAllClickEvents(result);
         int totalDots=0;
 
         for(int i=0; i<test.getTestStages().size(); i++)
@@ -49,22 +51,20 @@ public class FittsCalculateService
             List<List<Double>> coordinates = new ArrayList<List<Double>>();
             List<List<Double>> lines = new ArrayList<List<Double>>();
             List<List<Double>> projectedClicks = new ArrayList<List<Double>>();
-            List<FittsTrackEvent> clickEvents = new ArrayList<FittsTrackEvent>();
             int dotDistance = test.getTestStages().get(i).getDotDistance();
             int dotNumber = test.getTestStages().get(i).getNumberOfDots();
-            int dotRadius = test.getTestStages().get(i).getDotRadius();
+            //int dotRadius = test.getTestStages().get(i).getDotRadius();
 
             coordinates = calculateCoord(test.getTestStages().get(i), dotNumber, dotDistance);
             lines = calculateLines(dotNumber, coordinates);
-            clickEvents = getAllClickEvents(result);
             projectedClicks = calculateProjectedPoints(clickEvents, lines, totalDots, dotNumber);
             Double meanDeviation = calculateDeviations(projectedClicks, coordinates);
             Double We = this.constant*meanDeviation;
             //without deviation
             //Double DifficultyIndex = Math.log(((dotDistance*2)+ (dotRadius*2))/(dotRadius*2))/Math.log(2);
             //with  deviation
-            Double DifficultyIndex = Math.log(((dotDistance*2) + (We)) / (We)) / Math.log(2);
-            Double TotalTime = (double)(clickEvents.get(clickEvents.size() - 1).getTimestamp() - clickEvents.get(0).getTimestamp())/1000;
+            Double DifficultyIndex = Math.log(((dotDistance*2) + We) / We) / Math.log(2);
+            Double TotalTime = (double)(clickEvents.get(totalDots+dotNumber-1).getTimestamp() - clickEvents.get(totalDots).getTimestamp())/1000;
             Double AverageTime = TotalTime/dotNumber;
             totalDots = totalDots + dotNumber;
 
