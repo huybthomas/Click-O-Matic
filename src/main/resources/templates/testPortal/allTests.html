@@ -42,8 +42,8 @@
                 <span class="sr-only">Info: </span>
                 <span th:text="#{fittstest.alerts.testEdited}">Test has been edited</span>
             </div>
-            <div th:if="${param.testDeleted}" class="alert alertBox alert-success" role="alert">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <div th:if="${param.testDeleted}" class="alert alertBox alert-warning" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Info: </span>
                 <span th:text="#{fittstest.alerts.testDeleted}">Test has been deleted</span>
             </div>
