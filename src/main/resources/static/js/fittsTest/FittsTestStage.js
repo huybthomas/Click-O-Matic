@@ -19,6 +19,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     this.dotsList = [];
     this.backCircle = {};
     this.cursorState = {x: 0, y: 0, leftPressed: false};
+    this.amountOfFalseClicks=0;
 
     this.initialize = function(canvas)
     {
@@ -76,7 +77,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.setNextTarget = function()
     {
-        if(this.testProgress < this.numberOfDots)
+        if(this.testProgress < this.numberOfDots && (this.amountOfFalseClicks<5))
         {
             this.previousTarget = this.nextTarget;
 
@@ -87,12 +88,28 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
             this.testProgress++;
         }
+        else if(this.amountOfFalseClicks >=4)
+        {
+            $('#restartModal').modal('show');
+        }
         else
         {
             this.dotsList[this.nextTarget].setTarget(false);
             this.testStageFinished = true;
         }
     };
+
+    this.restart = function() {
+        this.testProgress =0;
+        this.previousTarget = -1;
+        this.nextTarget = 0;
+        this.trackPaths = [];
+        this.currentTrackPath = new FittsTrackPath();
+
+        this.initializeDots(canvas);
+        this.amountOfFalseClicks =0;
+        $('#restartModal').modal("hide");
+    }
 
     this.setDotColor = function(dotHColor, dotLColor)
     {
@@ -173,11 +190,19 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         var tempPosX = this.cursorState.x + (canvas.width)/2;
         var tempPosY = this.cursorState.y + (canvas.height)/2;
 
-        if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
+        if(this.amountOfFalseClicks<5)
+        {
+            if(!this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
+            {
+                this.amountOfFalseClicks++;
+            }
+            this.setNextTarget();
+            return true;
+        }
+        else
         {
             this.setNextTarget();
-
-            return true;
+            return false;
         }
 
         return false;

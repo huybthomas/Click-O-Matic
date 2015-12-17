@@ -45,6 +45,28 @@
             </div>
         </div>
 
+        <!-- Modal popup -->
+        <div id="restartModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Stage failed</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You have clicked wrong too many times! The stage will now restart</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/TestPortal"><button type="button" class="btn btn-primary" th:value="#{fittstest.return}">Stop</button></a>
+                        <button type="button" class="btn btn-primary" onclick="restartStage();">Restart</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="frontTestContent" id="frontContent">
             <!-- Fitts test -->
             <canvas id="FittsCanvas"></canvas>

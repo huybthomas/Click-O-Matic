@@ -42,6 +42,7 @@ public class FittsCalculateService
     {
         FittsTest test = fittsService.findTestById(result.getTestID());
         List<Double> stageThroughputs = new ArrayList<Double>();
+        List <FittsStageResult> fittsStageResults = result.getStageResults();
         List<FittsTrackEvent> clickEvents = new ArrayList<FittsTrackEvent>();
         clickEvents = getAllClickEvents(result);
         int totalDots=0;
@@ -53,9 +54,9 @@ public class FittsCalculateService
             List<List<Double>> projectedClicks = new ArrayList<List<Double>>();
             int dotDistance = test.getTestStages().get(i).getDotDistance();
             int dotNumber = test.getTestStages().get(i).getNumberOfDots();
-            //int dotRadius = test.getTestStages().get(i).getDotRadius();
+            //int dotRadius = test.getTestStages().get(currentState).getDotRadius();
 
-            coordinates = calculateCoord(test.getTestStages().get(i), dotNumber, dotDistance);
+            coordinates = calculateCoord(dotNumber, dotDistance);
             lines = calculateLines(dotNumber, coordinates);
             projectedClicks = calculateProjectedPoints(clickEvents, lines, totalDots, dotNumber);
             Double meanDeviation = calculateDeviations(projectedClicks, coordinates);
@@ -75,7 +76,7 @@ public class FittsCalculateService
     }
 
     //Calculates the coordinates of where should of been clicked, checked
-    private List<List<Double>> calculateCoord(FittsTestStage stage, int dotNumber, int dotDistance)
+    private List<List<Double>> calculateCoord(int dotNumber, int dotDistance)
     {
         List<List<Double>> coords = new ArrayList<List<Double>>();
         coords.add(new ArrayList<Double>());

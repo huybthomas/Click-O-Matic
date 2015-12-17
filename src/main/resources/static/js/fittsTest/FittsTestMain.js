@@ -138,6 +138,10 @@ function checkState()
     }
 }
 
+function restartStage() {
+    this.test.currentStage.restart();
+}
+
 function testFinished()
 {
     return this.test.getTestFinished();
