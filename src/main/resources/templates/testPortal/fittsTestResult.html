@@ -10,18 +10,20 @@
 
         <div class="frontContent testPortalPage">
             <h3 th:text="'Test: ' + ${fittsTest.testID}" />
-            <table class="table col-md-6">
-                <tr th:each="resultsMapEntry : ${resultsMap}">
-                    <td th:text="#{fittstest.stage} + ' ' + ${resultsMapEntry.key} + ':'"/>
-                    <td th:text="#{fittstest.throughput} + ' ' + ${resultsMapEntry.value.value}"/>
-                    <td th:text="#{fittstest.soi} + ' ' + ${resultsMapEntry.value.key}"/>
-                </tr>
-                <tr>
-                    <th th:text="#{fittstest.totalThroughput}">Total throughput:</th>
-                    <th th:text="${totalThroughput}"/>
-                    <th></th>
-                </tr>
-            </table>
+                <div style="height: 60vh; overflow-y: auto">
+                    <table class="table col-md-6">
+                        <tr th:each="resultsMapEntry : ${resultsMap}">
+                            <td th:text="#{fittstest.stage} + ' ' + ${resultsMapEntry.key} + ':'"/>
+                            <td th:text="#{fittstest.throughput} + ' ' + ${resultsMapEntry.value.value}"/>
+                            <td th:text="#{fittstest.soi} + ' ' + ${resultsMapEntry.value.key}"/>
+                        </tr>
+                        <tr>
+                            <th th:text="#{fittstest.totalThroughput}">Total throughput:</th>
+                            <th th:text="${totalThroughput}"/>
+                            <th></th>
+                        </tr>
+                    </table>
+                </div>
         </div>
     </div>
 
