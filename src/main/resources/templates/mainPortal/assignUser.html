@@ -40,9 +40,9 @@
                     <div class="row">
                         <div class="col-xs-5">
                             <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
-                                <option th:each="test:${allUsers}"
+                                <option th:each="user:${allUsers}"
                                         th:value="${{user}}"
-                                        th:text="${user.firstName + ' ' + user.lastName}">
+                                        th:text="${user.userName}">
                                 </option>
                             </select>
                         </div>
@@ -55,10 +55,10 @@
                         </div>
 
                         <div class="col-xs-5">
-                            <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple" th:field="*{tests}">
-                                <option th:each="test:*{tests}"
-                                        th:value="${{test}}"
-                                        th:text="${test.testID}">
+                            <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple" th:field="*{users}">
+                                <option th:each="user:*{users}"
+                                        th:value="${{user}}"
+                                        th:text="${user.userName}">
                                 </option>
                             </select>
                         </div>
