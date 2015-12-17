@@ -36,7 +36,7 @@ public class TestCreationController
     @InitBinder
     private void allowFields(WebDataBinder webDataBinder)
     {
-        webDataBinder.setAllowedFields("testID", "testStages");
+        webDataBinder.setAllowedFields("testID", "testStages", "comment", "file");
     }
 
     @RequestMapping(value={"/TestCreator"})
@@ -93,6 +93,8 @@ public class TestCreationController
 
         fittsTestModel.setTestID(fittsTestRequest.getTestID());
         fittsTestModel.setTestStages(fittsTestRequest.getTestStages());
+        fittsTestModel.setComment(fittsTestRequest.getComment());
+        fittsTestModel.setFile(fittsTestRequest.getFile());
 
         //If test existed already
         if(fittsService.saveTest(fittsTestModel))
