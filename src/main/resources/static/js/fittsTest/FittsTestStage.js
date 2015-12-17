@@ -23,12 +23,14 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     this.cursorState = {x: 0, y: 0, leftPressed: false};
     this.AmountOfFalseClicks = 0;
 
+
     this.initialize = function(canvas)
     {
         this.testProgress = 0;
         this.previousTarget = -1;
         this.nextTarget = 0;
         this.currentTrackPath = new FittsTrackPath();
+
 
         this.initializeDots(canvas);
     };
@@ -79,18 +81,18 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.setNextTarget = function()
     {
-        if((this.testProgress < this.numberOfDots) && (this.AmountOfFalseClicks<5) )
+        if((this.testProgress < this.numberOfDots) && (this.AmountOfFalseClicks < Math.ceil(this.numberOfDots/5)) )
         {
             this.previousTarget = this.nextTarget;
 
-            this.nextTarget = (this.previousTarget + Math.floor(this.numberOfDots / 2)) % this.numberOfDots;
+            this.nextTarget = (this.previousTarget + Math.(this.numberOfDots / 2)) % this.numberOfDots;
 
             this.dotsList[this.previousTarget].setTarget(false);
             this.dotsList[this.nextTarget].setTarget(true);
 
             this.testProgress++;
         }
-        else if (this.AmountOfFalseClicks>=4)
+        else if (this.AmountOfFalseClicks>=Math.ceil(this.numberOfDots/5))
         {
             $('#restartModal').modal('show');
         }
@@ -193,7 +195,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         var tempPosY = this.cursorState.y + (canvas.height)/3;
 
 
-        if(this.AmountOfFalseClicks<5)
+        if(this.AmountOfFalseClicks < Math.ceil(this.numberOfDots/5))
         {
             if(!(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY)))
             {
@@ -219,7 +221,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.logNewCursorEvent = function()
     {
-        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed);
+        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.w  th)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed);
         this.currentTrackPath.addCursorEvent(cursorEvent);
     };
 
