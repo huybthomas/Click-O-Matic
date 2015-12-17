@@ -77,7 +77,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.setNextTarget = function()
     {
-        if(this.testProgress < this.numberOfDots && (this.amountOfFalseClicks<5))
+        if(this.testProgress < this.numberOfDots && (this.amountOfFalseClicks<Math.ceil(this.numberOfDots/5)))
         {
             this.previousTarget = this.nextTarget;
 
@@ -88,7 +88,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
             this.testProgress++;
         }
-        else if(this.amountOfFalseClicks >=4)
+        else if(this.amountOfFalseClicks >=Math.ceil(this.numberOfDots/5))
         {
             $('#restartModal').modal('show');
         }
@@ -190,7 +190,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         var tempPosX = this.cursorState.x + (canvas.width)/2;
         var tempPosY = this.cursorState.y + (canvas.height)/2;
 
-        if(this.amountOfFalseClicks<5)
+        if(this.amountOfFalseClicks<Math.ceil(this.numberOfDots))
         {
             if(!this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
             {
