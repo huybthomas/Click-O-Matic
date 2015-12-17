@@ -1,30 +1,14 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
 import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.services.FileService;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by Verstraete on 20/11/2015.
@@ -60,13 +44,6 @@ public class TestCreationController
         FittsTest fittsTest = fittsService.findTestById(testID);
         model.addAttribute("fittsTest", fittsTest);
         return "testPortal/fittsTestCreator";
-    }
-
-    @RequestMapping(value = "/Download/{fileName}/", method = RequestMethod.GET, produces = "application/zip")
-    @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    @ResponseBody
-    public FileSystemResource downloadFile(@PathVariable String fileName) throws IOException {
-        return fileService.loadFile(fileName);
     }
 
     @RequestMapping(value="/PostFittsTest/", method=RequestMethod.POST, headers={"Content-type=application/json"})
