@@ -32,13 +32,36 @@
             </div>
         </div>
 
+        <!-- Modal popup with testdetails -->
+        <div id="resultsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="modal-results-title" class="modal-title" th:text="#{fittstest.testResults}">Results</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="resultsTable" style="line-height: 40px">
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" th:text="#{return}">Return</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
         <div class="frontContent testPortalPage">
             <div th:if="${#maps.isEmpty(allUserFittsTests)}" th:text="#{testPortal.noTestsAvailable}">No tests available</div>
             <table class="table">
                 <tr th:each="testEntry : ${allUserFittsTests}">
                     <td th:text="${testEntry.key.testID}" style="vertical-align: middle"/>
                     <td style="vertical-align: middle">Completed: <span th:class="${testEntry.value} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" th:style="${testEntry.value} ? 'color:green; font-size:16px' : 'color:red; font-size:16px'"></span></td>
-                    <td><a th:href="${testEntry.value} ? '/TestResult/'+${testEntry.key.testID}+'/' : '/TestPortal/'+${testEntry.key.testID}+'/'" th:text="${testEntry.value} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary">Start Test</a></td>
+                    <td><button th:text="${testEntry.value} ? #{fittstest.viewResult} : #{fittstest.startTest}" class="btn btn-primary" th:onclick="${testEntry.value} ? 'results(\''+${testEntry.key.testID}+'\');' : 'window.location.replace(\'/TestPortal/'+${testEntry.key.testID}+'/\')'">Start Test</button></td>
                     <td><button th:text="#{fittstest.viewDetails}" class="btn btn-primary" th:onclick="'details(\''+${testEntry.key.testID}+'\');'">View Details</button></td>
                     <td sec:authorize="hasRole('test-management')"><a th:text="#{fittstest.editTest}" class="btn btn-primary" th:href="'/FittsTestCreator/'+${testEntry.key.testID}+'/'">Edit</a></td>
                 </tr>
@@ -54,7 +77,7 @@
         /*<![CDATA[*/
         function details(testID) {
             var alltests = /*[[${allUserFittsTests.keySet()}]]*/;
-            var detailstext = /*[[#{fittstest.details}]]*/'';
+            var detailstext = /*[[#{fittstest.testDetails}]]*/'';
 
             for(var i = 0; i < alltests.length; i++)
             {
@@ -66,6 +89,62 @@
                     $('#detailsModal').modal('show');
                 }
             }
+        }
+        /*]]>*/
+    </script>
+
+    <!-- test results script -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function generateResultsModal(fittsResults) {
+
+            if(fittsResults.length > 0) {
+                var titletext = /*[[#{fittstest.testResults}]]*/'';
+                var opentext = /*[[#{open}]]*/'';
+                $('#modal-results-title').text(titletext + " " + fittsResults[0].testID);
+
+                // create results table
+                var tableE = document.getElementById("resultsTable");
+
+                for (var i = 0; i < fittsResults.length; i++) {
+                    // generate row html
+                    var tableRow = '<td class="col-md-2">' + fittsResults[i].resultID + '</td>' +
+                            '<td class="col-md-1"><a class="btn btn-primary" title="Open result" href="/TestResult/' + fittsResults[i].resultID + '/">' + opentext + '</a></td>';
+
+                    // create row element and add inner html
+                    var rowE = document.createElement("tr");
+                    rowE.innerHTML = tableRow;
+
+                    // append row to table
+                    tableE.appendChild(rowE);
+                }
+            } else {
+                var titletext = /*[[#{fittstest.noResults}]]*/'';
+                $('#modal-results-title').text(titletext);
+            }
+            $('#resultsModal').modal('show');
+        }
+
+        function results(testID) {
+            $.ajax({
+                type: "GET",
+                url: "/TestResultByTestID/" + testID + "/",
+                data: JSON.stringify(testID),
+                contentType: "application/json",
+                success: function(response) {
+                    if(response.status = "OK")
+                    {
+                        generateResultsModal(response.responseObject);
+                    }
+                    else
+                    {
+                        receiveError(response.message);
+                    }
+                },
+                error: function(response) {
+                    receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
+                }
+            });
         }
         /*]]>*/
     </script>

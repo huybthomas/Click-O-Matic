@@ -3,10 +3,15 @@ package be.uantwerpen.iw.ei.se.controllers;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.fittsTest.models.FittsThroughput;
 import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.services.FittsCalculateService;
+import be.uantwerpen.iw.ei.se.services.FittsResultService;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
+import com.google.common.collect.Lists;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,6 +38,12 @@ public class FittsTestController
 
     @Autowired
     private FittsService fittsService;
+
+    @Autowired
+    private FittsCalculateService fittsCalculateService;
+
+    @Autowired
+    private FittsResultService fittsResultService;
 
     @InitBinder
     private void allowFields(WebDataBinder webDataBinder)
@@ -121,11 +132,30 @@ public class FittsTestController
     @PreAuthorize("hasRole('logon') and hasRole('test-management')")
     public String showFittsTestResult(@PathVariable String resultID, final ModelMap model)
     {
-        FittsResult result = fittsService.findResultById(resultID);
+        FittsResult fittsResult = fittsResultService.findByResultID(resultID);
+        FittsTest fittsTest = fittsService.findTestById(fittsResult.getTestID());
 
-        if(result != null)
+        // Not sorted list of stageThroughputs: is in the random stage order
+        FittsThroughput throughput = fittsCalculateService.calculateThroughput(fittsResult);
+        // Sorted by original order
+        List<FittsStageResult> fittsStageResults = fittsResult.getStageResults();
+
+        // Create Map : original index, pair< stageOrderIndex, throughput>
+        Map<Integer, Pair<Integer, Double>> resultMap = new TreeMap<>();
+
+        for(int i = 0; i < fittsStageResults.size(); i++) {
+            Integer stageOrderIndex = fittsStageResults.get(i).getStageOrderIndex();
+            Double stageThroughput = throughput.getStageThroughput().get(i);
+            resultMap.put(i, new Pair<>(stageOrderIndex, stageThroughput));
+        }
+
+
+        if(fittsResult != null)
         {
-            model.addAttribute("fittsResult", result);
+            model.addAttribute("fittsTest", fittsTest);
+            model.addAttribute("fittsResult", fittsResult);
+            model.addAttribute("totalThroughput", throughput.getTotalThroughput());
+            model.addAttribute("resultsMap", resultMap);
             return "testPortal/fittsTestResult";
         }
         else
@@ -151,6 +181,15 @@ public class FittsTestController
         {
             return "redirect:/TestPortal?errorTestNotFound";
         }
+    }
+
+    @RequestMapping(value={"/TestResultByTestID/{testID}/"}, method=RequestMethod.GET, headers={"Content-type=application/json"})
+    @PreAuthorize("hasRole('logon')")
+    public @ResponseBody JSONResponse getResultsByTest(@PathVariable String testID, final ModelMap model)
+    {
+        Iterable<FittsResult> fittsResults = fittsResultService.findByTestID(testID);
+        ArrayList<FittsResult> list = Lists.newArrayList(fittsResults);
+        return new JSONResponse("OK", "", "", list.toArray());
     }
 
     @RequestMapping(value="/PostFittsResult/{testID}/", method=RequestMethod.POST, headers={"Content-type=application/json"})

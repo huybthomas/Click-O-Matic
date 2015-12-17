@@ -128,7 +128,8 @@ function checkState()
     {
         if(!postRequestSend)
         {
-           var paths = this.test.getTestStages();
+           console.log(this.test.getThroughput());
+            var paths = this.test.getTestStages();
 
            sendResult(paths);
         

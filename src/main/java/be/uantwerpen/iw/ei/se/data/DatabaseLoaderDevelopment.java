@@ -1,7 +1,6 @@
 package be.uantwerpen.iw.ei.se.data;
 
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
+import be.uantwerpen.iw.ei.se.fittsTest.models.*;
 import be.uantwerpen.iw.ei.se.repositories.*;
 import be.uantwerpen.iw.ei.se.models.Permission;
 import be.uantwerpen.iw.ei.se.models.Role;
@@ -25,15 +24,23 @@ public class DatabaseLoaderDevelopment
     private final UserRepository userRepository;
     private final FittsTestRepository fittsRepository;
     private final FittsTestStageRepository fittsTestStageRepository;
+    private final FittsResultRepository fittsResultRepository;
+    private final FittsStageResultRepository fittsStageResultRepository;
+    private final FittsTrackPathRepository fittsTrackPathRepository;
+    private final FittsTrackEventRepository fittsTrackEventRepository;
 
     @Autowired
-    public DatabaseLoaderDevelopment(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, FittsTestRepository fittsRepository, FittsTestStageRepository fittsTestStageRepository)
+    public DatabaseLoaderDevelopment(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, FittsTestRepository fittsRepository, FittsTestStageRepository fittsTestStageRepository, FittsResultRepository fittsResultRepository, FittsStageResultRepository fittsStageResultRepository, FittsTrackPathRepository fittsTrackPathRepository, FittsTrackEventRepository fittsTrackEventRepository)
     {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.fittsRepository = fittsRepository;
         this.fittsTestStageRepository = fittsTestStageRepository;
+        this.fittsResultRepository = fittsResultRepository;
+        this.fittsStageResultRepository = fittsStageResultRepository;
+        this.fittsTrackPathRepository = fittsTrackPathRepository;
+        this.fittsTrackEventRepository = fittsTrackEventRepository;
     }
 
     @PostConstruct
@@ -54,6 +61,9 @@ public class DatabaseLoaderDevelopment
 
         //Assign tests to users
         initTestAssignment();
+
+        //Initalise test results
+        initTestResults();
     }
 
     private void initUserDatabase()
@@ -187,5 +197,84 @@ public class DatabaseLoaderDevelopment
     {
         User u1 = userRepository.findByUserName("thomas.huybrechts");
         u1.setTests(new ArrayList<FittsTest>(fittsRepository.findAll()));
+
+        userRepository.save(u1);
+    }
+
+    private void initTestResults()
+    {
+        //Trackpath 01
+        FittsTrackEvent event1 = new FittsTrackEvent(1449957847065L, 575, 273, false);
+        FittsTrackEvent event2 = new FittsTrackEvent(1449957847127L, 581, 384, false);
+        FittsTrackEvent event3 = new FittsTrackEvent(1449957847191L, 571, 489, false);
+        FittsTrackEvent event4 = new FittsTrackEvent(1449957847253L, 565, 535, false);
+        FittsTrackEvent event5 = new FittsTrackEvent(1449957847317L, 567, 561, false);
+        FittsTrackEvent event6 = new FittsTrackEvent(1449957847381L, 569, 598, false);
+        FittsTrackEvent event7 = new FittsTrackEvent(1449957847443L, 575, 636, false);
+        FittsTrackEvent event8 = new FittsTrackEvent(1449957847569L, 572, 649, true);
+        FittsTrackEvent event9 = new FittsTrackEvent(1449957847688L, 572, 649, false);
+        Iterable trackEvents1 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
+        fittsTrackEventRepository.save(trackEvents1);
+
+        //Trackpath 02
+        event1 = new FittsTrackEvent(1449957847704L, 572, 648, false);
+        event2 = new FittsTrackEvent(1449957847767L, 583, 588, false);
+        event3 = new FittsTrackEvent(1449957847829L, 587, 492, false);
+        event4 = new FittsTrackEvent(1449957847893L, 578, 406, false);
+        event5 = new FittsTrackEvent(1449957847957L, 570, 350, false);
+        event6 = new FittsTrackEvent(1449957848019L, 565, 325, false);
+        event7 = new FittsTrackEvent(1449957848081L, 565, 309, false);
+        event8 = new FittsTrackEvent(1449957848185L, 565, 301, true);
+        event9 = new FittsTrackEvent(1449957848317L, 565, 301, false);
+        Iterable trackEvents2 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
+        fittsTrackEventRepository.save(trackEvents2);
+
+        //Trackpath 03
+        event1 = new FittsTrackEvent(1449957848767L, 568, 289, false);
+        event2 = new FittsTrackEvent(1449957848831L, 586, 409, false);
+        event3 = new FittsTrackEvent(1449957848895L, 615, 626, false);
+        event4 = new FittsTrackEvent(1449957848957L, 610, 715, false);
+        event5 = new FittsTrackEvent(1449957849147L, 610, 717, true);
+        event6 = new FittsTrackEvent(1449957849257L, 609, 713, true);
+        event7 = new FittsTrackEvent(1449957849257L, 609, 713, false);
+        Iterable trackEvents3 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7));
+        fittsTrackEventRepository.save(trackEvents3);
+
+        //Trackpath 04
+        event1 = new FittsTrackEvent(1449957849265L, 606, 707, false);
+        event2 = new FittsTrackEvent(1449957849327L, 613, 602, false);
+        event3 = new FittsTrackEvent(1449957849391L, 598, 466, false);
+        event4 = new FittsTrackEvent(1449957849453L, 591, 402, false);
+        event5 = new FittsTrackEvent(1449957849517L, 591, 387, false);
+        event6 = new FittsTrackEvent(1449957849581L, 587, 367, false);
+        event7 = new FittsTrackEvent(1449957849643L, 584, 307, false);
+        event8 = new FittsTrackEvent(1449957849675L, 584, 284, false);
+        event9 = new FittsTrackEvent(1449957849699L, 584, 277, false);
+        FittsTrackEvent event10 = new FittsTrackEvent(1449957849777L, 584, 277, true);
+        FittsTrackEvent event11 = new FittsTrackEvent(1449957849904L, 584, 277, false);
+        Iterable trackEvents4 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11));
+        fittsTrackEventRepository.save(trackEvents4);
+
+        //Trackpaths
+        FittsTrackPath trackPath1 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents1);
+        FittsTrackPath trackPath2 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents2);
+        FittsTrackPath trackPath3 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents3);
+        FittsTrackPath trackPath4 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents4);
+        Iterable trackPaths = new ArrayList<>(Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4));
+        fittsTrackPathRepository.save(trackPaths);
+
+        //Stages
+        FittsStageResult stage1 = new FittsStageResult(0, Arrays.asList(trackPath1, trackPath2));
+        FittsStageResult stage2 = new FittsStageResult(1, Arrays.asList(trackPath3, trackPath4));
+        Iterable stages = new ArrayList<>(Arrays.asList(stage1, stage2));
+        fittsStageResultRepository.save(stages);
+
+        //Result
+        FittsResult result = new FittsResult("result-0", "003", new Date(), Arrays.asList(stage1, stage2));
+        fittsResultRepository.save(result);
+
+        User u1 = userRepository.findByUserName("thomas.huybrechts");
+        u1.setResults(Arrays.asList(result));
+        userRepository.save(u1);
     }
 }

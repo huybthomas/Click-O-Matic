@@ -144,7 +144,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     {
         //Calculate cursor position relative to the the center of the test
         this.cursorState.x = cursorEvent.x - (canvas.width)/2;
-        this.cursorState.y = cursorEvent.y - (canvas.height)/3;
+        this.cursorState.y = cursorEvent.y - (canvas.height)/2;
 
         this.cursorState.leftPressed = cursorEvent.leftPressed;
 
@@ -169,9 +169,9 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.checkTargetClicked = function()
     {
-        //Temporary conversion from cursor position (relative to test center) relative to the upper left corner of the canvas (until coordinates are standardized to test center)
+        //Temporary conversion from cursor position (relative to test center) relative to the upper left corner of the canvas (until target coordinates are standardized to test center)
         var tempPosX = this.cursorState.x + (canvas.width)/2;
-        var tempPosY = this.cursorState.y + (canvas.height)/3;
+        var tempPosY = this.cursorState.y + (canvas.height)/2;
 
         if(this.dotsList[this.nextTarget].cursorOver(tempPosX, tempPosY))
         {
@@ -191,7 +191,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
     this.logNewCursorEvent = function()
     {
-        cursorEvent = new FittsTrackEvent(this.cursorState.x + (canvas.width)/2, this.cursorState.y + (canvas.height)/2, this.cursorState.leftPressed);
+        cursorEvent = new FittsTrackEvent(this.cursorState.x, this.cursorState.y, this.cursorState.leftPressed);
         this.currentTrackPath.addCursorEvent(cursorEvent);
     };
 
