@@ -143,7 +143,8 @@ public class FittsTestController
         // Create Map : original index, pair< stageOrderIndex, throughput>
         Map<Integer, Pair<Integer, Double>> resultMap = new TreeMap<>();
 
-        for(int i = 0; i < fittsStageResults.size(); i++) {
+        for(int i = 0; i < fittsStageResults.size(); i++)
+        {
             Integer stageOrderIndex = fittsStageResults.get(i).getStageOrderIndex();
             Double stageThroughput = throughput.getStageThroughput().get(i);
             resultMap.put(i, new Pair<>(stageOrderIndex, stageThroughput));
@@ -227,7 +228,7 @@ public class FittsTestController
                 resultID = "result-" + numberOfResults;
             }
 
-            FittsResult newResult = new FittsResult("result-" + numberOfResults, testID, new Date(), testResults, userService.getPrincipalUser());
+            FittsResult newResult = new FittsResult("result-" + numberOfResults, testID, new Date(), testResults);
 
             if(fittsService.saveTestResult(newResult))
             {

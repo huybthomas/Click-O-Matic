@@ -44,7 +44,7 @@ public class FittsResultFormatterTests
     @Before
     public void init()
     {
-        result = new FittsResult("ResultFormatter", "TestID", new Date(), new ArrayList<FittsStageResult>(), new User());
+        result = new FittsResult("ResultFormatter", "TestID", new Date(), new ArrayList<FittsStageResult>());
 
         fittsResultRepository.save(result);
 

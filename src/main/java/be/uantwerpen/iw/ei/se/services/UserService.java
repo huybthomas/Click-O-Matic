@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -123,6 +124,25 @@ public class UserService
         }
 
         return null;
+    }
+
+    public User findUserWithResult(FittsResult result)
+    {
+        List<User> users = userRepository.findAll();
+        User resultUser = null;
+
+        Iterator<User> it = users.iterator();
+        while(it.hasNext() && resultUser == null)
+        {
+            User user = it.next();
+
+            if(user.getResults().contains(result))
+            {
+                resultUser = user;
+            }
+        }
+
+        return resultUser;
     }
 
     //Set logged in user

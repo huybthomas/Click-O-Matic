@@ -37,8 +37,8 @@ public class FittsResultServiceTests
     @Before
     public void init()
     {
-        FittsResult result1 = new FittsResult("result001", "test001", new Date(), new ArrayList<FittsStageResult>(), new User());
-        FittsResult result2 = new FittsResult("result002", "test003", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult result1 = new FittsResult("result001", "test001", new Date(), new ArrayList<FittsStageResult>());
+        FittsResult result2 = new FittsResult("result002", "test003", new Date(), new ArrayList<FittsStageResult>());
         results = new ArrayList<FittsResult>(Arrays.asList(result1, result2));
 
         MockitoAnnotations.initMocks(this);
@@ -55,7 +55,7 @@ public class FittsResultServiceTests
     @Test
     public void resultIdNotExistsTest()
     {
-        FittsResult result2 = new FittsResult("result003", "test005", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult result2 = new FittsResult("result003", "test005", new Date(), new ArrayList<FittsStageResult>());
 
         when(fittsResultRepository.findAll()).thenReturn(results);
 

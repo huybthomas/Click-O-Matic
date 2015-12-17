@@ -49,7 +49,6 @@ public class FittsResultRepositoryTests
         //Setup result
         FittsResult fittsResult = new FittsResult();
         fittsResult.setResultID("Result");
-        fittsResult.setUser(userService.findAll().iterator().next());
 
         //Save result, verify has ID value after save
         assertNull(fittsResult.getId());       //Null before save

@@ -157,6 +157,7 @@ public class DatabaseLoaderDevelopment
         List<FittsTestStage> fittsTest01Stages = new ArrayList<FittsTestStage>();
         List<FittsTestStage> fittsTest02Stages = new ArrayList<FittsTestStage>();
         List<FittsTestStage> fittsTest03Stages = new ArrayList<FittsTestStage>();
+        List<FittsTestStage> fittsTest04Stages = new ArrayList<FittsTestStage>();
         List<FittsTestStage> allFittsTestStages = new ArrayList<FittsTestStage>();
         List<FittsTest> allFittsTests = new ArrayList<FittsTest>();
 
@@ -164,6 +165,8 @@ public class DatabaseLoaderDevelopment
         allFittsTestStages.add(new FittsTestStage("002", 11, 15, 150));
         allFittsTestStages.add(new FittsTestStage("003", 5, 50, 110));
         allFittsTestStages.add(new FittsTestStage("004", 2, 100, 200));
+        allFittsTestStages.add(new FittsTestStage("stage1", 5, 20, 100));
+        allFittsTestStages.add(new FittsTestStage("stage2", 5, 20, 100));
 
         fittsTest01Stages.add(allFittsTestStages.get(0));
         fittsTest01Stages.add(allFittsTestStages.get(1));
@@ -176,9 +179,13 @@ public class DatabaseLoaderDevelopment
         fittsTest03Stages.add(allFittsTestStages.get(3));
         fittsTest03Stages.add(allFittsTestStages.get(3));
 
+        fittsTest04Stages.add(allFittsTestStages.get(4));
+        fittsTest04Stages.add(allFittsTestStages.get(4));
+
         allFittsTests.add(new FittsTest("001", fittsTest01Stages));
         allFittsTests.add(new FittsTest("002", fittsTest02Stages));
         allFittsTests.add(new FittsTest("003", fittsTest03Stages));
+        allFittsTests.add(new FittsTest("test01", fittsTest04Stages));
 
         Iterator<FittsTestStage> fittsTestStageIterator = allFittsTestStages.iterator();
         while(fittsTestStageIterator.hasNext())
@@ -204,73 +211,157 @@ public class DatabaseLoaderDevelopment
     private void initTestResults()
     {
         //Trackpath 01
-        FittsTrackEvent event1 = new FittsTrackEvent(1449957847065L, 575, 273, false);
-        FittsTrackEvent event2 = new FittsTrackEvent(1449957847127L, 581, 384, false);
-        FittsTrackEvent event3 = new FittsTrackEvent(1449957847191L, 571, 489, false);
-        FittsTrackEvent event4 = new FittsTrackEvent(1449957847253L, 565, 535, false);
-        FittsTrackEvent event5 = new FittsTrackEvent(1449957847317L, 567, 561, false);
-        FittsTrackEvent event6 = new FittsTrackEvent(1449957847381L, 569, 598, false);
-        FittsTrackEvent event7 = new FittsTrackEvent(1449957847443L, 575, 636, false);
-        FittsTrackEvent event8 = new FittsTrackEvent(1449957847569L, 572, 649, true);
-        FittsTrackEvent event9 = new FittsTrackEvent(1449957847688L, 572, 649, false);
+        FittsTrackEvent event1 = new FittsTrackEvent(1450050149077L, 4,	-95, false);
+        FittsTrackEvent event2 = new FittsTrackEvent(1450050149122L, 24, -24, false);
+        FittsTrackEvent event3 = new FittsTrackEvent(1450050149133L, 35, 3, false);
+        FittsTrackEvent event4 = new FittsTrackEvent(1450050149149L, 43, 25, false);
+        FittsTrackEvent event5 = new FittsTrackEvent(1450050149173L, 56, 47, false);
+        FittsTrackEvent event6 = new FittsTrackEvent(1450050149213L, 65, 62, false);
+        FittsTrackEvent event7 = new FittsTrackEvent(1450050149381L, 63, 63, false);
+        FittsTrackEvent event8 = new FittsTrackEvent(1450050149470L, 59, 73, true);
+        FittsTrackEvent event9 = new FittsTrackEvent(1450050149541L, 59, 73, false);
         Iterable trackEvents1 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
         fittsTrackEventRepository.save(trackEvents1);
 
         //Trackpath 02
-        event1 = new FittsTrackEvent(1449957847704L, 572, 648, false);
-        event2 = new FittsTrackEvent(1449957847767L, 583, 588, false);
-        event3 = new FittsTrackEvent(1449957847829L, 587, 492, false);
-        event4 = new FittsTrackEvent(1449957847893L, 578, 406, false);
-        event5 = new FittsTrackEvent(1449957847957L, 570, 350, false);
-        event6 = new FittsTrackEvent(1449957848019L, 565, 325, false);
-        event7 = new FittsTrackEvent(1449957848081L, 565, 309, false);
-        event8 = new FittsTrackEvent(1449957848185L, 565, 301, true);
-        event9 = new FittsTrackEvent(1449957848317L, 565, 301, false);
+        event1 = new FittsTrackEvent(1450050149566L, 58, 70, false);
+        event2 = new FittsTrackEvent(1450050149605L, 13, 38, false);
+        event3 = new FittsTrackEvent(1450050149629L, -34, 16, false);
+        event4 = new FittsTrackEvent(1450050149654L, -61, 0, false);
+        event5 = new FittsTrackEvent(1450050149685L, -77, -10, false);
+        event6 = new FittsTrackEvent(1450050149709L, -80, -15, false);
+        event7 = new FittsTrackEvent(1450050149797L, -83, -17, false);
+        event8 = new FittsTrackEvent(1450050149927L, -85, -19, true);
+        event9 = new FittsTrackEvent(1450050149989L, -85, -19, false);
         Iterable trackEvents2 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
         fittsTrackEventRepository.save(trackEvents2);
 
         //Trackpath 03
-        event1 = new FittsTrackEvent(1449957848767L, 568, 289, false);
-        event2 = new FittsTrackEvent(1449957848831L, 586, 409, false);
-        event3 = new FittsTrackEvent(1449957848895L, 615, 626, false);
-        event4 = new FittsTrackEvent(1449957848957L, 610, 715, false);
-        event5 = new FittsTrackEvent(1449957849147L, 610, 717, true);
-        event6 = new FittsTrackEvent(1449957849257L, 609, 713, true);
-        event7 = new FittsTrackEvent(1449957849257L, 609, 713, false);
+        event1 = new FittsTrackEvent(1450050150029L, -84, -20, false);
+        event2 = new FittsTrackEvent(1450050150069L, -49, -22, false);
+        event3 = new FittsTrackEvent(1450050150094L, -15, -22, false);
+        event4 = new FittsTrackEvent(1450050150149L, 64, -22, false);
+        event5 = new FittsTrackEvent(1450050150181L, 73, -22, false);
+        event6 = new FittsTrackEvent(1450050150653L, 80, -23, true);
+        event7 = new FittsTrackEvent(1450050150718L, 80, -23, false);
         Iterable trackEvents3 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7));
         fittsTrackEventRepository.save(trackEvents3);
 
         //Trackpath 04
-        event1 = new FittsTrackEvent(1449957849265L, 606, 707, false);
-        event2 = new FittsTrackEvent(1449957849327L, 613, 602, false);
-        event3 = new FittsTrackEvent(1449957849391L, 598, 466, false);
-        event4 = new FittsTrackEvent(1449957849453L, 591, 402, false);
-        event5 = new FittsTrackEvent(1449957849517L, 591, 387, false);
-        event6 = new FittsTrackEvent(1449957849581L, 587, 367, false);
-        event7 = new FittsTrackEvent(1449957849643L, 584, 307, false);
-        event8 = new FittsTrackEvent(1449957849675L, 584, 284, false);
-        event9 = new FittsTrackEvent(1449957849699L, 584, 277, false);
-        FittsTrackEvent event10 = new FittsTrackEvent(1449957849777L, 584, 277, true);
-        FittsTrackEvent event11 = new FittsTrackEvent(1449957849904L, 584, 277, false);
+        event1 = new FittsTrackEvent(1450050150821L, 79, -22, false);
+        event2 = new FittsTrackEvent(1450050150853L, 42, -1, false);
+        event3 = new FittsTrackEvent(1450050150861L, 30, 7, false);
+        event4 = new FittsTrackEvent(1450050150893L, -15, 48, false);
+        event5 = new FittsTrackEvent(1450050150927L, -38, 73, false);
+        event6 = new FittsTrackEvent(1450050151028L, -45, 85, false);
+        event7 = new FittsTrackEvent(1450050151085L, -45, 89, false);
+        event8 = new FittsTrackEvent(1450050151133L, -48, 90, false);
+        event9 = new FittsTrackEvent(1450050151184L, -54, 535, false);
+        FittsTrackEvent event10 = new FittsTrackEvent(1450050151189L, -54, 91, true);
+        FittsTrackEvent event11 = new FittsTrackEvent(1450050151253L, -54, 91, false);
         Iterable trackEvents4 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11));
         fittsTrackEventRepository.save(trackEvents4);
+
+        //Trackpath 05
+        event1 = new FittsTrackEvent(1450050151275L, -53, 90, false);
+        event2 = new FittsTrackEvent(1450050151301L, -48, 65, false);
+        event3 = new FittsTrackEvent(1450050151355L, -27, -11, false);
+        event4 = new FittsTrackEvent(1450050151384L, -18, -61, false);
+        event5 = new FittsTrackEvent(1450050151396L, -15, -69, false);
+        event6 = new FittsTrackEvent(1450050151425L, -13, -74, false);
+        event7 = new FittsTrackEvent(1450050151557L, -10, -84, false);
+        event8 = new FittsTrackEvent(1450050151670L, 1, -107, true);
+        event9 = new FittsTrackEvent(1450050151756L, 1, -107, false);
+        Iterable trackEvents5 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
+        fittsTrackEventRepository.save(trackEvents5);
+
+        //Trackpath 06
+        event1 = new FittsTrackEvent(1450050149077L, 4,	-95, false);
+        event2 = new FittsTrackEvent(1450050149122L, 24, -24, false);
+        event3 = new FittsTrackEvent(1450050149133L, 35, 3, false);
+        event4 = new FittsTrackEvent(1450050149149L, 43, 25, false);
+        event5 = new FittsTrackEvent(1450050149173L, 56, 47, false);
+        event6 = new FittsTrackEvent(1450050149213L, 65, 62, false);
+        event7 = new FittsTrackEvent(1450050149381L, 63, 63, false);
+        event8 = new FittsTrackEvent(1450050149470L, 59, 73, true);
+        event9 = new FittsTrackEvent(1450050149541L, 59, 73, false);
+        Iterable trackEvents6 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
+        fittsTrackEventRepository.save(trackEvents6);
+
+        //Trackpath 07
+        event1 = new FittsTrackEvent(1450050149566L, 58, 70, false);
+        event2 = new FittsTrackEvent(1450050149605L, 13, 38, false);
+        event3 = new FittsTrackEvent(1450050149629L, -34, 16, false);
+        event4 = new FittsTrackEvent(1450050149654L, -61, 0, false);
+        event5 = new FittsTrackEvent(1450050149685L, -77, -10, false);
+        event6 = new FittsTrackEvent(1450050149709L, -80, -15, false);
+        event7 = new FittsTrackEvent(1450050149797L, -83, -17, false);
+        event8 = new FittsTrackEvent(1450050149927L, -85, -19, true);
+        event9 = new FittsTrackEvent(1450050149989L, -85, -19, false);
+        Iterable trackEvents7 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
+        fittsTrackEventRepository.save(trackEvents7);
+
+        //Trackpath 08
+        event1 = new FittsTrackEvent(1450050150029L, -84, -20, false);
+        event2 = new FittsTrackEvent(1450050150069L, -49, -22, false);
+        event3 = new FittsTrackEvent(1450050150094L, -15, -22, false);
+        event4 = new FittsTrackEvent(1450050150149L, 64, -22, false);
+        event5 = new FittsTrackEvent(1450050150181L, 73, -22, false);
+        event6 = new FittsTrackEvent(1450050150653L, 80, -23, true);
+        event7 = new FittsTrackEvent(1450050150718L, 80, -23, false);
+        Iterable trackEvents8 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7));
+        fittsTrackEventRepository.save(trackEvents8);
+
+        //Trackpath 09
+        event1 = new FittsTrackEvent(1450050150821L, 79, -22, false);
+        event2 = new FittsTrackEvent(1450050150853L, 42, -1, false);
+        event3 = new FittsTrackEvent(1450050150861L, 30, 7, false);
+        event4 = new FittsTrackEvent(1450050150893L, -15, 48, false);
+        event5 = new FittsTrackEvent(1450050150927L, -38, 73, false);
+        event6 = new FittsTrackEvent(1450050151028L, -45, 85, false);
+        event7 = new FittsTrackEvent(1450050151085L, -45, 89, false);
+        event8 = new FittsTrackEvent(1450050151133L, -48, 90, false);
+        event9 = new FittsTrackEvent(1450050151184L, -54, 535, false);
+        event10 = new FittsTrackEvent(1450050151189L, -54, 91, true);
+        event11 = new FittsTrackEvent(1450050151253L, -54, 91, false);
+        Iterable trackEvents9 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11));
+        fittsTrackEventRepository.save(trackEvents9);
+
+        //Trackpath 10
+        event1 = new FittsTrackEvent(1450050151275L, -53, 90, false);
+        event2 = new FittsTrackEvent(1450050151301L, -48, 65, false);
+        event3 = new FittsTrackEvent(1450050151355L, -27, -11, false);
+        event4 = new FittsTrackEvent(1450050151384L, -18, -61, false);
+        event5 = new FittsTrackEvent(1450050151396L, -15, -69, false);
+        event6 = new FittsTrackEvent(1450050151425L, -13, -74, false);
+        event7 = new FittsTrackEvent(1450050151557L, -10, -84, false);
+        event8 = new FittsTrackEvent(1450050151670L, 1, -107, true);
+        event9 = new FittsTrackEvent(1450050151756L, 1, -107, false);
+        Iterable trackEvents10 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4, event5, event6, event7, event8, event9));
+        fittsTrackEventRepository.save(trackEvents10);
 
         //Trackpaths
         FittsTrackPath trackPath1 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents1);
         FittsTrackPath trackPath2 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents2);
         FittsTrackPath trackPath3 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents3);
         FittsTrackPath trackPath4 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents4);
-        Iterable trackPaths = new ArrayList<>(Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4));
+        FittsTrackPath trackPath5 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents5);
+        FittsTrackPath trackPath6 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents6);
+        FittsTrackPath trackPath7 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents7);
+        FittsTrackPath trackPath8 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents8);
+        FittsTrackPath trackPath9 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents9);
+        FittsTrackPath trackPath10 = new FittsTrackPath((List<FittsTrackEvent>)trackEvents10);
+        Iterable trackPaths = new ArrayList<>(Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4, trackPath5, trackPath6, trackPath7, trackPath8, trackPath9, trackPath10));
         fittsTrackPathRepository.save(trackPaths);
 
         //Stages
-        FittsStageResult stage1 = new FittsStageResult(0, Arrays.asList(trackPath1, trackPath2));
-        FittsStageResult stage2 = new FittsStageResult(1, Arrays.asList(trackPath3, trackPath4));
+        FittsStageResult stage1 = new FittsStageResult(0, Arrays.asList(trackPath1, trackPath2, trackPath3, trackPath4, trackPath5));
+        FittsStageResult stage2 = new FittsStageResult(1, Arrays.asList(trackPath6, trackPath7, trackPath8, trackPath9, trackPath10));
         Iterable stages = new ArrayList<>(Arrays.asList(stage1, stage2));
         fittsStageResultRepository.save(stages);
 
         //Result
-        FittsResult result = new FittsResult("result-0", "003", new Date(), Arrays.asList(stage1, stage2));
+        FittsResult result = new FittsResult("result-0", "test01", new Date(), Arrays.asList(stage1, stage2));
         fittsResultRepository.save(result);
 
         User u1 = userRepository.findByUserName("thomas.huybrechts");

@@ -25,8 +25,8 @@ import static org.mockito.Mockito.when;
  * Created by dries on 13/12/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class FittsCalculateServiceTest {
-
+public class FittsCalculateServiceTest
+{
     @InjectMocks
     private FittsCalculateService fittsCalculateService;
 

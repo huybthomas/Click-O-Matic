@@ -22,25 +22,20 @@ public class FittsResult extends MyAbstractPersistable<Long>
     @JoinColumn(name="RESULTSTAGE_ID", referencedColumnName="ID")
     private List<FittsStageResult> stages;
 
-    @ManyToOne
-    private User user;
-
     public FittsResult()
     {
         this.resultID = "";
         this.testID = "";
         this.resultDate = new Date();
         this.stages = new ArrayList<FittsStageResult>();
-        this.user = new User();
     }
 
-    public FittsResult(String resultID, String testID, Date resultDate, List<FittsStageResult> stageResults, User user)
+    public FittsResult(String resultID, String testID, Date resultDate, List<FittsStageResult> stageResults)
     {
         this.resultID = resultID;
         this.testID = testID;
         this.resultDate = resultDate;
         this.stages = stageResults;
-        this.user = user;
     }
 
     public void setResultID(String resultID)
@@ -81,22 +76,5 @@ public class FittsResult extends MyAbstractPersistable<Long>
     public List<FittsStageResult> getStageResults()
     {
         return this.stages;
-    }
-
-    public void setUser(User user)
-    {
-        this.user = user;
-    }
-
-    public User getUser()
-    {
-        return this.user;
-    }
-
-    //Remove all existing links between the user and this result in the database
-    @PreRemove
-    private void removeResultsFromUsers()
-    {
-        user.getResults().remove(this);
     }
 }

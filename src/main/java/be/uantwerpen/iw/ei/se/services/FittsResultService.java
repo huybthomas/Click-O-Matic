@@ -4,10 +4,7 @@ import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTrackPath;
 import be.uantwerpen.iw.ei.se.models.User;
-import be.uantwerpen.iw.ei.se.repositories.FittsResultRepository;
-import be.uantwerpen.iw.ei.se.repositories.FittsStageResultRepository;
-import be.uantwerpen.iw.ei.se.repositories.FittsTrackEventRepository;
-import be.uantwerpen.iw.ei.se.repositories.FittsTrackPathRepository;
+import be.uantwerpen.iw.ei.se.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +29,9 @@ public class FittsResultService
 
     @Autowired
     private FittsTrackEventRepository fittsTrackEventRepository;
+
+    @Autowired
+    private UserService userService;
 
     public Iterable<FittsResult> findAll()
     {
@@ -87,6 +87,14 @@ public class FittsResultService
 
             //Delete all Stage Results
             this.fittsStageResultRepository.delete(result.getStageResults());
+
+            //Delete link with user
+            User user = userService.findUserWithResult(result);
+
+            if(user != null)
+            {
+                user.getResults().remove(result);
+            }
 
             //Delete Result
             this.fittsResultRepository.delete(result);

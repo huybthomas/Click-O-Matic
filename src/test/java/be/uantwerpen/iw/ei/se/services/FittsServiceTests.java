@@ -65,13 +65,13 @@ public class FittsServiceTests
         tests.add(fittsTest3);
         tests.add(fittsTest4);
 
-        FittsResult fittsResult1 = new FittsResult("result001", "test001", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult fittsResult1 = new FittsResult("result001", "test001", new Date(), new ArrayList<FittsStageResult>());
         fittsResult1.setId(01L);
-        FittsResult fittsResult2 = new FittsResult("result002", "test001", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult fittsResult2 = new FittsResult("result002", "test001", new Date(), new ArrayList<FittsStageResult>());
         fittsResult2.setId(02L);
-        FittsResult fittsResult3 = new FittsResult("result003", "test002", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult fittsResult3 = new FittsResult("result003", "test002", new Date(), new ArrayList<FittsStageResult>());
         fittsResult3.setId(03L);
-        FittsResult fittsResult4 = new FittsResult("result004", "test003", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult fittsResult4 = new FittsResult("result004", "test003", new Date(), new ArrayList<FittsStageResult>());
         fittsResult4.setId(04L);
 
         results.add(fittsResult1);
@@ -125,7 +125,7 @@ public class FittsServiceTests
     @Test
     public void addNewResultWithExistingTestTest()
     {
-        FittsResult result = new FittsResult("result005", "test001", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult result = new FittsResult("result005", "test001", new Date(), new ArrayList<FittsStageResult>());
         result.setId(05L);
 
         when(fittsTestRepository.findByTestID(result.getTestID())).thenReturn(tests.get(0));
@@ -136,7 +136,7 @@ public class FittsServiceTests
     @Test
     public void addNewResultWithNonExistingTestTest()
     {
-        FittsResult result = new FittsResult("result006", "test099", new Date(), new ArrayList<FittsStageResult>(), new User());
+        FittsResult result = new FittsResult("result006", "test099", new Date(), new ArrayList<FittsStageResult>());
         result.setId(99L);
 
         when(fittsTestRepository.findByTestID(result.getTestID())).thenReturn(null);
