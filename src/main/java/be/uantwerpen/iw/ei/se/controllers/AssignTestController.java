@@ -1,6 +1,7 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
+import be.uantwerpen.iw.ei.se.models.JSONResponse;
 import be.uantwerpen.iw.ei.se.models.User;
 import be.uantwerpen.iw.ei.se.models.UserListWrapper;
 import be.uantwerpen.iw.ei.se.services.FittsService;
@@ -11,10 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -124,21 +122,40 @@ public class AssignTestController {
         return "redirect:/Assign/TestsToUser";
     }
 
-    @RequestMapping(value={"/Assign/UsersToTest/{testID}/"}, method=RequestMethod.POST)
+    @RequestMapping(value={"/Assign/UsersToTest/{testID}/"}, method=RequestMethod.POST, headers={"Content-type=application/json"})
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String saveAssignUser(@PathVariable String testID, @ModelAttribute("userListWrapper") UserListWrapper userListWrapper, BindingResult result, final ModelMap model)
+    public @ResponseBody JSONResponse saveAssignUser(@PathVariable String testID, @RequestBody UserListWrapper userListWrapper, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors())
         {
-            return "redirect:/Assign/UsersToTest/" + testID + "/?error";
+            return new JSONResponse("ERROR", "Could not save to database", "#?error", null);
         }
 
         for(User u : userListWrapper.getUsers()) {
             List<FittsTest> list = u.getTests();
             list.add(fittsService.findTestById(testID));
             u.setTests(list);
+            userService.save(u);
         }
-        return "redirect:/Assign/UsersToTest";
+        //return "redirect:/Assign/UsersToTest";
+        return new JSONResponse("OK", "", "/Assign/UsersToTest", null);
+
+        //If test existed already
+        /*if(fittsService.saveTest(fittsTest))
+        {
+            return new JSONResponse("OK", "", "/TestPortal?testEdited", null);
+        }
+        else
+        {
+            if (fittsService.addTest(fittsTest))
+            {
+                return new JSONResponse("OK", "", "/TestPortal?testAdded", null);
+            }
+            else
+            {
+                return new JSONResponse("ERROR", "The test: " + fittsTest.getTestID() + " could not be saved in the database!", "#?errorAlreadyExists", null);
+            }
+        }*/
     }
 
 }

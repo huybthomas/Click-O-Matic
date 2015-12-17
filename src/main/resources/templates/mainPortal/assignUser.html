@@ -32,7 +32,7 @@
         </div>
         <div class="frontContent">
             <div class="content">
-                <form action="#" th:action="'/Assign/UsersToTest/' + ${test.testID} + '/'" method="post" th:object="${userListWrapper}" th:if="${test}">
+                <form action="javascript:sendUsersToTest();" method="post" th:object="${userListWrapper}" th:if="${test}">
                     <table class="table">
                         <h3 class="sub-header col-md-6" th:text="${test.testID}" ></h3>
                     </table>
@@ -75,5 +75,43 @@
 
 <!-- Import footer -->
 <div th:replace="mainPortal/layout :: footer"></div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function sendUsersToTest()
+        {
+            var userListWrapper=/*[[${userListWrapper}]]*/;
+            var usersAll =/*[[${usersAll.users}]]*/;
+            var testID=/*[[${test.testID}]]*/;
+
+            var options = document.getElementById("search_to").options;
+            for(var i = 0; i < options.length; i++) {
+                userListWrapper.users[i] = usersAll[options[i].value -1];
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Assign/UsersToTest/" + testID + "/",
+                data: JSON.stringify(userListWrapper),
+                contentType: "application/json",
+                success: function(response) {
+                    if(response.status = "OK")
+                    {
+                        window.location.replace(response.redirect);
+                    }
+                    else
+                    {
+                        receiveError(response.message);
+                    }
+                },
+                error: function(response) {
+                    receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
+                }
+            });
+        }
+
+        /*]]>*/
+    </script>
 </body>
 </html>
