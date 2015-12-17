@@ -42,7 +42,6 @@ public class FittsCalculateService
     {
         FittsTest test = fittsService.findTestById(result.getTestID());
         List<Double> stageThroughputs = new ArrayList<Double>();
-        List <FittsStageResult> fittsStageResults = result.getStageResults();
         List<FittsTrackEvent> clickEvents = new ArrayList<FittsTrackEvent>();
         clickEvents = getAllClickEvents(result);
         int totalDots=0;

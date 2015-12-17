@@ -135,7 +135,7 @@ public class WebDriverTestCases
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usersPage")));
 
         //Click on Delete user of User Timothy.Verstraete
-        driver.findElement(By.xpath("//tr[4]/td[5]/a/span")).click();
+        driver.findElement(By.xpath("//tr[4]/td[4]/a/span")).click();
 
         //Wait for redirect to User page
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert")));

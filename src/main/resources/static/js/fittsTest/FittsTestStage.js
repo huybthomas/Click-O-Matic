@@ -56,7 +56,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
     this.getStageOrderIndex = function()
     {
         return this.stageOrderIndex;
-    }
+    };
 
     this.repositionTest = function(canvas)
     {
@@ -109,7 +109,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
         this.initializeDots(canvas);
         this.amountOfFalseClicks =0;
         $('#restartModal').modal("hide");
-    }
+    };
 
     this.setDotColor = function(dotHColor, dotLColor)
     {
