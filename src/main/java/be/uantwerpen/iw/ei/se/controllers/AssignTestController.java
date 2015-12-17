@@ -131,12 +131,45 @@ public class AssignTestController {
             return new JSONResponse("ERROR", "Could not save to database", "#?error", null);
         }
 
-        for(User u : userListWrapper.getUsers()) {
+        FittsTest test = fittsService.findTestById(testID);
+
+        for(User user : userService.findAll()) {
+
+            String userName = user.getUserName();
+            boolean contains = false;
+
+            for(User u : userListWrapper.getUsers()) {
+                if(u.getUserName().equals(userName)) {
+                    contains = true;
+                    break;
+                }
+            }
+
+            List<FittsTest> list = user.getTests();
+            if(contains) {
+
+
+                if(!list.contains(test)) {
+                    list.add(test);
+                    user.setTests(list);
+                    userService.save(user);
+                }
+            } else {
+                if(list.contains(test)) {
+                    list.remove(test);
+                    user.setTests(list);
+                    userService.save(user);
+                }
+            }
+        }
+
+
+        /*for(User u : userListWrapper.getUsers()) {
             List<FittsTest> list = u.getTests();
             list.add(fittsService.findTestById(testID));
             u.setTests(list);
             userService.save(u);
-        }
+        }*/
         //return "redirect:/Assign/UsersToTest";
         return new JSONResponse("OK", "", "/Assign/UsersToTest", null);
 
