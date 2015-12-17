@@ -88,7 +88,7 @@ function FittsTestStage(numberOfDots, dotRadius, dotDistance)
 
             this.testProgress++;
         }
-        else if(this.amountOfFalseClicks >=Math.ceil(this.numberOfDots/5))
+        else if(this.amountOfFalseClicks >= Math.ceil(this.numberOfDots/5))
         {
             $('#restartModal').modal('show');
         }
