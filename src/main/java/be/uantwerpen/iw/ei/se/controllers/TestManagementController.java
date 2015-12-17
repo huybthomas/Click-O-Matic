@@ -84,7 +84,7 @@ public class TestManagementController
         return "mainPortal/assignTest";
     }
 
-    @RequestMapping(value={"/Users/Assign"}, method=RequestMethod.POST)
+    @RequestMapping(value={"/Users/Assign/"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
     public String saveAssign(@Validated @ModelAttribute(ATTRIBUTE_NAME) User user, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, final ModelMap model)
     {

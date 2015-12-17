@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="mainPortal/layout :: head (pageTitle=#{usersToTest.title})"></head>
+<body>
+<div class="container">
+    <!-- Import navigation bar -->
+    <div th:replace="mainPortal/layout :: navbar"></div>
+
+    <div id="testsPage" class="mainPortalPage">
+        <div class="frontContent">
+
+            <div style="height: 60vh; overflow-y: auto">
+                <table class="table">
+                    <tr th:each="t : ${allTests}">
+                        <td th:text="${t.testID}"/>
+                        <td><a th:href="@{'/Assign/UsersToTest/'+${t.TestID}+'/'}"><span></span><span class="glyphicon glyphicon-hand-right" th:title="#{assignUser.title}"></span></a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import footer -->
+<div th:replace="mainPortal/layout :: footer"></div>
+</body>
+</html>

@@ -40,7 +40,6 @@
                             <td th:text="${u.firstName} + ' ' + ${u.lastName}"/>
                             <td th:text="${u.userName}"/>
                             <td><a th:href="@{'/Users/'+${u.userName}+'/'}"><span class="glyphicon glyphicon-pencil" th:title="#{users.editUser}"></span></a></td>
-                            <td><a th:href="@{'/AssignTest/'+${u.userName}+'/'}"><span class="glyphicon glyphicon-hand-right" th:title="#{assignTest.title}"></span></a></td>
                             <td><a th:href="@{'/Users/'+${u.userName}+'/Delete'}"><span class="glyphicon glyphicon-remove" th:title="#{users.deleteUser}"></span></a></td>
                         </tr>
                     </table>

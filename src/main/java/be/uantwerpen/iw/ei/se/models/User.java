@@ -41,7 +41,7 @@ public class User extends MyAbstractPersistable<Long>
     private List<Role> roles;
 
     @ManyToMany
-    @JoinTable(
+            @JoinTable(
             name="USER_TEST",
             joinColumns={
                     @JoinColumn(name="USER_ID", referencedColumnName="ID")},

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="mainPortal/layout :: head (pageTitle=#{assignUser.title})"></head>
+<head>
+    <script src="https://rawgit.com/crlcu/multiselect/v2.1.5/js/multiselect.min.js"
+            th:src="@{/js/thirdParty/multiselect/v2.1.5/multiselect.min.js}"></script>
+</head>
+<body>
+<!-- Search script -->
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#search').multiselect({
+            search: {
+                left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+                right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+            }
+        });
+    });
+</script>
+
+<div class="container">
+    <!-- Import navigation bar -->
+    <div th:replace="mainPortal/layout :: navbar"></div>
+
+    <div class="mainPortalPage">
+        <div class="messagesContent">
+            <div th:if="${param.error}" class="alert alert-danger" role="alert" style="text-align:center; width:500px; left:0; right:0; margin-left:auto; margin-right:auto; position:absolute">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error: </span>
+                <span th:text="#{application.error.generic}">Error message</span>
+            </div>
+        </div>
+        <div class="frontContent">
+            <div class="content">
+                <form action="javascript:sendUsersToTest();" method="post" th:object="${userListWrapper}" th:if="${test}">
+                    <table class="table">
+                        <h3 class="sub-header col-md-6" th:text="${test.testID}" ></h3>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
+                                <option th:each="user:${usersAll.users}"
+                                        th:value="${{user}}"
+                                        th:text="${user.userName}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <button type="button" id="search_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                            <button type="button" id="search_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                            <button type="button" id="search_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                            <button type="button" id="search_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                        </div>
+
+                        <div class="col-xs-5">
+                            <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple">
+                                <option th:each="user:${userListWrapper.users}"
+                                        th:value="${{user}}"
+                                        th:text="${user.userName}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="col-md-12">
+                        <a href="/Assign/UsersToTest" th:text="#{back}" class="btn btn-primary">Back</a>
+                        <button type="submit" th:text="#{assign}" class="btn btn-primary">assignUser</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import footer -->
+<div th:replace="mainPortal/layout :: footer"></div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function sendUsersToTest()
+        {
+            var userListWrapper=/*[[${userListWrapper}]]*/;
+            var usersAll =/*[[${usersAll.users}]]*/;
+            var testID=/*[[${test.testID}]]*/;
+
+            var options = document.getElementById("search_to").options;
+            for(var i = 0; i < options.length; i++) {
+                userListWrapper.users[i] = usersAll[options[i].value -1];
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Assign/UsersToTest/" + testID + "/",
+                data: JSON.stringify(userListWrapper),
+                contentType: "application/json",
+                success: function(response) {
+                    if(response.status = "OK")
+                    {
+                        window.location.replace(response.redirect);
+                    }
+                    else
+                    {
+                        receiveError(response.message);
+                    }
+                },
+                error: function(response) {
+                    receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
+                }
+            });
+        }
+
+        /*]]>*/
+    </script>
+</body>
+</html>
