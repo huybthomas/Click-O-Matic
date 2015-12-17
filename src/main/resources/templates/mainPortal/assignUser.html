@@ -32,24 +32,17 @@
         </div>
         <div class="frontContent">
             <div class="content">
-                <form action="#" th:action="@{/Assign/UsersToTest/}" method="post" th:object="${testID}" th:if="${testID}">
-                    <input th:type="hidden" th:field="*{id}"/>
-                    <input th:type="hidden" th:field="*{firstName}"/>
-                    <input th:type="hidden" th:field="*{lastName}"/>
-                    <input th:type="hidden" th:field="*{userName}"/>
-                    <input th:type="hidden" th:field="*{password}"/>
-                    <input th:type="hidden" th:field="*{roles}"/>
-                    <input th:type="hidden" th:field="*{results}"/>
+                <form action="#" th:action="@{/Assign/UsersToTest/}" method="post" th:object="${test}" th:if="${test}">
                     <table class="table">
-                        <h3 class="sub-header col-md-6" th:text="${user.firstName + ' ' + user.lastName}" ></h3>
+                        <h3 class="sub-header col-md-6" th:text="${test.testID}" ></h3>
                     </table>
 
                     <div class="row">
                         <div class="col-xs-5">
                             <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
-                                <option th:each="test:${allTests}"
-                                        th:value="${{test}}"
-                                        th:text="${test.testID}">
+                                <option th:each="test:${allUsers}"
+                                        th:value="${{user}}"
+                                        th:text="${user.firstName + ' ' + user.lastName}">
                                 </option>
                             </select>
                         </div>
@@ -72,7 +65,7 @@
                     </div>
                     <p class="col-md-12">
                         <a href="/Assign/UsersToTest" th:text="#{back}" class="btn btn-primary">Back</a>
-                        <button type="submit" th:text="#{assign}" class="btn btn-primary">assignTest</button>
+                        <button type="submit" th:text="#{assign}" class="btn btn-primary">assignUser</button>
                     </p>
                 </form>
             </div>

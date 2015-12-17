@@ -79,8 +79,8 @@ public class AssignTestController {
 
         if(testID != null)
         {
-            model.addAttribute("test", testID);
-            return "mainPortal/usersToTest";
+            model.addAttribute("test", test);
+            return "mainPortal/assignUser";
         }
         else
         {
@@ -99,21 +99,21 @@ public class AssignTestController {
         }
 
         userService.save(user);
-        return "redirect:/Users";
+        return "redirect:/Assign/TestsToUser";
     }
 
     @RequestMapping(value={"/Assign/UsersToTest/"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String saveAssignUser(@Valid FittsTest testID , BindingResult result, final ModelMap model)
+    public String saveAssignUser(@Valid FittsTest test , BindingResult result, final ModelMap model)
     {
         if(result.hasErrors())
         {
-            return "redirect:/Assign/UsersToTest/" + testID.getTestID() + "/?error";
+            return "redirect:/Assign/UsersToTest/" + test.getTestID() + "/?error";
         }
 
 
-        fittsService.saveTest(testID);
-        return "redirect:/Users";
+        fittsService.saveTest(test);
+        return "redirect:/Assign/UsersToTest";
     }
 
 }
