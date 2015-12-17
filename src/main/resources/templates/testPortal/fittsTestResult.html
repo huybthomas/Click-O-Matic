@@ -10,22 +10,18 @@
 
         <div class="testPortalPage">
             <h3 th:text="'Test: ' + ${fittsTest.testID}" />
-            <div class="col-md-6">
-                <table class="col-md-3">
-                    <tr th:each="stageId: ${stageResult}">
-                        <td th:text="'Throughput stage ' + ${stageId.stageOrderIndex} + ':'"/>
-                    </tr>
-                </table>
-                <table class="col-md-3">
-                    <tr th:each="stageThroughput: ${throughput.stageThroughput}">
-                        <td th:text="${stageThroughput}"/>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-md-12">
-                <td>Total throughput: </td>
-                <td th:text="${throughput.totalThroughput}" />
-            </div>
+            <table class="table col-md-6">
+                <tr th:each="resultsMapEntry : ${resultsMap}">
+                    <td th:text="#{fittstest.stage} + ' ' + ${resultsMapEntry.key} + ':'"/>
+                    <td th:text="#{fittstest.throughput} + ' ' + ${resultsMapEntry.value.value}"/>
+                    <td th:text="#{fittstest.soi} + ' ' + ${resultsMapEntry.value.key}"/>
+                </tr>
+                <tr>
+                    <th>Total throughput: </th>
+                    <th th:text="${totalThroughput}" />
+                    <th></th>
+                </tr>
+            </table>
         </div>
     </div>
 

@@ -51,4 +51,5 @@ public class FittsStageResult extends MyAbstractPersistable<Long>
     {
         return this.trackPaths;
     }
+
 }

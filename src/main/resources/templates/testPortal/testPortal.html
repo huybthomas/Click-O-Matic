@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <!-- Modal popup with testresults -->
+        <!-- Modal popup with testdetails -->
         <div id="resultsModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -40,10 +40,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 id="modal-details-title" class="modal-title" th:text="#{fittstest.details}">Results</h4>
+                        <h4 id="modal-results-title" class="modal-title" th:text="#{fittstest.testResults}">Results</h4>
                     </div>
                     <div class="modal-body">
-                        <table>
+                        <table id="resultsTable" style="line-height: 40px">
+
                         </table>
                     </div>
                     <div class="modal-footer">
@@ -94,20 +95,56 @@
     <!-- test results script -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        function results(testID) {
-            var alltests = /*[[${allUserFittsTests.keySet()}]]*/;
-            var detailstext = /*[[#{fittstest.testResults}]]*/'';
 
-            for(var i = 0; i < alltests.length; i++)
-            {
-                if(alltests[i].testID === testID)
-                {
-                    $('#modal-details-title').text(detailstext + " " + testID );
-                    $('#amtOfStages').text(" " + alltests[i].testStages.length);
-                    $('#startTestLink').attr("href", '/TestPortal/'+testID+'/' );
-                    $('#resultsModal').modal('show');
+        function generateResultsModal(fittsResults) {
+
+            if(fittsResults.length > 0) {
+                var titletext = /*[[#{fittstest.testResults}]]*/'';
+                var opentext = /*[[#{open}]]*/'';
+                $('#modal-results-title').text(titletext + " " + fittsResults[0].testID);
+
+                // create results table
+                var tableE = document.getElementById("resultsTable");
+
+                for (var i = 0; i < fittsResults.length; i++) {
+                    // generate row html
+                    var tableRow = '<td class="col-md-2">' + fittsResults[i].resultID + '</td>' +
+                            '<td class="col-md-1"><a class="btn btn-primary" title="Open result" href="/TestResult/' + fittsResults[i].resultID + '/">' + opentext + '</a></td>';
+
+                    // create row element and add inner html
+                    var rowE = document.createElement("tr");
+                    rowE.innerHTML = tableRow;
+
+                    // append row to table
+                    tableE.appendChild(rowE);
                 }
+            } else {
+                var titletext = /*[[#{fittstest.noResults}]]*/'';
+                $('#modal-results-title').text(titletext);
             }
+            $('#resultsModal').modal('show');
+        }
+
+        function results(testID) {
+            $.ajax({
+                type: "GET",
+                url: "/TestResultByTestID/" + testID + "/",
+                data: JSON.stringify(testID),
+                contentType: "application/json",
+                success: function(response) {
+                    if(response.status = "OK")
+                    {
+                        generateResultsModal(response.responseObject);
+                    }
+                    else
+                    {
+                        receiveError(response.message);
+                    }
+                },
+                error: function(response) {
+                    receiveError("Connection lost with the server! An error occurred when trying to contact the server.\nError-message: " + response.responseJSON.message);
+                }
+            });
         }
         /*]]>*/
     </script>
