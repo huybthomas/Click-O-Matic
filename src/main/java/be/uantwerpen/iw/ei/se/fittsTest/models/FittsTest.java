@@ -15,6 +15,7 @@ public class FittsTest extends MyAbstractPersistable<Long>
 {
     private String testID;
     private String comment;
+    private String file;
 
     @OneToMany
     @JoinColumn(name="TESTSTAGE_ID", referencedColumnName="ID")
@@ -28,6 +29,7 @@ public class FittsTest extends MyAbstractPersistable<Long>
         this.testID = "";
         this.comment = "";
         this.testStages = new ArrayList<FittsTestStage>();
+        this.file = "";
     }
 
     public FittsTest(String testID, List<FittsTestStage> testStages)
@@ -37,11 +39,12 @@ public class FittsTest extends MyAbstractPersistable<Long>
         this.testStages = testStages;
     }
 
-    public FittsTest(String testID, List<FittsTestStage> testStages, String comment)
+    public FittsTest(String testID, List<FittsTestStage> testStages, String comment, String file)
     {
         this.testID = testID;
         this.comment = comment;
         this.testStages = testStages;
+        this.file = file;
     }
 
     public void setTestID(String testID)
@@ -78,7 +81,15 @@ public class FittsTest extends MyAbstractPersistable<Long>
     {
         return this.testStages.size();
     }
-    
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     @Override
     public boolean equals(Object object)
     {

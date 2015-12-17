@@ -11,6 +11,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap-fileinput:4.2.7" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:1.11.3" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap:4.0.0-alpha.2" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap-fileinput:4.2.7" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:1.11.3" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap:4.0.0-alpha.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.2.6.RELEASE" level="project" />
@@ -88,6 +94,9 @@
     <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:seiyria-bootstrap-slider:5.2.6" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap-fileinput:4.2.7" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:1.11.3" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap:4.0.0-alpha.2" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-java:2.48.2" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-edge-driver:2.48.2" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />

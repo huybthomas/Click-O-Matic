@@ -1,10 +1,8 @@
 package be.uantwerpen.iw.ei.se.controllers;
 
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsResult;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsStageResult;
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
-import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTestStage;
 import be.uantwerpen.iw.ei.se.models.JSONResponse;
+import be.uantwerpen.iw.ei.se.services.FileService;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
