@@ -32,7 +32,7 @@
         </div>
         <div class="frontContent">
             <div class="content">
-                <form action="#" th:action="@{/Assign/UsersToTest/}" method="post" th:object="${test}" th:if="${test}">
+                <form action="#" th:action="'/Assign/UsersToTest/' + ${test.testID} + '/'" method="post" th:object="${userListWrapper}" th:if="${test}">
                     <table class="table">
                         <h3 class="sub-header col-md-6" th:text="${test.testID}" ></h3>
                     </table>
@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-xs-5">
                             <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
-                                <option th:each="user:${allUsers}"
+                                <option th:each="user:${usersAll.users}"
                                         th:value="${{user}}"
                                         th:text="${user.userName}">
                                 </option>
@@ -55,8 +55,8 @@
                         </div>
 
                         <div class="col-xs-5">
-                            <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple" th:field="*{users}">
-                                <option th:each="user:*{users}"
+                            <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple">
+                                <option th:each="user:${userListWrapper.users}"
                                         th:value="${{user}}"
                                         th:text="${user.userName}">
                                 </option>

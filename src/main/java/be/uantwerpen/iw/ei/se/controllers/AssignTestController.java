@@ -2,8 +2,10 @@ package be.uantwerpen.iw.ei.se.controllers;
 
 import be.uantwerpen.iw.ei.se.fittsTest.models.FittsTest;
 import be.uantwerpen.iw.ei.se.models.User;
+import be.uantwerpen.iw.ei.se.models.UserListWrapper;
 import be.uantwerpen.iw.ei.se.services.FittsService;
 import be.uantwerpen.iw.ei.se.services.UserService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nick on 15/12/2015.
@@ -77,9 +81,27 @@ public class AssignTestController {
     {
         FittsTest test = fittsService.findTestById(testID);
 
+        // put arraylist in wrapper class
+        UserListWrapper usersAll = new UserListWrapper();
+        usersAll.setUsers(Lists.newArrayList(userService.findAll()));
+
+        // Add every user that already has this test assigned to him/her
+        ArrayList<User> usersSelected = new ArrayList<>();
+        for(User u : userService.findAll()) {
+            if(u.getTests().contains(test)) {
+                usersSelected.add(u);
+            }
+        }
+
+        // put arraylist in wrapper class
+        UserListWrapper userListWrapper = new UserListWrapper();
+        userListWrapper.setUsers(usersSelected);
+
         if(testID != null)
         {
             model.addAttribute("test", test);
+            model.addAttribute("usersAll", usersAll);
+            model.addAttribute("userListWrapper", userListWrapper);
             return "mainPortal/assignUser";
         }
         else
@@ -102,17 +124,20 @@ public class AssignTestController {
         return "redirect:/Assign/TestsToUser";
     }
 
-    @RequestMapping(value={"/Assign/UsersToTest/"}, method=RequestMethod.POST)
+    @RequestMapping(value={"/Assign/UsersToTest/{testID}/"}, method=RequestMethod.POST)
     @PreAuthorize("hasRole('test-management') and hasRole('logon')")
-    public String saveAssignUser(@Valid FittsTest test , BindingResult result, final ModelMap model)
+    public String saveAssignUser(@PathVariable String testID, @ModelAttribute("userListWrapper") UserListWrapper userListWrapper, BindingResult result, final ModelMap model)
     {
         if(result.hasErrors())
         {
-            return "redirect:/Assign/UsersToTest/" + test.getTestID() + "/?error";
+            return "redirect:/Assign/UsersToTest/" + testID + "/?error";
         }
 
-
-        fittsService.saveTest(test);
+        for(User u : userListWrapper.getUsers()) {
+            List<FittsTest> list = u.getTests();
+            list.add(fittsService.findTestById(testID));
+            u.setTests(list);
+        }
         return "redirect:/Assign/UsersToTest";
     }
 
