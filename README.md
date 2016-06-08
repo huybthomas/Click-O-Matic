@@ -1,3 +1,5 @@
+![COM Logo](/src/main/resources/static/images/appLogo.png?raw=true "Click-O-Matic - Application logo")
+
 Click-O-Matic
 =============
 
